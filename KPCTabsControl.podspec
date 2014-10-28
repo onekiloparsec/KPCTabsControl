@@ -1,20 +1,13 @@
 Pod::Spec.new do |s|
-  s.name         = "MZDayPicker"
-  s.version      = "0.0.1"
-  s.summary      = "An iOS day picker to allow users to select date."
-
-  s.homepage     = "https://github.com/m1entus/MZDayPicker"
-
+  s.name         = "KPCTabsControl"
+  s.version      = "1.0.0"
+  s.summary      = "A multi-tabs control designed to look like the tab control in Apple's Numbers spreadsheet, but with enhanced capabilities."
+  s.homepage     = "https://github.com/onekiloparsec/KPCTabsControl.git"
   s.license      = { :type => 'MIT', :file => 'LICENSE' }
-
-  s.author       = { "Michał Zaborowski" => "m1entus@gmail.com" }
-
-  s.source       = { :git => "https://github.com/m1entus/MZDayPicker.git", :tag => "0.0.3" }
-  
-  s.source_files = 'MZDayPicker/*.{h,m}'
-  
-  s.platform     = :ios, '5.0'
-  
-  s.framework  = 'QuartzCore'
+  s.author       = { "Cédric Foellmi" => "cedric@onekilopars.ec" }
+  s.source       = { :git => "https://github.com/onekiloparsec/KPCTabsControl.git", :tag => "1.0.0" }
+  s.source_files = 'KPCTabsControl/*.{h,m}'
+  s.platform     = :osx, '10.9'
+  s.framework    = 'QuartzCore', 'AppKit'
   s.requires_arc = true
 end

@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Cédric Foellmi. All rights reserved.
 //
 
+#import "KPCTabsControlConstants.h"
 #import "KPCTabButtonCell.h"
 #import "KPCTabButton.h"
 #import "KPCTabsControl.h"
@@ -200,7 +201,7 @@
             
             [enclosingTabControl setSelectedItem:self.representedObject];
             [NSApp sendAction:enclosingTabControl.action to:enclosingTabControl.target from:enclosingTabControl];
-            [[NSNotificationCenter defaultCenter] postNotificationName:KPCTabControlSelectionDidChangeNotification object:enclosingTabControl];
+            [[NSNotificationCenter defaultCenter] postNotificationName:KPCTabsControlSelectionDidChangeNotification object:enclosingTabControl];
         }
         
         return menu;
@@ -233,7 +234,7 @@
     }
     
     if (self.showsMenu) {
-        [[LITabCell popupImage] drawInRect:[self popupRectWithFrame:cellFrame]
+        [[KPCTabButtonCell popupImage] drawInRect:[self popupRectWithFrame:cellFrame]
                                   fromRect:NSZeroRect
                                  operation:NSCompositeSourceOver
                                   fraction:1.0
@@ -254,7 +255,7 @@
     
     NSRect *borderRects;
     NSInteger borderRectCount;
-    if (LIRectArrayWithBorderMask(cellFrame, self.borderMask, &borderRects, &borderRectCount)) {
+    if (KPCRectArrayWithBorderMask(cellFrame, self.borderMask, &borderRects, &borderRectCount)) {
         [self.borderColor set];
         NSRectFillList(borderRects, borderRectCount);
     }

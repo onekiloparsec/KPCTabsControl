@@ -8,4 +8,4 @@
 
 #import "KPCTabsControlConstants.h"
 
-NSString * const KPCTabControlSelectionDidChangeNotification = @"KPCTabControlSelectionDidChangeNotification";
+NSString * const KPCTabsControlSelectionDidChangeNotification = @"KPCTabsControlSelectionDidChangeNotification";

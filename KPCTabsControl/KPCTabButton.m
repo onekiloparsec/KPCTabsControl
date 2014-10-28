@@ -175,7 +175,7 @@
 @end
 
 
-BOOL LIRectArrayWithBorderMask(NSRect sourceRect, LIBorderMask borderMask, NSRect **rectArray, NSInteger *rectCount)
+BOOL KPCRectArrayWithBorderMask(NSRect sourceRect, LIBorderMask borderMask, NSRect **rectArray, NSInteger *rectCount)
 {
     NSInteger outputCount = 0;
     static NSRect outputArray[4];

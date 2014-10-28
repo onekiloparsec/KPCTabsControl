@@ -16,6 +16,8 @@
 		9F2155F81A0030B000819BDF /* KPCTabButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F2155F71A0030B000819BDF /* KPCTabButtonCell.m */; };
 		9F2155FB1A00314B00819BDF /* NSImage+KPCTabsControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F2155FA1A00314B00819BDF /* NSImage+KPCTabsControl.m */; };
 		9F2155FD1A003A3C00819BDF /* KPCTabsControlConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F2155FC1A003A3C00819BDF /* KPCTabsControlConstants.m */; };
+		9F2155FF1A00442F00819BDF /* KPCTabsControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F2155B91A002E6C00819BDF /* KPCTabsControl.m */; };
+		9F2156011A00467900819BDF /* KPCTabsControl.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 9F2156001A00467900819BDF /* KPCTabsControl.podspec */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +52,7 @@
 		9F2155FA1A00314B00819BDF /* NSImage+KPCTabsControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSImage+KPCTabsControl.m"; sourceTree = "<group>"; };
 		9F2155FC1A003A3C00819BDF /* KPCTabsControlConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KPCTabsControlConstants.m; sourceTree = "<group>"; };
 		9F2155FE1A003A4B00819BDF /* KPCTabsControlConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KPCTabsControlConstants.h; sourceTree = "<group>"; };
+		9F2156001A00467900819BDF /* KPCTabsControl.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = KPCTabsControl.podspec; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +78,7 @@
 			children = (
 				9F2155B61A002E6C00819BDF /* KPCTabsControl */,
 				9F2155D31A002F0200819BDF /* KPCTabsControlDemo */,
+				9F2155D41A002F0200819BDF /* Supporting Files */,
 				9F2155E71A002F0200819BDF /* KPCTabsControlDemoTests */,
 				9F2155B51A002E6C00819BDF /* Products */,
 			);
@@ -94,9 +98,9 @@
 			children = (
 				9F2155FE1A003A4B00819BDF /* KPCTabsControlConstants.h */,
 				9F2155FC1A003A3C00819BDF /* KPCTabsControlConstants.m */,
+				9F2155F21A002FE500819BDF /* KPCTabsControlProtocols.h */,
 				9F2155B71A002E6C00819BDF /* KPCTabsControl.h */,
 				9F2155B91A002E6C00819BDF /* KPCTabsControl.m */,
-				9F2155F21A002FE500819BDF /* KPCTabsControlProtocols.h */,
 				9F2155F31A00309C00819BDF /* KPCTabButton.h */,
 				9F2155F41A00309C00819BDF /* KPCTabButton.m */,
 				9F2155F61A0030B000819BDF /* KPCTabButtonCell.h */,
@@ -114,7 +118,6 @@
 				9F2155D71A002F0200819BDF /* AppDelegate.m */,
 				9F2155DB1A002F0200819BDF /* Images.xcassets */,
 				9F2155DD1A002F0200819BDF /* MainMenu.xib */,
-				9F2155D41A002F0200819BDF /* Supporting Files */,
 			);
 			path = KPCTabsControlDemo;
 			sourceTree = "<group>";
@@ -122,10 +125,12 @@
 		9F2155D41A002F0200819BDF /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				9F2156001A00467900819BDF /* KPCTabsControl.podspec */,
 				9F2155D51A002F0200819BDF /* Info.plist */,
 				9F2155D91A002F0200819BDF /* main.m */,
 			);
 			name = "Supporting Files";
+			path = KPCTabsControlDemo;
 			sourceTree = "<group>";
 		};
 		9F2155E71A002F0200819BDF /* KPCTabsControlDemoTests */ = {
@@ -225,6 +230,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F2156011A00467900819BDF /* KPCTabsControl.podspec in Resources */,
 				9F2155DC1A002F0200819BDF /* Images.xcassets in Resources */,
 				9F2155DF1A002F0200819BDF /* MainMenu.xib in Resources */,
 			);
@@ -244,6 +250,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F2155FF1A00442F00819BDF /* KPCTabsControl.m in Sources */,
 				9F2155DA1A002F0200819BDF /* main.m in Sources */,
 				9F2155F51A00309C00819BDF /* KPCTabButton.m in Sources */,
 				9F2155F81A0030B000819BDF /* KPCTabButtonCell.m in Sources */,

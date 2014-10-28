@@ -10,6 +10,7 @@
 #import "KPCTabsControl.h"
 #import "KPCTabButton.h"
 #import "KPCTabButtonCell.h"
+#import "KPCTabsControlConstants.h"
 
 @interface KPCTabsControl () <NSTextFieldDelegate>
 @property(nonatomic, strong) NSArray *items;
@@ -55,7 +56,7 @@
     [self.cell setBorderMask:LIBorderMaskBottom];
     [self.cell setFont:[NSFont fontWithName:@"HelveticaNeue-Medium" size:13]];
     
-    _scrollView = [self viewWithClass:[NSScrollView class]];
+    _scrollView = [[NSScrollView alloc] init];
     
     [_scrollView setDrawsBackground:NO];
     [_scrollView setBackgroundColor:[NSColor redColor]];
@@ -296,7 +297,7 @@ static char LIScrollViewObservationContext;
     }
     
     [[NSApplication sharedApplication] sendAction:self.action to:self.target from:self];
-    [[NSNotificationCenter defaultCenter] postNotificationName:LITabControlSelectionDidChangeNotification object:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:KPCTabsControlSelectionDidChangeNotification object:self];
     
     NSEvent *currentEvent = [NSApp currentEvent];
     
@@ -384,7 +385,7 @@ static char LIScrollViewObservationContext;
         if (dragged == NO && event.type == NSLeftMouseDragged) {
             dragged = YES;
             
-            LITabCell *cell = draggingTab.cell;
+            KPCTabButtonCell *cell = draggingTab.cell;
             cell.borderMask = cell.borderMask | LIBorderMaskLeft | LIBorderMaskRight;
         }
         
@@ -484,23 +485,25 @@ static char LIScrollViewObservationContext;
 #pragma mark -
 #pragma mark Data Source
 
-- (void)setDataSource:(id<LITabDataSource>)dataSource {
+- (void)setDataSource:(id<KPCTabsControlDataSource>)dataSource
+{
     if (_dataSource != dataSource) {
         
         if (_dataSource && [_dataSource respondsToSelector:@selector(tabControlDidChangeSelection:)])
-            [[NSNotificationCenter defaultCenter] removeObserver:_dataSource name:LITabControlSelectionDidChangeNotification object:self];
+            [[NSNotificationCenter defaultCenter] removeObserver:_dataSource name:KPCTabsControlSelectionDidChangeNotification object:self];
         
         _dataSource = dataSource;
         
         if (_dataSource && [_dataSource respondsToSelector:@selector(tabControlDidChangeSelection:)])
-            [[NSNotificationCenter defaultCenter] addObserver:_dataSource selector:@selector(tabControlDidChangeSelection:) name:LITabControlSelectionDidChangeNotification object:self];
+            [[NSNotificationCenter defaultCenter] addObserver:_dataSource selector:@selector(tabControlDidChangeSelection:) name:KPCTabsControlSelectionDidChangeNotification object:self];
         
         [self reloadData];
     }
 }
 
-- (void)reloadData {
-    NSView *tabView = [self viewWithClass:[NSView class]];
+- (void)reloadData
+{
+    NSView *tabView = [[NSView alloc] init];
     NSMutableArray *newItems = [[NSMutableArray alloc] init];
     
     for (NSUInteger i = 0, count = [self.dataSource tabControlNumberOfTabs:self]; i < count; i++) {
@@ -510,8 +513,8 @@ static char LIScrollViewObservationContext;
     NSMutableArray *newTabs = [[NSMutableArray alloc] init];
     
     for (id item in newItems) {
-        NSButton  *button     = [self tabWithItem:item];
-        LITabCell *buttonCell = [button cell];
+        NSButton  *button = [self tabWithItem:item];
+        KPCTabButtonCell *buttonCell = [button cell];
         
         // NOTE: menus are dynamic, but we indicate their presence by associating a menu
         // with the button cell...
@@ -601,8 +604,8 @@ static char LIScrollViewObservationContext;
     [tabView layoutSubtreeIfNeeded];
 }
 
-- (LITabButton *)tabWithItem:(id)item {
-    LITabCell   *tabCell    = [self.cell copy];
+- (KPCTabButton *)tabWithItem:(id)item {
+    KPCTabButtonCell   *tabCell    = [self.cell copy];
     
     tabCell.representedObject = item;
     
@@ -616,7 +619,7 @@ static char LIScrollViewObservationContext;
     
     [tabCell sendActionOn:NSLeftMouseDownMask];
     
-    LITabButton *tab        = [self viewWithClass:[self.class tabButtonClass]];
+    KPCTabButton *tab        = [[KPCTabButton alloc] init];
     
     [tab setCell:tabCell];
     
@@ -687,7 +690,7 @@ static char LIScrollViewObservationContext;
             return;
         }
         
-        LITabCell *cell = button.cell;
+        KPCTabButtonCell *cell = button.cell;
         NSRect titleRect = [cell editingRectForBounds:button.bounds];
         
         self.editingField = [[NSTextField alloc] initWithFrame:titleRect];

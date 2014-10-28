@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Cédric Foellmi. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <AppKit/AppKit.h>
 #import "KPCTabsControlProtocols.h"
 
 @interface KPCTabsControl : NSControl

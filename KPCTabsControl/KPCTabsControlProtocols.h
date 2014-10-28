@@ -23,7 +23,7 @@
 - (void)tabControl:(KPCTabsControl *)tabControl setTitle:(NSString *)title forItem:(id)item;
 
 - (BOOL)tabControl:(KPCTabsControl *)tabControl canReorderItem:(id)item;
-- (void)tabControlDidReorderItems:(LITabControl *)tabControl orderedItems:(NSArray *)itemArray;
+- (void)tabControlDidReorderItems:(KPCTabsControl *)tabControl orderedItems:(NSArray *)itemArray;
 
 @optional
 - (void)tabControlDidChangeSelection:(NSNotification *)notification;
