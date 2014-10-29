@@ -11,6 +11,6 @@ The current status of the lib is: active dev, unstable.
 LICENSE & NOTES
 ---------------
 
-KPCTabsControl is licensed under the MIT license and hosted on GitHub at https://github.com/monyschuk/LITabControl/ Fork the project and feel free to send pull requests with your changes!
+KPCTabsControl is licensed under the MIT license and hosted on GitHub at https://github.com/onekiloparsec/KPCTabsControl/ Fork the project and feel free to send pull requests with your changes!
 
 
