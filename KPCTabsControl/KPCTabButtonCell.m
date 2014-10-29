@@ -92,7 +92,7 @@
     }
 }
 
-- (void)setBorderMask:(LIBorderMask)borderMask
+- (void)setBorderMask:(KPCBorderMask)borderMask
 {
     if (_borderMask != borderMask) {
         _borderMask = borderMask;
@@ -119,7 +119,7 @@
 + (NSImage *)popupImage {
     static NSImage *ret = nil;
     if (ret == nil) {
-        ret = [[NSImage imageNamed:@"LIPullDownTemplate"] imageWithTint:[NSColor darkGrayColor]];
+        ret = [[NSImage imageNamed:@"KPCPullDownTemplate"] imageWithTint:[NSColor darkGrayColor]];
     }
     return ret;
 }

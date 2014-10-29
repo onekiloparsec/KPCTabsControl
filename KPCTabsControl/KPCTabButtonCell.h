@@ -9,16 +9,16 @@
 #import <Cocoa/Cocoa.h>
 
 typedef enum {
-    LIBorderMaskTop     = (1<<0),
-    LIBorderMaskLeft    = (1<<1),
-    LIBorderMaskRight   = (1<<2),
-    LIBorderMaskBottom  = (1<<3)
-} LIBorderMask;
+    KPCBorderMaskTop     = (1<<0),
+    KPCBorderMaskLeft    = (1<<1),
+    KPCBorderMaskRight   = (1<<2),
+    KPCBorderMaskBottom  = (1<<3)
+} KPCBorderMask;
 
 @interface KPCTabButtonCell : NSButtonCell
 
 @property(nonatomic, assign) BOOL showsMenu;
-@property(nonatomic, assign) LIBorderMask borderMask;
+@property(nonatomic, assign) KPCBorderMask borderMask;
 
 @property(nonatomic, copy) NSColor *borderColor;
 @property(nonatomic, copy) NSColor *backgroundColor;

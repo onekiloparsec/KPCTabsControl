@@ -102,12 +102,12 @@
     return [self.cell isShowingMenu];
 }
 
-- (LIBorderMask)borderMask
+- (KPCBorderMask)borderMask
 {
     return [self.cell borderMask];
 }
 
-- (void)setBorderMask:(LIBorderMask)borderMask
+- (void)setBorderMask:(KPCBorderMask)borderMask
 {
     [self.cell setBorderMask:borderMask];
 }
@@ -175,22 +175,22 @@
 @end
 
 
-BOOL KPCRectArrayWithBorderMask(NSRect sourceRect, LIBorderMask borderMask, NSRect **rectArray, NSInteger *rectCount)
+BOOL KPCRectArrayWithBorderMask(NSRect sourceRect, KPCBorderMask borderMask, NSRect **rectArray, NSInteger *rectCount)
 {
     NSInteger outputCount = 0;
     static NSRect outputArray[4];
     
     NSRect remainderRect;
-    if (borderMask & LIBorderMaskTop) {
+    if (borderMask & KPCBorderMaskTop) {
         NSDivideRect(sourceRect, &outputArray[outputCount++], &remainderRect, 1, NSMinYEdge);
     }
-    if (borderMask & LIBorderMaskLeft) {
+    if (borderMask & KPCBorderMaskLeft) {
         NSDivideRect(sourceRect, &outputArray[outputCount++], &remainderRect, 1, NSMinXEdge);
     }
-    if (borderMask & LIBorderMaskRight) {
+    if (borderMask & KPCBorderMaskRight) {
         NSDivideRect(sourceRect, &outputArray[outputCount++], &remainderRect, 1, NSMaxXEdge);
     }
-    if (borderMask & LIBorderMaskBottom) {
+    if (borderMask & KPCBorderMaskBottom) {
         NSDivideRect(sourceRect, &outputArray[outputCount++], &remainderRect, 1, NSMaxYEdge);
     }
     

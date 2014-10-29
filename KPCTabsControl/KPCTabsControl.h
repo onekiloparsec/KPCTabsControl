@@ -7,7 +7,10 @@
 //
 
 #import <AppKit/AppKit.h>
+
 #import "KPCTabsControlProtocols.h"
+#import "KPCTabsControlConstants.h"
+#import "KPCTabButton.h"
 
 @interface KPCTabsControl : NSControl
 

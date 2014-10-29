@@ -53,7 +53,7 @@
     [self setWantsLayer:YES];
     
     [self.cell setTitle:@""];
-    [self.cell setBorderMask:LIBorderMaskBottom];
+    [self.cell setBorderMask:KPCBorderMaskBottom];
     [self.cell setFont:[NSFont fontWithName:@"HelveticaNeue-Medium" size:13]];
     
     _scrollView = [[NSScrollView alloc] init];
@@ -66,13 +66,13 @@
     [_scrollView setHorizontalScrollElasticity:NSScrollElasticityAllowed];
     [_scrollView setVerticalScrollElasticity:NSScrollElasticityNone];
     
-    _addButton = [self buttonWithImageNamed:@"LITabPlusTemplate" target:self action:@selector(add:)];
+    _addButton = [self buttonWithImageNamed:@"KPCTabPlusTemplate" target:self action:@selector(add:)];
     [_addButton setMenu:nil];
     
     NSDictionary *views = nil;
     if (!self.hideScrollButtons) {
-        _scrollLeftButton   = [self buttonWithImageNamed:@"LITabLeftTemplate" target:self action:@selector(goLeft:)];
-        _scrollRightButton  = [self buttonWithImageNamed:@"LITabRightTemplate" target:self action:@selector(goRight:)];
+        _scrollLeftButton   = [self buttonWithImageNamed:@"KPCTabLeftTemplate" target:self action:@selector(goLeft:)];
+        _scrollRightButton  = [self buttonWithImageNamed:@"KPCTabRightTemplate" target:self action:@selector(goRight:)];
         
         [_scrollLeftButton setMenu:nil];
         [_scrollRightButton setMenu:nil];
@@ -118,10 +118,10 @@
                                          toItem:nil attribute:NSLayoutAttributeNotAnAttribute
                                      multiplier:1 constant:24]];
         
-        [_scrollLeftButton.cell setBorderMask:[_scrollLeftButton.cell borderMask] | LIBorderMaskLeft];
+        [_scrollLeftButton.cell setBorderMask:[_scrollLeftButton.cell borderMask] | KPCBorderMaskLeft];
     }
     
-    [_addButton.cell setBorderMask:[_addButton.cell borderMask] | LIBorderMaskRight];
+    [_addButton.cell setBorderMask:[_addButton.cell borderMask] | KPCBorderMaskRight];
     
     [self startObservingScrollView];
     [self updateButtons];
@@ -185,12 +185,12 @@
 
 #pragma mark - ScrollView Observation
 
-static char LIScrollViewObservationContext;
+static char KPCScrollViewObservationContext;
 
 - (void)startObservingScrollView
 {
-    [self.scrollView addObserver:self forKeyPath:@"frame" options:0 context:&LIScrollViewObservationContext];
-    [self.scrollView addObserver:self forKeyPath:@"documentView.frame" options:0 context:&LIScrollViewObservationContext];
+    [self.scrollView addObserver:self forKeyPath:@"frame" options:0 context:&KPCScrollViewObservationContext];
+    [self.scrollView addObserver:self forKeyPath:@"documentView.frame" options:0 context:&KPCScrollViewObservationContext];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(scrollViewDidScroll:)
@@ -200,8 +200,8 @@ static char LIScrollViewObservationContext;
 
 - (void)stopObservingScrollView
 {
-    [self.scrollView removeObserver:self forKeyPath:@"frame" context:&LIScrollViewObservationContext];
-    [self.scrollView removeObserver:self forKeyPath:@"documentView.frame" context:&LIScrollViewObservationContext];
+    [self.scrollView removeObserver:self forKeyPath:@"frame" context:&KPCScrollViewObservationContext];
+    [self.scrollView removeObserver:self forKeyPath:@"documentView.frame" context:&KPCScrollViewObservationContext];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:NSViewBoundsDidChangeNotification
@@ -210,7 +210,7 @@ static char LIScrollViewObservationContext;
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    if (context == &LIScrollViewObservationContext) {
+    if (context == &KPCScrollViewObservationContext) {
         [self updateButtons];
     }
     else {
@@ -386,7 +386,7 @@ static char LIScrollViewObservationContext;
             dragged = YES;
             
             KPCTabButtonCell *cell = draggingTab.cell;
-            cell.borderMask = cell.borderMask | LIBorderMaskLeft | LIBorderMaskRight;
+            cell.borderMask = cell.borderMask | KPCBorderMaskLeft | KPCBorderMaskRight;
         }
         
         // move the dragged tab
@@ -610,7 +610,7 @@ static char LIScrollViewObservationContext;
     tabCell.representedObject = item;
     
     tabCell.imagePosition   = NSNoImage;
-    tabCell.borderMask      = LIBorderMaskRight|LIBorderMaskBottom;
+    tabCell.borderMask      = KPCBorderMaskRight|KPCBorderMaskBottom;
     
     tabCell.title           = [self.dataSource tabControl:self titleForItem:item];
     
@@ -931,4 +931,3 @@ static char LIScrollViewObservationContext;
 
 @end
 
-NSString *LITabControlSelectionDidChangeNotification = @"LITabControlSelectionDidChangeNotification";

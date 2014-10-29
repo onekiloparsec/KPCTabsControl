@@ -13,7 +13,7 @@
 + (Class)cellClass;
 
 @property(nonatomic, assign) BOOL showsMenu;
-@property(nonatomic, assign) LIBorderMask borderMask;
+@property(nonatomic, assign) KPCBorderMask borderMask;
 
 @property(nonatomic, copy) NSColor *borderColor;
 @property(nonatomic, copy) NSColor *backgroundColor;
@@ -30,4 +30,4 @@
 
 @end
 
-extern BOOL KPCRectArrayWithBorderMask(NSRect sourceRect, LIBorderMask borderMask, NSRect **rectArray, NSInteger *rectCount);
+extern BOOL KPCRectArrayWithBorderMask(NSRect sourceRect, KPCBorderMask borderMask, NSRect **rectArray, NSInteger *rectCount);

@@ -10,4 +10,5 @@ Pod::Spec.new do |s|
   s.platform     = :osx, '10.9'
   s.framework    = 'QuartzCore', 'AppKit'
   s.requires_arc = true
+  s.resources    = 'Resources/*.pdf'
 end
