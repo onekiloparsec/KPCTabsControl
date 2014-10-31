@@ -78,6 +78,19 @@
     [self addCursorRect:[self bounds] cursor:[NSCursor arrowCursor]];
 }
 
+- (void)mouseEntered:(NSEvent *)theEvent
+{
+    [super mouseEntered:theEvent];
+    self.showsMenu = ([[self.menu itemArray] count] > 0);
+}
+
+- (void)mouseExited:(NSEvent *)theEvent
+{
+    [super mouseExited:theEvent];
+    self.showsMenu = NO;
+}
+
+
 #pragma mark - Forwards
 
 - (BOOL)showsMenu

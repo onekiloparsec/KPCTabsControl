@@ -20,6 +20,7 @@
 @property(nonatomic, strong) NSButton *addButton, *scrollLeftButton, *scrollRightButton, *draggingTab;
 @property(nonatomic, strong) NSTextField *editingField;
 @property(nonatomic, assign) BOOL hideScrollButtons;
+@property(nonatomic, assign) BOOL isHighlighted;
 @end
 
 @implementation KPCTabsControl
@@ -44,7 +45,7 @@
     [self.cell setBorderMask:KPCBorderMaskBottom];
     [self.cell setFont:[NSFont fontWithName:@"HelveticaNeue-Medium" size:13]];
 
-    [self unhighlight];
+    [self highlight:NO];
     [self configureSubviews];
 }
 
@@ -609,21 +610,6 @@
 //}
 
 #pragma mark -
-#pragma mark ScrollView Tracking
-
-//- (NSButton *)trackedButtonWithEvent:(NSEvent *)theEvent {
-//    id item = theEvent.trackingArea.userInfo[@"item"];
-//    return (item != nil) ? [self tabButtonWithItem:item] : nil;
-//}
-//
-//- (void)mouseEntered:(NSEvent *)theEvent {
-//    [[[self trackedButtonWithEvent:theEvent] cell] setShowsMenu:YES];
-//}
-//- (void)mouseExited:(NSEvent *)theEvent {
-//    [[[self trackedButtonWithEvent:theEvent] cell] setShowsMenu:NO];
-//}
-
-#pragma mark -
 #pragma mark Editing
 
 //- (void)editItem:(id)item {
@@ -763,20 +749,13 @@
     return YES;
 }
 
-- (void)highlight
+- (void)highlight:(BOOL)flag
 {
-    NSColor *color = [NSColor colorWithCalibratedWhite:0.85 alpha:1.0];
+    self.isHighlighted = flag;
+    NSColor *color = [NSColor colorWithCalibratedWhite:(flag) ? 0.85 : 0.95 alpha:1.0];
     [self setBackgroundColor:color];
     [[self.scrollView.documentView subviews] makeObjectsPerformSelector:@selector(setBackgroundColor:) withObject:color];
 }
-
-- (void)unhighlight
-{
-    NSColor *color = [NSColor colorWithCalibratedWhite:0.95 alpha:1.0];
-    [self setBackgroundColor:color];
-    [[self.scrollView.documentView subviews] makeObjectsPerformSelector:@selector(setBackgroundColor:) withObject:color];
-}
-
 
 #pragma mark - State Restoration
 
@@ -828,58 +807,29 @@
 
 #pragma mark - Properties
 
-//- (void)setBorderColor:(NSColor *)borderColor
-//{
-//    [self.cell setBorderColor:borderColor];
-//    for (id subview in self.subviews) {
-//        if ([subview respondsToSelector:@selector(cell)]) {
-//            id cell = [subview cell];
-//            if ([cell respondsToSelector:@selector(setBorderColor:)]) {
-//                [cell setBorderColor:borderColor];
-//            }
-//        }
-//    }
-//}
-//
-//- (void)setBackgroundColor:(NSColor *)backgroundColor
-//{
-//    [self.cell setBackgroundColor:backgroundColor];
-//    for (id subview in self.subviews) {
-//        if ([subview respondsToSelector:@selector(cell)]) {
-//            id cell = [subview cell];
-//            if ([cell respondsToSelector:@selector(setBackgroundColor:)]) {
-//                [cell setBackgroundColor:backgroundColor];
-//            }
-//        }
-//    }
-//}
-//
-//- (void)setTitleColor:(NSColor *)titleColor
-//{
-//    [self.cell setTitleColor:titleColor];
-//    for (id subview in self.subviews) {
-//        if ([subview respondsToSelector:@selector(cell)]) {
-//            id cell = [subview cell];
-//            if ([cell respondsToSelector:@selector(setTitleColor:)]) {
-//                [cell setTitleColor:titleColor];
-//            }
-//        }
-//    }
-//}
-//
-//- (void)setTitleHighlightColor:(NSColor *)titleHighlightColor
-//{
-//    [self.cell setTitleHighlightColor:titleHighlightColor];
-//    
-//    for (id subview in self.subviews) {
-//        if ([subview respondsToSelector:@selector(cell)]) {
-//            id cell = [subview cell];
-//            if ([cell respondsToSelector:@selector(setTitleHighlightColor:)]) {
-//                [cell setTitleHighlightColor:titleHighlightColor];
-//            }
-//        }
-//    }
-//}
+- (void)setBorderColor:(NSColor *)borderColor
+{
+    [self.cell setBorderColor:borderColor];
+    [self.scrollView.subviews makeObjectsPerformSelector:@selector(setBorderColor:) withObject:borderColor];
+}
+
+- (void)setBackgroundColor:(NSColor *)backgroundColor
+{
+    [self.cell setBackgroundColor:backgroundColor];
+    [self.scrollView.subviews makeObjectsPerformSelector:@selector(setBackgroundColor:) withObject:backgroundColor];
+}
+
+- (void)setTitleColor:(NSColor *)titleColor
+{
+    [self.cell setTitleColor:titleColor];
+    [self.scrollView.subviews makeObjectsPerformSelector:@selector(setTitleColor:) withObject:titleColor];
+}
+
+- (void)setTitleHighlightColor:(NSColor *)titleHighlightColor
+{
+    [self.cell setTitleHighlightColor:titleHighlightColor];
+    [self.scrollView.subviews makeObjectsPerformSelector:@selector(setTitleHighlightColor:) withObject:titleHighlightColor];
+}
 
 @end
 

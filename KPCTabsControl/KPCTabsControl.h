@@ -27,6 +27,7 @@
 @property(nonatomic, assign) BOOL notifiesOnPartialReorder;
 
 @property(nonatomic, assign) BOOL preferFullWidthTabs;
+@property(nonatomic, assign, readonly) BOOL isHighlighted;
 
 @property(nonatomic, assign) SEL addAction;
 @property(nonatomic, weak) id addTarget;
@@ -38,7 +39,6 @@
 - (NSArray *)tabButtons;
 - (NSButton *)tabButtonWithItem:(id)item;
 
-- (void)highlight;
-- (void)unhighlight;
+- (void)highlight:(BOOL)flag;
 
 @end

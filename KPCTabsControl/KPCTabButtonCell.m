@@ -196,11 +196,11 @@
     
     if (self.showsMenu) {
         [[KPCTabButtonCell popupImage] drawInRect:[self popupRectWithFrame:cellFrame]
-                                  fromRect:NSZeroRect
-                                 operation:NSCompositeSourceOver
-                                  fraction:1.0
-                            respectFlipped:YES
-                                     hints:nil];
+                                         fromRect:NSZeroRect
+                                        operation:NSCompositeSourceOver
+                                         fraction:1.0
+                                   respectFlipped:YES
+                                            hints:nil];
     }
 }
 
