@@ -89,7 +89,6 @@
 {
     NSSize titleSize = [[self attributedTitle] size];
     NSSize popupSize = ([self menu] == nil) ? NSZeroSize : [[KPCTabButtonCell popupImage] size];
-    
     return NSMakeSize(titleSize.width + (popupSize.width * 2) + 36, MAX(titleSize.height, popupSize.height));
 }
 
@@ -98,19 +97,7 @@
     NSRect popupRect = NSZeroRect;
     popupRect.size = [[KPCTabButtonCell popupImage] size];
     popupRect.origin = NSMakePoint(NSMaxX(cellFrame) - NSWidth(popupRect) - 8, NSMidY(cellFrame) - NSHeight(popupRect) / 2);
-    
     return popupRect;
-}
-
-- (NSRect)titleRectForBounds:(NSRect)cellFrame
-{
-    NSSize titleSize = [[self attributedTitle] size];
-    return NSMakeRect(NSMinX(cellFrame), NSMidY(cellFrame) - titleSize.height/2.0 - 2.0, NSWidth(cellFrame), titleSize.height);
-}
-
-- (NSRect)editingRectForBounds:(NSRect)rect
-{
-    return [self titleRectForBounds:NSOffsetRect(rect, 0, -1)];
 }
 
 - (KPCTabsControl *)enclosingTabControlInView:(NSView *)controlView
@@ -172,6 +159,17 @@
     }
 }
 
+- (NSRect)titleRectForBounds:(NSRect)cellFrame
+{
+    NSSize titleSize = [[self attributedTitle] size];
+    return NSMakeRect(NSMinX(cellFrame), NSMidY(cellFrame) - titleSize.height/2.0 - 2.0, NSWidth(cellFrame), titleSize.height);
+}
+
+- (NSRect)editingRectForBounds:(NSRect)rect
+{
+    return [self titleRectForBounds:NSOffsetRect(rect, 0, -1)];
+}
+
 - (void)drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView
 {
     if (self.state) {
@@ -185,7 +183,6 @@
     [self drawBezelWithFrame:cellFrame inView:controlView];
     
     NSRect titleFrame = cellFrame;
-    titleFrame.origin.y -= 2.0;
     [self drawTitle:[self attributedTitle] withFrame:titleFrame inView:controlView];
     
     if (self.image && self.imagePosition != NSNoImage) {

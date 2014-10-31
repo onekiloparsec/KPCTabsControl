@@ -17,9 +17,35 @@
 
 @implementation KPCTabButton
 
-- (void)awakeFromNib
+- (instancetype)init
 {
-    [super awakeFromNib];
+    self = [super init];
+    if (self) {
+        [self setup];
+    }
+    return self;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)coder
+{
+    self = [super initWithCoder:coder];
+    if (self) {
+        [self setup];
+    }
+    return self;
+}
+
+- (instancetype)initWithFrame:(NSRect)frameRect
+{
+    self = [super initWithFrame:frameRect];
+    if (self) {
+        [self setup];
+    }
+    return self;
+}
+
+- (void)setup
+{
     [self setCell:[[KPCTabButtonCell alloc] initTextCell:@""]];
     self.minWidth = INCH * 0.85;
     self.maxWidth = INCH * 2.75;

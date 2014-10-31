@@ -25,26 +25,42 @@
 
 @implementation KPCTabsControl
 
-- (id)initWithFrame:(NSRect)frame
+- (instancetype)init
 {
-    self = [super initWithFrame:frame];
+    self = [super init];
     if (self) {
-        [self configureSubviews];
+        [self setup];
     }
     return self;
 }
 
-- (void)awakeFromNib
+- (id)initWithFrame:(NSRect)frame
 {
-    [super awakeFromNib];
+    self = [super initWithFrame:frame];
+    if (self) {
+        [self setup];
+    }
+    return self;
+}
 
+- (instancetype)initWithCoder:(NSCoder *)coder
+{
+    self = [super initWithCoder:coder];
+    if (self) {
+        [self setup];
+    }
+    return self;
+}
+
+- (void)setup
+{
     [self setWantsLayer:YES];
     [self setTranslatesAutoresizingMaskIntoConstraints:NO];
-
+    
     [self setCell:[[KPCTabButtonCell alloc] initTextCell:@""]];
     [self.cell setBorderMask:KPCBorderMaskBottom];
     [self.cell setFont:[NSFont fontWithName:@"HelveticaNeue-Medium" size:13]];
-
+    
     [self highlight:NO];
     [self configureSubviews];
 }
@@ -143,6 +159,73 @@
 //        [_scrollRightButton setHidden:YES];
 //    }
 //}
+
+#pragma mark - Data Source
+
+- (void)setDataSource:(id<KPCTabsControlDataSource>)dataSource
+{
+    if (_dataSource == dataSource) {
+        return;
+    }
+    
+    if (_dataSource && [_dataSource respondsToSelector:@selector(tabControlDidChangeSelection:)]) {
+        [[NSNotificationCenter defaultCenter] removeObserver:_dataSource
+                                                        name:KPCTabsControlSelectionDidChangeNotification
+                                                      object:self];
+    }
+    
+    _dataSource = dataSource;
+    
+    if (_dataSource && [_dataSource respondsToSelector:@selector(tabControlDidChangeSelection:)])
+        [[NSNotificationCenter defaultCenter] addObserver:_dataSource
+                                                 selector:@selector(tabControlDidChangeSelection:)
+                                                     name:KPCTabsControlSelectionDidChangeNotification
+                                                   object:self];
+    
+    [self reloadData];
+}
+
+- (void)reloadData
+{
+    [self.tabsView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    
+    NSMutableArray *newItems = [[NSMutableArray alloc] init];
+    for (NSUInteger i = 0, count = [self.dataSource tabControlNumberOfTabs:self]; i < count; i++) {
+        [newItems addObject:[self.dataSource tabControl:self itemAtIndex:i]];
+    }
+    
+    for (NSUInteger i = 0; i < newItems.count; i++) {
+        id item = newItems[i];
+        
+        KPCTabButton *button = [NSButton tabButtonWithItem:item target:self action:@selector(selectTab:)];
+        [button setTitle:[self.dataSource tabControl:self titleForItem:item]];
+        
+        if ([self.dataSource respondsToSelector:@selector(tabControl:menuForItem:)]) {
+            NSMenu *menu = [self.dataSource tabControl:self menuForItem:item];
+            if (menu) {
+                [button useMenu:menu];
+            }
+        }
+        
+        [self.tabsView addSubview:button];
+        
+        CGFloat minWidth = [button minWidth];
+        CGFloat maxWidth = [button maxWidth];
+        NSAssert(newItems.count*minWidth <= CGRectGetWidth(self.tabsView.frame), @"Impossible to place tabs");
+        
+        CGFloat availableWidth = CGRectGetWidth(self.tabsView.frame) - ((self.hideScrollButtons) ? 0.0 : 2*CGRectGetWidth(self.scrollLeftButton.frame));
+        CGFloat fullSizeWidth = availableWidth / newItems.count;
+        CGFloat buttonWidth = (self.preferFullWidthTabs) ? fullSizeWidth : MIN(maxWidth, fullSizeWidth);
+        
+        NSAssert(buttonWidth >= minWidth, @"Impossible to place tabs: button width %1.f > min width %.1f", buttonWidth, minWidth);
+        [button setFrame:CGRectMake(i*buttonWidth, 0, buttonWidth, CGRectGetHeight(self.tabsView.frame))];
+        NSLog(@"%@ -> %@", [button title], NSStringFromRect(button.frame));
+    }
+        
+//    [self updateButtons];
+//    [self invalidateRestorableState];
+}
+
 
 
 //#pragma mark - ScrollView Observation
@@ -250,8 +333,9 @@
 //    }
 //    return nil;
 //}
-//
-//- (void)selectTab:(id)sender {
+
+- (void)selectTab:(id)sender
+{
 //    NSButton *selectedButton = sender;
 //    
 //    for (NSButton *button in [self.scrollView.documentView subviews]) {
@@ -282,7 +366,7 @@
 //    } completionHandler:nil];
 //    
 //    [self invalidateRestorableState];
-//}
+}
 
 #pragma mark -
 #pragma mark Reordering
@@ -444,116 +528,7 @@
 //    [self invalidateRestorableState];
 //}
 
-#pragma mark -
-#pragma mark Data Source
 
-- (void)setDataSource:(id<KPCTabsControlDataSource>)dataSource
-{
-    if (_dataSource == dataSource) {
-        return;
-    }
-    
-    if (_dataSource && [_dataSource respondsToSelector:@selector(tabControlDidChangeSelection:)]) {
-        [[NSNotificationCenter defaultCenter] removeObserver:_dataSource
-                                                        name:KPCTabsControlSelectionDidChangeNotification
-                                                      object:self];
-    }
-    
-    _dataSource = dataSource;
-    
-    if (_dataSource && [_dataSource respondsToSelector:@selector(tabControlDidChangeSelection:)])
-        [[NSNotificationCenter defaultCenter] addObserver:_dataSource
-                                                 selector:@selector(tabControlDidChangeSelection:)
-                                                     name:KPCTabsControlSelectionDidChangeNotification
-                                                   object:self];
-    
-    [self reloadData];
-}
-
-- (void)reloadData
-{
-    [self.tabsView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    
-    NSMutableArray *newItems = [[NSMutableArray alloc] init];
-    for (NSUInteger i = 0, count = [self.dataSource tabControlNumberOfTabs:self]; i < count; i++) {
-        [newItems addObject:[self.dataSource tabControl:self itemAtIndex:i]];
-    }
-    
-    NSMutableArray *newTabs = [[NSMutableArray alloc] init];
-    for (id item in newItems) {
-        KPCTabButton *button = [NSButton tabButtonWithItem:item target:self action:@selector(selectTab:)];
-        
-        if ([self.dataSource respondsToSelector:@selector(tabControl:menuForItem:)]) {
-            NSMenu *menu = [self.dataSource tabControl:self menuForItem:item];
-            if (menu) {
-                [button useMenu:menu];
-            }
-        }
-        
-        [self.tabsView addSubview:button];
-        [newTabs addObject:button];
-    }
-    
-    [self layoutTabs:newTabs];
-    
-    self.items = newItems;
-    
-//    if (self.scrollView.documentView) {
-//        NSClipView *clipView = self.scrollView.contentView;
-//        NSView *documentView = self.scrollView.documentView;
-//        
-//        // document content is as tall as our scrolling area, and at least as wide...
-//        
-//        [clipView addConstraints:
-//         [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[documentView]|"
-//                                                 options:0
-//                                                 metrics:nil
-//                                                   views:@{@"documentView": documentView}]];
-//        
-//        [clipView addConstraints:
-//         [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[documentView]"
-//                                                 options:0
-//                                                 metrics:nil
-//                                                   views:@{@"documentView": documentView}]];
-//        
-//        // here's the 'at least as wide' constraint...
-//        
-//        [clipView addConstraint:
-//         [NSLayoutConstraint constraintWithItem:documentView attribute:NSLayoutAttributeRight
-//                                      relatedBy:NSLayoutRelationGreaterThanOrEqual
-//                                         toItem:clipView attribute:NSLayoutAttributeRight
-//                                     multiplier:1 constant:0]];
-//    }
-    
-//    [self updateButtons];
-    
-//    [self invalidateRestorableState];
-}
-
-- (void)layoutTabs:(NSArray *)tabs
-{
-    if (!tabs || [tabs count] == 0) {
-        return;
-    }
-    
-    self.preferFullWidthTabs = YES;
-    
-    CGFloat minWidth = [(KPCTabButton *)tabs[0] minWidth];
-    CGFloat maxWidth = [(KPCTabButton *)tabs[0] maxWidth];
-    NSAssert([tabs count]*minWidth <= CGRectGetWidth(self.tabsView.frame), @"Impossible to place tabs");
-    
-    CGFloat availableWidth = CGRectGetWidth(self.tabsView.frame) - ((self.hideScrollButtons) ? 0.0 : 2*CGRectGetWidth(self.scrollLeftButton.frame));
-    CGFloat fullSizeWidth = availableWidth / tabs.count;
-    CGFloat buttonWidth = (self.preferFullWidthTabs) ? fullSizeWidth : MIN(maxWidth, fullSizeWidth);
-    
-    NSAssert(buttonWidth >= minWidth, @"Impossible to place tabs: button width %1.f > min width %.1f", buttonWidth, minWidth);
-    
-    for (NSUInteger i = 0; i < tabs.count; i++) {
-        CGRect r = CGRectMake(i*buttonWidth, 0, buttonWidth, CGRectGetHeight(self.tabsView.frame));
-        KPCTabButton *button = tabs[i];
-        [button setFrame:r];
-    }
-}
 
 //- (KPCTabButton *)tabWithItem:(id)item
 //{
