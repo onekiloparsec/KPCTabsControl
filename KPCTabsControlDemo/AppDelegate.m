@@ -12,6 +12,8 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
+    self.topPane.paneIndex = 0;
+    self.bottomPane.paneIndex = 1;
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification

@@ -11,8 +11,11 @@
 #import "KPCTabsControlProtocols.h"
 
 @interface PaneViewController : NSViewController <KPCTabsControlDataSource, KPCTabsControlDelegate>
+
 @property(nonatomic, weak) IBOutlet KPCTabsControl *tabsBar;
 @property(nonatomic, weak) IBOutlet NSButton *useFullWidthTabsCheckButton;
+
+@property(nonatomic, assign) BOOL paneIndex;
 
 - (IBAction)toggleFullWidthTabs:(id)sender;
 

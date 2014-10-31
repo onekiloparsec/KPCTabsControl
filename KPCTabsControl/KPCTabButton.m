@@ -107,7 +107,7 @@
 - (void)mouseEntered:(NSEvent *)theEvent
 {
     [super mouseEntered:theEvent];
-    self.showsMenu = ([[self.menu itemArray] count] > 0);
+    self.showsMenu = ([[[self.cell menu] itemArray] count] > 0);
 }
 
 - (void)mouseExited:(NSEvent *)theEvent

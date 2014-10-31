@@ -8,4 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
+typedef enum {
+    KPCBorderMaskTop     = (1<<0),
+    KPCBorderMaskLeft    = (1<<1),
+    KPCBorderMaskRight   = (1<<2),
+    KPCBorderMaskBottom  = (1<<3)
+} KPCBorderMask;
+
 extern NSString * const KPCTabsControlSelectionDidChangeNotification;
+

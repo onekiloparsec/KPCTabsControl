@@ -7,13 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-
-typedef enum {
-    KPCBorderMaskTop     = (1<<0),
-    KPCBorderMaskLeft    = (1<<1),
-    KPCBorderMaskRight   = (1<<2),
-    KPCBorderMaskBottom  = (1<<3)
-} KPCBorderMask;
+#import "KPCTabsControlConstants.h"
 
 @interface KPCTabButtonCell : NSButtonCell
 

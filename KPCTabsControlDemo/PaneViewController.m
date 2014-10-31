@@ -11,6 +11,8 @@
 
 @interface PaneViewController ()
 @property (strong) NSArray *titles;
+@property (strong) NSDictionary *icons;
+@property (strong) NSDictionary *menus;
 @end
 
 @implementation PaneViewController
@@ -48,13 +50,29 @@
                                              selector:@selector(updateUponPaneSelectionDidChange:)
                                                  name:@"PaneSelectionDidChangeNotification"
                                                object:nil];
+    
+    switch (self.paneIndex) {
+        case 0: {
+            self.titles = @[@"Tab 1", @"Tab 2", @"Tab 3", @"Tab 4", @"Tab 5"];
+            NSMenu *tab2Menu = [[NSMenu alloc] init];
+            [tab2Menu addItemWithTitle:@"Action 1" action:NULL keyEquivalent:@""];
+            [tab2Menu addItemWithTitle:@"Action 2" action:NULL keyEquivalent:@""];
+            self.menus = @{@"Tab 2": tab2Menu};
+            break;
+        }
+
+        case 1:
+            self.titles = @[@"Tab a", @"Tab b", @"Tab c", @"Tab d"];
+            break;
+
+        default:
+            break;
+    }
 }
 
 - (void)awakeFromNib
 {
-    [super awakeFromNib];
- 
-    self.titles = @[@"Tab1", @"Tab2", @"Tab3", @"Tab4", @"Tab5"];
+    [super awakeFromNib]; 
     [self.tabsBar reloadData];
 }
 
@@ -101,6 +119,11 @@
 {
     NSUInteger index = [self.titles indexOfObject:item];
     return (index == NSNotFound) ? @"?" : self.titles[index];
+}
+
+- (NSMenu *)tabControl:(KPCTabsControl *)tabControl menuForItem:(id)item
+{
+    return [self.menus objectForKey:item];
 }
 
 

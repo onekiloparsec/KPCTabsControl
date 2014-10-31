@@ -100,63 +100,24 @@
     return popupRect;
 }
 
-- (KPCTabsControl *)enclosingTabControlInView:(NSView *)controlView
-{
-    id view = controlView;
-    KPCTabsControl *enclosingTabControl = nil;
-    while ((view = [view superview])) {
-        if ([view isKindOfClass:[KPCTabsControl class]]) {
-            enclosingTabControl = view;
-            break;
-        }
-    }
-    return enclosingTabControl;
-}
-
 - (BOOL)trackMouse:(NSEvent *)theEvent inRect:(NSRect)cellFrame ofView:(NSView *)controlView untilMouseUp:(BOOL)flag
 {
     NSRect popupRect = [self popupRectWithFrame:cellFrame];
     NSPoint location = [controlView convertPoint:[theEvent locationInWindow] fromView:nil];
     
     if ([self hitTestForEvent:theEvent inRect:[[controlView superview] frame] ofView:[controlView superview]] != NSCellHitNone) {
-
-        NSMenu *menu = [self menuForEvent:theEvent inRect:cellFrame ofView:controlView];
     
-        if (menu.itemArray.count > 0 &&  NSPointInRect(location, popupRect)) {
-            [menu popUpMenuPositioningItem:menu.itemArray[0] atLocation:NSMakePoint(NSMidX(popupRect), NSMaxY(popupRect)) inView:controlView];
+        if (self.menu.itemArray.count > 0 &&  NSPointInRect(location, popupRect)) {
+            [self.menu popUpMenuPositioningItem:self.menu.itemArray[0]
+                                     atLocation:NSMakePoint(NSMidX(popupRect), NSMaxY(popupRect))
+                                         inView:controlView];
+            
             [self setShowsMenu:NO];
             return YES;
         }
     }
         
     return [super trackMouse:theEvent inRect:cellFrame ofView:controlView untilMouseUp:flag];
-}
-
-- (NSMenu *)menuForEvent:(NSEvent *)event inRect:(NSRect)cellFrame ofView:(NSView *)view
-{
-    KPCTabsControl *enclosingTabControl = [self enclosingTabControlInView:view];
-    
-    if (enclosingTabControl) {
-        NSMenu *menu = [enclosingTabControl.dataSource tabControl:enclosingTabControl menuForItem:self.representedObject];
-        
-        if (menu != nil) {
-            // this following side-effect is a bit hokey
-            // but it ensures that the receiver of context popup
-            // actions can determine which tab is associated with
-            // the action. It also ensures that the dataSource and
-            // target of the control updates associated views prior
-            // to context menu display...
-            
-            [enclosingTabControl setSelectedItem:self.representedObject];
-            [NSApp sendAction:enclosingTabControl.action to:enclosingTabControl.target from:enclosingTabControl];
-            [[NSNotificationCenter defaultCenter] postNotificationName:KPCTabsControlSelectionDidChangeNotification object:enclosingTabControl];
-        }
-        
-        return menu;
-    }
-    else {
-        return [super menuForEvent:event inRect:cellFrame ofView:view];
-    }
 }
 
 - (NSRect)titleRectForBounds:(NSRect)cellFrame
@@ -213,6 +174,7 @@
     
     NSRect *borderRects;
     NSInteger borderRectCount;
+    
     if (KPCRectArrayWithBorderMask(cellFrame, self.borderMask, &borderRects, &borderRectCount)) {
         [self.borderColor set];
         NSRectFillList(borderRects, borderRectCount);
