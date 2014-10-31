@@ -10,7 +10,6 @@
 #import "KPCTabsControlConstants.h"
 
 @interface PaneViewController ()
-@property(nonatomic, assign) BOOL isSelected;
 @property (strong) NSArray *titles;
 @end
 
@@ -68,12 +67,9 @@
 {
     [super mouseDown:theEvent];
     
-    BOOL sendNotification = (!self.isSelected);
-    
-    self.isSelected = YES;
-    [self.tabsBar highlight];
-    //    [self.topBarView setUniformColor:[STLSmartColor colorWithWhite:0.85 alpha:1.0]];
-    [self.view setNeedsDisplay:YES];
+    BOOL sendNotification = (!self.tabsBar.isHighlighted);
+
+    [self.tabsBar highlight:YES];
     
     if (sendNotification) {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"PaneSelectionDidChangeNotification"
@@ -85,10 +81,7 @@
 - (void)updateUponPaneSelectionDidChange:(NSNotification *)notif
 {
     if ([notif object] != self) {
-        self.isSelected = NO;
-        [self.tabsBar unhighlight];
-        //    [self.topBarView setUniformColor:[STLSmartColor colorWithWhite:0.98 alpha:1.0]];
-        [self.view setNeedsDisplay:YES];
+        [self.tabsBar highlight:NO];
     }
 }
 

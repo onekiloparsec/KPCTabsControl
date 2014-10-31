@@ -693,6 +693,17 @@
                                             <outlet property="delegate" destination="xdx-8e-TeG" id="qdk-cL-uIF"/>
                                         </connections>
                                     </customView>
+                                    <button id="vXn-Sz-Wjz">
+                                        <rect key="frame" x="171" y="76" width="138" height="18"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <buttonCell key="cell" type="check" title="Use full-width tabs" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="q8c-zp-J0t">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="toggleFullWidthTabs:" target="xdx-8e-TeG" id="B42-6B-0a8"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                             </customView>
                             <customView id="WUg-Je-gBw">
@@ -707,6 +718,17 @@
                                             <outlet property="delegate" destination="PpQ-PP-vYq" id="pnK-ka-Ul4"/>
                                         </connections>
                                     </customView>
+                                    <button id="7dS-xx-Fzc">
+                                        <rect key="frame" x="171" y="80" width="138" height="18"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <buttonCell key="cell" type="check" title="Use full-width tabs" bezelStyle="regularSquare" imagePosition="left" inset="2" id="EiK-Ws-cNo">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="toggleFullWidthTabs:" target="PpQ-PP-vYq" id="Jz7-N4-Qci"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                             </customView>
                         </subviews>
@@ -722,12 +744,14 @@
         <viewController id="xdx-8e-TeG" customClass="PaneViewController">
             <connections>
                 <outlet property="tabsBar" destination="6yZ-WH-RCy" id="461-72-MDV"/>
+                <outlet property="useFullWidthTabsCheckButton" destination="vXn-Sz-Wjz" id="mfK-pb-d5t"/>
                 <outlet property="view" destination="cX9-TC-uim" id="tkY-aG-gbu"/>
             </connections>
         </viewController>
         <viewController id="PpQ-PP-vYq" customClass="PaneViewController">
             <connections>
                 <outlet property="tabsBar" destination="Nsw-7J-Pfp" id="QMI-dh-t8Z"/>
+                <outlet property="useFullWidthTabsCheckButton" destination="7dS-xx-Fzc" id="BJr-w0-4qa"/>
                 <outlet property="view" destination="WUg-Je-gBw" id="Zcb-Pt-XYC"/>
             </connections>
         </viewController>
