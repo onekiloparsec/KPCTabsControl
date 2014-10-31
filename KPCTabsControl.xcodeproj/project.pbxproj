@@ -21,6 +21,8 @@
 		9F3C2E3A1A0182DF00281F4B /* KPCTabLeftTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 9F3C2E361A0182DF00281F4B /* KPCTabLeftTemplate.pdf */; };
 		9F3C2E3B1A0182DF00281F4B /* KPCTabPlusTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 9F3C2E371A0182DF00281F4B /* KPCTabPlusTemplate.pdf */; };
 		9F3C2E3C1A0182DF00281F4B /* KPCTabRightTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 9F3C2E381A0182DF00281F4B /* KPCTabRightTemplate.pdf */; };
+		9F3C2E401A022ECC00281F4B /* NSButton+KPCTabsControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F3C2E3F1A022ECC00281F4B /* NSButton+KPCTabsControl.m */; };
+		9FBD05071A037A0600B157D2 /* PaneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FBD05061A037A0600B157D2 /* PaneViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +61,10 @@
 		9F3C2E361A0182DF00281F4B /* KPCTabLeftTemplate.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = KPCTabLeftTemplate.pdf; sourceTree = "<group>"; };
 		9F3C2E371A0182DF00281F4B /* KPCTabPlusTemplate.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = KPCTabPlusTemplate.pdf; sourceTree = "<group>"; };
 		9F3C2E381A0182DF00281F4B /* KPCTabRightTemplate.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = KPCTabRightTemplate.pdf; sourceTree = "<group>"; };
+		9F3C2E3E1A022ECC00281F4B /* NSButton+KPCTabsControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSButton+KPCTabsControl.h"; sourceTree = "<group>"; };
+		9F3C2E3F1A022ECC00281F4B /* NSButton+KPCTabsControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSButton+KPCTabsControl.m"; sourceTree = "<group>"; };
+		9FBD05051A037A0600B157D2 /* PaneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaneViewController.h; sourceTree = "<group>"; };
+		9FBD05061A037A0600B157D2 /* PaneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaneViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +120,8 @@
 				9F2155F71A0030B000819BDF /* KPCTabButtonCell.m */,
 				9F2155F91A00314B00819BDF /* NSImage+KPCTabsControl.h */,
 				9F2155FA1A00314B00819BDF /* NSImage+KPCTabsControl.m */,
+				9F3C2E3E1A022ECC00281F4B /* NSButton+KPCTabsControl.h */,
+				9F3C2E3F1A022ECC00281F4B /* NSButton+KPCTabsControl.m */,
 			);
 			path = KPCTabsControl;
 			sourceTree = "<group>";
@@ -123,6 +131,8 @@
 			children = (
 				9F2155D61A002F0200819BDF /* AppDelegate.h */,
 				9F2155D71A002F0200819BDF /* AppDelegate.m */,
+				9FBD05051A037A0600B157D2 /* PaneViewController.h */,
+				9FBD05061A037A0600B157D2 /* PaneViewController.m */,
 				9F2155DD1A002F0200819BDF /* MainMenu.xib */,
 			);
 			path = KPCTabsControlDemo;
@@ -275,6 +285,8 @@
 				9F2155F51A00309C00819BDF /* KPCTabButton.m in Sources */,
 				9F2155F81A0030B000819BDF /* KPCTabButtonCell.m in Sources */,
 				9F2155FB1A00314B00819BDF /* NSImage+KPCTabsControl.m in Sources */,
+				9FBD05071A037A0600B157D2 /* PaneViewController.m in Sources */,
+				9F3C2E401A022ECC00281F4B /* NSButton+KPCTabsControl.m in Sources */,
 				9F2155FD1A003A3C00819BDF /* KPCTabsControlConstants.m in Sources */,
 				9F2155D81A002F0200819BDF /* AppDelegate.m in Sources */,
 			);

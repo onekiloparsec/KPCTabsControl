@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6233" systemVersion="14A329f" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6250" systemVersion="14A388a" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6233"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6250"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -11,8 +11,10 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModuleProvider="">
+        <customObject id="Voe-Tx-rLC" customClass="AppDelegate">
             <connections>
+                <outlet property="bottomPane" destination="PpQ-PP-vYq" id="CfO-C6-1rj"/>
+                <outlet property="topPane" destination="xdx-8e-TeG" id="k5v-BJ-k99"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="gIp-Ho-8D9"/>
             </connections>
         </customObject>
@@ -670,11 +672,64 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="335" y="390" width="480" height="360"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1177"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
             <view key="contentView" id="EiT-Mj-1SZ">
                 <rect key="frame" x="0.0" y="0.0" width="480" height="360"/>
                 <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <splitView dividerStyle="paneSplitter" id="Ck8-os-qHW">
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="360"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <customView id="cX9-TC-uim">
+                                <rect key="frame" x="0.0" y="0.0" width="480" height="171"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <subviews>
+                                    <customView id="6yZ-WH-RCy" customClass="KPCTabsControl">
+                                        <rect key="frame" x="0.0" y="150" width="480" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                        <connections>
+                                            <outlet property="dataSource" destination="xdx-8e-TeG" id="KSy-Kk-9K3"/>
+                                            <outlet property="delegate" destination="xdx-8e-TeG" id="qdk-cL-uIF"/>
+                                        </connections>
+                                    </customView>
+                                </subviews>
+                            </customView>
+                            <customView id="WUg-Je-gBw">
+                                <rect key="frame" x="0.0" y="181" width="480" height="179"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <subviews>
+                                    <customView id="Nsw-7J-Pfp" customClass="KPCTabsControl">
+                                        <rect key="frame" x="0.0" y="158" width="480" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                        <connections>
+                                            <outlet property="dataSource" destination="PpQ-PP-vYq" id="w8W-pg-tSq"/>
+                                            <outlet property="delegate" destination="PpQ-PP-vYq" id="pnK-ka-Ul4"/>
+                                        </connections>
+                                    </customView>
+                                </subviews>
+                            </customView>
+                        </subviews>
+                        <holdingPriorities>
+                            <real value="250"/>
+                            <real value="250"/>
+                        </holdingPriorities>
+                    </splitView>
+                </subviews>
             </view>
+            <point key="canvasLocation" x="327" y="434"/>
         </window>
+        <viewController id="xdx-8e-TeG" customClass="PaneViewController">
+            <connections>
+                <outlet property="tabsBar" destination="6yZ-WH-RCy" id="461-72-MDV"/>
+                <outlet property="view" destination="cX9-TC-uim" id="tkY-aG-gbu"/>
+            </connections>
+        </viewController>
+        <viewController id="PpQ-PP-vYq" customClass="PaneViewController">
+            <connections>
+                <outlet property="tabsBar" destination="Nsw-7J-Pfp" id="QMI-dh-t8Z"/>
+                <outlet property="view" destination="WUg-Je-gBw" id="Zcb-Pt-XYC"/>
+            </connections>
+        </viewController>
     </objects>
 </document>

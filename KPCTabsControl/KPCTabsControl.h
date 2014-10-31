@@ -20,14 +20,16 @@
 @property(nonatomic, copy) NSColor *titleColor;
 @property(nonatomic, copy) NSColor *titleHighlightColor;
 
-@property(nonatomic, weak) id <KPCTabsControlDelegate> delegate;
-@property(nonatomic, weak) id <KPCTabsControlDataSource> dataSource;
+@property(nonatomic, weak) IBOutlet id <KPCTabsControlDelegate> delegate;
+@property(nonatomic, weak) IBOutlet id <KPCTabsControlDataSource> dataSource;
 
 @property(nonatomic, weak) id selectedItem;
+@property(nonatomic, assign) BOOL notifiesOnPartialReorder;
 
-@property(nonatomic) SEL addAction;
+@property(nonatomic, assign) BOOL preferFullWidthTabs;
+
+@property(nonatomic, assign) SEL addAction;
 @property(nonatomic, weak) id addTarget;
-@property(nonatomic) BOOL notifiesOnPartialReorder;
 
 - (void)reloadData;
 

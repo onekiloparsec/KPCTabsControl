@@ -7,9 +7,15 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "PaneViewController.h"
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 
+@property(nonatomic, weak) IBOutlet NSWindow *window;
+
+// Top-levels objects
+@property(nonatomic, strong) IBOutlet PaneViewController *topPane;
+@property(nonatomic, strong) IBOutlet PaneViewController *bottomPane;
 
 @end
 

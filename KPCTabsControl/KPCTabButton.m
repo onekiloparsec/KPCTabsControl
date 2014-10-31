@@ -8,15 +8,21 @@
 
 #import "KPCTabButton.h"
 
+#define INCH 72.0f
+
 @interface KPCTabButton ()
 @property(nonatomic, strong) NSImageView *iconView;
+@property(nonatomic, strong) NSTrackingArea *trackingArea;
 @end
 
 @implementation KPCTabButton
 
-+ (Class)cellClass
+- (void)awakeFromNib
 {
-    return [KPCTabButtonCell class];
+    [super awakeFromNib];
+    [self setCell:[[KPCTabButtonCell alloc] initTextCell:@""]];
+    self.minWidth = INCH * 0.85;
+    self.maxWidth = INCH * 2.75;
 }
 
 - (void)setIcon:(NSImage *)icon
@@ -35,49 +41,36 @@
     }
 }
 
-- (void)setCell:(NSCell *)cell
+- (void)useMenu:(NSMenu *)menu
 {
-    [super setCell:cell];
-    if ([cell isKindOfClass:[KPCTabButtonCell class]]) {
-        [self constrainSizeWithCell:(id)cell];
-    }
+    [self.cell setMenu:menu];
+    [self updateTrackingAreas];
 }
 
-- (void)constrainSizeWithCell:(KPCTabButtonCell *)cell
+- (void)updateTrackingAreas
 {
-//    if (_minWidthConstraint != nil) {
-//        if (cell.minWidth > 0) {
-//            [_minWidthConstraint setConstant:cell.minWidth];
-//        } else {
-//            [self removeConstraint:_minWidthConstraint];
-//            _minWidthConstraint = nil;
-//        }
-//    } else {
-//        if (cell.minWidth > 0) {
-//            _minWidthConstraint = [NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeWidth
-//                                                               relatedBy:NSLayoutRelationGreaterThanOrEqual
-//                                                                  toItem:nil attribute:NSLayoutAttributeNotAnAttribute
-//                                                              multiplier:1 constant:cell.minWidth];
-//            [self addConstraint:_minWidthConstraint];
-//        }
-//    }
-//    
-//    if (_maxWidthConstraint != nil) {
-//        if (cell.maxWidth > 0) {
-//            [_maxWidthConstraint setConstant:cell.maxWidth];
-//        } else {
-//            [self removeConstraint:_maxWidthConstraint];
-//            _maxWidthConstraint = nil;
-//        }
-//    } else {
-//        if (cell.maxWidth > 0) {
-//            _maxWidthConstraint = [NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeWidth
-//                                                               relatedBy:NSLayoutRelationLessThanOrEqual
-//                                                                  toItem:nil attribute:NSLayoutAttributeNotAnAttribute
-//                                                              multiplier:1 constant:cell.maxWidth];
-//            [self addConstraint:_maxWidthConstraint];
-//        }
-//    }
+    [self removeTrackingArea:self.trackingArea];
+    
+    id item = [[self cell] representedObject];
+    
+    self.trackingArea = [[NSTrackingArea alloc] initWithRect:self.bounds
+                                                     options:(NSTrackingMouseEnteredAndExited|NSTrackingActiveInActiveApp|NSTrackingInVisibleRect)
+                                                       owner:self
+                                                    userInfo:item ? @{@"item" : item} : nil];
+    
+    [self addTrackingArea:self.trackingArea];
+    
+    NSPoint mouseLocation = [[self window] mouseLocationOutsideOfEventStream];
+    mouseLocation = [self convertPoint:mouseLocation fromView:nil];
+    
+    if (NSPointInRect(mouseLocation, [self bounds])) {
+        [self mouseEntered:nil];
+    }
+    else {
+        [self mouseExited:nil];
+    }
+    
+    [super updateTrackingAreas];
 }
 
 - (void)resetCursorRects
@@ -150,26 +143,6 @@
 - (void)setTitleHighlightColor:(NSColor *)titleHighlightColor
 {
     [self.cell setTitleHighlightColor:titleHighlightColor];
-}
-
-- (CGFloat)minWidth
-{
-    return [self.cell minWidth];
-}
-
-- (void)setMinWidth:(CGFloat)minWidth
-{
-    [self.cell setMinWidth:minWidth];
-}
-
-- (CGFloat)maxWidth
-{
-    return [self.cell maxWidth];
-}
-
-- (void)setMaxWidth:(CGFloat)maxWidth
-{
-    [self.cell setMaxWidth:maxWidth];
 }
 
 @end

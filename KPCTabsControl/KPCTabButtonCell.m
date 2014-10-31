@@ -12,8 +12,6 @@
 #import "KPCTabsControl.h"
 #import "NSImage+KPCTabsControl.h"
 
-#define INCH 72.0f
-
 #define DF_BORDER_COLOR [NSColor lightGrayColor]
 #define DF_TITLE_COLOR [NSColor darkGrayColor]
 #define DF_HIGHLIGHT_COLOR [NSColor colorWithCalibratedRed:0.119 green:0.399 blue:0.964 alpha:1.000]
@@ -37,9 +35,6 @@
         _titleColor = DF_TITLE_COLOR;
         _titleHighlightColor = DF_HIGHLIGHT_COLOR;
         
-        _minWidth = INCH * 0.85;
-        _maxWidth = INCH * 2.75;
-        
         [self setBordered:YES];
         [self setBackgroundStyle:NSBackgroundStyleLight];
         [self setHighlightsBy:NSChangeBackgroundCellMask];
@@ -47,25 +42,6 @@
         [self setFocusRingType:NSFocusRingTypeNone];
     }
     return self;
-}
-
-- (id)copyWithZone:(NSZone *)zone
-{
-    KPCTabButtonCell *copy = [super copyWithZone:zone];
-    
-    copy->_minWidth = _minWidth;
-    copy->_maxWidth = _maxWidth;
-    
-    copy->_borderMask = _borderMask;
-    copy->_borderColor = [_borderColor copyWithZone:zone];
-    copy->_backgroundColor = [_backgroundColor copyWithZone:zone];
-    
-    copy->_titleColor = [_titleColor copyWithZone:zone];
-    copy->_titleHighlightColor = [_titleHighlightColor copyWithZone:zone];
-    
-    copy->_showsMenu = _showsMenu;
-    
-    return copy;
 }
 
 - (void)setShowsMenu:(BOOL)showsMenu
@@ -100,23 +76,8 @@
     }
 }
 
-- (void)setMinWidth:(CGFloat)minWidth
++ (NSImage *)popupImage
 {
-    if (_minWidth != minWidth) {
-        _minWidth = minWidth;
-        [(KPCTabButton *)self.controlView constrainSizeWithCell:self];
-    }
-}
-
-- (void)setMaxWidth:(CGFloat)maxWidth
-{
-    if (_maxWidth != maxWidth) {
-        _maxWidth = maxWidth;
-        [(KPCTabButton *)self.controlView constrainSizeWithCell:self];
-    }
-}
-
-+ (NSImage *)popupImage {
     static NSImage *ret = nil;
     if (ret == nil) {
         ret = [[NSImage imageNamed:@"KPCPullDownTemplate"] imageWithTint:[NSColor darkGrayColor]];

@@ -10,8 +10,6 @@
 
 @interface KPCTabButton : NSButton
 
-+ (Class)cellClass;
-
 @property(nonatomic, assign) BOOL showsMenu;
 @property(nonatomic, assign) KPCBorderMask borderMask;
 
@@ -26,7 +24,7 @@
 
 @property(nonatomic, strong) NSImage *icon;
 
-- (void)constrainSizeWithCell:(KPCTabButtonCell *)cell;
+- (void)useMenu:(NSMenu *)menu;
 
 @end
 
