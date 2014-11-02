@@ -22,6 +22,7 @@
 		9F3C2E3B1A0182DF00281F4B /* KPCTabPlusTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 9F3C2E371A0182DF00281F4B /* KPCTabPlusTemplate.pdf */; };
 		9F3C2E3C1A0182DF00281F4B /* KPCTabRightTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 9F3C2E381A0182DF00281F4B /* KPCTabRightTemplate.pdf */; };
 		9F3C2E401A022ECC00281F4B /* NSButton+KPCTabsControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F3C2E3F1A022ECC00281F4B /* NSButton+KPCTabsControl.m */; };
+		9F573D491A06995E00B8E389 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 9F573D481A06995E00B8E389 /* README.md */; };
 		9FBD05071A037A0600B157D2 /* PaneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FBD05061A037A0600B157D2 /* PaneViewController.m */; };
 		9FFC4AAC1A068F2000AAF238 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9FFC4AAB1A068F2000AAF238 /* Images.xcassets */; };
 /* End PBXBuildFile section */
@@ -64,6 +65,7 @@
 		9F3C2E381A0182DF00281F4B /* KPCTabRightTemplate.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = KPCTabRightTemplate.pdf; sourceTree = "<group>"; };
 		9F3C2E3E1A022ECC00281F4B /* NSButton+KPCTabsControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSButton+KPCTabsControl.h"; sourceTree = "<group>"; };
 		9F3C2E3F1A022ECC00281F4B /* NSButton+KPCTabsControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSButton+KPCTabsControl.m"; sourceTree = "<group>"; };
+		9F573D481A06995E00B8E389 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		9FBD05051A037A0600B157D2 /* PaneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaneViewController.h; sourceTree = "<group>"; };
 		9FBD05061A037A0600B157D2 /* PaneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaneViewController.m; sourceTree = "<group>"; };
 		9FFC4AAB1A068F2000AAF238 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 		9F2155D41A002F0200819BDF /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				9F573D481A06995E00B8E389 /* README.md */,
 				9F2156001A00467900819BDF /* KPCTabsControl.podspec */,
 				9F2155D51A002F0200819BDF /* Info.plist */,
 				9F2155D91A002F0200819BDF /* main.m */,
@@ -286,6 +289,7 @@
 			files = (
 				9F2155FF1A00442F00819BDF /* KPCTabsControl.m in Sources */,
 				9F2155DA1A002F0200819BDF /* main.m in Sources */,
+				9F573D491A06995E00B8E389 /* README.md in Sources */,
 				9F2155F51A00309C00819BDF /* KPCTabButton.m in Sources */,
 				9F2155F81A0030B000819BDF /* KPCTabButtonCell.m in Sources */,
 				9F2155FB1A00314B00819BDF /* NSImage+KPCTabsControl.m in Sources */,
