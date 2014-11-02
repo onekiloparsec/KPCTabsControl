@@ -118,47 +118,14 @@
         self.scrollLeftButton.frame = r;
     }
     
-//    [self startObservingScrollView];
-//    [self updateButtons];
+    [self startObservingScrollView];
+    [self updateAuxiliaryButtons];
 }
 
 - (void)dealloc
 {
-//    [self stopObservingScrollView];
+    [self stopObservingScrollView];
 }
-
-- (void)reconfigureWithScrollButtons:(BOOL)showScrollButtons
-{
-    self.hideScrollButtons = !showScrollButtons;
-//    [self stopObservingScrollView];
-    [_scrollView removeFromSuperview];
-    _scrollView = nil;
-    [self configureSubviews];
-}
-
-//- (void)updateButtons
-//{
-//    BOOL showAddButton = self.addAction != NULL;
-//    
-//    [_addButton setHidden:(showAddButton) ? NO : YES];
-//    [_addButton.constraints.lastObject setConstant:(showAddButton) ? 48 : 0];
-//    
-//    NSClipView *contentView = self.scrollView.contentView;
-//    
-//    BOOL isDocumentClipped = (contentView.subviews.count > 0) && (NSMaxX([contentView.subviews[0] frame]) > NSWidth(contentView.bounds));
-//    
-//    if (isDocumentClipped) {
-//        [_scrollLeftButton  setHidden:NO];
-//        [_scrollRightButton setHidden:NO];
-//        
-//        [_scrollLeftButton setEnabled:([self firstTabLeftOutsideVisibleRect] != nil)];
-//        [_scrollRightButton setEnabled:([self firstTabRightOutsideVisibleRect] != nil)];
-//        
-//    } else {
-//        [_scrollLeftButton  setHidden:YES];
-//        [_scrollRightButton setHidden:YES];
-//    }
-//}
 
 #pragma mark - Data Source
 
@@ -208,68 +175,103 @@
         }
         
         [self.tabsView addSubview:button];
-        
-        CGFloat minWidth = [button minWidth];
-        CGFloat maxWidth = [button maxWidth];
-        NSAssert(newItems.count*minWidth <= CGRectGetWidth(self.tabsView.frame), @"Impossible to place tabs");
-        
-        CGFloat availableWidth = CGRectGetWidth(self.tabsView.frame) - ((self.hideScrollButtons) ? 0.0 : 2*CGRectGetWidth(self.scrollLeftButton.frame));
-        CGFloat fullSizeWidth = availableWidth / newItems.count;
-        CGFloat buttonWidth = (self.preferFullWidthTabs) ? fullSizeWidth : MIN(maxWidth, fullSizeWidth);
-        
-        NSAssert(buttonWidth >= minWidth, @"Impossible to place tabs: button width %1.f > min width %.1f", buttonWidth, minWidth);
-        [button setFrame:CGRectMake(i*buttonWidth, 0, buttonWidth, CGRectGetHeight(self.tabsView.frame))];
-        NSLog(@"%@ -> %@", [button title], NSStringFromRect(button.frame));
     }
-        
-//    [self updateButtons];
-//    [self invalidateRestorableState];
+
+	[self layoutTabButtons];
+    [self updateAuxiliaryButtons];
+    [self invalidateRestorableState];
+}
+
+- (void)layoutTabButtons
+{
+	[self.tabsView.subviews enumerateObjectsUsingBlock:^(KPCTabButton *button, NSUInteger idx, BOOL *stop) {
+		CGFloat minWidth = [button minWidth];
+		CGFloat maxWidth = [button maxWidth];
+		NSAssert(self.tabsView.subviews.count*minWidth <= CGRectGetWidth(self.tabsView.frame), @"Impossible to place tabs");
+
+		CGFloat availableWidth = CGRectGetWidth(self.tabsView.frame) - ((self.hideScrollButtons) ? 0.0 : 2*CGRectGetWidth(self.scrollLeftButton.frame));
+		CGFloat fullSizeWidth = availableWidth / self.tabsView.subviews.count;
+		CGFloat buttonWidth = (self.preferFullWidthTabs) ? fullSizeWidth : MIN(maxWidth, fullSizeWidth);
+
+		NSAssert(buttonWidth >= minWidth, @"Impossible to place tabs: button width %1.f > min width %.1f", buttonWidth, minWidth);
+		[button setFrame:CGRectMake(idx*buttonWidth, 0, buttonWidth, CGRectGetHeight(self.tabsView.frame))];
+
+		if ([self.dataSource respondsToSelector:@selector(tabControl:canSelectItem:)]) {
+			[[button cell] setSelectable:[self.dataSource tabControl:self canSelectItem:[button.cell representedObject]]];
+		}
+
+		if ([self.dataSource respondsToSelector:@selector(tabControl:willDisplayButton:forItem:)]) {
+			[self.dataSource tabControl:self willDisplayButton:button forItem:[button.cell representedObject]];
+		}
+	}];
+}
+
+- (void)updateAuxiliaryButtons
+{
+    BOOL showAddButton = self.addAction != NULL;
+
+    [_addButton setHidden:(showAddButton) ? NO : YES];
+    [_addButton.constraints.lastObject setConstant:(showAddButton) ? 48 : 0];
+
+    NSClipView *contentView = self.scrollView.contentView;
+
+    BOOL isDocumentClipped = (contentView.subviews.count > 0) && (NSMaxX([contentView.subviews[0] frame]) > NSWidth(contentView.bounds));
+
+    if (isDocumentClipped) {
+        [_scrollLeftButton  setHidden:NO];
+        [_scrollRightButton setHidden:NO];
+
+//        [_scrollLeftButton setEnabled:([self firstTabLeftOutsideVisibleRect] != nil)];
+//        [_scrollRightButton setEnabled:([self firstTabRightOutsideVisibleRect] != nil)];
+
+    } else {
+        [_scrollLeftButton  setHidden:YES];
+        [_scrollRightButton setHidden:YES];
+    }
 }
 
 
+#pragma mark - ScrollView Observation
 
-//#pragma mark - ScrollView Observation
-//
-//static char KPCScrollViewObservationContext;
-//
-//- (void)startObservingScrollView
-//{
-//    [self.scrollView addObserver:self forKeyPath:@"frame" options:0 context:&KPCScrollViewObservationContext];
-//    [self.scrollView addObserver:self forKeyPath:@"documentView.frame" options:0 context:&KPCScrollViewObservationContext];
-//    
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//                                             selector:@selector(scrollViewDidScroll:)
-//                                                 name:NSViewFrameDidChangeNotification
-//                                               object:self.scrollView];
-//}
-//
-//- (void)stopObservingScrollView
-//{
-//    [self.scrollView removeObserver:self forKeyPath:@"frame" context:&KPCScrollViewObservationContext];
-//    [self.scrollView removeObserver:self forKeyPath:@"documentView.frame" context:&KPCScrollViewObservationContext];
-//    
-//    [[NSNotificationCenter defaultCenter] removeObserver:self
-//                                                    name:NSViewBoundsDidChangeNotification
-//                                                  object:self.scrollView];
-//}
-//
-//- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-//{
-//    if (context == &KPCScrollViewObservationContext) {
-//        [self updateButtons];
-//    }
-//    else {
-//        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
-//    }
-//}
-//
-//- (void)scrollViewDidScroll:(NSNotification *)notification
-//{
-//    NSView *tabView = self.scrollView.documentView;
-//    [self layoutTabs:[tabView subviews] inView:tabView];
-//    [self updateButtons];
-//    [self invalidateRestorableState];
-//}
+static char KPCScrollViewObservationContext;
+
+- (void)startObservingScrollView
+{
+    [self.scrollView addObserver:self forKeyPath:@"frame" options:0 context:&KPCScrollViewObservationContext];
+    [self.scrollView addObserver:self forKeyPath:@"documentView.frame" options:0 context:&KPCScrollViewObservationContext];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(scrollViewDidScroll:)
+                                                 name:NSViewFrameDidChangeNotification
+                                               object:self.scrollView];
+}
+
+- (void)stopObservingScrollView
+{
+    [self.scrollView removeObserver:self forKeyPath:@"frame" context:&KPCScrollViewObservationContext];
+    [self.scrollView removeObserver:self forKeyPath:@"documentView.frame" context:&KPCScrollViewObservationContext];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:NSViewBoundsDidChangeNotification
+                                                  object:self.scrollView];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if (context == &KPCScrollViewObservationContext) {
+        [self updateAuxiliaryButtons];
+    }
+    else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
+}
+
+- (void)scrollViewDidScroll:(NSNotification *)notification
+{
+	[self layoutTabButtons];
+    [self updateAuxiliaryButtons];
+    [self invalidateRestorableState];
+}
 
 #pragma mark -
 #pragma mark Actions
@@ -278,7 +280,7 @@
 //    if (_addAction != addAction) {
 //        _addAction = addAction;
 //        
-//        [self updateButtons];
+//        [self updateAuxiliaryButtons];
 //    }
 //}
 //
@@ -502,87 +504,34 @@
 #pragma mark -
 #pragma mark Selection
 
-//- (id)selectedItem {
-//    for (NSButton *button in [self.scrollView.documentView subviews]) {
-//        if ([button state] == 1) {
-//            return [[button cell] representedObject];
-//        }
-//    }
-//    return nil;
-//}
-//- (void)setSelectedItem:(id)selectedItem {
-//    for (NSButton *button in [self.scrollView.documentView subviews]) {
-//        if ([[[button cell] representedObject] isEqual:selectedItem]) {
-//            [button setState:1];
-//            
-//            [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
-//                [context setAllowsImplicitAnimation:YES];
-//                [button scrollRectToVisible:[button bounds]];
-//            } completionHandler:nil];
-//            
-//        } else {
-//            [button setState:0];
-//        }
-//    }
-//    
-//    [self invalidateRestorableState];
-//}
+- (id)selectedItem
+{
+    for (NSButton *button in [self.scrollView.documentView subviews]) {
+        if ([button state] == NSOnState) {
+            return [[button cell] representedObject];
+        }
+    }
+    return nil;
+}
 
-
-
-//- (KPCTabButton *)tabWithItem:(id)item
-//{
-//    KPCTabButtonCell *tabCell = [self.cell copy];
-//    
-//    tabCell.representedObject = item;
-//    
-//    tabCell.imagePosition = NSNoImage;
-//    tabCell.borderMask = KPCBorderMaskRight|KPCBorderMaskBottom;
-//    
-//    tabCell.title = [self.dataSource tabControl:self titleForItem:item];
-//    
-//    tabCell.target = self;
-//    tabCell.action = @selector(selectTab:);
-//    
-//    [tabCell sendActionOn:NSLeftMouseDownMask];
-//    
-//    KPCTabButton *tab = [[KPCTabButton alloc] initWithFrame:CGRectMake(0.0, 0.0, tabCell.minWidth, CGRectGetHeight(self.scrollView.frame))];
-//    
-//    [tab setCell:tabCell];
-//    
-//    if ([self.dataSource respondsToSelector:@selector(tabControl:canSelectItem:)]) {
-//        [[tab cell] setSelectable:[self.dataSource tabControl:self canSelectItem:item]];
-//    }
-//    
-//    if ([self.dataSource respondsToSelector:@selector(tabControl:willDisplayButton:forItem:)]) {
-//        [self.dataSource tabControl:self willDisplayButton:tab forItem:item];
-//    }
-//    
-//    return tab;
-//}
-
-//- (NSArray *)tabButtons
-//{
-//    NSMutableArray *buttons = @[].mutableCopy;
-//    
-//    for (NSButton *button in [self.scrollView.documentView subviews]) {
-//        if (button != self.draggingTab) {
-//            [buttons addObject:button];
-//        }
-//    }
-//    return buttons;
-//}
-//
-//- (NSButton *)tabButtonWithItem:(id)item {
-//    for (NSButton *button in [self.scrollView.documentView subviews]) {
-//        if (button != self.draggingTab) {
-//            if ([[[button cell] representedObject] isEqual:item]) {
-//                return button;
-//            }
-//        }
-//    }
-//    return nil;
-//}
+- (void)setSelectedItem:(id)selectedItem
+{
+    for (NSButton *button in [self.scrollView.documentView subviews]) {
+        if ([[[button cell] representedObject] isEqual:selectedItem]) {
+            [button setState:NSOnState];
+            
+            [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
+                [context setAllowsImplicitAnimation:YES];
+                [button scrollRectToVisible:[button bounds]];
+            } completionHandler:nil];
+        }
+		else {
+            [button setState:NSOffState];
+        }
+    }
+    
+    [self invalidateRestorableState];
+}
 
 #pragma mark -
 #pragma mark Editing

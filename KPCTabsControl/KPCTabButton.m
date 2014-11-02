@@ -56,7 +56,7 @@
     _icon = icon;
     
     if (icon && !self.iconView) {
-        self.iconView = [[NSImageView alloc] initWithFrame:CGRectMake(10.0, 0.0, 20.0, 20.0)];
+        self.iconView = [[NSImageView alloc] initWithFrame:CGRectMake(10.0, 0.0, 18.0, 18.0)];
         [self.iconView setImageFrameStyle:NSImageFrameNone];
         [self.iconView setImage:icon];
         [self addSubview:self.iconView];

@@ -23,6 +23,7 @@
 		9F3C2E3C1A0182DF00281F4B /* KPCTabRightTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 9F3C2E381A0182DF00281F4B /* KPCTabRightTemplate.pdf */; };
 		9F3C2E401A022ECC00281F4B /* NSButton+KPCTabsControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F3C2E3F1A022ECC00281F4B /* NSButton+KPCTabsControl.m */; };
 		9FBD05071A037A0600B157D2 /* PaneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FBD05061A037A0600B157D2 /* PaneViewController.m */; };
+		9FFC4AAC1A068F2000AAF238 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9FFC4AAB1A068F2000AAF238 /* Images.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 		9F3C2E3F1A022ECC00281F4B /* NSButton+KPCTabsControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSButton+KPCTabsControl.m"; sourceTree = "<group>"; };
 		9FBD05051A037A0600B157D2 /* PaneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaneViewController.h; sourceTree = "<group>"; };
 		9FBD05061A037A0600B157D2 /* PaneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaneViewController.m; sourceTree = "<group>"; };
+		9FFC4AAB1A068F2000AAF238 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +146,7 @@
 				9F2156001A00467900819BDF /* KPCTabsControl.podspec */,
 				9F2155D51A002F0200819BDF /* Info.plist */,
 				9F2155D91A002F0200819BDF /* main.m */,
+				9FFC4AAB1A068F2000AAF238 /* Images.xcassets */,
 			);
 			name = "Supporting Files";
 			path = KPCTabsControlDemo;
@@ -259,6 +262,7 @@
 			files = (
 				9F2156011A00467900819BDF /* KPCTabsControl.podspec in Resources */,
 				9F3C2E391A0182DF00281F4B /* KPCPullDownTemplate.pdf in Resources */,
+				9FFC4AAC1A068F2000AAF238 /* Images.xcassets in Resources */,
 				9F3C2E3B1A0182DF00281F4B /* KPCTabPlusTemplate.pdf in Resources */,
 				9F3C2E3A1A0182DF00281F4B /* KPCTabLeftTemplate.pdf in Resources */,
 				9F3C2E3C1A0182DF00281F4B /* KPCTabRightTemplate.pdf in Resources */,

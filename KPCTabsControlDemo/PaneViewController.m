@@ -51,7 +51,7 @@
                                                  name:@"PaneSelectionDidChangeNotification"
                                                object:nil];
     
-    switch (self.paneIndex) {
+    switch ([self.title isEqualToString:@"pane1"]) {
         case 0: {
             self.titles = @[@"Tab 1", @"Tab 2", @"Tab 3", @"Tab 4", @"Tab 5"];
             NSMenu *tab2Menu = [[NSMenu alloc] init];
@@ -121,9 +121,46 @@
     return (index == NSNotFound) ? @"?" : self.titles[index];
 }
 
+
+#pragma - mark Optionals
+
 - (NSMenu *)tabControl:(KPCTabsControl *)tabControl menuForItem:(id)item
 {
     return [self.menus objectForKey:item];
+}
+
+- (void)tabControl:(KPCTabsControl *)tabControl willDisplayButton:(KPCTabButton *)button forItem:(id)item
+{
+	NSUInteger index = [self.titles indexOfObject:item];
+	if ([self.title isEqualToString:@"pane1"]) {
+		switch (index) {
+			case 0:
+				[button setIcon:[NSImage imageNamed:@"Star"]];
+				break;
+			case 2:
+				[button setIcon:[NSImage imageNamed:@"Oval"]];
+				break;
+
+			default:
+				break;
+		}
+	}
+	else {
+		switch (index) {
+			case 1:
+				[button setIcon:[NSImage imageNamed:@"Triangle"]];
+				break;
+			case 2:
+				[button setIcon:[NSImage imageNamed:@"Spiral"]];
+				break;
+			case 3:
+				[button setIcon:[NSImage imageNamed:@"Polygon"]];
+				break;
+
+			default:
+				break;
+		}
+	}
 }
 
 

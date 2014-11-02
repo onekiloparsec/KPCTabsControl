@@ -33,12 +33,8 @@
 @property(nonatomic, weak) id addTarget;
 
 - (void)reloadData;
+- (void)highlight:(BOOL)flag;
 
 - (void)editItem:(id)item;
-
-- (NSArray *)tabButtons;
-- (NSButton *)tabButtonWithItem:(id)item;
-
-- (void)highlight:(BOOL)flag;
 
 @end
