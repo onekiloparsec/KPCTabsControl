@@ -13,6 +13,7 @@
 #import "KPCTabsControlConstants.h"
 #import "NSButton+KPCTabsControl.h"
 
+
 @interface KPCTabsControl () <NSTextFieldDelegate>
 @property(nonatomic, strong) NSArray *items;
 @property(nonatomic, strong) NSScrollView *scrollView;
@@ -60,7 +61,10 @@
     [self setCell:[[KPCTabButtonCell alloc] initTextCell:@""]];
     [self.cell setBorderMask:KPCBorderMaskBottom];
     [self.cell setFont:[NSFont fontWithName:@"HelveticaNeue-Medium" size:13]];
-    
+
+	self.minTabWidth = 50.0;
+	self.maxTabWidth = 150.0;
+
     [self highlight:NO];
     [self configureSubviews];
 }
@@ -184,16 +188,14 @@
 
 - (void)layoutTabButtons
 {
+	__block CGFloat tabsViewWidth = 0.0;
+
 	[self.tabsView.subviews enumerateObjectsUsingBlock:^(KPCTabButton *button, NSUInteger idx, BOOL *stop) {
-		CGFloat minWidth = [button minWidth];
-		CGFloat maxWidth = [button maxWidth];
-		NSAssert(self.tabsView.subviews.count*minWidth <= CGRectGetWidth(self.tabsView.frame), @"Impossible to place tabs");
 
-		CGFloat availableWidth = CGRectGetWidth(self.tabsView.frame) - ((self.hideScrollButtons) ? 0.0 : 2*CGRectGetWidth(self.scrollLeftButton.frame));
+		CGFloat availableWidth = CGRectGetWidth(self.scrollView.frame) - ((self.hideScrollButtons) ? 0.0 : 2*CGRectGetWidth(self.scrollLeftButton.frame));
 		CGFloat fullSizeWidth = availableWidth / self.tabsView.subviews.count;
-		CGFloat buttonWidth = (self.preferFullWidthTabs) ? fullSizeWidth : MIN(maxWidth, fullSizeWidth);
+		CGFloat buttonWidth = (self.preferFullWidthTabs) ? fullSizeWidth : MIN(self.maxTabWidth, fullSizeWidth);
 
-		NSAssert(buttonWidth >= minWidth, @"Impossible to place tabs: button width %1.f > min width %.1f", buttonWidth, minWidth);
 		[button setFrame:CGRectMake(idx*buttonWidth, 0, buttonWidth, CGRectGetHeight(self.tabsView.frame))];
 
 		if ([self.dataSource respondsToSelector:@selector(tabControl:canSelectItem:)]) {
@@ -203,7 +205,11 @@
 		if ([self.dataSource respondsToSelector:@selector(tabControl:willDisplayButton:forItem:)]) {
 			[self.dataSource tabControl:self willDisplayButton:button forItem:[button.cell representedObject]];
 		}
+
+		tabsViewWidth += CGRectGetWidth(button.frame);
 	}];
+
+	self.tabsView.frame = CGRectMake(0.0, 0.0, tabsViewWidth, CGRectGetHeight(self.scrollView.frame));
 }
 
 - (void)updateAuxiliaryButtons
@@ -730,6 +736,24 @@ static char KPCScrollViewObservationContext;
 //}
 
 #pragma mark - Properties
+
+- (void)setMinTabWidth:(CGFloat)minTabWidth
+{
+	_minTabWidth = minTabWidth;
+	[self layoutTabButtons];
+	[self updateAuxiliaryButtons];
+}
+
+- (void)setMaxTabWidth:(CGFloat)maxTabWidth
+{
+	if (maxTabWidth <= self.minTabWidth) {
+		[NSException raise:NSInvalidArgumentException
+					format:@"Max width '%.1f' must be larger than min width (%.1f)!", maxTabWidth, self.minTabWidth];
+	}
+	_maxTabWidth = maxTabWidth;
+	[self layoutTabButtons];
+	[self updateAuxiliaryButtons];
+}
 
 - (void)setBorderColor:(NSColor *)borderColor
 {

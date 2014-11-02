@@ -72,13 +72,24 @@
 
 - (void)awakeFromNib
 {
-    [super awakeFromNib]; 
+    [super awakeFromNib];
+
+	if ([self.title isEqualToString:@"pane2"]) {
+		self.tabsBar.maxTabWidth = 130.0;
+		self.tabsBar.minTabWidth = 100.0;
+	}
+
+	[self.minWidthLabel setStringValue:[NSString stringWithFormat:@"Min Button Width: %.1f pt", self.tabsBar.minTabWidth]];
+	[self.maxWidthLabel setStringValue:[NSString stringWithFormat:@"Max Button Width: %.1f pt", self.tabsBar.maxTabWidth]];
+
+	[self.tabsBar setPreferFullWidthTabs:self.useFullWidthTabsCheckButton.state];
     [self.tabsBar reloadData];
 }
 
 - (IBAction)toggleFullWidthTabs:(id)sender
 {
-    
+	[self.tabsBar setPreferFullWidthTabs:self.useFullWidthTabsCheckButton.state];
+	[self.tabsBar reloadData];
 }
 
 - (void)mouseDown:(NSEvent *)theEvent

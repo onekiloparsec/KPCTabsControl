@@ -20,6 +20,9 @@
 @property(nonatomic, copy) NSColor *titleColor;
 @property(nonatomic, copy) NSColor *titleHighlightColor;
 
+@property(nonatomic, assign) CGFloat minTabWidth;
+@property(nonatomic, assign) CGFloat maxTabWidth;
+
 @property(nonatomic, weak) IBOutlet id <KPCTabsControlDelegate> delegate;
 @property(nonatomic, weak) IBOutlet id <KPCTabsControlDataSource> dataSource;
 

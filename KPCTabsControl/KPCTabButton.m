@@ -8,8 +8,6 @@
 
 #import "KPCTabButton.h"
 
-#define INCH 72.0f
-
 @interface KPCTabButton ()
 @property(nonatomic, strong) NSImageView *iconView;
 @property(nonatomic, strong) NSTrackingArea *trackingArea;
@@ -47,8 +45,6 @@
 - (void)setup
 {
     [self setCell:[[KPCTabButtonCell alloc] initTextCell:@""]];
-    self.minWidth = INCH * 0.85;
-    self.maxWidth = INCH * 2.75;
 }
 
 - (void)setIcon:(NSImage *)icon

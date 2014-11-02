@@ -19,9 +19,6 @@
 @property(nonatomic, copy) NSColor *titleColor;
 @property(nonatomic, copy) NSColor *titleHighlightColor;
 
-@property(nonatomic, assign) CGFloat minWidth;
-@property(nonatomic, assign) CGFloat maxWidth;
-
 @property(nonatomic, strong) NSImage *icon;
 
 - (void)useMenu:(NSMenu *)menu;
