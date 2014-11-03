@@ -223,8 +223,8 @@
         [self.scrollLeftButton  setHidden:NO];
         [self.scrollRightButton setHidden:NO];
 
-//        [_scrollLeftButton setEnabled:([self firstTabLeftOutsideVisibleRect] != nil)];
-//        [_scrollRightButton setEnabled:([self firstTabRightOutsideVisibleRect] != nil)];
+        [self.scrollLeftButton setEnabled:([self firstTabLeftOutsideVisibleRect] != nil)];
+        [self.scrollRightButton setEnabled:([self firstTabRightOutsideVisibleRect] != nil)];
     }
 	else {
         [self.scrollLeftButton  setHidden:YES];
@@ -254,7 +254,7 @@ static char KPCScrollViewObservationContext;
     [self.scrollView removeObserver:self forKeyPath:@"documentView.frame" context:&KPCScrollViewObservationContext];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:NSViewBoundsDidChangeNotification
+                                                    name:NSViewFrameDidChangeNotification
                                                   object:self.scrollView];
 }
 
@@ -275,8 +275,7 @@ static char KPCScrollViewObservationContext;
     [self invalidateRestorableState];
 }
 
-#pragma mark -
-#pragma mark Actions
+#pragma mark - Actions
 
 //- (void)setAddAction:(SEL)addAction {
 //    if (_addAction != addAction) {
@@ -291,91 +290,102 @@ static char KPCScrollViewObservationContext;
 //    
 //    [self invalidateRestorableState];
 //}
-//
-//- (void)goLeft:(id)sender {
-//    NSButton *tab = [self firstTabLeftOutsideVisibleRect];
-//    
-//    if (tab != nil) {
-//        [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
-//            [context setAllowsImplicitAnimation:YES];
-//            [tab scrollRectToVisible:[tab bounds]];
-//        } completionHandler:nil];
-//    }
-//}
-//
-//- (NSButton *)firstTabLeftOutsideVisibleRect {
-//    NSView *tabView = self.scrollView.documentView;
-//    NSRect  visibleRect = tabView.visibleRect;
-//    
-//    for (NSButton *button in tabView.subviews) {
-//        if (NSMinX(button.frame) < NSMinX(visibleRect)) {
-//            return button;
-//        }
-//    }
-//    return nil;
-//}
-//
-//- (void)goRight:(id)sender {
-//    NSButton *tab = [self firstTabRightOutsideVisibleRect];
-//    
-//    if (tab != nil) {
-//        [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
-//            [context setAllowsImplicitAnimation:YES];
-//            [tab scrollRectToVisible:[tab bounds]];
-//        } completionHandler:nil];
-//    }
-//}
-//
-//- (NSButton *)firstTabRightOutsideVisibleRect {
-//    NSView *tabView = self.scrollView.documentView;
-//    NSRect  visibleRect = tabView.visibleRect;
-//    
-//    for (NSButton *button in [tabView subviews]) {
-//        if (NSMaxX(button.frame) > NSMaxX(visibleRect)) {
-//            return button;
-//        }
-//    }
-//    return nil;
-//}
+
+- (void)scrollLeft:(id)sender
+{
+    NSButton *tab = [self firstTabLeftOutsideVisibleRect];
+    
+    if (tab != nil) {
+        [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
+            [context setAllowsImplicitAnimation:YES];
+            [tab scrollRectToVisible:[tab bounds]];
+        } completionHandler:^{
+			[self invalidateRestorableState];
+		}];
+    }
+}
+
+- (NSButton *)firstTabLeftOutsideVisibleRect
+{
+    NSRect visibleRect = self.tabsView.visibleRect;
+    
+    for (NSButton *button in self.tabsView.subviews) {
+        if (NSMinX(button.frame) < NSMinX(visibleRect)) {
+            return button;
+        }
+    }
+    return nil;
+}
+
+- (void)scrollRight:(id)sender
+{
+    NSButton *tab = [self firstTabRightOutsideVisibleRect];
+    
+    if (tab != nil) {
+        [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
+            [context setAllowsImplicitAnimation:YES];
+            [tab scrollRectToVisible:[tab bounds]];
+        } completionHandler:^{
+			[self invalidateRestorableState];
+		}];
+    }
+}
+
+- (NSButton *)firstTabRightOutsideVisibleRect
+{
+	NSRect visibleRect = self.tabsView.visibleRect;
+
+    for (NSButton *button in [self.tabsView subviews]) {
+        if (NSMaxX(button.frame) > NSMaxX(visibleRect)) {
+            return button;
+        }
+    }
+    return nil;
+}
 
 - (void)selectTab:(id)sender
 {
-//    NSButton *selectedButton = sender;
-//    
-//    for (NSButton *button in [self.scrollView.documentView subviews]) {
-//        [button setState:(button == selectedButton) ? 1 : 0];
-//    }
-//    
-//    [[NSApplication sharedApplication] sendAction:self.action to:self.target from:self];
-//    [[NSNotificationCenter defaultCenter] postNotificationName:KPCTabsControlSelectionDidChangeNotification object:self];
-//    
-//    NSEvent *currentEvent = [NSApp currentEvent];
-//    
-//    if (currentEvent.clickCount > 1) {
-//        // edit on double click...
-//        [self editItem:[[sender cell] representedObject]];
-//        
-//    } else if ([self.dataSource tabControl:self canReorderItem:[[sender cell] representedObject]]) {
-//        // watch for a drag event and initiate dragging if a drag is found...
-//        if ([self.window nextEventMatchingMask:NSLeftMouseUpMask|NSLeftMouseDraggedMask untilDate:[NSDate distantFuture] inMode:NSEventTrackingRunLoopMode dequeue:NO].type == NSLeftMouseDragged) {
-//            [self reorderTab:sender withEvent:currentEvent];
-//            return; // no autoscroll
-//        }
-//    }
-//    
-//    // scroll to visible if either editing or selecting...
-//    [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
-//        [context setAllowsImplicitAnimation:YES];
-//        [selectedButton.superview scrollRectToVisible:selectedButton.frame];
-//    } completionHandler:nil];
-//    
-//    [self invalidateRestorableState];
+    NSButton *selectedButton = sender;
+    
+    for (NSButton *button in [self.scrollView.documentView subviews]) {
+        [button setState:(button == selectedButton) ? NSOnState : NSOffState];
+    }
+    
+    [[NSApplication sharedApplication] sendAction:self.action to:self.target from:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:KPCTabsControlSelectionDidChangeNotification object:self];
+    
+    NSEvent *currentEvent = [NSApp currentEvent];
+    
+    if (currentEvent.clickCount > 1) { // edit on double click...
+        [self editItem:[[sender cell] representedObject]];
+    }
+	// watch for a drag event and initiate dragging if a drag is found...
+	else if ([self.dataSource tabControl:self canReorderItem:[[sender cell] representedObject]]) {
+		NSEvent *event = [self.window nextEventMatchingMask:NSLeftMouseUpMask|NSLeftMouseDraggedMask
+												  untilDate:[NSDate distantFuture]
+													 inMode:NSEventTrackingRunLoopMode
+													dequeue:NO];
+
+        if (event.type == NSLeftMouseDragged) {
+            [self reorderTab:sender withEvent:currentEvent];
+            return; // no autoscroll
+        }
+    }
+    
+    // scroll to visible if either editing or selecting...
+    [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
+        [context setAllowsImplicitAnimation:YES];
+        [selectedButton.superview scrollRectToVisible:selectedButton.frame];
+    } completionHandler:nil];
+    
+    [self invalidateRestorableState];
 }
 
 #pragma mark -
-#pragma mark Reordering
+#pragma mark - Reordering
 
-//- (void)reorderTab:(NSButton *)tab withEvent:(NSEvent *)event {
+- (void)reorderTab:(NSButton *)tab withEvent:(NSEvent *)event
+{
 //    // note existing tabs which will be reordered over
 //    // the course of our drag; while the dragging tab maintains
 //    // its position over the course of the dragging operation
@@ -501,10 +511,10 @@ static char KPCScrollViewObservationContext;
 //        
 //        [self setSelectedItem:[tab.cell representedObject]];
 //    }
-//}
+}
 
-#pragma mark -
-#pragma mark Selection
+
+#pragma mark - Selection
 
 - (id)selectedItem
 {
@@ -581,10 +591,11 @@ static char KPCScrollViewObservationContext;
 //    }
 //}
 
-#pragma mark -
-#pragma mark NSTextFieldDelegate
 
-//- (BOOL)control:(NSControl *)control textShouldBeginEditing:(NSText *)fieldEditor {
+#pragma mark - NSTextFieldDelegate
+
+//- (BOOL)control:(NSControl *)control textShouldBeginEditing:(NSText *)fieldEditor
+//{
 //    BOOL ret = YES;
 //    if ([_delegate respondsToSelector:_cmd]) {
 //        ret = [_delegate control:self textShouldBeginEditing:fieldEditor];
@@ -689,47 +700,48 @@ static char KPCScrollViewObservationContext;
 // the LITabControl instance within IB or, if the control is created programmatically,
 // prior to adding it to your window's view hierarchy.
 
-//#define kScrollXOffsetKey @"scrollOrigin"
-//#define kSelectedButtonIndexKey @"selectedButtonIndex"
-//
-//- (void)encodeRestorableStateWithCoder:(NSCoder *)coder
-//{
-//    [super encodeRestorableStateWithCoder:coder];
-//    
-//    CGFloat scrollXOffset = 0;
-//    NSUInteger selectedButtonIndex = NSNotFound;
-//    
-//    scrollXOffset = self.scrollView.contentView.bounds.origin.x;
-//    
-//    NSUInteger index = 0;
-//    for (NSButton *button in [self.scrollView.documentView subviews]) {
-//        if (button.state == 1) {
-//            selectedButtonIndex = index;
-//            break;
-//        }
-//        index += 1;
-//    }
-//    
-//    [coder encodeDouble:scrollXOffset forKey:kScrollXOffsetKey];
-//    [coder encodeInteger:selectedButtonIndex forKey:kSelectedButtonIndexKey];
-//}
-//
-//- (void)restoreStateWithCoder:(NSCoder *)coder
-//{
-//    [super restoreStateWithCoder:coder];
-//    
-//    CGFloat scrollXOffset = [coder decodeDoubleForKey:kScrollXOffsetKey];
-//    NSUInteger selectedButtonIndex = [coder decodeIntegerForKey:kSelectedButtonIndexKey];
-//    
-//    NSRect bounds = self.scrollView.contentView.bounds; bounds.origin.x = scrollXOffset;
-//    self.scrollView.contentView.bounds = bounds;
-//    
-//    NSUInteger index = 0;
-//    for (NSButton *button in [self.scrollView.documentView subviews]) {
-//        [button setState:(index == selectedButtonIndex) ? NSOnState : NSOffState];
-//        index += 1;
-//    }
-//}
+#define kScrollXOffsetKey @"scrollOrigin"
+#define kSelectedButtonIndexKey @"selectedButtonIndex"
+
+
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    [super encodeRestorableStateWithCoder:coder];
+    
+    CGFloat scrollXOffset = 0;
+    NSUInteger selectedButtonIndex = NSNotFound;
+    
+    scrollXOffset = self.scrollView.contentView.bounds.origin.x;
+    
+    NSUInteger index = 0;
+    for (NSButton *button in [self.scrollView.documentView subviews]) {
+        if (button.state == 1) {
+            selectedButtonIndex = index;
+            break;
+        }
+        index += 1;
+    }
+    
+    [coder encodeDouble:scrollXOffset forKey:kScrollXOffsetKey];
+    [coder encodeInteger:selectedButtonIndex forKey:kSelectedButtonIndexKey];
+}
+
+- (void)restoreStateWithCoder:(NSCoder *)coder
+{
+    [super restoreStateWithCoder:coder];
+    
+    CGFloat scrollXOffset = [coder decodeDoubleForKey:kScrollXOffsetKey];
+    NSUInteger selectedButtonIndex = [coder decodeIntegerForKey:kSelectedButtonIndexKey];
+    
+    NSRect bounds = self.scrollView.contentView.bounds; bounds.origin.x = scrollXOffset;
+    self.scrollView.contentView.bounds = bounds;
+    
+    NSUInteger index = 0;
+    for (NSButton *button in [self.scrollView.documentView subviews]) {
+        [button setState:(index == selectedButtonIndex) ? NSOnState : NSOffState];
+        index += 1;
+    }
+}
 
 #pragma mark - Properties
 
