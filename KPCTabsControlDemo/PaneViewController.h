@@ -15,8 +15,7 @@
 @property(nonatomic, weak) IBOutlet KPCTabsControl *tabsBar;
 
 @property(nonatomic, weak) IBOutlet NSButton *useFullWidthTabsCheckButton;
-@property(nonatomic, weak) IBOutlet NSTextField *minWidthLabel;
-@property(nonatomic, weak) IBOutlet NSTextField *maxWidthLabel;
+@property(nonatomic, weak) IBOutlet NSTextField *tabWidthsLabel;
 
 - (IBAction)toggleFullWidthTabs:(id)sender;
 

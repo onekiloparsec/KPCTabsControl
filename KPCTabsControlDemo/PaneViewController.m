@@ -79,8 +79,10 @@
 		self.tabsBar.minTabWidth = 100.0;
 	}
 
-	[self.minWidthLabel setStringValue:[NSString stringWithFormat:@"Min Button Width: %.1f pt", self.tabsBar.minTabWidth]];
-	[self.maxWidthLabel setStringValue:[NSString stringWithFormat:@"Max Button Width: %.1f pt", self.tabsBar.maxTabWidth]];
+	NSString *labelString = [NSString stringWithFormat:@"min %.0f < %.0f < %.0f max",
+							 self.tabsBar.minTabWidth, self.tabsBar.currentTabWidth, self.tabsBar.maxTabWidth];
+
+	[self.tabWidthsLabel setStringValue:labelString];
 
 	[self.tabsBar setPreferFullWidthTabs:self.useFullWidthTabsCheckButton.state];
     [self.tabsBar reloadData];
@@ -172,6 +174,11 @@
 				break;
 		}
 	}
+
+	NSString *labelString = [NSString stringWithFormat:@"min %.0f < %.0f < %.0f max",
+							 self.tabsBar.minTabWidth, self.tabsBar.currentTabWidth, self.tabsBar.maxTabWidth];
+
+	[self.tabWidthsLabel setStringValue:labelString];
 }
 
 

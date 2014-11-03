@@ -22,7 +22,6 @@
 		9F3C2E3B1A0182DF00281F4B /* KPCTabPlusTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 9F3C2E371A0182DF00281F4B /* KPCTabPlusTemplate.pdf */; };
 		9F3C2E3C1A0182DF00281F4B /* KPCTabRightTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 9F3C2E381A0182DF00281F4B /* KPCTabRightTemplate.pdf */; };
 		9F3C2E401A022ECC00281F4B /* NSButton+KPCTabsControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F3C2E3F1A022ECC00281F4B /* NSButton+KPCTabsControl.m */; };
-		9F573D491A06995E00B8E389 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 9F573D481A06995E00B8E389 /* README.md */; };
 		9FBD05071A037A0600B157D2 /* PaneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FBD05061A037A0600B157D2 /* PaneViewController.m */; };
 		9FFC4AAC1A068F2000AAF238 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9FFC4AAB1A068F2000AAF238 /* Images.xcassets */; };
 /* End PBXBuildFile section */
@@ -289,7 +288,6 @@
 			files = (
 				9F2155FF1A00442F00819BDF /* KPCTabsControl.m in Sources */,
 				9F2155DA1A002F0200819BDF /* main.m in Sources */,
-				9F573D491A06995E00B8E389 /* README.md in Sources */,
 				9F2155F51A00309C00819BDF /* KPCTabButton.m in Sources */,
 				9F2155F81A0030B000819BDF /* KPCTabButtonCell.m in Sources */,
 				9F2155FB1A00314B00819BDF /* NSImage+KPCTabsControl.m in Sources */,

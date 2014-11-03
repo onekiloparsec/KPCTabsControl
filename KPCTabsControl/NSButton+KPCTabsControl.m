@@ -8,15 +8,18 @@
 
 #import "NSButton+KPCTabsControl.h"
 #import "KPCTabButton.h"
+#import "KPCTabButtonCell.h"
 
 @implementation NSButton (KPCTabsControl)
 
 + (NSButton *)auxiliaryButtonWithImageNamed:(NSString *)name target:(id)target action:(SEL)action
 {
     NSButton *button = [[NSButton alloc] init];
-    
-    [button setCell:[[KPCTabButtonCell alloc] initTextCell:@""]];
-    
+
+	KPCTabButtonCell *cell = [[KPCTabButtonCell alloc] initTextCell:@""];
+	cell.borderMask |= KPCBorderMaskBottom;
+    [button setCell:cell];
+
     [button setTarget:target];
     [button setAction:action];
     
@@ -24,6 +27,10 @@
     
     [button setImagePosition:NSImageOnly];
     [button setImage:[NSImage imageNamed:name]];
+
+	CGRect r = CGRectZero;
+	r.size = button.image.size;
+	button.frame = r;
     
     return button;
 }

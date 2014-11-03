@@ -115,10 +115,10 @@
         // But for pixel-control freaking guys like me, I see no escape.
         CGRect r = CGRectZero;
         r.size.height = CGRectGetHeight(self.scrollView.frame);
-        r.size.width = CGRectGetWidth(self.scrollLeftButton.frame);
+        r.size.width = CGRectGetWidth(self.scrollLeftButton.frame) + 2.0;
         r.origin.x = CGRectGetMaxX(self.scrollView.frame) - r.size.width;
         self.scrollRightButton.frame = r;
-        r.origin.x -= r.size.width;
+        r.origin.x -= r.size.width + 2.0;
         self.scrollLeftButton.frame = r;
     }
     
@@ -192,9 +192,9 @@
 
 	[self.tabsView.subviews enumerateObjectsUsingBlock:^(KPCTabButton *button, NSUInteger idx, BOOL *stop) {
 
-		CGFloat availableWidth = CGRectGetWidth(self.scrollView.frame) - ((self.hideScrollButtons) ? 0.0 : 2*CGRectGetWidth(self.scrollLeftButton.frame));
-		CGFloat fullSizeWidth = availableWidth / self.tabsView.subviews.count;
+		CGFloat fullSizeWidth = CGRectGetWidth(self.scrollView.frame) / self.tabsView.subviews.count;
 		CGFloat buttonWidth = (self.preferFullWidthTabs) ? fullSizeWidth : MIN(self.maxTabWidth, fullSizeWidth);
+		buttonWidth = MAX(buttonWidth, self.minTabWidth);
 
 		[button setFrame:CGRectMake(idx*buttonWidth, 0, buttonWidth, CGRectGetHeight(self.tabsView.frame))];
 
@@ -214,25 +214,21 @@
 
 - (void)updateAuxiliaryButtons
 {
-    BOOL showAddButton = self.addAction != NULL;
-
-    [_addButton setHidden:(showAddButton) ? NO : YES];
-    [_addButton.constraints.lastObject setConstant:(showAddButton) ? 48 : 0];
+    [self.addButton setHidden:(self.addAction == NULL)];
 
     NSClipView *contentView = self.scrollView.contentView;
-
     BOOL isDocumentClipped = (contentView.subviews.count > 0) && (NSMaxX([contentView.subviews[0] frame]) > NSWidth(contentView.bounds));
 
     if (isDocumentClipped) {
-        [_scrollLeftButton  setHidden:NO];
-        [_scrollRightButton setHidden:NO];
+        [self.scrollLeftButton  setHidden:NO];
+        [self.scrollRightButton setHidden:NO];
 
 //        [_scrollLeftButton setEnabled:([self firstTabLeftOutsideVisibleRect] != nil)];
 //        [_scrollRightButton setEnabled:([self firstTabRightOutsideVisibleRect] != nil)];
-
-    } else {
-        [_scrollLeftButton  setHidden:YES];
-        [_scrollRightButton setHidden:YES];
+    }
+	else {
+        [self.scrollLeftButton  setHidden:YES];
+        [self.scrollRightButton setHidden:YES];
     }
 }
 
@@ -736,6 +732,14 @@ static char KPCScrollViewObservationContext;
 //}
 
 #pragma mark - Properties
+
+- (CGFloat)currentTabWidth
+{
+	if (self.tabsView.subviews.count > 0) {
+		return CGRectGetWidth([self.tabsView.subviews[0] frame]);
+	}
+	return 0.0;
+}
 
 - (void)setMinTabWidth:(CGFloat)minTabWidth
 {

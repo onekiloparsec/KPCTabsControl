@@ -705,18 +705,9 @@
                                         </connections>
                                     </button>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="F6G-hp-JoA">
-                                        <rect key="frame" x="115" y="53" width="250" height="17"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <rect key="frame" x="18" y="53" width="444" height="17"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Label" id="BN9-n7-rmP">
-                                            <font key="font" metaFont="system"/>
-                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                    </textField>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="SoS-1C-WEx">
-                                        <rect key="frame" x="115" y="28" width="250" height="17"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Label" id="w4z-Tu-t4m">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -748,18 +739,9 @@
                                         </connections>
                                     </button>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="rYX-Zz-PXW">
-                                        <rect key="frame" x="115" y="57" width="250" height="17"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <rect key="frame" x="18" y="57" width="444" height="17"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Label" id="Kou-nG-MKf">
-                                            <font key="font" metaFont="system"/>
-                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                    </textField>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="V6n-p0-okv">
-                                        <rect key="frame" x="115" y="32" width="250" height="17"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Label" id="E06-sD-Iq2">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -779,8 +761,7 @@
         </window>
         <viewController title="pane1" id="xdx-8e-TeG" userLabel="Top Pane View Controller" customClass="PaneViewController">
             <connections>
-                <outlet property="maxWidthLabel" destination="F6G-hp-JoA" id="C21-aX-y7b"/>
-                <outlet property="minWidthLabel" destination="SoS-1C-WEx" id="fsf-qc-gF1"/>
+                <outlet property="tabWidthsLabel" destination="F6G-hp-JoA" id="zZp-qb-eTj"/>
                 <outlet property="tabsBar" destination="6yZ-WH-RCy" id="461-72-MDV"/>
                 <outlet property="useFullWidthTabsCheckButton" destination="vXn-Sz-Wjz" id="mfK-pb-d5t"/>
                 <outlet property="view" destination="cX9-TC-uim" id="tkY-aG-gbu"/>
@@ -788,8 +769,7 @@
         </viewController>
         <viewController title="pane2" id="PpQ-PP-vYq" userLabel="Bottom Pane View Controller" customClass="PaneViewController">
             <connections>
-                <outlet property="maxWidthLabel" destination="rYX-Zz-PXW" id="x9l-to-WLh"/>
-                <outlet property="minWidthLabel" destination="V6n-p0-okv" id="nlJ-nF-36h"/>
+                <outlet property="tabWidthsLabel" destination="rYX-Zz-PXW" id="tc5-Av-RfZ"/>
                 <outlet property="tabsBar" destination="Nsw-7J-Pfp" id="QMI-dh-t8Z"/>
                 <outlet property="useFullWidthTabsCheckButton" destination="7dS-xx-Fzc" id="BJr-w0-4qa"/>
                 <outlet property="view" destination="WUg-Je-gBw" id="Zcb-Pt-XYC"/>

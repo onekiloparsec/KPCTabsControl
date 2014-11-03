@@ -22,6 +22,7 @@
 
 @property(nonatomic, assign) CGFloat minTabWidth;
 @property(nonatomic, assign) CGFloat maxTabWidth;
+@property(nonatomic, assign, readonly) CGFloat currentTabWidth;
 
 @property(nonatomic, weak) IBOutlet id <KPCTabsControlDelegate> delegate;
 @property(nonatomic, weak) IBOutlet id <KPCTabsControlDataSource> dataSource;
