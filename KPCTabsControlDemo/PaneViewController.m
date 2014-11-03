@@ -118,17 +118,17 @@
 
 #pragma mark - KPCTabsControlDataSource
 
-- (NSUInteger)tabControlNumberOfTabs:(KPCTabsControl *)tabControl
+- (NSUInteger)tabsControlNumberOfTabs:(KPCTabsControl *)tabControl
 {
     return self.titles.count;
 }
 
-- (id)tabControl:(KPCTabsControl *)tabControl itemAtIndex:(NSUInteger)index
+- (id)tabsControl:(KPCTabsControl *)tabControl itemAtIndex:(NSUInteger)index
 {
     return self.titles[index];
 }
 
-- (NSString *)tabControl:(KPCTabsControl *)tabControl titleForItem:(id)item
+- (NSString *)tabsControl:(KPCTabsControl *)tabControl titleForItem:(id)item
 {
     NSUInteger index = [self.titles indexOfObject:item];
     return (index == NSNotFound) ? @"?" : self.titles[index];
@@ -137,12 +137,12 @@
 
 #pragma - mark Optionals
 
-- (NSMenu *)tabControl:(KPCTabsControl *)tabControl menuForItem:(id)item
+- (NSMenu *)tabsControl:(KPCTabsControl *)tabControl menuForItem:(id)item
 {
     return [self.menus objectForKey:item];
 }
 
-- (void)tabControl:(KPCTabsControl *)tabControl willDisplayButton:(KPCTabButton *)button forItem:(id)item
+- (void)tabsControl:(KPCTabsControl *)tabControl willDisplayButton:(KPCTabButton *)button forItem:(id)item
 {
 	NSUInteger index = [self.titles indexOfObject:item];
 	if ([self.title isEqualToString:@"pane1"]) {
@@ -181,7 +181,7 @@
 	[self.tabWidthsLabel setStringValue:labelString];
 }
 
-- (BOOL)tabControl:(KPCTabsControl *)tabControl canReorderItem:(id)item
+- (BOOL)tabsControl:(KPCTabsControl *)tabControl canReorderItem:(id)item
 {
 	return YES;
 }

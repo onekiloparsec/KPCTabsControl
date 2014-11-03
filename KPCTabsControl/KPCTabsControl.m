@@ -139,7 +139,7 @@
         return;
     }
     
-    if (_dataSource && [_dataSource respondsToSelector:@selector(tabControlDidChangeSelection:)]) {
+    if (_dataSource && [_dataSource respondsToSelector:@selector(tabsControlDidChangeSelection:)]) {
         [[NSNotificationCenter defaultCenter] removeObserver:_dataSource
                                                         name:KPCTabsControlSelectionDidChangeNotification
                                                       object:self];
@@ -147,9 +147,9 @@
     
     _dataSource = dataSource;
     
-    if (_dataSource && [_dataSource respondsToSelector:@selector(tabControlDidChangeSelection:)])
+    if (_dataSource && [_dataSource respondsToSelector:@selector(tabsControlDidChangeSelection:)])
         [[NSNotificationCenter defaultCenter] addObserver:_dataSource
-                                                 selector:@selector(tabControlDidChangeSelection:)
+                                                 selector:@selector(tabsControlDidChangeSelection:)
                                                      name:KPCTabsControlSelectionDidChangeNotification
                                                    object:self];
     
@@ -161,18 +161,18 @@
     [self.tabsView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
     NSMutableArray *newItems = [[NSMutableArray alloc] init];
-    for (NSUInteger i = 0, count = [self.dataSource tabControlNumberOfTabs:self]; i < count; i++) {
-        [newItems addObject:[self.dataSource tabControl:self itemAtIndex:i]];
+    for (NSUInteger i = 0, count = [self.dataSource tabsControlNumberOfTabs:self]; i < count; i++) {
+        [newItems addObject:[self.dataSource tabsControl:self itemAtIndex:i]];
     }
     
     for (NSUInteger i = 0; i < newItems.count; i++) {
         id item = newItems[i];
         
         KPCTabButton *button = [NSButton tabButtonWithItem:item target:self action:@selector(selectTab:)];
-        [button setTitle:[self.dataSource tabControl:self titleForItem:item]];
+        [button setTitle:[self.dataSource tabsControl:self titleForItem:item]];
         
-        if ([self.dataSource respondsToSelector:@selector(tabControl:menuForItem:)]) {
-            NSMenu *menu = [self.dataSource tabControl:self menuForItem:item];
+        if ([self.dataSource respondsToSelector:@selector(tabsControl:menuForItem:)]) {
+            NSMenu *menu = [self.dataSource tabsControl:self menuForItem:item];
             if (menu) {
                 [button useMenu:menu];
             }
@@ -209,12 +209,12 @@
 			[button setFrame:r];
 		}
 
-		if ([self.dataSource respondsToSelector:@selector(tabControl:canSelectItem:)]) {
-			[[button cell] setSelectable:[self.dataSource tabControl:self canSelectItem:[button.cell representedObject]]];
+		if ([self.dataSource respondsToSelector:@selector(tabsControl:canSelectItem:)]) {
+			[[button cell] setSelectable:[self.dataSource tabsControl:self canSelectItem:[button.cell representedObject]]];
 		}
 
-		if ([self.dataSource respondsToSelector:@selector(tabControl:willDisplayButton:forItem:)]) {
-			[self.dataSource tabControl:self willDisplayButton:button forItem:[button.cell representedObject]];
+		if ([self.dataSource respondsToSelector:@selector(tabsControl:willDisplayButton:forItem:)]) {
+			[self.dataSource tabsControl:self willDisplayButton:button forItem:[button.cell representedObject]];
 		}
 
 		tabsViewWidth += CGRectGetWidth(button.frame);
@@ -371,8 +371,8 @@ static char KPCScrollViewObservationContext;
         [self editItem:[[sender cell] representedObject]];
     }
 	// watch for a drag event and initiate dragging if a drag is found...
-	else if ([self.dataSource respondsToSelector:@selector(tabControl:canReorderItem:)]) {
-		if ([self.dataSource tabControl:self canReorderItem:[[sender cell] representedObject]]) {
+	else if ([self.dataSource respondsToSelector:@selector(tabsControl:canReorderItem:)]) {
+		if ([self.dataSource tabsControl:self canReorderItem:[[sender cell] representedObject]]) {
 		NSEvent *event = [self.window nextEventMatchingMask:NSLeftMouseUpMask|NSLeftMouseDraggedMask
 												  untilDate:[NSDate distantFuture]
 													 inMode:NSEventTrackingRunLoopMode
@@ -428,8 +428,8 @@ static char KPCScrollViewObservationContext;
 			[[NSAnimationContext currentContext] setCompletionHandler:^{
 				[draggingTab removeFromSuperview];
 				[tab setHidden:NO];
-				if (reordered && [self.dataSource respondsToSelector:@selector(tabControl:didReorderItems:)]) {
-					[self.dataSource tabControl:self didReorderItems:[orderedTabs valueForKeyPath:@"cell.representedObject"]];
+				if (reordered && [self.dataSource respondsToSelector:@selector(tabsControl:didReorderItems:)]) {
+					[self.dataSource tabsControl:self didReorderItems:[orderedTabs valueForKeyPath:@"cell.representedObject"]];
 				}
 				[self reloadData]; // That's the delegate responsability to store new order of items.
 			}];

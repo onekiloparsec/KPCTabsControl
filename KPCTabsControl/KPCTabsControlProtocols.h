@@ -13,23 +13,23 @@
 
 @protocol KPCTabsControlDataSource <NSObject>
 
-- (NSUInteger)tabControlNumberOfTabs:(KPCTabsControl *)tabControl;
-- (id)tabControl:(KPCTabsControl *)tabControl itemAtIndex:(NSUInteger)index;
-- (NSString *)tabControl:(KPCTabsControl *)tabControl titleForItem:(id)item;
+- (NSUInteger)tabsControlNumberOfTabs:(KPCTabsControl *)tabControl;
+- (id)tabsControl:(KPCTabsControl *)tabControl itemAtIndex:(NSUInteger)index;
+- (NSString *)tabsControl:(KPCTabsControl *)tabControl titleForItem:(id)item;
 
 @optional
-- (NSMenu *)tabControl:(KPCTabsControl *)tabControl menuForItem:(id)item;
+- (NSMenu *)tabsControl:(KPCTabsControl *)tabControl menuForItem:(id)item;
 
-- (BOOL)tabControl:(KPCTabsControl *)tabControl canSelectItem:(id)item;
-- (void)tabControlDidChangeSelection:(NSNotification *)notification;
+- (BOOL)tabsControl:(KPCTabsControl *)tabControl canSelectItem:(id)item;
+- (void)tabsControlDidChangeSelection:(NSNotification *)notification;
 
-- (BOOL)tabControl:(KPCTabsControl *)tabControl canReorderItem:(id)item;
-- (void)tabControl:(KPCTabsControl *)tabControl didReorderItems:(NSArray *)itemArray;
+- (BOOL)tabsControl:(KPCTabsControl *)tabControl canReorderItem:(id)item;
+- (void)tabsControl:(KPCTabsControl *)tabControl didReorderItems:(NSArray *)itemArray;
 
-- (BOOL)tabControl:(KPCTabsControl *)tabControl canEditItem:(id)item;
-- (void)tabControl:(KPCTabsControl *)tabControl setTitle:(NSString *)title forItem:(id)item;
+- (BOOL)tabsControl:(KPCTabsControl *)tabControl canEditItem:(id)item;
+- (void)tabsControl:(KPCTabsControl *)tabControl setTitle:(NSString *)title forItem:(id)item;
 
-- (void)tabControl:(KPCTabsControl *)tabControl willDisplayButton:(KPCTabButton *)button forItem:(id)item;
+- (void)tabsControl:(KPCTabsControl *)tabControl willDisplayButton:(KPCTabButton *)button forItem:(id)item;
 
 @end
 
