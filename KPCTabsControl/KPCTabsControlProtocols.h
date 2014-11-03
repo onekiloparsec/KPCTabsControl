@@ -24,7 +24,7 @@
 - (void)tabControlDidChangeSelection:(NSNotification *)notification;
 
 - (BOOL)tabControl:(KPCTabsControl *)tabControl canReorderItem:(id)item;
-- (void)tabControlDidReorderItems:(KPCTabsControl *)tabControl orderedItems:(NSArray *)itemArray;
+- (void)tabControl:(KPCTabsControl *)tabControl didReorderItems:(NSArray *)itemArray;
 
 - (BOOL)tabControl:(KPCTabsControl *)tabControl canEditItem:(id)item;
 - (void)tabControl:(KPCTabsControl *)tabControl setTitle:(NSString *)title forItem:(id)item;

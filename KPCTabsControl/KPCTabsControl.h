@@ -28,7 +28,6 @@
 @property(nonatomic, weak) IBOutlet id <KPCTabsControlDataSource> dataSource;
 
 @property(nonatomic, weak) id selectedItem;
-@property(nonatomic, assign) BOOL notifiesOnPartialReorder;
 
 @property(nonatomic, assign) BOOL preferFullWidthTabs;
 @property(nonatomic, assign, readonly) BOOL isHighlighted;

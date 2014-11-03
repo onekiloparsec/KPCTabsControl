@@ -181,22 +181,33 @@
         [self.tabsView addSubview:button];
     }
 
-	[self layoutTabButtons];
+	[self layoutTabButtons:nil animated:NO];
     [self updateAuxiliaryButtons];
     [self invalidateRestorableState];
 }
 
-- (void)layoutTabButtons
+- (void)layoutTabButtons:(NSArray *)buttons animated:(BOOL)anim
 {
 	__block CGFloat tabsViewWidth = 0.0;
 
-	[self.tabsView.subviews enumerateObjectsUsingBlock:^(KPCTabButton *button, NSUInteger idx, BOOL *stop) {
+	if (!buttons) {
+		buttons = self.tabsView.subviews;
+	}
+
+	[buttons enumerateObjectsUsingBlock:^(KPCTabButton *button, NSUInteger idx, BOOL *stop) {
 
 		CGFloat fullSizeWidth = CGRectGetWidth(self.scrollView.frame) / self.tabsView.subviews.count;
 		CGFloat buttonWidth = (self.preferFullWidthTabs) ? fullSizeWidth : MIN(self.maxTabWidth, fullSizeWidth);
 		buttonWidth = MAX(buttonWidth, self.minTabWidth);
+		CGRect r = CGRectMake(idx*buttonWidth, 0, buttonWidth, CGRectGetHeight(self.tabsView.frame));
 
-		[button setFrame:CGRectMake(idx*buttonWidth, 0, buttonWidth, CGRectGetHeight(self.tabsView.frame))];
+		// Don't animate if it is hidden, as it will screw order of tabs
+		if (anim && ![button isHidden]) {
+			[[button animator] setFrame:r];
+		}
+		else {
+			[button setFrame:r];
+		}
 
 		if ([self.dataSource respondsToSelector:@selector(tabControl:canSelectItem:)]) {
 			[[button cell] setSelectable:[self.dataSource tabControl:self canSelectItem:[button.cell representedObject]]];
@@ -270,7 +281,7 @@ static char KPCScrollViewObservationContext;
 
 - (void)scrollViewDidScroll:(NSNotification *)notification
 {
-	[self layoutTabButtons];
+	[self layoutTabButtons:nil animated:NO];
     [self updateAuxiliaryButtons];
     [self invalidateRestorableState];
 }
@@ -360,16 +371,18 @@ static char KPCScrollViewObservationContext;
         [self editItem:[[sender cell] representedObject]];
     }
 	// watch for a drag event and initiate dragging if a drag is found...
-	else if ([self.dataSource tabControl:self canReorderItem:[[sender cell] representedObject]]) {
+	else if ([self.dataSource respondsToSelector:@selector(tabControl:canReorderItem:)]) {
+		if ([self.dataSource tabControl:self canReorderItem:[[sender cell] representedObject]]) {
 		NSEvent *event = [self.window nextEventMatchingMask:NSLeftMouseUpMask|NSLeftMouseDraggedMask
 												  untilDate:[NSDate distantFuture]
 													 inMode:NSEventTrackingRunLoopMode
 													dequeue:NO];
 
-        if (event.type == NSLeftMouseDragged) {
-            [self reorderTab:sender withEvent:currentEvent];
-            return; // no autoscroll
-        }
+			if (event.type == NSLeftMouseDragged) {
+				[self reorderTab:sender withEvent:currentEvent];
+				return; // no autoscroll
+			}
+		}
     }
     
     // scroll to visible if either editing or selecting...
@@ -384,133 +397,73 @@ static char KPCScrollViewObservationContext;
 #pragma mark -
 #pragma mark - Reordering
 
-- (void)reorderTab:(NSButton *)tab withEvent:(NSEvent *)event
+- (void)reorderTab:(KPCTabButton *)tab withEvent:(NSEvent *)event
 {
-//    // note existing tabs which will be reordered over
-//    // the course of our drag; while the dragging tab maintains
-//    // its position over the course of the dragging operation
-//    
-//    NSView          *tabView        = self.scrollView.documentView;
-//    NSMutableArray  *orderedTabs    = [[NSMutableArray alloc] initWithArray:tabView.subviews.reverseObjectEnumerator.allObjects];
-//    
-//    // create a dragging tab used to represent our drag,
-//    // and constraint its position and its size; the first
-//    // constraint sets position - we'll be varying this one
-//    // during our drag...
-//    
-//    CGFloat   tabX                  = NSMinX(tab.frame);
-//    NSPoint   dragPoint             = [tabView convertPoint:event.locationInWindow fromView:nil];
-//    
-//    
-//    NSButton *draggingTab           = [self tabWithItem:[tab.cell representedObject]];
-//    
-//    NSArray  *draggingConstraints   = @[[NSLayoutConstraint constraintWithItem:draggingTab attribute:NSLayoutAttributeLeading
-//                                                                     relatedBy:NSLayoutRelationEqual
-//                                                                        toItem:tabView attribute:NSLayoutAttributeLeading
-//                                                                    multiplier:1 constant:tabX],                                // VARIABLE
-//                                        
-//                                        [NSLayoutConstraint constraintWithItem:draggingTab attribute:NSLayoutAttributeTop
-//                                                                     relatedBy:NSLayoutRelationEqual
-//                                                                        toItem:tabView attribute:NSLayoutAttributeTop
-//                                                                    multiplier:1 constant:0],                                   // CONSTANT
-//                                        [NSLayoutConstraint constraintWithItem:draggingTab attribute:NSLayoutAttributeBottom
-//                                                                     relatedBy:NSLayoutRelationEqual
-//                                                                        toItem:tabView attribute:NSLayoutAttributeBottom
-//                                                                    multiplier:1 constant:0]];                                  // CONSTANT
-//    
-//    
-//    draggingTab.cell = [tab.cell copy];
-//    
-//    // cell subclasses may alter drawing based on represented object
-//    [draggingTab.cell setRepresentedObject:[tab.cell representedObject]];
-//    
-//    // the presence of a menu affects the vertical offset of our title
-//    if ([tab.cell menu] != nil) [draggingTab.cell setMenu:[[NSMenu alloc] init]];
-//    
-//    
-//    [tabView addSubview:draggingTab];
-//    [tabView addConstraints:draggingConstraints];
-//    
-//    [tab setHidden:YES];
-//    
-//    CGPoint prevPoint = dragPoint;
-//    BOOL    dragged = NO, reordered = NO;
-//    
-//    while (1) {
-//        event = [self.window nextEventMatchingMask:NSLeftMouseDraggedMask|NSLeftMouseUpMask];
-//        
-//        if (event.type == NSLeftMouseUp) break;
-//        
-//        // ensure the dragged tab shows borders on both of its sides when dragging
-//        if (dragged == NO && event.type == NSLeftMouseDragged) {
-//            dragged = YES;
-//            
-//            KPCTabButtonCell *cell = draggingTab.cell;
-//            cell.borderMask = cell.borderMask | KPCBorderMaskLeft | KPCBorderMaskRight;
-//        }
-//        
-//        // move the dragged tab
-//        NSPoint nextPoint = [tabView convertPoint:event.locationInWindow fromView:nil];
-//        
-//        CGFloat nextX = tabX + (nextPoint.x - dragPoint.x);
-//        
-//        BOOL    movingLeft = (nextPoint.x < prevPoint.x);
-//        BOOL    movingRight = (nextPoint.x > prevPoint.x);
-//        
-//        prevPoint = nextPoint;
-//        
-//        [draggingConstraints[0] setConstant:nextX];
-//        
-//        // test for reordering...
-//        if (movingLeft && NSMidX(draggingTab.frame) < NSMinX(tab.frame) && tab != orderedTabs.firstObject) {
-//            // shift left
-//            NSUInteger index = [orderedTabs indexOfObject:tab];
-//            [orderedTabs exchangeObjectAtIndex:index withObjectAtIndex:index - 1];
-//            
-//            [self layoutTabs:orderedTabs inView:tabView];
-//            [tabView addConstraints:draggingConstraints];
-//            
-//            if (self.notifiesOnPartialReorder) {
-//                [self.dataSource tabControlDidReorderItems:self orderedItems:[orderedTabs valueForKeyPath:@"cell.representedObject"]];
-//            }
-//            
-//            reordered = YES;
-//            
-//        } else if (movingRight && NSMidX(draggingTab.frame) > NSMaxX(tab.frame) && tab != orderedTabs.lastObject) {
-//            // shift right
-//            NSUInteger index = [orderedTabs indexOfObject:tab];
-//            [orderedTabs exchangeObjectAtIndex:index+1 withObjectAtIndex:index];
-//            
-//            [self layoutTabs:orderedTabs inView:tabView];
-//            [tabView addConstraints:draggingConstraints];
-//            
-//            if (self.notifiesOnPartialReorder) {
-//                [self.dataSource tabControlDidReorderItems:self orderedItems:[orderedTabs valueForKeyPath:@"cell.representedObject"]];
-//            }
-//            
-//            reordered = YES;
-//        }
-//        
-//        [tabView layoutSubtreeIfNeeded];
-//    }
-//    
-//    [draggingTab removeFromSuperview];
-//    draggingTab = nil;
-//    
-//    [tabView removeConstraints:draggingConstraints];
-//    
-//    [tab setHidden:NO];
-//    [tab.cell setControlView:tab];
-//    
-//    if (reordered) {
-//        if (!self.notifiesOnPartialReorder) {
-//            [self.dataSource tabControlDidReorderItems:self orderedItems:[orderedTabs valueForKeyPath:@"cell.representedObject"]];
-//        }
-//        
-//        [self reloadData];
-//        
-//        [self setSelectedItem:[tab.cell representedObject]];
-//    }
+    NSMutableArray *orderedTabs = [[NSMutableArray alloc] initWithArray:self.tabsView.subviews.objectEnumerator.allObjects];
+
+    CGFloat tabX = NSMinX(tab.frame);
+    NSPoint dragPoint = [self.tabsView convertPoint:event.locationInWindow fromView:nil];
+
+	KPCTabButton *draggingTab = [[KPCTabButton alloc] initWithFrame:tab.frame];
+	KPCTabButtonCell *draggingTabCell = [tab.cell copy];
+	draggingTabCell.borderMask = draggingTabCell.borderMask | KPCBorderMaskLeft | KPCBorderMaskRight;
+	draggingTab.cell = draggingTabCell;
+
+	[draggingTab.cell setRepresentedObject:[tab.cell representedObject]];
+	[draggingTab setIcon:[tab icon]];
+	if ([tab.cell menu] != nil) {
+		[draggingTab.cell setMenu:[[NSMenu alloc] init]];
+	}
+
+	[self.tabsView addSubview:draggingTab];
+    [tab setHidden:YES];
+
+    CGPoint prevPoint = dragPoint;
+    BOOL reordered = NO;
+    
+    while (1) {
+        event = [self.window nextEventMatchingMask:NSLeftMouseDraggedMask|NSLeftMouseUpMask];
+        
+		if (event.type == NSLeftMouseUp) {
+			[[NSAnimationContext currentContext] setCompletionHandler:^{
+				[draggingTab removeFromSuperview];
+				[tab setHidden:NO];
+				if (reordered && [self.dataSource respondsToSelector:@selector(tabControl:didReorderItems:)]) {
+					[self.dataSource tabControl:self didReorderItems:[orderedTabs valueForKeyPath:@"cell.representedObject"]];
+				}
+				[self reloadData]; // That's the delegate responsability to store new order of items.
+			}];
+			[[draggingTab animator] setFrame:tab.frame];
+			break;
+		};
+
+        NSPoint nextPoint = [self.tabsView convertPoint:event.locationInWindow fromView:nil];
+        CGFloat nextX = tabX + (nextPoint.x - dragPoint.x);
+
+		CGRect r = draggingTab.frame;
+		r.origin.x = nextX;
+		draggingTab.frame = r;
+        
+        BOOL movingLeft = (nextPoint.x < prevPoint.x);
+        BOOL movingRight = (nextPoint.x > prevPoint.x);
+        
+        prevPoint = nextPoint;
+
+        if (movingLeft && NSMidX(draggingTab.frame) < NSMinX(tab.frame) && tab != orderedTabs.firstObject) {
+            // shift left
+			NSUInteger index = [orderedTabs indexOfObject:tab];
+            [orderedTabs exchangeObjectAtIndex:index withObjectAtIndex:index - 1];
+			[self layoutTabButtons:orderedTabs animated:YES];
+            reordered = YES;
+        }
+		else if (movingRight && NSMidX(draggingTab.frame) > NSMaxX(tab.frame) && tab != orderedTabs.lastObject) {
+            // shift right
+            NSUInteger index = [orderedTabs indexOfObject:tab];
+            [orderedTabs exchangeObjectAtIndex:index+1 withObjectAtIndex:index];
+			[self layoutTabButtons:orderedTabs animated:YES];
+            reordered = YES;
+        }
+    }
 }
 
 
@@ -548,7 +501,8 @@ static char KPCScrollViewObservationContext;
 #pragma mark -
 #pragma mark Editing
 
-//- (void)editItem:(id)item {
+- (void)editItem:(id)item
+{
 //    NSButton *button = [self tabButtonWithItem:item];
 //    
 //    // end existing editing, if any...
@@ -589,7 +543,7 @@ static char KPCScrollViewObservationContext;
 //        self.editingField.delegate = self;
 //        [self.editingField selectText:self];
 //    }
-//}
+}
 
 
 #pragma mark - NSTextFieldDelegate
@@ -756,7 +710,7 @@ static char KPCScrollViewObservationContext;
 - (void)setMinTabWidth:(CGFloat)minTabWidth
 {
 	_minTabWidth = minTabWidth;
-	[self layoutTabButtons];
+	[self layoutTabButtons:nil animated:NO];
 	[self updateAuxiliaryButtons];
 }
 
@@ -767,7 +721,7 @@ static char KPCScrollViewObservationContext;
 					format:@"Max width '%.1f' must be larger than min width (%.1f)!", maxTabWidth, self.minTabWidth];
 	}
 	_maxTabWidth = maxTabWidth;
-	[self layoutTabButtons];
+	[self layoutTabButtons:nil animated:NO];
 	[self updateAuxiliaryButtons];
 }
 

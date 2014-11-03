@@ -181,5 +181,10 @@
 	[self.tabWidthsLabel setStringValue:labelString];
 }
 
+- (BOOL)tabControl:(KPCTabsControl *)tabControl canReorderItem:(id)item
+{
+	return YES;
+}
+
 
 @end
