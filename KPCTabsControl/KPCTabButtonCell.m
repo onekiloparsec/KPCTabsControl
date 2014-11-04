@@ -162,6 +162,14 @@
     }
 }
 
+- (void)setState:(NSInteger)state
+{
+    if ([self.controlView isKindOfClass:[KPCTabsControl class]]) {
+        return;
+    }
+    [super setState:state];
+}
+
 - (void)drawBezelWithFrame:(NSRect)cellFrame inView:(NSView *)controlView
 {
     if (self.state) {

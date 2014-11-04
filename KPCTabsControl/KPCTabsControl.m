@@ -117,7 +117,7 @@
         [self addSubview:self.scrollLeftButton];
         [self addSubview:self.scrollRightButton];
         
-        // This is typically what's autolayout is supposed to avoid.
+        // This is typically what's autolayout is supposed to help avoiding.
         // But for pixel-control freaking guys like me, I see no escape.
         CGRect r = CGRectZero;
         r.size.height = CGRectGetHeight(self.scrollView.frame);
@@ -194,12 +194,11 @@
 
 - (void)layoutTabButtons:(NSArray *)buttons animated:(BOOL)anim
 {
-	__block CGFloat tabsViewWidth = 0.0;
-
 	if (!buttons) {
 		buttons = self.tabsView.subviews;
 	}
 
+    __block CGFloat tabsViewWidth = 0.0;
 	[buttons enumerateObjectsUsingBlock:^(KPCTabButton *button, NSUInteger idx, BOOL *stop) {
 
 		CGFloat fullSizeWidth = CGRectGetWidth(self.scrollView.frame) / self.tabsView.subviews.count;
