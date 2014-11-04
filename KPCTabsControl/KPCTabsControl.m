@@ -415,7 +415,7 @@ static char KPCScrollViewObservationContext;
 		[draggingTab.cell setMenu:[[NSMenu alloc] init]];
 	}
 
-	[self.tabsView addSubview:draggingTab];
+	[self addSubview:draggingTab];
     [tab setHidden:YES];
 
     CGPoint prevPoint = dragPoint;
