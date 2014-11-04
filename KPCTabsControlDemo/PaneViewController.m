@@ -186,5 +186,15 @@
 	return YES;
 }
 
+- (BOOL)tabsControl:(KPCTabsControl *)tabControl canEditItem:(id)item
+{
+    return YES;
+}
+
+- (void)tabsControl:(KPCTabsControl *)tabControl setTitle:(NSString *)title forItem:(id)item
+{
+    NSLog(@"-> %@", title);
+}
+
 
 @end

@@ -128,7 +128,7 @@
 
 - (NSRect)editingRectForBounds:(NSRect)rect
 {
-    return [self titleRectForBounds:NSOffsetRect(rect, 0, -1)];
+    return [self titleRectForBounds:NSOffsetRect(rect, 0, 1)];
 }
 
 - (void)drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView

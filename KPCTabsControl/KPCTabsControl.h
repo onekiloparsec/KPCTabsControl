@@ -38,6 +38,4 @@
 - (void)reloadData;
 - (void)highlight:(BOOL)flag;
 
-- (void)editItem:(id)item;
-
 @end

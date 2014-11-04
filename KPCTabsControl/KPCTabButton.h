@@ -23,6 +23,9 @@
 
 - (void)useMenu:(NSMenu *)menu;
 
+- (KPCTabButtonCell *)cell;
+- (NSImageView *)iconView;
+
 @end
 
 extern BOOL KPCRectArrayWithBorderMask(NSRect sourceRect, KPCBorderMask borderMask, NSRect **rectArray, NSInteger *rectCount);

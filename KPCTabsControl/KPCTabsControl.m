@@ -12,14 +12,20 @@
 #import "KPCTabButtonCell.h"
 #import "KPCTabsControlConstants.h"
 #import "NSButton+KPCTabsControl.h"
-
+#import "KPCMessageInterceptor.h"
 
 @interface KPCTabsControl () <NSTextFieldDelegate>
-@property(nonatomic, strong) NSArray *items;
+@property(nonatomic, strong) KPCMessageInterceptor *delegateInterceptor;
+
 @property(nonatomic, strong) NSScrollView *scrollView;
 @property(nonatomic, strong) NSView *tabsView;
-@property(nonatomic, strong) NSButton *addButton, *scrollLeftButton, *scrollRightButton, *draggingTab;
-@property(nonatomic, strong) NSTextField *editingField;
+
+@property(nonatomic, strong) NSButton *addButton;
+@property(nonatomic, strong) NSButton *scrollLeftButton;
+@property(nonatomic, strong) NSButton *scrollRightButton;
+
+@property(nonatomic, strong) NSTextField *editingTextField;
+
 @property(nonatomic, assign) BOOL hideScrollButtons;
 @property(nonatomic, assign) BOOL isHighlighted;
 @end
@@ -64,7 +70,7 @@
 
 	self.minTabWidth = 50.0;
 	self.maxTabWidth = 150.0;
-
+    
     [self highlight:NO];
     [self configureSubviews];
 }
@@ -356,7 +362,7 @@ static char KPCScrollViewObservationContext;
 
 - (void)selectTab:(id)sender
 {
-    NSButton *selectedButton = sender;
+    KPCTabButton *selectedButton = sender;
     
     for (NSButton *button in [self.scrollView.documentView subviews]) {
         [button setState:(button == selectedButton) ? NSOnState : NSOffState];
@@ -368,7 +374,7 @@ static char KPCScrollViewObservationContext;
     NSEvent *currentEvent = [NSApp currentEvent];
     
     if (currentEvent.clickCount > 1) { // edit on double click...
-        [self editItem:[[sender cell] representedObject]];
+        [self editTabButton:sender];
     }
 	// watch for a drag event and initiate dragging if a drag is found...
 	else if ([self.dataSource respondsToSelector:@selector(tabsControl:canReorderItem:)]) {
@@ -404,13 +410,10 @@ static char KPCScrollViewObservationContext;
     CGFloat tabX = NSMinX(tab.frame);
     NSPoint dragPoint = [self.tabsView convertPoint:event.locationInWindow fromView:nil];
 
-	KPCTabButton *draggingTab = [[KPCTabButton alloc] initWithFrame:tab.frame];
-	KPCTabButtonCell *draggingTabCell = [tab.cell copy];
-	draggingTabCell.borderMask = draggingTabCell.borderMask | KPCBorderMaskLeft | KPCBorderMaskRight;
-	draggingTab.cell = draggingTabCell;
+    KPCTabButton *draggingTab = [KPCTabButton tabButtonWithItem:[tab.cell representedObject] target:nil action:NULL];
+	draggingTab.cell.borderMask = draggingTab.cell.borderMask | KPCBorderMaskLeft | KPCBorderMaskRight;
 
-	[draggingTab.cell setRepresentedObject:[tab.cell representedObject]];
-	[draggingTab setIcon:[tab icon]];
+    [draggingTab setIcon:[tab icon]];
 	if ([tab.cell menu] != nil) {
 		[draggingTab.cell setMenu:[[NSMenu alloc] init]];
 	}
@@ -498,136 +501,81 @@ static char KPCScrollViewObservationContext;
     [self invalidateRestorableState];
 }
 
-#pragma mark -
-#pragma mark Editing
+#pragma mark - Editing
 
-- (void)editItem:(id)item
+- (void)editTabButton:(KPCTabButton *)tab
 {
-//    NSButton *button = [self tabButtonWithItem:item];
-//    
-//    // end existing editing, if any...
-//    if (self.editingField != nil) {
-//        [self.window makeFirstResponder:self];
-//    }
-//    
-//    // layout items if necessary
-//    [self layoutSubtreeIfNeeded];
-//    
-//    if (button != nil) {
-//        if ([self.dataSource respondsToSelector:@selector(tabControl:canEditItem:)] && [self.dataSource tabControl:self canEditItem:item] == NO) {
-//            return;
-//        }
-//        
-//        KPCTabButtonCell *cell = button.cell;
-//        NSRect titleRect = [cell editingRectForBounds:button.bounds];
-//        
-//        self.editingField = [[NSTextField alloc] initWithFrame:titleRect];
-//        
-//        self.editingField.editable = YES;
-//        self.editingField.font = cell.font;
-//        self.editingField.alignment = cell.alignment;
-//        self.editingField.backgroundColor = cell.backgroundColor;
-//        self.editingField.focusRingType = NSFocusRingTypeNone;
-//        
-//        self.editingField.textColor = [[NSColor darkGrayColor] blendedColorWithFraction:0.5 ofColor:[NSColor blackColor]];
-//        
-//        NSTextFieldCell *textFieldCell = self.editingField.cell;
-//        
-//        [textFieldCell setBordered:NO];
-//        [textFieldCell setScrollable:YES];
-//        
-//        self.editingField.stringValue = button.title;
-//        
-//        [button addSubview:self.editingField];
-//        
-//        self.editingField.delegate = self;
-//        [self.editingField selectText:self];
-//    }
+    if (!tab) {
+        return;
+    }
+    
+    if ([self.dataSource respondsToSelector:@selector(tabsControl:canEditItem:)] &&
+        ![self.dataSource tabsControl:self canEditItem:tab.cell.representedObject])
+    {
+        return;
+    }
+    
+    // End existing editing, if any...
+    if (self.editingTextField != nil) {
+        [self.window makeFirstResponder:self];
+    }
+    
+    NSRect titleRect = [tab.cell editingRectForBounds:tab.bounds];
+    self.editingTextField = [[NSTextField alloc] initWithFrame:titleRect];
+    self.editingTextField.autoresizingMask = NSViewWidthSizable;
+    self.editingTextField.editable = YES;
+    self.editingTextField.font = tab.cell.font;
+    self.editingTextField.alignment = tab.cell.alignment;
+    self.editingTextField.backgroundColor = [NSColor clearColor];
+    self.editingTextField.focusRingType = NSFocusRingTypeNone;
+    self.editingTextField.textColor = [[NSColor darkGrayColor] blendedColorWithFraction:0.5 ofColor:[NSColor blackColor]];
+    self.editingTextField.stringValue = tab.title;
+
+    [self.editingTextField.cell setBordered:NO];
+    [self.editingTextField.cell setScrollable:YES];
+    
+    [tab setTitle:@""];
+    [tab addSubview:self.editingTextField];
+    
+    self.delegateInterceptor.middleMan = self;
+    self.editingTextField.delegate = (id)self.delegateInterceptor;
+    [self.editingTextField selectText:self];
 }
 
+- (id<KPCTabsControlDelegate>)delegate
+{
+    return self.delegateInterceptor.receiver;
+}
 
-#pragma mark - NSTextFieldDelegate
+- (void)setDelegate:(id<KPCTabsControlDelegate>)newDelegate
+{
+    if (!self.delegateInterceptor) {
+        self.delegateInterceptor = [[KPCMessageInterceptor alloc] init];
+    }
+    self.delegateInterceptor.receiver = newDelegate;
+}
 
-//- (BOOL)control:(NSControl *)control textShouldBeginEditing:(NSText *)fieldEditor
-//{
-//    BOOL ret = YES;
-//    if ([_delegate respondsToSelector:_cmd]) {
-//        ret = [_delegate control:self textShouldBeginEditing:fieldEditor];
-//    }
-//    return ret;
-//}
-//
-//- (BOOL)control:(NSControl *)control textShouldEndEditing:(NSText *)fieldEditor {
-//    BOOL ret = YES;
-//    if ([_delegate respondsToSelector:_cmd]) {
-//        ret = [_delegate control:self textShouldEndEditing:fieldEditor];
-//    }
-//    return ret;
-//}
-//
-//- (BOOL)control:(NSControl *)control didFailToFormatString:(NSString *)string errorDescription:(NSString *)error {
-//    BOOL ret = YES;
-//    if ([_delegate respondsToSelector:_cmd]) {
-//        ret = [_delegate control:self didFailToFormatString:string errorDescription:error];
-//    }
-//    return ret;
-//}
-//
-//- (void)control:(NSControl *)control didFailToValidatePartialString:(NSString *)string errorDescription:(NSString *)error {
-//    if ([_delegate respondsToSelector:_cmd]) {
-//        [_delegate control:self didFailToValidatePartialString:string errorDescription:error];
-//    }
-//}
-//
-//- (BOOL)control:(NSControl *)control isValidObject:(id)obj {
-//    BOOL ret = YES;
-//    if ([_delegate respondsToSelector:_cmd]) {
-//        ret = [_delegate control:self isValidObject:obj];
-//    }
-//    return ret;
-//}
-//
-//- (BOOL)control:(NSControl *)control textView:(NSTextView *)textView doCommandBySelector:(SEL)commandSelector {
-//    BOOL ret = NO;
-//    if ([_delegate respondsToSelector:_cmd]) {
-//        ret = [_delegate control:self textView:textView doCommandBySelector:commandSelector];
-//    }
-//    return ret;
-//}
-//
-//- (NSArray *)control:(NSControl *)control textView:(NSTextView *)textView completions:(NSArray *)words forPartialWordRange:(NSRange)charRange indexOfSelectedItem:(NSInteger *)index {
-//    NSArray *ret = nil;
-//    if ([_delegate respondsToSelector:_cmd]) {
-//        
-//    }
-//    return ret;
-//}
-//
-//- (void)controlTextDidChange:(NSNotification *)obj {
-//    [[NSNotificationCenter defaultCenter] postNotificationName:obj.name object:self userInfo:obj.userInfo];
-//}
-//
-//- (void)controlTextDidBeginEditing:(NSNotification *)obj {
-//    [[NSNotificationCenter defaultCenter] postNotificationName:obj.name object:self userInfo:obj.userInfo];
-//}
-//
-//- (void)controlTextDidEndEditing:(NSNotification *)obj {
-//    NSString *title = self.editingField.stringValue;
-//    NSButton *button = (id)[self.editingField superview];
-//    
-//    self.editingField.delegate = nil;
-//    [self.editingField removeFromSuperview];
-//    self.editingField = nil;
-//    
-//    if (title.length > 0) {
-//        [button setTitle:title];
-//        
-//        [self.dataSource tabControl:self setTitle:title forItem:[button.cell representedObject]];
-//    }
-//    
-//    [[NSNotificationCenter defaultCenter] postNotificationName:obj.name object:self userInfo:obj.userInfo];
-//}
+- (void)controlTextDidEndEditing:(NSNotification *)obj
+{
+    NSString *title = self.editingTextField.stringValue;
+    NSButton *button = (id)[self.editingTextField superview];
+    
+    if (title.length > 0) {
+        [button setTitle:title];
+        [self.dataSource tabsControl:self setTitle:title forItem:[button.cell representedObject]];
+    }
+    
+    if ([self.delegateInterceptor.receiver respondsToSelector:@selector(controlTextDidEndEditing:)]) {
+        [self.delegateInterceptor.receiver controlTextDidEndEditing:obj];
+    }
 
+    self.delegateInterceptor.receiver = nil;
+    self.editingTextField.delegate = nil;
+    [self.editingTextField removeFromSuperview];
+    self.editingTextField = nil;
+    
+    [self reloadData]; // That's the receiver responsability to store the new title;
+}
 
 #pragma mark - Drawing
 

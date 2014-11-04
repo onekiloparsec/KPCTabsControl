@@ -47,6 +47,11 @@
     [self setCell:[[KPCTabButtonCell alloc] initTextCell:@""]];
 }
 
+- (KPCTabButtonCell *)cell
+{
+    return (KPCTabButtonCell *)[super cell];
+}
+
 - (void)setIcon:(NSImage *)icon
 {
     _icon = icon;
@@ -123,11 +128,6 @@
 - (void)setShowsMenu:(BOOL)showsMenu
 {
     [self.cell setShowsMenu:showsMenu];
-}
-
-- (BOOL)isShowingMenu
-{
-    return [self.cell isShowingMenu];
 }
 
 - (KPCBorderMask)borderMask
