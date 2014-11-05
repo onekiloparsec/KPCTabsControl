@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @class KPCTabsControl;
-@class KPCTabButton;
 
 @protocol KPCTabsControlDataSource <NSObject>
 
@@ -19,6 +18,7 @@
 
 @optional
 - (NSMenu *)tabsControl:(KPCTabsControl *)tabControl menuForItem:(id)item;
+- (NSImage *)tabsControl:(KPCTabsControl *)tabControl iconForItem:(id)item;
 
 - (BOOL)tabsControl:(KPCTabsControl *)tabControl canSelectItem:(id)item;
 - (void)tabsControlDidChangeSelection:(NSNotification *)notification;
@@ -28,8 +28,6 @@
 
 - (BOOL)tabsControl:(KPCTabsControl *)tabControl canEditItem:(id)item;
 - (void)tabsControl:(KPCTabsControl *)tabControl setTitle:(NSString *)title forItem:(id)item;
-
-- (void)tabsControl:(KPCTabsControl *)tabControl willDisplayButton:(KPCTabButton *)button forItem:(id)item;
 
 @end
 

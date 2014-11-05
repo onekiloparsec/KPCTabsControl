@@ -66,6 +66,11 @@
     return (KPCTabButtonCell *)[super cell];
 }
 
+- (void)highlight:(BOOL)flag
+{
+    [self.cell highlight:flag];
+}
+
 - (void)setIcon:(NSImage *)icon
 {
     _icon = icon;
@@ -82,12 +87,12 @@
     }
 }
 
-- (void)highlight:(BOOL)flag
+- (NSMenu *)menu
 {
-    [self.cell highlight:flag];
+    return [self.cell menu];
 }
 
-- (void)useMenu:(NSMenu *)menu
+- (void)setMenu:(NSMenu *)menu
 {
     [self.cell setMenu:menu];
     [self updateTrackingAreas];

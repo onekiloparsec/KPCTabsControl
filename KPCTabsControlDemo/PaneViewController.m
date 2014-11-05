@@ -47,6 +47,11 @@
 - (void)setup
 {
     [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(updateLabelsUponReframe:)
+                                                 name:NSViewFrameDidChangeNotification
+                                               object:self.tabsBar];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(updateUponPaneSelectionDidChange:)
                                                  name:@"PaneSelectionDidChangeNotification"
                                                object:nil];
@@ -116,6 +121,14 @@
     }
 }
 
+- (void)updateLabelsUponReframe:(NSNotification *)notif
+{
+    NSString *labelString = [NSString stringWithFormat:@"min %.0f < %.0f < %.0f max",
+                             self.tabsBar.minTabWidth, self.tabsBar.currentTabWidth, self.tabsBar.maxTabWidth];
+    
+    [self.tabWidthsLabel setStringValue:labelString];
+}
+
 #pragma mark - KPCTabsControlDataSource
 
 - (NSUInteger)tabsControlNumberOfTabs:(KPCTabsControl *)tabControl
@@ -142,16 +155,16 @@
     return [self.menus objectForKey:item];
 }
 
-- (void)tabsControl:(KPCTabsControl *)tabControl willDisplayButton:(KPCTabButton *)button forItem:(id)item
+- (NSImage *)tabsControl:(KPCTabsControl *)tabControl iconForItem:(id)item
 {
 	NSUInteger index = [self.titles indexOfObject:item];
 	if ([self.title isEqualToString:@"pane1"]) {
 		switch (index) {
 			case 0:
-				[button setIcon:[NSImage imageNamed:@"Star"]];
+				return [NSImage imageNamed:@"Star"];
 				break;
-			case 2:
-				[button setIcon:[NSImage imageNamed:@"Oval"]];
+			case 1:
+				return [NSImage imageNamed:@"Oval"];
 				break;
 
 			default:
@@ -161,24 +174,21 @@
 	else {
 		switch (index) {
 			case 1:
-				[button setIcon:[NSImage imageNamed:@"Triangle"]];
+				return [NSImage imageNamed:@"Triangle"];
 				break;
 			case 2:
-				[button setIcon:[NSImage imageNamed:@"Spiral"]];
+				return [NSImage imageNamed:@"Spiral"];
 				break;
 			case 3:
-				[button setIcon:[NSImage imageNamed:@"Polygon"]];
+				return [NSImage imageNamed:@"Polygon"];
 				break;
 
 			default:
 				break;
 		}
 	}
-
-	NSString *labelString = [NSString stringWithFormat:@"min %.0f < %.0f < %.0f max",
-							 self.tabsBar.minTabWidth, self.tabsBar.currentTabWidth, self.tabsBar.maxTabWidth];
-
-	[self.tabWidthsLabel setStringValue:labelString];
+    
+    return nil;
 }
 
 - (BOOL)tabsControl:(KPCTabsControl *)tabControl canReorderItem:(id)item

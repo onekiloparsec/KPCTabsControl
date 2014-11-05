@@ -192,11 +192,12 @@
         [button setTitle:[self.dataSource tabsControl:self titleForItem:item]];
         [button setHighlighted:self.isHighlighted];
         
+        if ([self.dataSource respondsToSelector:@selector(tabsControl:iconForItem:)]) {
+            [button setIcon:[self.dataSource tabsControl:self iconForItem:item]];
+        }
+        
         if ([self.dataSource respondsToSelector:@selector(tabsControl:menuForItem:)]) {
-            NSMenu *menu = [self.dataSource tabsControl:self menuForItem:item];
-            if (menu) {
-                [button useMenu:menu];
-            }
+            [button setMenu:[self.dataSource tabsControl:self menuForItem:item]];
         }
         
         [self.tabsView addSubview:button];
@@ -231,10 +232,6 @@
 
 		if ([self.dataSource respondsToSelector:@selector(tabsControl:canSelectItem:)]) {
 			[[button cell] setSelectable:[self.dataSource tabsControl:self canSelectItem:[button.cell representedObject]]];
-		}
-
-		if ([self.dataSource respondsToSelector:@selector(tabsControl:willDisplayButton:forItem:)]) {
-			[self.dataSource tabsControl:self willDisplayButton:button forItem:[button.cell representedObject]];
 		}
 
 		tabsViewWidth += CGRectGetWidth(button.frame);
