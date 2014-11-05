@@ -49,6 +49,18 @@
     [self setCell:[[KPCTabButtonCell alloc] initTextCell:@""]];
 }
 
+- (instancetype)copyWithZone:(NSZone *)zone
+{
+    KPCTabButton *copy = [[KPCTabButton allocWithZone:zone] initWithFrame:self.frame];
+
+    KPCTabButtonCell *cellCopy = [self.cell copy];
+    [copy setCell:cellCopy];
+
+    copy.icon = self.icon;
+
+    return copy;
+}
+
 - (KPCTabButtonCell *)cell
 {
     return (KPCTabButtonCell *)[super cell];

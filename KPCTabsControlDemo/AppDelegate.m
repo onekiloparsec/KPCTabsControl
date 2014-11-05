@@ -13,6 +13,8 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
 	// Pane View Controllers have a 'title' property set in the XIB that differentiate them.
+    
+    [self.topPane.tabsBar highlight:YES];
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification

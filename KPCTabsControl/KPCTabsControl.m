@@ -178,7 +178,7 @@
 
 - (void)reloadData
 {
-    [self.tabsView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    [[self tabButtons] makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
     NSMutableArray *newItems = [[NSMutableArray alloc] init];
     for (NSUInteger i = 0, count = [self.dataSource tabsControlNumberOfTabs:self]; i < count; i++) {
@@ -190,6 +190,7 @@
         
         KPCTabButton *button = [NSButton KPC_tabButtonWithItem:item target:self action:@selector(selectTab:)];
         [button setTitle:[self.dataSource tabsControl:self titleForItem:item]];
+        [button setHighlighted:self.isHighlighted];
         
         if ([self.dataSource respondsToSelector:@selector(tabsControl:menuForItem:)]) {
             NSMenu *menu = [self.dataSource tabsControl:self menuForItem:item];
@@ -209,13 +210,13 @@
 - (void)layoutTabButtons:(NSArray *)buttons animated:(BOOL)anim
 {
 	if (!buttons) {
-		buttons = self.tabsView.subviews;
+        buttons = [self tabButtons];
 	}
 
     __block CGFloat tabsViewWidth = 0.0;
 	[buttons enumerateObjectsUsingBlock:^(KPCTabButton *button, NSUInteger idx, BOOL *stop) {
 
-		CGFloat fullSizeWidth = CGRectGetWidth(self.scrollView.frame) / self.tabsView.subviews.count;
+		CGFloat fullSizeWidth = CGRectGetWidth(self.scrollView.frame) / buttons.count;
 		CGFloat buttonWidth = (self.preferFullWidthTabs) ? fullSizeWidth : MIN(self.maxTabWidth, fullSizeWidth);
 		buttonWidth = MAX(buttonWidth, self.minTabWidth);
 		CGRect r = CGRectMake(idx*buttonWidth, 0, buttonWidth, CGRectGetHeight(self.tabsView.frame));
@@ -323,7 +324,7 @@ static char KPCScrollViewObservationContext;
 {
     NSRect visibleRect = self.tabsView.visibleRect;
     
-    for (NSButton *button in self.tabsView.subviews) {
+    for (NSButton *button in [self tabButtons]) {
         if (NSMinX(button.frame) < NSMinX(visibleRect)) {
             return button;
         }
@@ -349,7 +350,7 @@ static char KPCScrollViewObservationContext;
 {
 	NSRect visibleRect = self.tabsView.visibleRect;
 
-    for (NSButton *button in [self.tabsView subviews]) {
+    for (NSButton *button in [self tabButtons]) {
         if (NSMaxX(button.frame) > NSMaxX(visibleRect)) {
             return button;
         }
@@ -402,19 +403,12 @@ static char KPCScrollViewObservationContext;
 
 - (void)reorderTab:(KPCTabButton *)tab withEvent:(NSEvent *)event
 {
-    NSMutableArray *orderedTabs = [[NSMutableArray alloc] initWithArray:self.tabsView.subviews.objectEnumerator.allObjects];
+    NSMutableArray *orderedTabs = [[NSMutableArray alloc] initWithArray:[self tabButtons]];
 
     CGFloat tabX = NSMinX(tab.frame);
     NSPoint dragPoint = [self.tabsView convertPoint:event.locationInWindow fromView:nil];
 
-    KPCTabButton *draggingTab = [KPCTabButton KPC_tabButtonWithItem:[tab.cell representedObject] target:nil action:NULL];
-	draggingTab.cell.borderMask = draggingTab.cell.borderMask | KPCBorderMaskLeft | KPCBorderMaskRight;
-
-    [draggingTab setIcon:[tab icon]];
-	if ([tab.cell menu] != nil) {
-		[draggingTab.cell setMenu:[[NSMenu alloc] init]];
-	}
-
+    KPCTabButton *draggingTab = [tab copy];
 	[self addSubview:draggingTab];
     [tab setHidden:YES];
 
@@ -585,10 +579,19 @@ static char KPCScrollViewObservationContext;
     return YES;
 }
 
+- (NSArray *)tabButtons
+{
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"class == %@", [KPCTabButton class]];
+    return [self.tabsView.subviews filteredArrayUsingPredicate:predicate];
+}
+
 - (void)highlight:(BOOL)flag
 {
     self.isHighlighted = flag;
-    [self.cell setBackgroundColor:(flag) ? self.controlHighlightedBackgroundColor : self.controlBackgroundColor];
+    [self.cell highlight:flag];
+    [[self tabButtons] enumerateObjectsUsingBlock:^(KPCTabButton *button, NSUInteger idx, BOOL *stop) {
+        [button highlight:flag];
+    }];
 }
 
 #pragma mark - State Restoration
@@ -644,8 +647,9 @@ static char KPCScrollViewObservationContext;
 
 - (CGFloat)currentTabWidth
 {
-	if (self.tabsView.subviews.count > 0) {
-		return CGRectGetWidth([self.tabsView.subviews[0] frame]);
+    NSArray *tabs = [self tabButtons];
+	if ([tabs count] > 0) {
+		return CGRectGetWidth([tabs[0] frame]);
 	}
 	return 0.0;
 }

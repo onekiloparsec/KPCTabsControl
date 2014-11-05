@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import "KPCTabsControlConstants.h"
 
-@interface KPCTabButtonCell : NSButtonCell
+@interface KPCTabButtonCell : NSButtonCell<NSCopying>
 
 @property(nonatomic, assign) BOOL showsMenu;
 @property(nonatomic, assign) KPCBorderMask borderMask;

@@ -40,6 +40,26 @@
     return self;
 }
 
+- (id)copyWithZone:(NSZone *)zone
+{
+    KPCTabButtonCell *copy = [[KPCTabButtonCell allocWithZone:zone] initTextCell:self.title];
+    
+    copy.tabBorderColor = self.tabBorderColor;
+    copy.tabTitleColor = self.tabTitleColor;
+    copy.tabBackgroundColor = self.tabBackgroundColor;
+    copy.tabHighlightedBackgroundColor = self.tabHighlightedBackgroundColor;
+    copy.tabSelectedBorderColor = self.tabSelectedBorderColor;
+    copy.tabSelectedTitleColor = self.tabSelectedTitleColor;
+    copy.tabSelectedBackgroundColor = self.tabSelectedBackgroundColor;
+    
+    copy.borderMask = self.borderMask;
+    copy.state = self.state;
+    copy.showsMenu = self.showsMenu;
+    copy.highlighted = self.highlighted;
+
+    return copy;
+}
+
 // Do not allow to change state of the cell associated with the parent Tabs Control.
 - (void)setState:(NSInteger)state
 {

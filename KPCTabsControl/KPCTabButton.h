@@ -8,10 +8,9 @@
 
 #import "KPCTabButtonCell.h"
 
-@interface KPCTabButton : NSButton
+@interface KPCTabButton : NSButton<NSCopying>
 
 @property(nonatomic, assign) BOOL showsMenu;
-@property(nonatomic, assign) KPCBorderMask borderMask;
 @property(nonatomic, strong) NSImage *icon;
 
 - (void)highlight:(BOOL)flag;
