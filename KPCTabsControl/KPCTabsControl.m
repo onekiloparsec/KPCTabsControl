@@ -178,6 +178,7 @@
 
 - (void)reloadTabs
 {
+    id selectedItem = [self selectedItem];
     [[self tabButtons] makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
     NSMutableArray *newItems = [[NSMutableArray alloc] init];
@@ -191,6 +192,7 @@
         KPCTabButton *button = [NSButton KPC_tabButtonWithItem:item target:self action:@selector(selectTab:)];
         [button setTitle:[self.dataSource tabsControl:self titleForItem:item]];
         [button setHighlighted:self.isHighlighted];
+        [button setState:(item == selectedItem) ? NSOnState : NSOffState];
         
         if ([self.dataSource respondsToSelector:@selector(tabsControl:iconForItem:)]) {
             [button setIcon:[self.dataSource tabsControl:self iconForItem:item]];
@@ -355,47 +357,6 @@ static char KPCScrollViewObservationContext;
     return nil;
 }
 
-- (void)selectTab:(id)sender
-{
-    KPCTabButton *selectedButton = sender;
-    
-    for (NSButton *button in [self.scrollView.documentView subviews]) {
-        [button setState:(button == selectedButton) ? NSOnState : NSOffState];
-    }
-    
-    [[NSApplication sharedApplication] sendAction:self.action to:self.target from:self];
-    [[NSNotificationCenter defaultCenter] postNotificationName:KPCTabsControlSelectionDidChangeNotification object:self];
-    
-    NSEvent *currentEvent = [NSApp currentEvent];
-    
-    if (currentEvent.clickCount > 1) { // edit on double click...
-        [self editTabButton:sender];
-    }
-	// watch for a drag event and initiate dragging if a drag is found...
-	else if ([self.dataSource respondsToSelector:@selector(tabsControl:canReorderItem:)]) {
-		if ([self.dataSource tabsControl:self canReorderItem:[[sender cell] representedObject]]) {
-		NSEvent *event = [self.window nextEventMatchingMask:NSLeftMouseUpMask|NSLeftMouseDraggedMask
-												  untilDate:[NSDate distantFuture]
-													 inMode:NSEventTrackingRunLoopMode
-													dequeue:NO];
-
-			if (event.type == NSLeftMouseDragged) {
-				[self reorderTab:sender withEvent:currentEvent];
-				return; // no autoscroll
-			}
-		}
-    }
-    
-    // scroll to visible if either editing or selecting...
-    [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
-        [context setAllowsImplicitAnimation:YES];
-        [selectedButton.superview scrollRectToVisible:selectedButton.frame];
-    } completionHandler:nil];
-    
-    [self invalidateRestorableState];
-}
-
-#pragma mark -
 #pragma mark - Reordering
 
 - (void)reorderTab:(KPCTabButton *)tab withEvent:(NSEvent *)event
@@ -459,6 +420,46 @@ static char KPCScrollViewObservationContext;
 
 
 #pragma mark - Selection
+
+- (void)selectTab:(id)sender
+{
+    KPCTabButton *selectedButton = sender;
+    
+    for (NSButton *button in [self.scrollView.documentView subviews]) {
+        [button setState:(button == selectedButton) ? NSOnState : NSOffState];
+    }
+    
+    [[NSApplication sharedApplication] sendAction:self.action to:self.target from:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:KPCTabsControlSelectionDidChangeNotification object:self];
+    
+    NSEvent *currentEvent = [NSApp currentEvent];
+    
+    if (currentEvent.clickCount > 1) { // edit on double click...
+        [self editTabButton:sender];
+    }
+    // watch for a drag event and initiate dragging if a drag is found...
+    else if ([self.dataSource respondsToSelector:@selector(tabsControl:canReorderItem:)]) {
+        if ([self.dataSource tabsControl:self canReorderItem:[[sender cell] representedObject]]) {
+            NSEvent *event = [self.window nextEventMatchingMask:NSLeftMouseUpMask|NSLeftMouseDraggedMask
+                                                      untilDate:[NSDate distantFuture]
+                                                         inMode:NSEventTrackingRunLoopMode
+                                                        dequeue:NO];
+            
+            if (event.type == NSLeftMouseDragged) {
+                [self reorderTab:sender withEvent:currentEvent];
+                return; // no autoscroll
+            }
+        }
+    }
+    
+    // scroll to visible if either editing or selecting...
+    [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
+        [context setAllowsImplicitAnimation:YES];
+        [selectedButton.superview scrollRectToVisible:selectedButton.frame];
+    } completionHandler:nil];
+    
+    [self invalidateRestorableState];
+}
 
 - (id)selectedItem
 {
@@ -640,7 +641,7 @@ static char KPCScrollViewObservationContext;
     }
 }
 
-#pragma mark - Properties
+#pragma mark - Tab Widths
 
 - (CGFloat)currentTabWidth
 {
@@ -678,35 +679,35 @@ static char KPCScrollViewObservationContext;
 
 #pragma mark - Control Colors
 
-- (NSColor *)controlBorderColor
-{
-    return [self.cell controlBorderColor];
-}
-
-- (void)setControlBorderColor:(NSColor *)controlBorderColor
-{
-    [self.cell setControlBorderColor:controlBorderColor];
-}
-
-- (NSColor *)controlBackgroundColor
-{
-    return [self.cell controlBackgroundColor];
-}
-
-- (void)setControlBackgroundColor:(NSColor *)controlBackgroundColor
-{
-    [self.cell setControlBackgroundColor:controlBackgroundColor];
-}
-
-- (NSColor *)controlHighlightedBackgroundColor
-{
-    return [self.cell controlHighlightedBackgroundColor];
-}
-
-- (void)setControlHighlightedBackgroundColor:(NSColor *)controlHighlightedBackgroundColor
-{
-    [self.cell setControlHighlightedBackgroundColor:controlHighlightedBackgroundColor];
-}
+//- (NSColor *)controlBorderColor
+//{
+//    return [self.cell controlBorderColor];
+//}
+//
+//- (void)setControlBorderColor:(NSColor *)controlBorderColor
+//{
+//    [self.cell setControlBorderColor:controlBorderColor];
+//}
+//
+//- (NSColor *)controlBackgroundColor
+//{
+//    return [self.cell controlBackgroundColor];
+//}
+//
+//- (void)setControlBackgroundColor:(NSColor *)controlBackgroundColor
+//{
+//    [self.cell setControlBackgroundColor:controlBackgroundColor];
+//}
+//
+//- (NSColor *)controlHighlightedBackgroundColor
+//{
+//    return [self.cell controlHighlightedBackgroundColor];
+//}
+//
+//- (void)setControlHighlightedBackgroundColor:(NSColor *)controlHighlightedBackgroundColor
+//{
+//    [self.cell setControlHighlightedBackgroundColor:controlHighlightedBackgroundColor];
+//}
 
 #pragma mark - Tabs Colors
 
