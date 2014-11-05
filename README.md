@@ -1,12 +1,39 @@
+``  
+
 KPCTabsControl
 ==============
 
-An non-auto-layout based multi-tab control designed to look and behave like the tab control in Apple's Numbers spreadsheet, with enhanced capabilities. Borrowed initially from the excellent [LITabControl](https://github.com/monyschuk/LITabControl).
+An multi-tab control *not using AutoLayout*, designed to look and behave like the tab control in Apple's Numbers spreadsheet, with enhanced capabilities. Borrowed initially from the excellent [LITabControl](https://github.com/monyschuk/LITabControl).
 
-The reason for not doing a fork, but a new lib? Well, I used the LITabControl since some time, and it diverged quite a lot. More importantly, I had troubles with AutoLayout, since my tabs are used inside a quite complex app, and AutoLayout is way too instable and hard to debug for such app.
+The reason for not doing a fork, but a new lib? Well, I used the LITabControl since some time, and it diverged quite a lot. More importantly, AutoLayout is way too instable and hard to debug in a complex app (with various intricated split views with dynamic constraints), like the ones I am currently developing.
 
-The current status of the lib is: active dev, unstable. Below a screenshot of the demo app with two series of tabs (showing the highlight effect). 
-![Demo Tabs Screenshot](http://onekilopars.ec/blog/files/screen-shot-2014-11-02-at-17.54.19.png)
+Below a screenshot of the demo app with two series of tabs (showing the highlight effect). 
+![Demo Tabs Screenshot](http://onekilopars.ec/blog/files/screen-shot-2014-11-05-at-17.36.32.png)
+
+
+Installation
+------------
+
+`pod KPCTabsControl`
+
+
+Usage
+-----
+
+KPCTabsControl is designed for you to use only the `KPCTabsControl` class, and its associated data source methods. You can also assign a delegate method if you want to play with the editing of the tab titles.
+
+Customization
+-------------
+
+Tabs can be customized: max width, min width, full-size width, colors, hightlighted colors, borders, selection colors, color titles etc. Each tab can have an icon and/or a menu (whose arrow appears only when mouse is over).
+
+Tabs titles can be edited in place, and tabs can be reordred by simple drag & drop (with small animations).
+
+
+Highlighting
+------------
+
+The tabs control support the possibility to be highlighted. This is useful when you have multiple subviews, each with tab controls, and you need to indicate to the user which subview is actually 'active'.
 
 
 LICENSE & NOTES
