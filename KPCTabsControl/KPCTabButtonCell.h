@@ -13,13 +13,19 @@
 
 @property(nonatomic, assign) BOOL showsMenu;
 @property(nonatomic, assign) KPCBorderMask borderMask;
+@property(nonatomic, assign, readonly, getter=isHighlighted) BOOL highlighted;
+@property(nonatomic, assign, readonly, getter=isSelected) BOOL selected;
 
-@property(nonatomic, copy) NSColor *borderColor;
-@property(nonatomic, copy) NSColor *backgroundColor;
+@property(nonatomic, copy) NSColor *tabBorderColor;
+@property(nonatomic, copy) NSColor *tabTitleColor;
+@property(nonatomic, copy) NSColor *tabBackgroundColor;
+@property(nonatomic, copy) NSColor *tabHighlightedBackgroundColor;
 
-@property(nonatomic, copy) NSColor *titleColor;
-@property(nonatomic, copy) NSColor *titleHighlightColor;
+@property(nonatomic, copy) NSColor *tabSelectedBorderColor;
+@property(nonatomic, copy) NSColor *tabSelectedTitleColor;
+@property(nonatomic, copy) NSColor *tabSelectedBackgroundColor;
 
 - (NSRect)editingRectForBounds:(NSRect)rect;
+- (void)highlight:(BOOL)flag;
 
 @end

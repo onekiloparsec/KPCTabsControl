@@ -7,11 +7,12 @@
 //
 
 #import <QuartzCore/QuartzCore.h>
+#import "KPCTabsControlConstants.h"
 #import "KPCTabsControl.h"
 #import "KPCTabButton.h"
 #import "KPCTabButtonCell.h"
-#import "KPCTabsControlConstants.h"
 #import "NSButton+KPCTabsControl.h"
+#import "NSColor+KPCTabsControl.h"
 #import "KPCMessageInterceptor.h"
 
 @interface KPCTabsControl () <NSTextFieldDelegate>
@@ -41,7 +42,7 @@
     return self;
 }
 
-- (id)initWithFrame:(NSRect)frame
+- (instancetype)initWithFrame:(NSRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
@@ -63,10 +64,23 @@
 {
     [self setWantsLayer:YES];
     [self setTranslatesAutoresizingMaskIntoConstraints:NO];
-    
+
     [self setCell:[[KPCTabButtonCell alloc] initTextCell:@""]];
     [self.cell setBorderMask:KPCBorderMaskBottom];
     [self.cell setFont:[NSFont fontWithName:@"HelveticaNeue-Medium" size:13]];
+
+    self.controlBorderColor = [NSColor KPC_defaultControlBorderColor];
+    self.controlBackgroundColor = [NSColor KPC_defaultControlBackgroundColor];
+    self.controlHighlightedBackgroundColor = [NSColor KPC_defaultControlHighlightedBackgroundColor];
+    
+    self.tabBorderColor = [NSColor KPC_defaultTabBorderColor];
+    self.tabTitleColor = [NSColor KPC_defaultTabTitleColor];
+    self.tabBackgroundColor = [NSColor KPC_defaultTabBackgroundColor];
+    self.tabHighlightedBackgroundColor = [NSColor KPC_defaultTabHighlightedBackgroundColor];
+    
+    self.tabSelectedBorderColor = [NSColor KPC_defaultTabSelectedBorderColor];
+    self.tabSelectedTitleColor = [NSColor KPC_defaultTabSelectedTitleColor];
+    self.tabSelectedBackgroundColor = [NSColor KPC_defaultTabSelectedBackgroundColor];
 
 	self.minTabWidth = 50.0;
 	self.maxTabWidth = 150.0;
@@ -96,12 +110,12 @@
     
     [self addSubview:self.scrollView];
 
-    self.addButton = [NSButton auxiliaryButtonWithImageNamed:@"KPCTabPlusTemplate" target:self action:@selector(add:)];
+    self.addButton = [NSButton KPC_auxiliaryButtonWithImageNamed:@"KPCTabPlusTemplate" target:self action:@selector(add:)];
     [self.addButton.cell setBorderMask:[self.addButton.cell borderMask] | KPCBorderMaskRight];
 
     if (!self.hideScrollButtons) {
-        self.scrollLeftButton  = [NSButton auxiliaryButtonWithImageNamed:@"KPCTabLeftTemplate" target:self action:@selector(scrollLeft:)];
-        self.scrollRightButton = [NSButton auxiliaryButtonWithImageNamed:@"KPCTabRightTemplate" target:self action:@selector(scrollRight:)];
+        self.scrollLeftButton  = [NSButton KPC_auxiliaryButtonWithImageNamed:@"KPCTabLeftTemplate" target:self action:@selector(scrollLeft:)];
+        self.scrollRightButton = [NSButton KPC_auxiliaryButtonWithImageNamed:@"KPCTabRightTemplate" target:self action:@selector(scrollRight:)];
         
         [self.scrollLeftButton setContinuous:YES];
         [self.scrollRightButton setContinuous:YES];
@@ -174,7 +188,7 @@
     for (NSUInteger i = 0; i < newItems.count; i++) {
         id item = newItems[i];
         
-        KPCTabButton *button = [NSButton tabButtonWithItem:item target:self action:@selector(selectTab:)];
+        KPCTabButton *button = [NSButton KPC_tabButtonWithItem:item target:self action:@selector(selectTab:)];
         [button setTitle:[self.dataSource tabsControl:self titleForItem:item]];
         
         if ([self.dataSource respondsToSelector:@selector(tabsControl:menuForItem:)]) {
@@ -230,8 +244,6 @@
 
 - (void)updateAuxiliaryButtons
 {
-    [self.addButton setHidden:(self.addAction == NULL)];
-
     NSClipView *contentView = self.scrollView.contentView;
     BOOL isDocumentClipped = (contentView.subviews.count > 0) && (NSMaxX([contentView.subviews[0] frame]) > NSWidth(contentView.bounds));
 
@@ -292,20 +304,6 @@ static char KPCScrollViewObservationContext;
 }
 
 #pragma mark - Actions
-
-//- (void)setAddAction:(SEL)addAction {
-//    if (_addAction != addAction) {
-//        _addAction = addAction;
-//        
-//        [self updateAuxiliaryButtons];
-//    }
-//}
-//
-//- (void)add:(id)sender {
-//    [[NSApplication sharedApplication] sendAction:self.addAction to:self.addTarget from:self];
-//    
-//    [self invalidateRestorableState];
-//}
 
 - (void)scrollLeft:(id)sender
 {
@@ -409,7 +407,7 @@ static char KPCScrollViewObservationContext;
     CGFloat tabX = NSMinX(tab.frame);
     NSPoint dragPoint = [self.tabsView convertPoint:event.locationInWindow fromView:nil];
 
-    KPCTabButton *draggingTab = [KPCTabButton tabButtonWithItem:[tab.cell representedObject] target:nil action:NULL];
+    KPCTabButton *draggingTab = [KPCTabButton KPC_tabButtonWithItem:[tab.cell representedObject] target:nil action:NULL];
 	draggingTab.cell.borderMask = draggingTab.cell.borderMask | KPCBorderMaskLeft | KPCBorderMaskRight;
 
     [draggingTab setIcon:[tab icon]];
@@ -590,9 +588,7 @@ static char KPCScrollViewObservationContext;
 - (void)highlight:(BOOL)flag
 {
     self.isHighlighted = flag;
-    NSColor *color = [NSColor colorWithCalibratedWhite:(flag) ? 0.85 : 0.95 alpha:1.0];
-    [self setBackgroundColor:color];
-    [[self.scrollView.documentView subviews] makeObjectsPerformSelector:@selector(setBackgroundColor:) withObject:color];
+    [self.cell setBackgroundColor:(flag) ? self.controlHighlightedBackgroundColor : self.controlBackgroundColor];
 }
 
 #pragma mark - State Restoration
@@ -672,29 +668,7 @@ static char KPCScrollViewObservationContext;
 	[self updateAuxiliaryButtons];
 }
 
-- (void)setBorderColor:(NSColor *)borderColor
-{
-    [self.cell setBorderColor:borderColor];
-    [self.scrollView.subviews makeObjectsPerformSelector:@selector(setBorderColor:) withObject:borderColor];
-}
-
-- (void)setBackgroundColor:(NSColor *)backgroundColor
-{
-    [self.cell setBackgroundColor:backgroundColor];
-    [self.scrollView.subviews makeObjectsPerformSelector:@selector(setBackgroundColor:) withObject:backgroundColor];
-}
-
-- (void)setTitleColor:(NSColor *)titleColor
-{
-    [self.cell setTitleColor:titleColor];
-    [self.scrollView.subviews makeObjectsPerformSelector:@selector(setTitleColor:) withObject:titleColor];
-}
-
-- (void)setTitleHighlightColor:(NSColor *)titleHighlightColor
-{
-    [self.cell setTitleHighlightColor:titleHighlightColor];
-    [self.scrollView.subviews makeObjectsPerformSelector:@selector(setTitleHighlightColor:) withObject:titleHighlightColor];
-}
+#pragma mark - Colors
 
 @end
 

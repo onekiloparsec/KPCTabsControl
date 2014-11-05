@@ -14,12 +14,6 @@
 
 @interface KPCTabsControl : NSControl
 
-@property(nonatomic, copy) NSColor *borderColor;
-@property(nonatomic, copy) NSColor *backgroundColor;
-
-@property(nonatomic, copy) NSColor *titleColor;
-@property(nonatomic, copy) NSColor *titleHighlightColor;
-
 @property(nonatomic, assign) CGFloat minTabWidth;
 @property(nonatomic, assign) CGFloat maxTabWidth;
 @property(nonatomic, assign, readonly) CGFloat currentTabWidth;
@@ -32,8 +26,18 @@
 @property(nonatomic, assign) BOOL preferFullWidthTabs;
 @property(nonatomic, assign, readonly) BOOL isHighlighted;
 
-@property(nonatomic, assign) SEL addAction;
-@property(nonatomic, weak) id addTarget;
+@property(nonatomic, copy) NSColor *controlBorderColor;
+@property(nonatomic, copy) NSColor *controlBackgroundColor;
+@property(nonatomic, copy) NSColor *controlHighlightedBackgroundColor;
+
+@property(nonatomic, copy) NSColor *tabBorderColor;
+@property(nonatomic, copy) NSColor *tabTitleColor;
+@property(nonatomic, copy) NSColor *tabBackgroundColor;
+@property(nonatomic, copy) NSColor *tabHighlightedBackgroundColor;
+
+@property(nonatomic, copy) NSColor *tabSelectedBorderColor;
+@property(nonatomic, copy) NSColor *tabSelectedTitleColor;
+@property(nonatomic, copy) NSColor *tabSelectedBackgroundColor;
 
 - (void)reloadData;
 - (void)highlight:(BOOL)flag;

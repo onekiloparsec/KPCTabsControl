@@ -12,7 +12,7 @@
 
 @implementation NSButton (KPCTabsControl)
 
-+ (NSButton *)auxiliaryButtonWithImageNamed:(NSString *)name target:(id)target action:(SEL)action
++ (NSButton *)KPC_auxiliaryButtonWithImageNamed:(NSString *)name target:(id)target action:(SEL)action
 {
     NSButton *button = [[NSButton alloc] init];
 
@@ -35,7 +35,7 @@
     return button;
 }
 
-+ (KPCTabButton *)tabButtonWithItem:(id)item target:(id)target action:(SEL)action
++ (KPCTabButton *)KPC_tabButtonWithItem:(id)item target:(id)target action:(SEL)action
 {
     KPCTabButton *tabButton = [[KPCTabButton alloc] initWithFrame:CGRectZero];
     [tabButton setEnabled:action != NULL];

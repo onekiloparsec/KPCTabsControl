@@ -12,17 +12,10 @@
 
 @property(nonatomic, assign) BOOL showsMenu;
 @property(nonatomic, assign) KPCBorderMask borderMask;
-
-@property(nonatomic, copy) NSColor *borderColor;
-@property(nonatomic, copy) NSColor *backgroundColor;
-
-@property(nonatomic, copy) NSColor *titleColor;
-@property(nonatomic, copy) NSColor *titleHighlightColor;
-
 @property(nonatomic, strong) NSImage *icon;
 
+- (void)highlight:(BOOL)flag;
 - (void)useMenu:(NSMenu *)menu;
-
 - (KPCTabButtonCell *)cell;
 - (NSImageView *)iconView;
 

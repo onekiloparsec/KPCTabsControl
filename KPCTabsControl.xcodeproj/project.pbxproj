@@ -24,6 +24,7 @@
 		9F3C2E401A022ECC00281F4B /* NSButton+KPCTabsControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F3C2E3F1A022ECC00281F4B /* NSButton+KPCTabsControl.m */; };
 		9FBD05071A037A0600B157D2 /* PaneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FBD05061A037A0600B157D2 /* PaneViewController.m */; };
 		9FC9CBF61A08BA5E00E7FAD2 /* KPCMessageInterceptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC9CBF51A08BA5E00E7FAD2 /* KPCMessageInterceptor.m */; };
+		9FC9CBF91A08F72400E7FAD2 /* NSColor+KPCTabsControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC9CBF81A08F72400E7FAD2 /* NSColor+KPCTabsControl.m */; };
 		9FFC4AAC1A068F2000AAF238 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9FFC4AAB1A068F2000AAF238 /* Images.xcassets */; };
 /* End PBXBuildFile section */
 
@@ -70,6 +71,8 @@
 		9FBD05061A037A0600B157D2 /* PaneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaneViewController.m; sourceTree = "<group>"; };
 		9FC9CBF41A08BA5E00E7FAD2 /* KPCMessageInterceptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KPCMessageInterceptor.h; sourceTree = "<group>"; };
 		9FC9CBF51A08BA5E00E7FAD2 /* KPCMessageInterceptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KPCMessageInterceptor.m; sourceTree = "<group>"; };
+		9FC9CBF71A08F72400E7FAD2 /* NSColor+KPCTabsControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSColor+KPCTabsControl.h"; sourceTree = "<group>"; };
+		9FC9CBF81A08F72400E7FAD2 /* NSColor+KPCTabsControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSColor+KPCTabsControl.m"; sourceTree = "<group>"; };
 		9FFC4AAB1A068F2000AAF238 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -128,6 +131,8 @@
 				9F2155FA1A00314B00819BDF /* NSImage+KPCTabsControl.m */,
 				9F3C2E3E1A022ECC00281F4B /* NSButton+KPCTabsControl.h */,
 				9F3C2E3F1A022ECC00281F4B /* NSButton+KPCTabsControl.m */,
+				9FC9CBF71A08F72400E7FAD2 /* NSColor+KPCTabsControl.h */,
+				9FC9CBF81A08F72400E7FAD2 /* NSColor+KPCTabsControl.m */,
 				9FC9CBF41A08BA5E00E7FAD2 /* KPCMessageInterceptor.h */,
 				9FC9CBF51A08BA5E00E7FAD2 /* KPCMessageInterceptor.m */,
 			);
@@ -299,6 +304,7 @@
 				9F2155FB1A00314B00819BDF /* NSImage+KPCTabsControl.m in Sources */,
 				9FBD05071A037A0600B157D2 /* PaneViewController.m in Sources */,
 				9F3C2E401A022ECC00281F4B /* NSButton+KPCTabsControl.m in Sources */,
+				9FC9CBF91A08F72400E7FAD2 /* NSColor+KPCTabsControl.m in Sources */,
 				9F2155FD1A003A3C00819BDF /* KPCTabsControlConstants.m in Sources */,
 				9F2155D81A002F0200819BDF /* AppDelegate.m in Sources */,
 			);

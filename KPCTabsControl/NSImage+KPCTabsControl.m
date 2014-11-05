@@ -10,7 +10,7 @@
 
 @implementation NSImage (KPCTabsControl)
 
-- (NSImage *)imageWithTint:(NSColor *)color
+- (NSImage *)KPC_imageWithTint:(NSColor *)color
 {
     NSRect imageRect = NSZeroRect;
     imageRect.size = self.size;

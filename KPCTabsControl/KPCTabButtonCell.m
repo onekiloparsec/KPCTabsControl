@@ -11,78 +11,130 @@
 #import "KPCTabButton.h"
 #import "KPCTabsControl.h"
 #import "NSImage+KPCTabsControl.h"
+#import "NSColor+KPCTabsControl.h"
 
-#define DF_BORDER_COLOR [NSColor lightGrayColor]
-#define DF_TITLE_COLOR [NSColor darkGrayColor]
-#define DF_HIGHLIGHT_COLOR [NSColor colorWithCalibratedRed:0.119 green:0.399 blue:0.964 alpha:1.000]
-#define DF_BACKGROUND_COLOR [NSColor colorWithCalibratedRed:0.854 green:0.858 blue:0.873 alpha:1.000]
-
-// Numbers default
-//#define DF_HIGHLIGHT_BACKGROUND_COLOR [NSColor colorWithCalibratedRed:215./255. green:232./255. blue:254./255. alpha:1.000]
-// Numbers default
-#define DF_HIGHLIGHT_BACKGROUND_COLOR [NSColor colorWithCalibratedRed:205./255. green:222./255. blue:244./255. alpha:1.000]
-#define DF_HIGHLIGHT_BORDER_COLOR [NSColor colorWithCalibratedRed:185./255. green:202./255. blue:224./255. alpha:1.000]
+@interface KPCTabButtonCell ()
+@property(nonatomic, assign, getter=isHighlighted) BOOL highlighted;
+@end
 
 @implementation KPCTabButtonCell
 
 - (id)initTextCell:(NSString *)string
 {
     self = [super initTextCell:string];
-    if (self) {
-        _borderColor = DF_BORDER_COLOR;
-        _backgroundColor = DF_BACKGROUND_COLOR;
-        
-        _titleColor = DF_TITLE_COLOR;
-        _titleHighlightColor = DF_HIGHLIGHT_COLOR;
-        
+    if (self) {        
         [self setBordered:YES];
         [self setBackgroundStyle:NSBackgroundStyleLight];
         [self setHighlightsBy:NSChangeBackgroundCellMask];
         [self setLineBreakMode:NSLineBreakByTruncatingTail];
         [self setFocusRingType:NSFocusRingTypeNone];
+        
+        _tabBorderColor = [NSColor KPC_defaultTabBorderColor];
+        _tabTitleColor = [NSColor KPC_defaultTabTitleColor];
+        _tabBackgroundColor = [NSColor KPC_defaultTabBackgroundColor];
+        _tabHighlightedBackgroundColor = [NSColor KPC_defaultTabHighlightedBackgroundColor];
+        _tabSelectedBorderColor = [NSColor KPC_defaultTabSelectedBorderColor];
+        _tabSelectedTitleColor = [NSColor KPC_defaultTabSelectedTitleColor];
+        _tabSelectedBackgroundColor = [NSColor KPC_defaultTabSelectedBackgroundColor];
     }
     return self;
 }
 
+// Do not allow to change state of the cell associated with the parent Tabs Control.
+- (void)setState:(NSInteger)state
+{
+    if ([self.controlView isKindOfClass:[KPCTabsControl class]]) {
+        return;
+    }
+    [super setState:state];
+}
+
+
+- (BOOL)isSelected
+{
+    return (self.state == NSOnState) ? YES : NO;
+}
+
 - (void)setShowsMenu:(BOOL)showsMenu
 {
-    if (_showsMenu != showsMenu) {
-        _showsMenu = showsMenu;
-        [self.controlView setNeedsDisplay:YES];
-    }
-}
-
-- (void)setBorderColor:(NSColor *)borderColor
-{
-    if (_borderColor != borderColor) {
-        _borderColor = borderColor.copy;
-        [self.controlView setNeedsDisplay:YES];
-    }
-}
-
-- (void)setBackgroundColor:(NSColor *)backgroundColor
-{
-    if (_backgroundColor != backgroundColor) {
-        _backgroundColor = [backgroundColor copy];
-        [self.controlView setNeedsDisplay:YES];
-    }
+    _showsMenu = showsMenu;
+    [self.controlView setNeedsDisplay:YES];
 }
 
 - (void)setBorderMask:(KPCBorderMask)borderMask
 {
-    if (_borderMask != borderMask) {
-        _borderMask = borderMask;
-        [self.controlView setNeedsDisplay:YES];
-    }
+    _borderMask = borderMask;
+    [self.controlView setNeedsDisplay:YES];
+}
+
+- (void)setTabBorderColor:(NSColor *)tabBorderColor
+{
+    _tabBorderColor = tabBorderColor;
+    [self.controlView setNeedsDisplay:YES];
+}
+
+- (void)setTabTitleColor:(NSColor *)tabTitleColor
+{
+    _tabTitleColor = tabTitleColor;
+    [self.controlView setNeedsDisplay:YES];
+}
+
+- (void)setTabBackgroundColor:(NSColor *)tabBackgroundColor
+{
+    _tabBackgroundColor = tabBackgroundColor;
+    [self.controlView setNeedsDisplay:YES];
+}
+
+- (void)setTabHighlightedBackgroundColor:(NSColor *)tabHighlightedBackgroundColor
+{
+    _tabHighlightedBackgroundColor = tabHighlightedBackgroundColor;
+    [self.controlView setNeedsDisplay:YES];
+}
+
+- (void)setTabSelectedBorderColor:(NSColor *)tabSelectedBorderColor
+{
+    _tabSelectedBorderColor = tabSelectedBorderColor;
+    [self.controlView setNeedsDisplay:YES];
+}
+
+- (void)setTabSelectedTitleColor:(NSColor *)tabSelectedTitleColor
+{
+    _tabSelectedTitleColor = tabSelectedTitleColor;
+    [self.controlView setNeedsDisplay:YES];
+}
+
+- (void)setTabSelectedBackgroundColor:(NSColor *)tabSelectedBackgroundColor
+{
+    _tabSelectedBackgroundColor = tabSelectedBackgroundColor;
+    [self.controlView setNeedsDisplay:YES];
+}
+
+- (void)highlight:(BOOL)flag
+{
+    self.highlighted = flag;
+    [self.controlView setNeedsDisplay:YES];
 }
 
 + (NSImage *)popupImage
 {
     static NSImage *ret = nil;
     if (ret == nil) {
-        ret = [[NSImage imageNamed:@"KPCPullDownTemplate"] imageWithTint:[NSColor darkGrayColor]];
+        ret = [[NSImage imageNamed:@"KPCPullDownTemplate"] KPC_imageWithTint:[NSColor darkGrayColor]];
     }
     return ret;
+}
+
+- (NSAttributedString *)attributedTitle
+{
+    NSMutableAttributedString *attributedTitle = [[super attributedTitle] mutableCopy];
+    
+    NSColor *color = (self.isSelected ? self.tabSelectedTitleColor : self.tabTitleColor);
+    [attributedTitle addAttributes:@{ NSForegroundColorAttributeName : color } range:NSMakeRange(0, attributedTitle.length)];
+    
+    NSFont *font = (self.isHighlighted) ? [NSFont fontWithName:@"HelveticaNeue-Bold" size:13] : [NSFont fontWithName:@"HelveticaNeue-Medium" size:13];
+    [attributedTitle addAttributes:@{ NSFontAttributeName : font } range:NSMakeRange(0, attributedTitle.length)];
+    
+    return attributedTitle;
 }
 
 - (NSSize)cellSizeForBounds:(NSRect)aRect
@@ -133,11 +185,14 @@
 
 - (void)drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView
 {
-    if (self.state) {
-        [DF_HIGHLIGHT_BACKGROUND_COLOR setFill];
+    if (self.isSelected) {
+        [self.tabSelectedBackgroundColor setFill];
+    }
+    else if (self.isHighlighted) {
+        [self.tabHighlightedBackgroundColor setFill];
     }
     else {
-        [self.backgroundColor setFill];
+        [self.tabBackgroundColor setFill];
     }
     NSRectFill(cellFrame);
     
@@ -147,7 +202,7 @@
     [self drawTitle:[self attributedTitle] withFrame:titleFrame inView:controlView];
     
     if (self.image && self.imagePosition != NSNoImage) {
-        [self drawImage:[self.image imageWithTint:self.isHighlighted ? DF_HIGHLIGHT_COLOR : [NSColor darkGrayColor]]
+        [self drawImage:[self.image KPC_imageWithTint:[NSColor darkGrayColor]]
               withFrame:cellFrame
                  inView:controlView];
     }
@@ -162,21 +217,16 @@
     }
 }
 
-- (void)setState:(NSInteger)state
-{
-    if ([self.controlView isKindOfClass:[KPCTabsControl class]]) {
-        return;
-    }
-    [super setState:state];
-}
-
 - (void)drawBezelWithFrame:(NSRect)cellFrame inView:(NSView *)controlView
 {
-    if (self.state) {
-        [DF_HIGHLIGHT_BACKGROUND_COLOR setFill];
+    if (self.isSelected) {
+        [self.tabSelectedBackgroundColor setFill];
+    }
+    else if (self.isHighlighted) {
+        [self.tabHighlightedBackgroundColor setFill];
     }
     else {
-        [self.backgroundColor setFill];
+        [self.tabBackgroundColor setFill];
     }
     NSRectFill(cellFrame);
     
@@ -184,7 +234,13 @@
     NSInteger borderRectCount;
     
     if (KPCRectArrayWithBorderMask(cellFrame, self.borderMask, &borderRects, &borderRectCount)) {
-        [self.borderColor set];
+        if (self.isSelected) {
+            [self.tabSelectedBorderColor setFill];
+        }
+        else {
+            [self.tabBorderColor setFill];
+        }
+        [self.tabBorderColor set];
         NSRectFillList(borderRects, borderRectCount);
     }
 }
@@ -194,19 +250,6 @@
     NSRect titleRect = [self titleRectForBounds:frame];
     [title drawInRect:titleRect];
     return titleRect;
-}
-
-- (NSAttributedString *)attributedTitle
-{
-    NSMutableAttributedString *attributedTitle = [[super attributedTitle] mutableCopy];
-    
-    NSColor *color = (self.state ? self.titleHighlightColor : self.titleColor);
-    [attributedTitle addAttributes:@{ NSForegroundColorAttributeName : color } range:NSMakeRange(0, attributedTitle.length)];
-    
-    NSFont *font = (self.isHighlighted) ? [NSFont fontWithName:@"HelveticaNeue-Bold" size:13] : [NSFont fontWithName:@"HelveticaNeue-Medium" size:13];
-    [attributedTitle addAttributes:@{ NSFontAttributeName : font } range:NSMakeRange(0, attributedTitle.length)];
-    
-    return attributedTitle;
 }
 
 

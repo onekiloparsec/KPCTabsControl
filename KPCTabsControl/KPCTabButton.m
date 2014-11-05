@@ -7,6 +7,8 @@
 //
 
 #import "KPCTabButton.h"
+#import "KPCTabsControl.h"
+#import "NSColor+KPCTabsControl.h"
 
 @interface KPCTabButton ()
 @property(nonatomic, strong) NSImageView *iconView;
@@ -66,6 +68,11 @@
         [self.iconView removeFromSuperview];
         self.iconView = nil;
     }
+}
+
+- (void)highlight:(BOOL)flag
+{
+    [self.cell highlight:flag];
 }
 
 - (void)useMenu:(NSMenu *)menu
@@ -138,46 +145,6 @@
 - (void)setBorderMask:(KPCBorderMask)borderMask
 {
     [self.cell setBorderMask:borderMask];
-}
-
-- (NSColor *)borderColor
-{
-    return [self.cell borderColor];
-}
-
-- (void)setBorderColor:(NSColor *)borderColor
-{
-    [self.cell setBorderColor:borderColor];
-}
-
-- (NSColor *)backgroundColor
-{
-    return [self.cell backgroundColor];
-}
-
-- (void)setBackgroundColor:(NSColor *)backgroundColor
-{
-    [self.cell setBackgroundColor:backgroundColor];
-}
-
-- (NSColor *)titleColor
-{
-    return [self.cell titleColor];
-}
-
-- (void)setTitleColor:(NSColor *)titleColor
-{
-    [self.cell setTitleColor:titleColor];
-}
-
-- (NSColor *)titleHighlightColor
-{
-    return [self.cell titleHighlightColor];
-}
-
-- (void)setTitleHighlightColor:(NSColor *)titleHighlightColor
-{
-    [self.cell setTitleHighlightColor:titleHighlightColor];
 }
 
 @end
