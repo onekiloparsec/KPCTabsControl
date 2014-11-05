@@ -2,29 +2,24 @@
 //  KPCTabsControl.h
 //  KPCTabsControl
 //
-//  Created by Cédric Foellmi on 28/10/14.
-//  Copyright (c) 2014 Cédric Foellmi. All rights reserved.
+//  Created by @onekiloparsec (Cédric Foellmi) on 28/10/14.
+//  Copyright (c) 2014 @onekiloparsec (Cédric Foellmi). All rights reserved.
 //
 
 #import <AppKit/AppKit.h>
-
 #import "KPCTabsControlProtocols.h"
-#import "KPCTabsControlConstants.h"
-#import "KPCTabButton.h"
 
 @interface KPCTabsControl : NSControl
+
+@property(nonatomic, weak) IBOutlet id <KPCTabsControlDataSource> dataSource;
+@property(nonatomic, weak) IBOutlet id <KPCTabsControlDelegate> delegate;
+
+@property(nonatomic, weak) id selectedItem;
 
 @property(nonatomic, assign) CGFloat minTabWidth;
 @property(nonatomic, assign) CGFloat maxTabWidth;
 @property(nonatomic, assign, readonly) CGFloat currentTabWidth;
-
-@property(nonatomic, weak) IBOutlet id <KPCTabsControlDelegate> delegate;
-@property(nonatomic, weak) IBOutlet id <KPCTabsControlDataSource> dataSource;
-
-@property(nonatomic, weak) id selectedItem;
-
 @property(nonatomic, assign) BOOL preferFullWidthTabs;
-@property(nonatomic, assign, readonly) BOOL isHighlighted;
 
 @property(nonatomic, copy) NSColor *controlBorderColor;
 @property(nonatomic, copy) NSColor *controlBackgroundColor;
@@ -39,7 +34,9 @@
 @property(nonatomic, copy) NSColor *tabSelectedTitleColor;
 @property(nonatomic, copy) NSColor *tabSelectedBackgroundColor;
 
-- (void)reloadData;
+@property(nonatomic, assign, readonly) BOOL isHighlighted;
+
+- (void)reloadTabs;
 - (void)highlight:(BOOL)flag;
 
 @end

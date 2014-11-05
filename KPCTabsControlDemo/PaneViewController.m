@@ -90,13 +90,12 @@
 	[self.tabWidthsLabel setStringValue:labelString];
 
 	[self.tabsBar setPreferFullWidthTabs:self.useFullWidthTabsCheckButton.state];
-    [self.tabsBar reloadData];
+    [self.tabsBar reloadTabs];
 }
 
 - (IBAction)toggleFullWidthTabs:(id)sender
 {
 	[self.tabsBar setPreferFullWidthTabs:self.useFullWidthTabsCheckButton.state];
-	[self.tabsBar reloadData];
 }
 
 - (void)mouseDown:(NSEvent *)theEvent

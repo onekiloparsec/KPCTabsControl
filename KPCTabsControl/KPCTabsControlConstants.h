@@ -2,8 +2,8 @@
 //  KPCTabsControlConstants.h
 //  KPCTabsControl
 //
-//  Created by Cédric Foellmi on 28/10/14.
-//  Copyright (c) 2014 Cédric Foellmi. All rights reserved.
+//  Created by @onekiloparsec (Cédric Foellmi) on 28/10/14.
+//  Copyright (c) 2014 @onekiloparsec (Cédric Foellmi). All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

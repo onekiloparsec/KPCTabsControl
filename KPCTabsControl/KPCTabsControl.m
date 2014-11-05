@@ -2,8 +2,8 @@
 //  KPCTabsControl.m
 //  KPCTabsControl
 //
-//  Created by Cédric Foellmi on 28/10/14.
-//  Copyright (c) 2014 Cédric Foellmi. All rights reserved.
+//  Created by @onekiloparsec (Cédric Foellmi) on 28/10/14.
+//  Copyright (c) 2014 @onekiloparsec (Cédric Foellmi). All rights reserved.
 //
 
 #import <QuartzCore/QuartzCore.h>
@@ -173,10 +173,10 @@
                                                      name:KPCTabsControlSelectionDidChangeNotification
                                                    object:self];
     
-    [self reloadData];
+    [self reloadTabs];
 }
 
-- (void)reloadData
+- (void)reloadTabs
 {
     [[self tabButtons] makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
@@ -422,7 +422,7 @@ static char KPCScrollViewObservationContext;
 				if (reordered && [self.dataSource respondsToSelector:@selector(tabsControl:didReorderItems:)]) {
 					[self.dataSource tabsControl:self didReorderItems:[orderedTabs valueForKeyPath:@"cell.representedObject"]];
 				}
-				[self reloadData]; // That's the delegate responsability to store new order of items.
+				[self reloadTabs]; // That's the delegate responsability to store new order of items.
 			}];
 			[[draggingTab animator] setFrame:tab.frame];
 			break;
@@ -562,7 +562,7 @@ static char KPCScrollViewObservationContext;
     [self.editingTextField removeFromSuperview];
     self.editingTextField = nil;
     
-    [self reloadData]; // That's the receiver responsability to store the new title;
+    [self reloadTabs]; // That's the receiver responsability to store the new title;
 }
 
 #pragma mark - Drawing
@@ -669,7 +669,55 @@ static char KPCScrollViewObservationContext;
 	[self updateAuxiliaryButtons];
 }
 
-#pragma mark - Colors
+- (void)setPreferFullWidthTabs:(BOOL)preferFullWidthTabs
+{
+    _preferFullWidthTabs = preferFullWidthTabs;
+    [self layoutTabButtons:nil animated:NO];
+    [self updateAuxiliaryButtons];
+}
+
+#pragma mark - Control Colors
+
+- (NSColor *)controlBorderColor
+{
+    return [self.cell controlBorderColor];
+}
+
+- (void)setControlBorderColor:(NSColor *)controlBorderColor
+{
+    [self.cell setControlBorderColor:controlBorderColor];
+}
+
+- (NSColor *)controlBackgroundColor
+{
+    return [self.cell controlBackgroundColor];
+}
+
+- (void)setControlBackgroundColor:(NSColor *)controlBackgroundColor
+{
+    [self.cell setControlBackgroundColor:controlBackgroundColor];
+}
+
+- (NSColor *)controlHighlightedBackgroundColor
+{
+    return [self.cell controlHighlightedBackgroundColor];
+}
+
+- (void)setControlHighlightedBackgroundColor:(NSColor *)controlHighlightedBackgroundColor
+{
+    [self.cell setControlHighlightedBackgroundColor:controlHighlightedBackgroundColor];
+}
+
+#pragma mark - Tabs Colors
+
+//@property(nonatomic, copy) NSColor *tabBorderColor;
+//@property(nonatomic, copy) NSColor *tabTitleColor;
+//@property(nonatomic, copy) NSColor *tabBackgroundColor;
+//@property(nonatomic, copy) NSColor *tabHighlightedBackgroundColor;
+//
+//@property(nonatomic, copy) NSColor *tabSelectedBorderColor;
+//@property(nonatomic, copy) NSColor *tabSelectedTitleColor;
+//@property(nonatomic, copy) NSColor *tabSelectedBackgroundColor;
 
 @end
 
