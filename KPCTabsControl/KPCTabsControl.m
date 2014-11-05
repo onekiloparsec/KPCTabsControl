@@ -114,7 +114,7 @@
     [self.addButton.cell setBorderMask:[self.addButton.cell borderMask] | KPCBorderMaskRight];
 
     if (!self.hideScrollButtons) {
-        self.scrollLeftButton  = [NSButton KPC_auxiliaryButtonWithImageNamed:@"KPCTabLeftTemplate" target:self action:@selector(scrollLeft:)];
+        self.scrollLeftButton = [NSButton KPC_auxiliaryButtonWithImageNamed:@"KPCTabLeftTemplate" target:self action:@selector(scrollLeft:)];
         self.scrollRightButton = [NSButton KPC_auxiliaryButtonWithImageNamed:@"KPCTabRightTemplate" target:self action:@selector(scrollRight:)];
         
         [self.scrollLeftButton setContinuous:YES];
@@ -135,10 +135,10 @@
         // But for pixel-control freaking guys like me, I see no escape.
         CGRect r = CGRectZero;
         r.size.height = CGRectGetHeight(self.scrollView.frame);
-        r.size.width = CGRectGetWidth(self.scrollLeftButton.frame) + 2.0;
+        r.size.width = CGRectGetWidth(self.scrollLeftButton.frame);
         r.origin.x = CGRectGetMaxX(self.scrollView.frame) - r.size.width;
         self.scrollRightButton.frame = r;
-        r.origin.x -= r.size.width + 2.0;
+        r.origin.x -= r.size.width;
         self.scrollLeftButton.frame = r;
     }
     
@@ -245,9 +245,10 @@
 - (void)updateAuxiliaryButtons
 {
     NSClipView *contentView = self.scrollView.contentView;
-    BOOL isDocumentClipped = (contentView.subviews.count > 0) && (NSMaxX([contentView.subviews[0] frame]) > NSWidth(contentView.bounds));
-
-    if (isDocumentClipped) {
+    BOOL showScrollButtons = (contentView.subviews.count > 0) && (NSMaxX([contentView.subviews[0] frame]) > NSWidth(contentView.bounds));
+    showScrollButtons |= (self.preferFullWidthTabs && [self currentTabWidth] == [self minTabWidth]);
+    
+    if (showScrollButtons) {
         [self.scrollLeftButton  setHidden:NO];
         [self.scrollRightButton setHidden:NO];
 
@@ -350,7 +351,7 @@ static char KPCScrollViewObservationContext;
 	NSRect visibleRect = self.tabsView.visibleRect;
 
     for (NSButton *button in [self tabButtons]) {
-        if (NSMaxX(button.frame) > NSMaxX(visibleRect)) {
+        if (NSMaxX(button.frame) > NSMaxX(visibleRect) - 2.0*NSWidth(self.scrollLeftButton.frame)) {
             return button;
         }
     }
@@ -587,6 +588,8 @@ static char KPCScrollViewObservationContext;
 {
     self.isHighlighted = flag;
     [self.cell highlight:flag];
+    [self.scrollLeftButton.cell highlight:flag];
+    [self.scrollRightButton.cell highlight:flag];
     [[self tabButtons] enumerateObjectsUsingBlock:^(KPCTabButton *button, NSUInteger idx, BOOL *stop) {
         [button highlight:flag];
     }];
@@ -679,46 +682,123 @@ static char KPCScrollViewObservationContext;
 
 #pragma mark - Control Colors
 
-//- (NSColor *)controlBorderColor
-//{
-//    return [self.cell controlBorderColor];
-//}
-//
-//- (void)setControlBorderColor:(NSColor *)controlBorderColor
-//{
-//    [self.cell setControlBorderColor:controlBorderColor];
-//}
-//
-//- (NSColor *)controlBackgroundColor
-//{
-//    return [self.cell controlBackgroundColor];
-//}
-//
-//- (void)setControlBackgroundColor:(NSColor *)controlBackgroundColor
-//{
-//    [self.cell setControlBackgroundColor:controlBackgroundColor];
-//}
-//
-//- (NSColor *)controlHighlightedBackgroundColor
-//{
-//    return [self.cell controlHighlightedBackgroundColor];
-//}
-//
-//- (void)setControlHighlightedBackgroundColor:(NSColor *)controlHighlightedBackgroundColor
-//{
-//    [self.cell setControlHighlightedBackgroundColor:controlHighlightedBackgroundColor];
-//}
+- (NSColor *)controlBorderColor
+{
+    return [self.cell tabBorderColor];
+}
+
+- (void)setControlBorderColor:(NSColor *)controlBorderColor
+{
+    [self.cell setTabBorderColor:controlBorderColor];
+    [self.scrollLeftButton.cell setTabBorderColor:controlBorderColor];
+    [self.scrollRightButton.cell setTabBorderColor:controlBorderColor];
+    [self setNeedsDisplay];
+}
+
+- (NSColor *)controlBackgroundColor
+{
+    return [self.cell tabBackgroundColor];
+}
+
+- (void)setControlBackgroundColor:(NSColor *)controlBackgroundColor
+{
+    [self.cell setTabBackgroundColor:controlBackgroundColor];
+    [self.scrollLeftButton.cell setTabBackgroundColor:controlBackgroundColor];
+    [self.scrollRightButton.cell setTabBackgroundColor:controlBackgroundColor];
+    [self setNeedsDisplay];
+}
+
+- (NSColor *)controlHighlightedBackgroundColor
+{
+    return [self.cell tabHighlightedBackgroundColor];
+}
+
+- (void)setControlHighlightedBackgroundColor:(NSColor *)controlHighlightedBackgroundColor
+{
+    [self.cell setTabHighlightedBackgroundColor:controlHighlightedBackgroundColor];
+    [self.scrollLeftButton.cell setTabHighlightedBackgroundColor:controlHighlightedBackgroundColor];
+    [self.scrollRightButton.cell setTabHighlightedBackgroundColor:controlHighlightedBackgroundColor];
+    [self setNeedsDisplay];
+}
 
 #pragma mark - Tabs Colors
 
-//@property(nonatomic, copy) NSColor *tabBorderColor;
-//@property(nonatomic, copy) NSColor *tabTitleColor;
-//@property(nonatomic, copy) NSColor *tabBackgroundColor;
-//@property(nonatomic, copy) NSColor *tabHighlightedBackgroundColor;
-//
-//@property(nonatomic, copy) NSColor *tabSelectedBorderColor;
-//@property(nonatomic, copy) NSColor *tabSelectedTitleColor;
-//@property(nonatomic, copy) NSColor *tabSelectedBackgroundColor;
+- (NSColor *)tabBorderColor
+{
+    return [[[[self tabButtons] firstObject] cell] tabBorderColor] ?: [NSColor KPC_defaultTabBorderColor];
+}
+
+- (void)setTabBorderColor:(NSColor *)tabBorderColor
+{
+    [[[self tabButtons] valueForKey:@"cell"] setValue:tabBorderColor forKey:@"tabBorderColor"];
+    [self setNeedsDisplay];
+}
+
+- (NSColor *)tabTitleColor
+{
+    return [[[[self tabButtons] firstObject] cell] tabTitleColor] ?: [NSColor KPC_defaultTabTitleColor];
+}
+
+- (void)setTabTitleColor:(NSColor *)tabTitleColor
+{
+    [[[self tabButtons] valueForKey:@"cell"] setValue:tabTitleColor forKey:@"tabTitleColor"];
+    [self setNeedsDisplay];
+}
+
+- (NSColor *)tabBackgroundColor
+{
+    return [[[[self tabButtons] firstObject] cell] tabBackgroundColor] ?: [NSColor KPC_defaultTabBackgroundColor];
+}
+
+- (void)setTabBackgroundColor:(NSColor *)tabBackgroundColor
+{
+    [[[self tabButtons] valueForKey:@"cell"] setValue:tabBackgroundColor forKey:@"tabBackgroundColor"];
+    [self setNeedsDisplay];
+}
+
+- (NSColor *)tabHighlightedBackgroundColor
+{
+    return [[[[self tabButtons] firstObject] cell] tabHighlightedBackgroundColor] ?: [NSColor KPC_defaultTabHighlightedBackgroundColor];
+}
+
+- (void)setTabHighlightedBackgroundColor:(NSColor *)tabHighlightedBackgroundColor
+{
+    [[[self tabButtons] valueForKey:@"cell"] setValue:tabHighlightedBackgroundColor forKey:@"tabHighlightedBackgroundColor"];
+    [self setNeedsDisplay];
+}
+
+- (NSColor *)tabSelectedBorderColor
+{
+    return [[[[self tabButtons] firstObject] cell] tabSelectedBorderColor] ?: [NSColor KPC_defaultTabSelectedBorderColor];
+}
+
+- (void)setTabSelectedBorderColor:(NSColor *)tabSelectedBorderColor
+{
+    [[[self tabButtons] valueForKey:@"cell"] setValue:tabSelectedBorderColor forKey:@"tabSelectedBorderColor"];
+    [self setNeedsDisplay];
+}
+
+- (NSColor *)tabSelectedTitleColor
+{
+    return [[[[self tabButtons] firstObject] cell] tabSelectedTitleColor] ?: [NSColor KPC_defaultTabSelectedTitleColor];
+}
+
+- (void)setTabSelectedTittleColor:(NSColor *)tabSelectedTitleColor
+{
+    [[[self tabButtons] valueForKey:@"cell"] setValue:tabSelectedTitleColor forKey:@"tabSelectedTitleColor"];
+    [self setNeedsDisplay];
+}
+
+- (NSColor *)tabSelectedBackgroundColor
+{
+    return [[[[self tabButtons] firstObject] cell] tabSelectedBackgroundColor] ?: [NSColor KPC_defaultTabSelectedBackgroundColor];
+}
+
+- (void)setTabSelectedBackgroundColor:(NSColor *)tabSelectedBackgroundColor
+{
+    [[[self tabButtons] valueForKey:@"cell"] setValue:tabSelectedBackgroundColor forKey:@"tabSelectedBackgroundColor"];
+    [self setNeedsDisplay];
+}
 
 @end
 

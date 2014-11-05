@@ -30,6 +30,8 @@
 
 	CGRect r = CGRectZero;
 	r.size = button.image.size;
+    r.size.width += 4.0;
+    r.origin.x += 2.0;
 	button.frame = r;
     
     return button;

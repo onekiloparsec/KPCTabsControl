@@ -63,12 +63,10 @@
 // Do not allow to change state of the cell associated with the parent Tabs Control.
 - (void)setState:(NSInteger)state
 {
-    if ([self.controlView isKindOfClass:[KPCTabsControl class]]) {
-        return;
+    if ([self.controlView isKindOfClass:[KPCTabButton class]]) {
+        [super setState:state];
     }
-    [super setState:state];
 }
-
 
 - (BOOL)isSelected
 {
