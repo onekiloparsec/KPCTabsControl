@@ -426,8 +426,9 @@ static char KPCScrollViewObservationContext;
 {
     KPCTabButton *selectedButton = sender;
     
-    for (NSButton *button in [self.scrollView.documentView subviews]) {
+    for (KPCTabButton *button in [self tabButtons]) {
         [button setState:(button == selectedButton) ? NSOnState : NSOffState];
+        [button highlight:self.isHighlighted];
     }
     
     [[NSApplication sharedApplication] sendAction:self.action to:self.target from:self];

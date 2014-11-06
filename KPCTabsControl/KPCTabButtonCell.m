@@ -65,6 +65,7 @@
 {
     if ([self.controlView isKindOfClass:[KPCTabButton class]]) {
         [super setState:state];
+        [self.controlView setNeedsDisplay:YES];
     }
 }
 
