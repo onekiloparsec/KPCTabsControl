@@ -1,5 +1,3 @@
-``  
-
 KPCTabsControl
 ==============
 
@@ -14,7 +12,7 @@ Below a screenshot of the demo app with two series of tabs (showing the highligh
 Installation
 ------------
 
-`pod KPCTabsControl`
+Using CocoaPods: `pod 'KPCTabsControl'`
 
 
 Usage
