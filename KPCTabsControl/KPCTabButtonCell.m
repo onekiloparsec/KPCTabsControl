@@ -13,6 +13,8 @@
 #import "NSImage+KPCTabsControl.h"
 #import "NSColor+KPCTabsControl.h"
 
+static CGFloat titleMargin = 5.0;
+
 @interface KPCTabButtonCell ()
 @property(nonatomic, assign, getter=isHighlighted) BOOL highlighted;
 @end
@@ -56,6 +58,7 @@
     copy.state = self.state;
     copy.showsMenu = self.showsMenu;
     copy.highlighted = self.highlighted;
+    copy.hasTitleAlternativeIcon = self.hasTitleAlternativeIcon;
 
     return copy;
 }
@@ -68,6 +71,8 @@
         [self.controlView setNeedsDisplay:YES];
     }
 }
+
+- (void)setImage:(NSImage *)image {}
 
 - (BOOL)isSelected
 {
@@ -156,6 +161,13 @@
     return attributedTitle;
 }
 
+- (BOOL)hasRoomToDrawFullTitleInRect:(NSRect)frame
+{
+    NSRect titleDrawRect = [self titleRectForBounds:frame];
+    CGFloat requiredMinimumWidth = [[self attributedTitle] size].width + 2.0*titleMargin;
+    return requiredMinimumWidth <= NSWidth(titleDrawRect);
+}
+
 - (NSSize)cellSizeForBounds:(NSRect)aRect
 {
     NSSize titleSize = [[self attributedTitle] size];
@@ -217,13 +229,8 @@
     
     [self drawBezelWithFrame:cellFrame inView:controlView];
     
-    NSRect titleFrame = cellFrame;
-    [self drawTitle:[self attributedTitle] withFrame:titleFrame inView:controlView];
-    
-    if (self.image && self.imagePosition != NSNoImage) {
-        [self drawImage:[self.image KPC_imageWithTint:[NSColor darkGrayColor]]
-              withFrame:cellFrame
-                 inView:controlView];
+    if ([self hasRoomToDrawFullTitleInRect:cellFrame] || !self.hasTitleAlternativeIcon) {
+        [self drawTitle:[self attributedTitle] withFrame:cellFrame inView:controlView];
     }
     
     if (self.showsMenu) {
@@ -264,7 +271,7 @@
     }
 }
 
-- (NSRect)drawTitle:(NSAttributedString *)title withFrame:(NSRect)frame inView:(NSView*)controlView
+- (NSRect)drawTitle:(NSAttributedString *)title withFrame:(NSRect)frame inView:(NSView *)controlView
 {
     NSRect titleRect = [self titleRectForBounds:frame];
     [title drawInRect:titleRect];

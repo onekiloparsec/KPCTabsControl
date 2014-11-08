@@ -7,11 +7,13 @@
 //
 
 #import "KPCTabButton.h"
+#import "KPCTabButtonCell.h"
 #import "KPCTabsControl.h"
 #import "NSColor+KPCTabsControl.h"
 
 @interface KPCTabButton ()
 @property(nonatomic, strong) NSImageView *iconView;
+@property(nonatomic, strong) NSImageView *alternativeTitleIconView;
 @property(nonatomic, strong) NSTrackingArea *trackingArea;
 @end
 
@@ -57,6 +59,7 @@
     [copy setCell:cellCopy];
 
     copy.icon = self.icon;
+    copy.alternativeTitleIcon = self.alternativeTitleIcon;
 
     return copy;
 }
@@ -76,7 +79,7 @@
     _icon = icon;
     
     if (icon && !self.iconView) {
-        self.iconView = [[NSImageView alloc] initWithFrame:CGRectMake(10.0, 0.0, 18.0, 18.0)];
+        self.iconView = [[NSImageView alloc] initWithFrame:NSZeroRect];
         [self.iconView setImageFrameStyle:NSImageFrameNone];
         [self.iconView setImage:icon];
         [self addSubview:self.iconView];
@@ -85,6 +88,51 @@
         [self.iconView removeFromSuperview];
         self.iconView = nil;
     }
+}
+
+- (void)setAlternativeTitleIcon:(NSImage *)alternativeTitleIcon
+{
+    _alternativeTitleIcon = alternativeTitleIcon;
+    self.cell.hasTitleAlternativeIcon = (_alternativeTitleIcon != nil);
+    
+    if (_alternativeTitleIcon && !self.iconView) {
+        self.alternativeTitleIconView = [[NSImageView alloc] initWithFrame:NSZeroRect];
+        [self.alternativeTitleIconView setImageFrameStyle:NSImageFrameNone];
+        [self.alternativeTitleIconView setImage:_alternativeTitleIcon];
+        [self addSubview:self.alternativeTitleIconView];
+        [self.alternativeTitleIconView setHidden:YES];
+    }
+    else if (!_alternativeTitleIcon && self.alternativeTitleIconView) {
+        [self.alternativeTitleIconView removeFromSuperview];
+        self.alternativeTitleIconView = nil;
+    }
+}
+
+- (void)drawRect:(NSRect)dirtyRect
+{
+    CGFloat y = 2.0;
+    CGFloat s = CGRectGetHeight(self.frame) - 2*y;
+    CGFloat x = CGRectGetWidth(self.frame) / 2.0 - s / 2.0;
+    self.iconView.frame = NSMakeRect(10.0, y, s, s);
+    self.alternativeTitleIconView.frame = NSMakeRect(x, y, s, s);
+
+    if (self.iconView.image.size.width > 1.2 * s) {
+        NSImage *smallIcon = [[NSImage alloc] initWithSize:NSMakeSize(s, s)];
+        [smallIcon addRepresentation:[NSBitmapImageRep imageRepWithData:[self.icon TIFFRepresentation]]];
+        self.iconView.image = smallIcon;
+    }
+
+    if (self.alternativeTitleIconView.image.size.width > 1.2 * s) {
+        NSImage *smallIcon = [[NSImage alloc] initWithSize:NSMakeSize(s, s)];
+        [smallIcon addRepresentation:[NSBitmapImageRep imageRepWithData:[self.alternativeTitleIcon TIFFRepresentation]]];
+        self.alternativeTitleIconView.image = smallIcon;
+    }
+    
+    BOOL hasRoom = [self.cell hasRoomToDrawFullTitleInRect:self.bounds];
+    [self.alternativeTitleIconView setHidden:hasRoom];
+    self.toolTip = (hasRoom) ? nil : self.title;
+    
+    [super drawRect:dirtyRect];
 }
 
 - (NSMenu *)menu

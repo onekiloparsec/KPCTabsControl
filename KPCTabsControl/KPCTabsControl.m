@@ -202,6 +202,10 @@
             [button setMenu:[self.dataSource tabsControl:self menuForItem:item]];
         }
         
+        if ([self.dataSource respondsToSelector:@selector(tabsControl:titleAlternativeIconForItem:)]) {
+            [button setAlternativeTitleIcon:[self.dataSource tabsControl:self titleAlternativeIconForItem:item]];
+        }
+        
         [self.tabsView addSubview:button];
     }
 
@@ -596,55 +600,6 @@ static char KPCScrollViewObservationContext;
     }];
 }
 
-#pragma mark - State Restoration
-
-// NOTE: to enable state restoration, be sure to either assign an identifier to
-// the LITabControl instance within IB or, if the control is created programmatically,
-// prior to adding it to your window's view hierarchy.
-
-#define kScrollXOffsetKey @"scrollOrigin"
-#define kSelectedButtonIndexKey @"selectedButtonIndex"
-
-
-- (void)encodeRestorableStateWithCoder:(NSCoder *)coder
-{
-    [super encodeRestorableStateWithCoder:coder];
-    
-    CGFloat scrollXOffset = 0;
-    NSUInteger selectedButtonIndex = NSNotFound;
-    
-    scrollXOffset = self.scrollView.contentView.bounds.origin.x;
-    
-    NSUInteger index = 0;
-    for (NSButton *button in [self.scrollView.documentView subviews]) {
-        if (button.state == 1) {
-            selectedButtonIndex = index;
-            break;
-        }
-        index += 1;
-    }
-    
-    [coder encodeDouble:scrollXOffset forKey:kScrollXOffsetKey];
-    [coder encodeInteger:selectedButtonIndex forKey:kSelectedButtonIndexKey];
-}
-
-- (void)restoreStateWithCoder:(NSCoder *)coder
-{
-    [super restoreStateWithCoder:coder];
-    
-    CGFloat scrollXOffset = [coder decodeDoubleForKey:kScrollXOffsetKey];
-    NSUInteger selectedButtonIndex = [coder decodeIntegerForKey:kSelectedButtonIndexKey];
-    
-    NSRect bounds = self.scrollView.contentView.bounds; bounds.origin.x = scrollXOffset;
-    self.scrollView.contentView.bounds = bounds;
-    
-    NSUInteger index = 0;
-    for (NSButton *button in [self.scrollView.documentView subviews]) {
-        [button setState:(index == selectedButtonIndex) ? NSOnState : NSOffState];
-        index += 1;
-    }
-}
-
 #pragma mark - Tab Widths
 
 - (CGFloat)currentTabWidth
@@ -800,6 +755,57 @@ static char KPCScrollViewObservationContext;
     [[[self tabButtons] valueForKey:@"cell"] setValue:tabSelectedBackgroundColor forKey:@"tabSelectedBackgroundColor"];
     [self setNeedsDisplay];
 }
+
+
+#pragma mark - State Restoration
+
+// NOTE: to enable state restoration, be sure to either assign an identifier to
+// the LITabControl instance within IB or, if the control is created programmatically,
+// prior to adding it to your window's view hierarchy.
+
+#define kScrollXOffsetKey @"scrollOrigin"
+#define kSelectedButtonIndexKey @"selectedButtonIndex"
+
+
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    [super encodeRestorableStateWithCoder:coder];
+    
+    CGFloat scrollXOffset = 0;
+    NSUInteger selectedButtonIndex = NSNotFound;
+    
+    scrollXOffset = self.scrollView.contentView.bounds.origin.x;
+    
+    NSUInteger index = 0;
+    for (NSButton *button in [self.scrollView.documentView subviews]) {
+        if (button.state == 1) {
+            selectedButtonIndex = index;
+            break;
+        }
+        index += 1;
+    }
+    
+    [coder encodeDouble:scrollXOffset forKey:kScrollXOffsetKey];
+    [coder encodeInteger:selectedButtonIndex forKey:kSelectedButtonIndexKey];
+}
+
+- (void)restoreStateWithCoder:(NSCoder *)coder
+{
+    [super restoreStateWithCoder:coder];
+    
+    CGFloat scrollXOffset = [coder decodeDoubleForKey:kScrollXOffsetKey];
+    NSUInteger selectedButtonIndex = [coder decodeIntegerForKey:kSelectedButtonIndexKey];
+    
+    NSRect bounds = self.scrollView.contentView.bounds; bounds.origin.x = scrollXOffset;
+    self.scrollView.contentView.bounds = bounds;
+    
+    NSUInteger index = 0;
+    for (NSButton *button in [self.scrollView.documentView subviews]) {
+        [button setState:(index == selectedButtonIndex) ? NSOnState : NSOffState];
+        index += 1;
+    }
+}
+
 
 @end
 

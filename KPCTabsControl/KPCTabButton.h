@@ -12,12 +12,14 @@
 
 @property(nonatomic, assign) BOOL showsMenu;
 @property(nonatomic, strong) NSImage *icon;
+@property(nonatomic, strong) NSImage *alternativeTitleIcon;
 @property(nonatomic, strong) NSMenu *menu;
 
 - (void)highlight:(BOOL)flag;
 
 - (KPCTabButtonCell *)cell;
 - (NSImageView *)iconView;
+- (NSImageView *)alternativeTitleIconView;
 
 @end
 

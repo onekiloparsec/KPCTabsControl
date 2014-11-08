@@ -19,6 +19,7 @@
 @optional
 - (NSMenu *)tabsControl:(KPCTabsControl *)tabControl menuForItem:(id)item;
 - (NSImage *)tabsControl:(KPCTabsControl *)tabControl iconForItem:(id)item;
+- (NSImage *)tabsControl:(KPCTabsControl *)tabControl titleAlternativeIconForItem:(id)item;
 
 - (BOOL)tabsControl:(KPCTabsControl *)tabControl canSelectItem:(id)item;
 - (void)tabsControlDidChangeSelection:(NSNotification *)notification;
