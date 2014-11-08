@@ -1,9 +1,9 @@
 KPCTabsControl
 ==============
 
-An multi-tab control *not using AutoLayout*, designed to look and behave like the tab control in Apple's Numbers spreadsheet, with enhanced capabilities. Borrowed initially from the excellent [LITabControl](https://github.com/monyschuk/LITabControl).
+A multi-tabs control *not using AutoLayout*, designed to look and behave like the tab control in Apple's Numbers spreadsheet, with enhanced capabilities. Borrowed initially from the excellent [LITabControl](https://github.com/monyschuk/LITabControl).
 
-The reason for not doing a fork, but a new lib? Well, I used the LITabControl since some time, and it diverged quite a lot. More importantly, AutoLayout is way too instable and hard to debug in a complex app (with various intricated split views with dynamic constraints), like the ones I am currently developing.
+I used the LITabControl since some time, and it diverged quite a lot (hence the new repo rather than a fork). More importantly, AutoLayout is way too instable and hard to debug in a complex app (with various intricated split views with dynamic constraints), like the ones I am currently developing.
 
 Below a screenshot of the demo app with two series of tabs (showing the highlight effect). 
 ![Demo Tabs Screenshot](http://onekilopars.ec/blog/files/screen-shot-2014-11-05-at-17.36.32.png)
@@ -21,7 +21,9 @@ Using CocoaPods: `pod 'KPCTabsControl'`
 Usage
 -----
 
-KPCTabsControl is designed for you to use only the `KPCTabsControl` class, and its associated data source methods. You can also assign a delegate method if you want to play with the editing of the tab titles.
+KPCTabsControl is designed for you to use only the `KPCTabsControl` class, and its associated data source methods. Simply place a `NSView` in a xib, where you need tabs, change its class to `KPCTabsControl` and assign its dataSource property. Then implement the data source methods in your controller.
+
+You can also assign a delegate method if you want to play with the editing of the tab titles (the delegate protocol is an alias to the text editing protocol).
 
 Customization
 -------------
@@ -34,7 +36,7 @@ Tabs titles can be edited in place, and tabs can be reordred by simple drag & dr
 Highlighting
 ------------
 
-The tabs control support the possibility to be highlighted. This is useful when you have multiple subviews, each with tab controls, and you need to indicate to the user which subview is actually 'active'.
+The tabs control support the possibility to be highlighted. This is useful when you have multiple subviews, each with tab controls, and you need to indicate to the user which subview is actually 'active'. (In the screenshot above, the upper tabs have a darker background than the lower ones).
 
 
 LICENSE & NOTES
