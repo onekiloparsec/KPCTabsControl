@@ -8,6 +8,9 @@ The reason for not doing a fork, but a new lib? Well, I used the LITabControl si
 Below a screenshot of the demo app with two series of tabs (showing the highlight effect). 
 ![Demo Tabs Screenshot](http://onekilopars.ec/blog/files/screen-shot-2014-11-05-at-17.36.32.png)
 
+I also added the possibility to provide alternative icons for titles too large to be drawn without linebreak. When the icons are visible, the tabs titles are moved to the tooltips of the buttons.
+![Demo Tabs Movie](http://onekilopars.ec/blog/files/page0_blog_entry6_2.mov)
+
 
 Installation
 ------------
