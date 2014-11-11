@@ -493,6 +493,7 @@ static char KPCScrollViewObservationContext;
         }
     }
     
+    [[NSNotificationCenter defaultCenter] postNotificationName:KPCTabsControlSelectionDidChangeNotification object:self];
     [self invalidateRestorableState];
 }
 
