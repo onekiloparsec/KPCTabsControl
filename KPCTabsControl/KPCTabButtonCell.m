@@ -216,17 +216,6 @@ static CGFloat titleMargin = 5.0;
 
 - (void)drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView
 {
-    if (self.isSelected) {
-        [self.tabSelectedBackgroundColor setFill];
-    }
-    else if (self.isHighlighted) {
-        [self.tabHighlightedBackgroundColor setFill];
-    }
-    else {
-        [self.tabBackgroundColor setFill];
-    }
-    NSRectFill(cellFrame);
-    
     [self drawBezelWithFrame:cellFrame inView:controlView];
     
     if ([self hasRoomToDrawFullTitleInRect:cellFrame] || !self.hasTitleAlternativeIcon) {
