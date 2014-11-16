@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/onekiloparsec/KPCTabsControl.svg)](https://travis-ci.org/onekiloparsec/KPCTabsControl)
+ 
 KPCTabsControl
 ==============
 
