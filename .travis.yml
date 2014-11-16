@@ -1,4 +1,5 @@
-language: objective-c
-xcode_project: KPCTabsControl.xcodeproj # path to your xcodeproj folder
-xcode_scheme: KPCTabsControlDemo
-
+before_script:
+    - brew update
+    - brew upgrade xctool --HEAD
+script:
+    - xctool -project KPCTabsControl.xcodeproj -sdk macosx -scheme KPCTabsControlDemo test
