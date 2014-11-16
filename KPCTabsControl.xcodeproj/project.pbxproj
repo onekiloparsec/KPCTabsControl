@@ -10,7 +10,6 @@
 		9F2155D81A002F0200819BDF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F2155D71A002F0200819BDF /* AppDelegate.m */; };
 		9F2155DA1A002F0200819BDF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F2155D91A002F0200819BDF /* main.m */; };
 		9F2155DF1A002F0200819BDF /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F2155DD1A002F0200819BDF /* MainMenu.xib */; };
-		9F2155EB1A002F0200819BDF /* KPCTabsControlDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F2155EA1A002F0200819BDF /* KPCTabsControlDemoTests.m */; };
 		9F2155F51A00309C00819BDF /* KPCTabButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F2155F41A00309C00819BDF /* KPCTabButton.m */; };
 		9F2155F81A0030B000819BDF /* KPCTabButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F2155F71A0030B000819BDF /* KPCTabButtonCell.m */; };
 		9F2155FB1A00314B00819BDF /* NSImage+KPCTabsControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F2155FA1A00314B00819BDF /* NSImage+KPCTabsControl.m */; };
@@ -28,16 +27,6 @@
 		9FFC4AAC1A068F2000AAF238 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9FFC4AAB1A068F2000AAF238 /* Images.xcassets */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		9F2155E51A002F0200819BDF /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9F2155AC1A002E6C00819BDF /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 9F2155D11A002F0200819BDF;
-			remoteInfo = KPCTabsControlDemo;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		9F2155B71A002E6C00819BDF /* KPCTabsControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KPCTabsControl.h; sourceTree = "<group>"; };
 		9F2155B91A002E6C00819BDF /* KPCTabsControl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KPCTabsControl.m; sourceTree = "<group>"; };
@@ -47,9 +36,6 @@
 		9F2155D71A002F0200819BDF /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		9F2155D91A002F0200819BDF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		9F2155DE1A002F0200819BDF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		9F2155E41A002F0200819BDF /* KPCTabsControlDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KPCTabsControlDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		9F2155E91A002F0200819BDF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9F2155EA1A002F0200819BDF /* KPCTabsControlDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KPCTabsControlDemoTests.m; sourceTree = "<group>"; };
 		9F2155F21A002FE500819BDF /* KPCTabsControlProtocols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KPCTabsControlProtocols.h; sourceTree = "<group>"; };
 		9F2155F31A00309C00819BDF /* KPCTabButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KPCTabButton.h; sourceTree = "<group>"; };
 		9F2155F41A00309C00819BDF /* KPCTabButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KPCTabButton.m; sourceTree = "<group>"; };
@@ -84,13 +70,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		9F2155E11A002F0200819BDF /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -101,7 +80,6 @@
 				9F3C2E2C1A0181A900281F4B /* Resources */,
 				9F2155D31A002F0200819BDF /* KPCTabsControlDemo */,
 				9F2155D41A002F0200819BDF /* Supporting Files */,
-				9F2155E71A002F0200819BDF /* KPCTabsControlDemoTests */,
 				9F2155B51A002E6C00819BDF /* Products */,
 			);
 			sourceTree = "<group>";
@@ -110,7 +88,6 @@
 			isa = PBXGroup;
 			children = (
 				9F2155D21A002F0200819BDF /* KPCTabsControlDemo.app */,
-				9F2155E41A002F0200819BDF /* KPCTabsControlDemoTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -164,23 +141,6 @@
 			path = KPCTabsControlDemo;
 			sourceTree = "<group>";
 		};
-		9F2155E71A002F0200819BDF /* KPCTabsControlDemoTests */ = {
-			isa = PBXGroup;
-			children = (
-				9F2155EA1A002F0200819BDF /* KPCTabsControlDemoTests.m */,
-				9F2155E81A002F0200819BDF /* Supporting Files */,
-			);
-			path = KPCTabsControlDemoTests;
-			sourceTree = "<group>";
-		};
-		9F2155E81A002F0200819BDF /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				9F2155E91A002F0200819BDF /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 		9F3C2E2C1A0181A900281F4B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -212,24 +172,6 @@
 			productReference = 9F2155D21A002F0200819BDF /* KPCTabsControlDemo.app */;
 			productType = "com.apple.product-type.application";
 		};
-		9F2155E31A002F0200819BDF /* KPCTabsControlDemoTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 9F2155EF1A002F0200819BDF /* Build configuration list for PBXNativeTarget "KPCTabsControlDemoTests" */;
-			buildPhases = (
-				9F2155E01A002F0200819BDF /* Sources */,
-				9F2155E11A002F0200819BDF /* Frameworks */,
-				9F2155E21A002F0200819BDF /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				9F2155E61A002F0200819BDF /* PBXTargetDependency */,
-			);
-			name = KPCTabsControlDemoTests;
-			productName = KPCTabsControlDemoTests;
-			productReference = 9F2155E41A002F0200819BDF /* KPCTabsControlDemoTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -241,10 +183,6 @@
 				TargetAttributes = {
 					9F2155D11A002F0200819BDF = {
 						CreatedOnToolsVersion = 6.1;
-					};
-					9F2155E31A002F0200819BDF = {
-						CreatedOnToolsVersion = 6.1;
-						TestTargetID = 9F2155D11A002F0200819BDF;
 					};
 				};
 			};
@@ -262,7 +200,6 @@
 			projectRoot = "";
 			targets = (
 				9F2155D11A002F0200819BDF /* KPCTabsControlDemo */,
-				9F2155E31A002F0200819BDF /* KPCTabsControlDemoTests */,
 			);
 		};
 /* End PBXProject section */
@@ -279,13 +216,6 @@
 				9F3C2E3A1A0182DF00281F4B /* KPCTabLeftTemplate.pdf in Resources */,
 				9F3C2E3C1A0182DF00281F4B /* KPCTabRightTemplate.pdf in Resources */,
 				9F2155DF1A002F0200819BDF /* MainMenu.xib in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9F2155E21A002F0200819BDF /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -310,23 +240,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		9F2155E01A002F0200819BDF /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9F2155EB1A002F0200819BDF /* KPCTabsControlDemoTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		9F2155E61A002F0200819BDF /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 9F2155D11A002F0200819BDF /* KPCTabsControlDemo */;
-			targetProxy = 9F2155E51A002F0200819BDF /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		9F2155DD1A002F0200819BDF /* MainMenu.xib */ = {
@@ -426,6 +340,7 @@
 				);
 				INFOPLIST_FILE = KPCTabsControlDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -438,43 +353,8 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = KPCTabsControlDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
-		9F2155F01A002F0200819BDF /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = KPCTabsControlDemoTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/KPCTabsControlDemo.app/Contents/MacOS/KPCTabsControlDemo";
-			};
-			name = Debug;
-		};
-		9F2155F11A002F0200819BDF /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = KPCTabsControlDemoTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/KPCTabsControlDemo.app/Contents/MacOS/KPCTabsControlDemo";
 			};
 			name = Release;
 		};
@@ -495,15 +375,6 @@
 			buildConfigurations = (
 				9F2155ED1A002F0200819BDF /* Debug */,
 				9F2155EE1A002F0200819BDF /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		9F2155EF1A002F0200819BDF /* Build configuration list for PBXNativeTarget "KPCTabsControlDemoTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				9F2155F01A002F0200819BDF /* Debug */,
-				9F2155F11A002F0200819BDF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
