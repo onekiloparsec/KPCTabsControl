@@ -1,5 +1,4 @@
-before_script:
-    - brew update
-    - brew upgrade xctool --HEAD
-script:
-    - xctool -project KPCTabsControl.xcodeproj -sdk macosx -scheme KPCTabsControlDemo test
+language: objective-c
+xcode_project: KPCTabsControl.xcodeproj
+xcode_scheme: KPCTabsControlDemo
+
