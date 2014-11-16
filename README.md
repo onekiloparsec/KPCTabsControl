@@ -23,7 +23,7 @@ Usage
 
 KPCTabsControl is designed for you to use only the `KPCTabsControl` class, and its associated data source methods. Simply place a `NSView` in a xib, where you need tabs, change its class to `KPCTabsControl` and assign its dataSource property. Then implement the data source methods in your controller.
 
-You can also assign a delegate method if you want to play with the editing of the tab titles (the delegate protocol is an alias to the text editing protocol).
+You can also assign a delegate method if you want to play with the editing and the reordering of the tab titles.
 
 Customization
 -------------

@@ -236,8 +236,8 @@
 			[button setFrame:r];
 		}
 
-		if ([self.dataSource respondsToSelector:@selector(tabsControl:canSelectItem:)]) {
-			[[button cell] setSelectable:[self.dataSource tabsControl:self canSelectItem:[button.cell representedObject]]];
+		if ([self.delegateInterceptor.receiver respondsToSelector:@selector(tabsControl:canSelectItem:)]) {
+			[[button cell] setSelectable:[self.delegateInterceptor.receiver tabsControl:self canSelectItem:[button.cell representedObject]]];
 		}
 
 		tabsViewWidth += CGRectGetWidth(button.frame);
@@ -385,8 +385,8 @@ static char KPCScrollViewObservationContext;
 			[[NSAnimationContext currentContext] setCompletionHandler:^{
 				[draggingTab removeFromSuperview];
 				[tab setHidden:NO];
-				if (reordered && [self.dataSource respondsToSelector:@selector(tabsControl:didReorderItems:)]) {
-					[self.dataSource tabsControl:self didReorderItems:[orderedTabs valueForKeyPath:@"cell.representedObject"]];
+				if (reordered && [self.delegateInterceptor.receiver respondsToSelector:@selector(tabsControl:didReorderItems:)]) {
+					[self.delegateInterceptor.receiver tabsControl:self didReorderItems:[orderedTabs valueForKeyPath:@"cell.representedObject"]];
 				}
 				[self reloadTabs]; // That's the delegate responsability to store new order of items.
 			}];
@@ -444,8 +444,8 @@ static char KPCScrollViewObservationContext;
         [self editTabButton:sender];
     }
     // watch for a drag event and initiate dragging if a drag is found...
-    else if ([self.dataSource respondsToSelector:@selector(tabsControl:canReorderItem:)]) {
-        if ([self.dataSource tabsControl:self canReorderItem:[[sender cell] representedObject]]) {
+    else if ([self.delegateInterceptor.receiver respondsToSelector:@selector(tabsControl:canReorderItem:)]) {
+        if ([self.delegateInterceptor.receiver tabsControl:self canReorderItem:[[sender cell] representedObject]]) {
             NSEvent *event = [self.window nextEventMatchingMask:NSLeftMouseUpMask|NSLeftMouseDraggedMask
                                                       untilDate:[NSDate distantFuture]
                                                          inMode:NSEventTrackingRunLoopMode
@@ -505,8 +505,8 @@ static char KPCScrollViewObservationContext;
         return;
     }
     
-    if ([self.dataSource respondsToSelector:@selector(tabsControl:canEditItem:)] &&
-        ![self.dataSource tabsControl:self canEditItem:tab.cell.representedObject])
+    if ([self.delegateInterceptor.receiver respondsToSelector:@selector(tabsControl:canEditItem:)] &&
+        ![self.delegateInterceptor.receiver tabsControl:self canEditItem:tab.cell.representedObject])
     {
         return;
     }
@@ -556,9 +556,9 @@ static char KPCScrollViewObservationContext;
     NSString *title = self.editingTextField.stringValue;
     NSButton *button = (id)[self.editingTextField superview];
     
-    if (title.length > 0) {
+    if (title.length > 0 && [self.delegateInterceptor.receiver respondsToSelector:@selector(tabsControl:setTitle:forItem:)]) {
         [button setTitle:title];
-        [self.dataSource tabsControl:self setTitle:title forItem:[button.cell representedObject]];
+        [self.delegateInterceptor.receiver tabsControl:self setTitle:title forItem:[button.cell representedObject]];
     }
     
     if ([self.delegateInterceptor.receiver respondsToSelector:@selector(controlTextDidEndEditing:)]) {

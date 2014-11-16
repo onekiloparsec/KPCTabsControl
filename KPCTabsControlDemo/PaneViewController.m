@@ -156,43 +156,35 @@
 
 - (NSImage *)tabsControl:(KPCTabsControl *)tabControl iconForItem:(id)item
 {
-	NSUInteger index = [self.titles indexOfObject:item];
-	if ([self.title isEqualToString:@"pane1"]) {
-		switch (index) {
-			case 0:
-				return [NSImage imageNamed:@"Star"];
-				break;
-			case 1:
-				return [NSImage imageNamed:@"Oval"];
-				break;
-
-			default:
-				break;
-		}
-	}
-	else {
-		switch (index) {
-			case 1:
-				return [NSImage imageNamed:@"Triangle"];
-				break;
-			case 2:
-				return [NSImage imageNamed:@"Spiral"];
-				break;
-			case 3:
-				return [NSImage imageNamed:@"Polygon"];
-				break;
-
-			default:
-				break;
-		}
-	}
+    if ([item isEqualToString:@"Tab a"]) {
+        return [NSImage imageNamed:@"Star"];
+    }
+    else if ([item isEqualToString:@"Tab b"]) {
+        return [NSImage imageNamed:@"Oval"];
+    }
+    else if ([item isEqualToString:@"Tab 2"]) {
+        return [NSImage imageNamed:@"Triangle"];
+    }
+    else if ([item isEqualToString:@"Tab 3"]) {
+        return [NSImage imageNamed:@"Spiral"];
+    }
+    else if ([item isEqualToString:@"Tab 4"]) {
+        return [NSImage imageNamed:@"Polygon"];
+    }
     
     return nil;
 }
 
+#pragma - mark KPCTabsControlDelegate
+
 - (BOOL)tabsControl:(KPCTabsControl *)tabControl canReorderItem:(id)item
 {
 	return YES;
+}
+
+- (void)tabsControl:(KPCTabsControl *)tabControl didReorderItems:(NSArray *)itemArray
+{
+    self.titles = itemArray;
 }
 
 - (BOOL)tabsControl:(KPCTabsControl *)tabControl canEditItem:(id)item
