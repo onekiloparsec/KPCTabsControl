@@ -11,7 +11,7 @@
 
 @interface NSButton (KPCTabsControl)
 
-+ (NSButton *)KPC_auxiliaryButtonWithImageNamed:(NSString *)name target:(id)target action:(SEL)action;
++ (NSButton *)KPC_auxiliaryButtonWithImageNamed:(NSString *)imageName target:(id)target action:(SEL)action;
 + (KPCTabButton *)KPC_tabButtonWithItem:(id)item target:(id)target action:(SEL)action;
 
 @end

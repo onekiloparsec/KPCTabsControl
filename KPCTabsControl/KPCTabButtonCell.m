@@ -72,7 +72,13 @@ static CGFloat titleMargin = 5.0;
     }
 }
 
-- (void)setImage:(NSImage *)image {}
+- (void)setImage:(NSImage *)image
+{
+    if (![self.controlView isKindOfClass:[KPCTabButton class]]) {
+        [super setImage:image];
+        [self.controlView setNeedsDisplay:YES];
+    }
+}
 
 - (BOOL)isSelected
 {
@@ -222,6 +228,12 @@ static CGFloat titleMargin = 5.0;
         [self drawTitle:[self attributedTitle] withFrame:cellFrame inView:controlView];
     }
     
+    if (self.image && self.imagePosition != NSNoImage) {
+         [self drawImage:[self.image KPC_imageWithTint:(self.isHighlighted) ? [NSColor darkGrayColor] : [NSColor lightGrayColor]]
+              withFrame:cellFrame
+                 inView:controlView];
+    }
+
     if (self.showsMenu) {
         [[KPCTabButtonCell popupImage] drawInRect:[self popupRectWithFrame:cellFrame]
                                          fromRect:NSZeroRect

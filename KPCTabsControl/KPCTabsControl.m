@@ -116,13 +116,7 @@
     if (!self.hideScrollButtons) {
         self.scrollLeftButton = [NSButton KPC_auxiliaryButtonWithImageNamed:@"KPCTabLeftTemplate" target:self action:@selector(scrollLeft:)];
         self.scrollRightButton = [NSButton KPC_auxiliaryButtonWithImageNamed:@"KPCTabRightTemplate" target:self action:@selector(scrollRight:)];
-        
-        [self.scrollLeftButton setContinuous:YES];
-        [self.scrollRightButton setContinuous:YES];
-        
-        [self.scrollLeftButton.cell sendActionOn:NSLeftMouseDownMask|NSPeriodicMask];
-        [self.scrollRightButton.cell sendActionOn:NSLeftMouseDownMask|NSPeriodicMask];
-        
+                
         self.scrollLeftButton.autoresizingMask = NSViewMinXMargin;
         self.scrollRightButton.autoresizingMask = NSViewMinXMargin;
         
@@ -191,8 +185,8 @@
         
         KPCTabButton *button = [NSButton KPC_tabButtonWithItem:item target:self action:@selector(selectTab:)];
         [button setTitle:[self.dataSource tabsControl:self titleForItem:item]];
-        [button setHighlighted:self.isHighlighted];
         [button setState:(item == selectedItem) ? NSOnState : NSOffState];
+        [button highlight:self.isHighlighted];
         
         if ([self.dataSource respondsToSelector:@selector(tabsControl:iconForItem:)]) {
             [button setIcon:[self.dataSource tabsControl:self iconForItem:item]];
@@ -256,7 +250,7 @@
         [self.scrollLeftButton  setHidden:NO];
         [self.scrollRightButton setHidden:NO];
 
-        [self.scrollLeftButton setEnabled:([self firstTabLeftOutsideVisibleRect] != nil)];
+        [self.scrollLeftButton  setEnabled:([self firstTabLeftOutsideVisibleRect] != nil)];
         [self.scrollRightButton setEnabled:([self firstTabRightOutsideVisibleRect] != nil)];
     }
 	else {
