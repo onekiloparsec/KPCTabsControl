@@ -1,4 +1,8 @@
-[![Build Status](https://travis-ci.org/onekiloparsec/KPCTabsControl.svg)](https://travis-ci.org/onekiloparsec/KPCTabsControl)
+[![Build Status](http://img.shields.io/travis/onekiloparsec/KPCTabsControl.svg?style=flat)](https://travis-ci.org/onekiloparsec/KPCTabsControl)
+![Version](https://img.shields.io/cocoapods/v/KPCTabsControl.svg?style=flat)
+![License](https://img.shields.io/cocoapods/l/KPCTabsControl.svg?style=flat)
+![Platform](https://img.shields.io/cocoapods/p/KPCTabsControl.svg?style=flat)
+
  
 KPCTabsControl
 ==============
@@ -17,7 +21,7 @@ I also added the possibility to provide alternative icons for titles too large t
 Installation
 ------------
 
-Using CocoaPods: `pod 'KPCTabsControl'`
+Using [CocoaPods](http://cocoapods.org/): `pod 'KPCTabsControl'`
 
 
 Usage
@@ -39,6 +43,12 @@ Highlighting
 ------------
 
 The tabs control support the possibility to be highlighted. This is useful when you have multiple subviews, each with tab controls, and you need to indicate to the user which subview is actually 'active'. (In the screenshot above, the upper tabs have a darker background than the lower ones).
+
+
+Author
+------
+
+[Cédric Foellmi](https://github.com/onekiloparsec) ([@onekiloparsec](https://twitter.com/onekiloparsec))
 
 
 LICENSE & NOTES
