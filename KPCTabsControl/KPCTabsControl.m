@@ -29,6 +29,8 @@
 
 @property(nonatomic, assign) BOOL hideScrollButtons;
 @property(nonatomic, assign) BOOL isHighlighted;
+
+@property(nonatomic, weak) KPCTabButton *selectedButton;
 @end
 
 @implementation KPCTabsControl
@@ -66,7 +68,6 @@
     [self setTranslatesAutoresizingMaskIntoConstraints:NO];
 
     [self setCell:[[KPCTabButtonCell alloc] initTextCell:@""]];
-    [self.cell setBorderMask:KPCBorderMaskBottom];
     [self.cell setFont:[NSFont fontWithName:@"HelveticaNeue-Medium" size:13]];
 
     self.controlBorderColor = [NSColor KPC_defaultControlBorderColor];
@@ -84,6 +85,8 @@
 
 	self.minTabWidth = 50.0;
 	self.maxTabWidth = 150.0;
+    
+    self.automaticSideBorderMasks = YES;
     
     [self highlight:NO];
     [self configureSubviews];
@@ -184,6 +187,16 @@
         id item = newItems[i];
         
         KPCTabButton *button = [NSButton KPC_tabButtonWithItem:item target:self action:@selector(selectTab:)];
+        
+        KPCBorderMask mask = [self.cell borderMask];
+        if (i == 0 && self.automaticSideBorderMasks) {
+            mask |= KPCBorderMaskLeft;
+        }
+        if (i == newItems.count-1 && self.automaticSideBorderMasks) {
+            mask |= KPCBorderMaskRight;
+        }
+        [button.cell setBorderMask:[self.cell borderMask]];
+        
         [button setTitle:[self.dataSource tabsControl:self titleForItem:item]];
         [button setState:(item == selectedItem) ? NSOnState : NSOffState];
         [button highlight:self.isHighlighted];
@@ -233,6 +246,8 @@
 		if ([self.delegateInterceptor.receiver respondsToSelector:@selector(tabsControl:canSelectItem:)]) {
 			[[button cell] setSelectable:[self.delegateInterceptor.receiver tabsControl:self canSelectItem:[button.cell representedObject]]];
 		}
+        
+        button.tag = idx;
 
 		tabsViewWidth += CGRectGetWidth(button.frame);
 	}];
@@ -422,10 +437,10 @@ static char KPCScrollViewObservationContext;
 
 - (void)selectTab:(id)sender
 {
-    KPCTabButton *selectedButton = sender;
+    self.selectedButton = sender;
     
     for (KPCTabButton *button in [self tabButtons]) {
-        [button setState:(button == selectedButton) ? NSOnState : NSOffState];
+        [button setState:(button == self.selectedButton) ? NSOnState : NSOffState];
         [button highlight:self.isHighlighted];
     }
     
@@ -455,7 +470,7 @@ static char KPCScrollViewObservationContext;
     // scroll to visible if either editing or selecting...
     [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
         [context setAllowsImplicitAnimation:YES];
-        [selectedButton.superview scrollRectToVisible:selectedButton.frame];
+        [self.selectedButton.superview scrollRectToVisible:self.selectedButton.frame];
     } completionHandler:nil];
     
     [self invalidateRestorableState];
@@ -463,19 +478,17 @@ static char KPCScrollViewObservationContext;
 
 - (id)selectedItem
 {
-    for (NSButton *button in [self.scrollView.documentView subviews]) {
-        if ([button state] == NSOnState) {
-            return [[button cell] representedObject];
-        }
-    }
-    return nil;
+    return [[self.selectedButton cell] representedObject];
 }
 
 - (void)setSelectedItem:(id)selectedItem
 {
+    _selectedButton = nil;
+
     for (NSButton *button in [self.scrollView.documentView subviews]) {
         if ([[[button cell] representedObject] isEqual:selectedItem]) {
             [button setState:NSOnState];
+            _selectedButton = button;
             
             [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
                 [context setAllowsImplicitAnimation:YES];
@@ -489,6 +502,25 @@ static char KPCScrollViewObservationContext;
     
     [[NSNotificationCenter defaultCenter] postNotificationName:KPCTabsControlSelectionDidChangeNotification object:self];
     [self invalidateRestorableState];
+}
+
+- (NSInteger)selectedItemIndex
+{
+    return [self.selectedButton tag];
+}
+
+- (void)selectItemAtIndex:(NSInteger)index
+{
+    KPCTabButton *sender = nil;
+    for (NSButton *button in [self.scrollView.documentView subviews]) {
+        if (button.tag == index) {
+            sender = button;
+            break;
+        }
+    }
+    if (sender) {
+        [self selectTab:sender];
+    }
 }
 
 #pragma mark - Editing
@@ -592,6 +624,31 @@ static char KPCScrollViewObservationContext;
     [self.scrollRightButton.cell highlight:flag];
     [[self tabButtons] enumerateObjectsUsingBlock:^(KPCTabButton *button, NSUInteger idx, BOOL *stop) {
         [button highlight:flag];
+    }];
+}
+
+#pragma mark - Border Mask
+
+- (KPCBorderMask)controlBorderMask
+{
+    return [self.cell borderMask];
+}
+
+- (void)setControlBorderMask:(KPCBorderMask)controlBorderMask
+{
+    [self.cell setBorderMask:controlBorderMask];
+    
+    NSArray *buttons = [self tabButtons];
+    [buttons enumerateObjectsUsingBlock:^(KPCTabButton *button, NSUInteger idx, BOOL *stop) {
+        KPCBorderMask mask = controlBorderMask;
+        if (idx == 0 && self.automaticSideBorderMasks) {
+            mask |= KPCBorderMaskLeft;
+        }
+        // Not 'else', as one might have only 1 button...
+        if (idx == buttons.count-1 && self.automaticSideBorderMasks) {
+            mask |= KPCBorderMaskRight;
+        }
+        [button.cell setBorderMask:controlBorderMask];
     }];
 }
 

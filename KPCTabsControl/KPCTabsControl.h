@@ -8,6 +8,7 @@
 
 #import <AppKit/AppKit.h>
 #import "KPCTabsControlProtocols.h"
+#import "KPCTabsControlConstants.h"
 
 @interface KPCTabsControl : NSControl
 
@@ -20,6 +21,9 @@
 @property(nonatomic, assign) CGFloat maxTabWidth;
 @property(nonatomic, assign, readonly) CGFloat currentTabWidth;
 @property(nonatomic, assign) BOOL preferFullWidthTabs;
+
+@property(nonatomic, assign) KPCBorderMask controlBorderMask;
+@property(nonatomic, assign) BOOL automaticSideBorderMasks;
 
 @property(nonatomic, copy) NSColor *controlBorderColor;
 @property(nonatomic, copy) NSColor *controlBackgroundColor;
@@ -35,6 +39,9 @@
 @property(nonatomic, copy) NSColor *tabSelectedBackgroundColor;
 
 @property(nonatomic, assign, readonly) BOOL isHighlighted;
+
+- (NSInteger)selectedItemIndex;
+- (void)selectItemAtIndex:(NSInteger)index;
 
 - (void)reloadTabs;
 - (void)highlight:(BOOL)flag;
