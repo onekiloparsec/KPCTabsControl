@@ -187,7 +187,7 @@
     self.titles = itemArray;
 }
 
-- (BOOL)tabsControl:(KPCTabsControl *)tabControl canEditItem:(id)item
+- (BOOL)tabsControl:(KPCTabsControl *)tabControl canEditTitleOfItem:(id)item
 {
     return YES;
 }

@@ -30,7 +30,7 @@
 @property(nonatomic, assign) BOOL hideScrollButtons;
 @property(nonatomic, assign) BOOL isHighlighted;
 
-@property(nonatomic, weak) KPCTabButton *selectedButton;
+@property(nonatomic, weak) NSButton *selectedButton;
 @end
 
 @implementation KPCTabsControl
@@ -156,20 +156,7 @@
         return;
     }
     
-    if (_dataSource && [_dataSource respondsToSelector:@selector(tabsControlDidChangeSelection:)]) {
-        [[NSNotificationCenter defaultCenter] removeObserver:_dataSource
-                                                        name:KPCTabsControlSelectionDidChangeNotification
-                                                      object:self];
-    }
-    
     _dataSource = dataSource;
-    
-    if (_dataSource && [_dataSource respondsToSelector:@selector(tabsControlDidChangeSelection:)])
-        [[NSNotificationCenter defaultCenter] addObserver:_dataSource
-                                                 selector:@selector(tabsControlDidChangeSelection:)
-                                                     name:KPCTabsControlSelectionDidChangeNotification
-                                                   object:self];
-    
     [self reloadTabs];
 }
 
@@ -474,6 +461,11 @@ static char KPCScrollViewObservationContext;
     } completionHandler:nil];
     
     [self invalidateRestorableState];
+    
+    if ([self.delegate respondsToSelector:@selector(tabsControlDidChangeSelection:)]) {
+        NSNotification *n = [NSNotification notificationWithName:KPCTabsControlSelectionDidChangeNotification object:self];
+        [self.delegate performSelector:@selector(tabsControlDidChangeSelection:) withObject:n];
+    }
 }
 
 - (id)selectedItem
@@ -506,21 +498,20 @@ static char KPCScrollViewObservationContext;
 
 - (NSInteger)selectedItemIndex
 {
-    return [self.selectedButton tag];
+    return (self.selectedButton) ? [self.selectedButton tag] : -1;
 }
 
 - (void)selectItemAtIndex:(NSInteger)index
 {
-    KPCTabButton *sender = nil;
+    NSButton *sender = nil;
     for (NSButton *button in [self.scrollView.documentView subviews]) {
         if (button.tag == index) {
             sender = button;
             break;
         }
     }
-    if (sender) {
-        [self selectTab:sender];
-    }
+    
+    [self selectTab:sender];
 }
 
 #pragma mark - Editing
@@ -531,8 +522,8 @@ static char KPCScrollViewObservationContext;
         return;
     }
     
-    if ([self.delegateInterceptor.receiver respondsToSelector:@selector(tabsControl:canEditItem:)] &&
-        ![self.delegateInterceptor.receiver tabsControl:self canEditItem:tab.cell.representedObject])
+    if ([self.delegateInterceptor.receiver respondsToSelector:@selector(tabsControl:canEditTitleOfItem:)] &&
+        ![self.delegateInterceptor.receiver tabsControl:self canEditTitleOfItem:tab.cell.representedObject])
     {
         return;
     }
@@ -570,7 +561,7 @@ static char KPCScrollViewObservationContext;
 }
 
 - (void)setDelegate:(id<KPCTabsControlDelegate>)newDelegate
-{
+{    
     if (!self.delegateInterceptor) {
         self.delegateInterceptor = [[KPCMessageInterceptor alloc] init];
     }
