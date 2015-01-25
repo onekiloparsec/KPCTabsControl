@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "KPCTabsControl"
-  s.version      = "1.3.0"
+  s.version      = "1.4.0"
   s.summary      = "A multi-tabs control designed to look like the tab control in Apple's Numbers spreadsheet, but with enhanced capabilities."
   s.homepage     = "https://github.com/onekiloparsec/KPCTabsControl.git"
   s.license      = { :type => 'MIT', :file => 'LICENSE' }
