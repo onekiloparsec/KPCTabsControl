@@ -12,10 +12,10 @@ A multi-tabs control *not using AutoLayout*, designed to look and behave like th
 I used the LITabControl since some time, and it diverged quite a lot (hence the new repo rather than a fork). More importantly, AutoLayout is way too instable and hard to debug in a complex app (with various intricated split views with dynamic constraints), like the ones I am currently developing.
 
 Below a screenshot of the demo app with two series of tabs (showing the highlight effect). 
-![Demo Tabs Screenshot](http://onekilopars.ec/blog/files/screen-shot-2014-11-05-at-17.36.32.png)
+![Demo Tabs Screenshot](http://www.onekilopars.ec/s/KPCTabsControlScreenshot1.png)
 
 I also added the possibility to provide alternative icons for titles too large to be drawn without linebreak. When the icons are visible, the tabs titles are moved to the tooltips of the buttons.
-[![Demo Tabs Movie](http://onekilopars.ec/resources/Screen-Shot-2014-11-08-at-09.45.22.png)](http://onekilopars.ec/blog/files/page0_blog_entry6_2.mov)
+[![Demo Tabs Movie](http://www.onekilopars.ec/s/KPCTabsControlAuxiliaryIconMovieStillImage.png)](http://www.onekilopars.ec/s/KPCTabsControlAuxiliaryIconMovie.mov)
 
 
 Installation
