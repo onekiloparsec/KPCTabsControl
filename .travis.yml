@@ -1,4 +1,4 @@
 language: objective-c
 xcode_project: KPCTabsControl.xcodeproj
-xcode_scheme: KPCTabsControlDemo
+xcode_scheme: KPCTabsControl
 
