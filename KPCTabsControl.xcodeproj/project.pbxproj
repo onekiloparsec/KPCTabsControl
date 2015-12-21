@@ -202,6 +202,7 @@
 				9FBD05051A037A0600B157D2 /* PaneViewController.h */,
 				9FBD05061A037A0600B157D2 /* PaneViewController.m */,
 				9F2155DD1A002F0200819BDF /* MainMenu.xib */,
+				9F2155D41A002F0200819BDF /* Supporting Files */,
 			);
 			path = KPCTabsControlDemo;
 			sourceTree = "<group>";
@@ -216,7 +217,6 @@
 				9FFC4AAB1A068F2000AAF238 /* Images.xcassets */,
 			);
 			name = "Supporting Files";
-			path = KPCTabsControlDemo;
 			sourceTree = "<group>";
 		};
 		9F3C2E2C1A0181A900281F4B /* Resources */ = {
@@ -247,20 +247,13 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		9FA7EDA61AD668BC0060FF79 /* KPCTabsControl */ = {
-			isa = PBXGroup;
-			children = (
-				9FA7EDA71AD668BC0060FF79 /* Supporting Files */,
-			);
-			path = KPCTabsControl;
-			sourceTree = "<group>";
-		};
 		9FA7EDA71AD668BC0060FF79 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
 				9FA7EDA81AD668BC0060FF79 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			path = KPCTabsControl;
 			sourceTree = "<group>";
 		};
 		9FA7EDB31AD668BC0060FF79 /* KPCTabsControlTests */ = {
@@ -380,7 +373,7 @@
 		9F2155AC1A002E6C00819BDF /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = "Cédric Foellmi";
 				TargetAttributes = {
 					9F2155D11A002F0200819BDF = {
@@ -556,6 +549,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -624,6 +618,7 @@
 				INFOPLIST_FILE = KPCTabsControlDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.onekiloparsec.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -637,6 +632,7 @@
 				INFOPLIST_FILE = KPCTabsControlDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.onekiloparsec.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -656,6 +652,7 @@
 				);
 				INFOPLIST_FILE = KPCTabsControlDemoTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.onekiloparsec.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/KPCTabsControlDemo.app/Contents/MacOS/KPCTabsControlDemo";
 			};
@@ -672,6 +669,7 @@
 				);
 				INFOPLIST_FILE = KPCTabsControlDemoTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.onekiloparsec.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/KPCTabsControlDemo.app/Contents/MacOS/KPCTabsControlDemo";
 			};
@@ -694,6 +692,7 @@
 				INFOPLIST_FILE = KPCTabsControl/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.onekiloparsec.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -715,6 +714,7 @@
 				INFOPLIST_FILE = KPCTabsControl/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.onekiloparsec.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -736,6 +736,7 @@
 				);
 				INFOPLIST_FILE = KPCTabsControlTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.onekiloparsec.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -751,6 +752,7 @@
 				);
 				INFOPLIST_FILE = KPCTabsControlTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.onekiloparsec.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -792,6 +794,7 @@
 				9FA7EDB91AD668BC0060FF79 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9FA7EDBD1AD668BC0060FF79 /* Build configuration list for PBXNativeTarget "KPCTabsControlTests" */ = {
 			isa = XCConfigurationList;
@@ -800,6 +803,7 @@
 				9FA7EDBB1AD668BC0060FF79 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
