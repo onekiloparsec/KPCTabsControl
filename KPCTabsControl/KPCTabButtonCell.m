@@ -15,10 +15,6 @@
 
 static CGFloat titleMargin = 5.0;
 
-@interface KPCTabButtonCell ()
-@property(nonatomic, assign, getter=isHighlighted) BOOL highlighted;
-@end
-
 @implementation KPCTabButtonCell
 
 - (id)initTextCell:(NSString *)string

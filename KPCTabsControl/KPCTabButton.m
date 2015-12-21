@@ -163,10 +163,10 @@
     mouseLocation = [self convertPoint:mouseLocation fromView:nil];
     
     if (NSPointInRect(mouseLocation, [self bounds])) {
-        [self mouseEntered:nil];
+        [self mouseEntered:[NSApp currentEvent]];
     }
     else {
-        [self mouseExited:nil];
+        [self mouseExited:[NSApp currentEvent]];
     }
     
     [super updateTrackingAreas];
