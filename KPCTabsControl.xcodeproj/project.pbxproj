@@ -15,6 +15,8 @@
 		9F2155FB1A00314B00819BDF /* NSImage+KPCTabsControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F2155FA1A00314B00819BDF /* NSImage+KPCTabsControl.m */; };
 		9F2155FD1A003A3C00819BDF /* KPCTabsControlConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F2155FC1A003A3C00819BDF /* KPCTabsControlConstants.m */; };
 		9F2155FF1A00442F00819BDF /* KPCTabsControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F2155B91A002E6C00819BDF /* KPCTabsControl.m */; };
+		9F2FB50D1C28539B0068DFFA /* KPCTabsControl.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F2155B71A002E6C00819BDF /* KPCTabsControl.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9F2FB50F1C2853D50068DFFA /* KPCTabs.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F2FB50E1C2853D50068DFFA /* KPCTabs.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9F3C2E391A0182DF00281F4B /* KPCPullDownTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 9F3C2E351A0182DF00281F4B /* KPCPullDownTemplate.pdf */; };
 		9F3C2E3A1A0182DF00281F4B /* KPCTabLeftTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 9F3C2E361A0182DF00281F4B /* KPCTabLeftTemplate.pdf */; };
 		9F3C2E3B1A0182DF00281F4B /* KPCTabPlusTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 9F3C2E371A0182DF00281F4B /* KPCTabPlusTemplate.pdf */; };
@@ -85,6 +87,7 @@
 		9F2155FC1A003A3C00819BDF /* KPCTabsControlConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KPCTabsControlConstants.m; sourceTree = "<group>"; };
 		9F2155FE1A003A4B00819BDF /* KPCTabsControlConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KPCTabsControlConstants.h; sourceTree = "<group>"; };
 		9F2156001A00467900819BDF /* KPCTabsControl.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = KPCTabsControl.podspec; sourceTree = SOURCE_ROOT; };
+		9F2FB50E1C2853D50068DFFA /* KPCTabs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KPCTabs.h; sourceTree = "<group>"; };
 		9F3C2E351A0182DF00281F4B /* KPCPullDownTemplate.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = KPCPullDownTemplate.pdf; sourceTree = "<group>"; };
 		9F3C2E361A0182DF00281F4B /* KPCTabLeftTemplate.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = KPCTabLeftTemplate.pdf; sourceTree = "<group>"; };
 		9F3C2E371A0182DF00281F4B /* KPCTabPlusTemplate.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = KPCTabPlusTemplate.pdf; sourceTree = "<group>"; };
@@ -147,11 +150,10 @@
 			children = (
 				9F2155B61A002E6C00819BDF /* KPCTabsControl */,
 				9F3C2E2C1A0181A900281F4B /* Resources */,
-				9F2155D31A002F0200819BDF /* KPCTabsControlDemo */,
-				9F2155D41A002F0200819BDF /* Supporting Files */,
-				9F5B36F91A193A9D00EC36DD /* KPCTabsControlDemoTests */,
-				9FA7EDA61AD668BC0060FF79 /* KPCTabsControl */,
+				9FA7EDA71AD668BC0060FF79 /* Supporting Files */,
 				9FA7EDB31AD668BC0060FF79 /* KPCTabsControlTests */,
+				9F2155D31A002F0200819BDF /* KPCTabsControlDemo */,
+				9F5B36F91A193A9D00EC36DD /* KPCTabsControlDemoTests */,
 				9F2155B51A002E6C00819BDF /* Products */,
 			);
 			sourceTree = "<group>";
@@ -170,6 +172,7 @@
 		9F2155B61A002E6C00819BDF /* KPCTabsControl */ = {
 			isa = PBXGroup;
 			children = (
+				9F2FB50E1C2853D50068DFFA /* KPCTabs.h */,
 				9F2155FE1A003A4B00819BDF /* KPCTabsControlConstants.h */,
 				9F2155FC1A003A3C00819BDF /* KPCTabsControlConstants.m */,
 				9F2155F21A002FE500819BDF /* KPCTabsControlProtocols.h */,
@@ -285,11 +288,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				9FA7EDC01AD668DF0060FF79 /* KPCTabsControlProtocols.h in Headers */,
+				9F2FB50D1C28539B0068DFFA /* KPCTabsControl.h in Headers */,
 				9FA7EDCC1AD668DF0060FF79 /* KPCMessageInterceptor.h in Headers */,
 				9FA7EDC81AD668DF0060FF79 /* NSButton+KPCTabsControl.h in Headers */,
 				9FA7EDCA1AD668DF0060FF79 /* NSColor+KPCTabsControl.h in Headers */,
 				9FA7EDC41AD668DF0060FF79 /* KPCTabButtonCell.h in Headers */,
 				9FA7EDC21AD668DF0060FF79 /* KPCTabButton.h in Headers */,
+				9F2FB50F1C2853D50068DFFA /* KPCTabs.h in Headers */,
 				9FA7EDC61AD668DF0060FF79 /* NSImage+KPCTabsControl.h in Headers */,
 				9FA7EDBE1AD668DF0060FF79 /* KPCTabsControlConstants.h in Headers */,
 			);
