@@ -65,7 +65,7 @@
 - (void)setup
 {
     [self setWantsLayer:YES];
-    [self setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [self setTranslatesAutoresizingMaskIntoConstraints:YES];
 
     [self setCell:[[KPCTabButtonCell alloc] initTextCell:@""]];
     [self.cell setFont:[NSFont fontWithName:@"HelveticaNeue-Medium" size:13]];
@@ -106,7 +106,7 @@
     [self.scrollView setHorizontalScrollElasticity:NSScrollElasticityAllowed];
     [self.scrollView setVerticalScrollElasticity:NSScrollElasticityNone];
     [self.scrollView setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
-    [self.scrollView setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [self.scrollView setTranslatesAutoresizingMaskIntoConstraints:YES];
 
     self.tabsView = [[NSView alloc] initWithFrame:self.scrollView.bounds];
     self.scrollView.documentView = self.tabsView;
