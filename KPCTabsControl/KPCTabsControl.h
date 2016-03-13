@@ -6,6 +6,11 @@
 //  Copyright (c) 2014 @onekiloparsec (Cédric Foellmi). All rights reserved.
 //
 
+FOUNDATION_EXPORT double KPCTabsVersionNumber;
+
+//! Project version string for KPCTabs.
+FOUNDATION_EXPORT const unsigned char KPCTabsVersionString[];
+
 #import <AppKit/AppKit.h>
 #import "KPCTabsControlProtocols.h"
 #import "KPCTabsControlConstants.h"
