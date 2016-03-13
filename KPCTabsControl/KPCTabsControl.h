@@ -6,12 +6,14 @@
 //  Licensed under the MIT License (see LICENSE file)
 //
 
+#import <Foundation/Foundation.h>
+#import <AppKit/AppKit.h>
+
 FOUNDATION_EXPORT double KPCTabsVersionNumber;
 
 //! Project version string for KPCTabs.
 FOUNDATION_EXPORT const unsigned char KPCTabsVersionString[];
 
-#import <AppKit/AppKit.h>
 #import "KPCTabsControlProtocols.h"
 #import "KPCTabsControlConstants.h"
 
