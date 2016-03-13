@@ -3,7 +3,7 @@
 //  KPCTabsControl
 //
 //  Created by @onekiloparsec (Cédric Foellmi) on 04/11/14.
-//  Copyright (c) 2014 @onekiloparsec (Cédric Foellmi). All rights reserved.
+//  Licensed under the MIT License (see LICENSE file)
 //
 
 #import "NSColor+KPCTabsControl.h"
