@@ -10,6 +10,7 @@
 
 @class KPCTabsControl;
 
+NS_ASSUME_NONNULL_BEGIN
 @protocol KPCTabsControlDataSource <NSObject>
 
 /**
@@ -53,7 +54,7 @@
  *
  *  @return A menu instance.
  */
-- (NSMenu *)tabsControl:(KPCTabsControl *)tabControl menuForItem:(id)item;
+- ( NSMenu * _Nullable)tabsControl:(KPCTabsControl *)tabControl menuForItem:(id)item;
 
 /**
  *  If any, returns an icon for the tab, to be placed to the left side of it.
@@ -63,11 +64,11 @@
  *
  *  @return An image instance for the icon.
  */
-- (NSImage *)tabsControl:(KPCTabsControl *)tabControl iconForItem:(id)item;
+- (NSImage * _Nullable)tabsControl:(KPCTabsControl *)tabControl iconForItem:(id)item;
 
 /**
  *  If the width of the tab is not large enough to draw the title, it is possible to provide here an alternate
- *  icon to replace it. The threashold at which one switch between the title and the icon is computed individually
+ *  icon to replace it. The threshold at which one switch between the title and the icon is computed individually
  *  for each title.
  *
  *  @param tabControl The instance of the tabs control.
@@ -75,7 +76,7 @@
  *
  *  @return An image instance for the alternate icon.
  */
-- (NSImage *)tabsControl:(KPCTabsControl *)tabControl titleAlternativeIconForItem:(id)item;
+- (NSImage * _Nullable)tabsControl:(KPCTabsControl *)tabControl titleAlternativeIconForItem:(id)item;
 
 @end
 
@@ -140,3 +141,4 @@
 - (void)tabsControl:(KPCTabsControl *)tabControl setTitle:(NSString *)title forItem:(id)item;
 
 @end
+NS_ASSUME_NONNULL_END
