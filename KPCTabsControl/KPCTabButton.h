@@ -11,15 +11,15 @@
 @interface KPCTabButton : NSButton<NSCopying>
 
 @property(nonatomic, assign) BOOL showsMenu;
-@property(nonatomic, strong) NSImage *icon;
-@property(nonatomic, strong) NSImage *alternativeTitleIcon;
+@property(nonatomic, strong, nullable) NSImage *icon;
+@property(nonatomic, strong, nullable) NSImage *alternativeTitleIcon;
 
 - (void)highlight:(BOOL)flag;
 
-- (KPCTabButtonCell *)cell;
-- (NSImageView *)iconView;
-- (NSImageView *)alternativeTitleIconView;
+- (nullable KPCTabButtonCell *)cell;
+- (nullable NSImageView *)iconView;
+- (nullable NSImageView *)alternativeTitleIconView;
 
 @end
 
-extern BOOL KPCRectArrayWithBorderMask(NSRect sourceRect, KPCBorderMask borderMask, NSRect **rectArray, NSInteger *rectCount);
+extern BOOL KPCRectArrayWithBorderMask(NSRect sourceRect, KPCBorderMask borderMask, NSRect * _Nonnull * _Nonnull rectArray,  NSInteger * _Nonnull rectCount);

@@ -13,41 +13,41 @@
 /**
  *  The color of the border of the tabs control.
  */
-+ (NSColor *)KPC_defaultControlBorderColor;
++ (nonnull NSColor *)KPC_defaultControlBorderColor;
 
 /**
  *  The color of the tab control background in normal state (unhighlighted);
  */
-+ (NSColor *)KPC_defaultControlBackgroundColor;
++ (nonnull NSColor *)KPC_defaultControlBackgroundColor;
 
 /**
  *  The color of the tab control background in highlighted state;
  */
-+ (NSColor *)KPC_defaultControlHighlightedBackgroundColor;
++ (nonnull NSColor *)KPC_defaultControlHighlightedBackgroundColor;
 
 
 
 /**
  *  The color of the border of an individual tab button.
  */
-+ (NSColor *)KPC_defaultTabBorderColor;
++ (nonnull NSColor *)KPC_defaultTabBorderColor;
 
 /**
  *  The color of the title of an individual tab button, when the button is not selected.
  */
-+ (NSColor *)KPC_defaultTabTitleColor;
++ (nonnull NSColor *)KPC_defaultTabTitleColor;
 
 /**
  *  The color of the background of an individual tab button, when the button is not selected,
  *  and the control is in normal state (unhighlighted)
  */
-+ (NSColor *)KPC_defaultTabBackgroundColor;
++ (nonnull NSColor *)KPC_defaultTabBackgroundColor;
 
 /**
  *  The color of the background of an individual tab button, when the button is not selected,
  *  and the control is in highlighted state
  */
-+ (NSColor *)KPC_defaultTabHighlightedBackgroundColor;
++ (nonnull NSColor *)KPC_defaultTabHighlightedBackgroundColor;
 
 
 
@@ -57,17 +57,17 @@
 /**
  *  The color of the border of an individual tab when it is selected.
  */
-+ (NSColor *)KPC_defaultTabSelectedBorderColor;
++ (nonnull NSColor *)KPC_defaultTabSelectedBorderColor;
 
 /**
  *  The color of the title an individual tab when it is selected.
  */
-+ (NSColor *)KPC_defaultTabSelectedTitleColor;
++ (nonnull NSColor *)KPC_defaultTabSelectedTitleColor;
 
 /**
  *  The color of the background an individual tab when it is selected.
  */
-+ (NSColor *)KPC_defaultTabSelectedBackgroundColor;
++ (nonnull NSColor *)KPC_defaultTabSelectedBackgroundColor;
 
 
 

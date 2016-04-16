@@ -10,6 +10,6 @@
 
 @interface NSImage (KPCTabsControl)
 
-- (NSImage *)KPC_imageWithTint:(NSColor *)color;
+- (nonnull NSImage *)KPC_imageWithTint:(nullable NSColor *)color;
 
 @end
