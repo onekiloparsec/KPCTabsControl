@@ -54,7 +54,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return A menu instance.
  */
-- ( NSMenu * _Nullable)tabsControl:(KPCTabsControl *)tabControl menuForItem:(id)item;
+- (NSMenu * _Nullable)tabsControl:(KPCTabsControl *)tabControl menuForItem:(id)item;
 
 /**
  *  If any, returns an icon for the tab, to be placed to the left side of it.
