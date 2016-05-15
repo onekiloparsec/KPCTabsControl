@@ -16,7 +16,7 @@ Below a screenshot of the demo app with two series of tabs (showing the highligh
 ![Demo Tabs Screenshot](http://www.onekilopars.ec/s/KPCTabsControlScreenshot1.png)
 
 I also added the possibility to provide alternative icons for titles too large to be drawn without linebreak. When the icons are visible, the tabs titles are moved to the tooltips of the buttons.
-![Demo Auxiliary Icons](http://www.onekilopars.ec/s/KPCTabsControlAuxiliaryIcon.gif) 
+![Demo Auxiliary Icons](http://www.onekilopars.ec/s/KPCTabsControlAuxiliaryIconMovie.gif) 
 
 
 Installation
