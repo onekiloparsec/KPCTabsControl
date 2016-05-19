@@ -148,6 +148,11 @@
     [self stopObservingScrollView];
 }
 
+- (NSMenu *)menuForEvent:(NSEvent *)event
+{
+    return nil;
+}
+
 #pragma mark - Data Source
 
 - (void)setDataSource:(id<KPCTabsControlDataSource>)dataSource
