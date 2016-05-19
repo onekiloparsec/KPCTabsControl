@@ -231,7 +231,7 @@
 		}
 
 		if ([self.delegateInterceptor.receiver respondsToSelector:@selector(tabsControl:canSelectItem:)]) {
-			[[button cell] setSelectable:[self.delegateInterceptor.receiver tabsControl:self canSelectItem:[button.cell representedObject]]];
+			[[button cell] setSelectable:[self.delegateInterceptor.receiver tabsControl:self canSelectItem:button.cell.representedObject]];
 		}
         
         button.tag = idx;
@@ -470,7 +470,7 @@ static char KPCScrollViewObservationContext;
 
 - (id)selectedItem
 {
-    return [[self.selectedButton cell] representedObject];
+    return self.selectedButton.cell.representedObject;
 }
 
 - (void)setSelectedItem:(id)selectedItem
