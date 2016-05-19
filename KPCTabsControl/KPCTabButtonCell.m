@@ -208,7 +208,7 @@ static CGFloat titleMargin = 5.0;
 - (NSRect)titleRectForBounds:(NSRect)cellFrame
 {
     NSSize titleSize = [[self attributedTitle] size];
-    return NSMakeRect(NSMinX(cellFrame), NSMidY(cellFrame) - titleSize.height/2.0 - 2.0, NSWidth(cellFrame), titleSize.height);
+    return NSMakeRect(NSMinX(cellFrame), NSMidY(cellFrame) - titleSize.height/2.0, NSWidth(cellFrame), titleSize.height);
 }
 
 - (NSRect)editingRectForBounds:(NSRect)rect
