@@ -213,7 +213,7 @@ static CGFloat titleMargin = 5.0;
 
 - (NSRect)editingRectForBounds:(NSRect)rect
 {
-    return [self titleRectForBounds:NSOffsetRect(rect, 0, 1)];
+    return [self titleRectForBounds:NSOffsetRect(rect, 0, 0)];
 }
 
 - (void)drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView
