@@ -156,20 +156,33 @@
 
 - (NSImage *)tabsControl:(KPCTabsControl *)tabControl iconForItem:(id)item
 {
-    if ([item isEqualToString:@"Tab a"]) {
-        return [NSImage imageNamed:@"Star"];
-    }
-    else if ([item isEqualToString:@"Tab b"]) {
-        return [NSImage imageNamed:@"Oval"];
-    }
-    else if ([item isEqualToString:@"Tab 2"]) {
-        return [NSImage imageNamed:@"Triangle"];
-    }
-    else if ([item isEqualToString:@"Tab 3"]) {
-        return [NSImage imageNamed:@"Spiral"];
-    }
-    else if ([item isEqualToString:@"Tab 4"]) {
-        return [NSImage imageNamed:@"Polygon"];
+    switch ([self.title isEqualToString:@"pane1"]) {
+        case 0: {
+            if ([item isEqualToString:self.titles[0]]) {
+                return [NSImage imageNamed:@"Star"];
+            }
+            else if ([item isEqualToString:self.titles[1]]) {
+                return [NSImage imageNamed:@"Oval"];
+            }
+        }
+        case 1: {
+            if ([item isEqualToString:self.titles[0]]) {
+                return [NSImage imageNamed:@"Star"];
+            }
+            else if ([item isEqualToString:self.titles[1]]) {
+                return [NSImage imageNamed:@"Triangle"];
+            }
+            else if ([item isEqualToString:self.titles[2]]) {
+                return [NSImage imageNamed:@"Spiral"];
+            }
+            else if ([item isEqualToString:self.titles[3]]) {
+                return [NSImage imageNamed:@"Polygon"];
+            }
+        }
+            break;
+            
+        default:
+            break;
     }
     
     return nil;
