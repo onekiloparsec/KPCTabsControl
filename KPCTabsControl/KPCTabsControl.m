@@ -582,9 +582,8 @@ static char KPCScrollViewObservationContext;
         [self.delegateInterceptor.receiver controlTextDidEndEditing:obj];
     }
 
-    self.delegateInterceptor.receiver = nil;
-    self.editingTextField.delegate = nil;
     [self.editingTextField removeFromSuperview];
+    self.editingTextField.delegate = nil;
     self.editingTextField = nil;
     
     [self reloadTabs]; // That's the receiver responsability to store the new title;
