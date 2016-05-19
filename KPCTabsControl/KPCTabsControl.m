@@ -435,8 +435,7 @@ static char KPCScrollViewObservationContext;
     [[NSNotificationCenter defaultCenter] postNotificationName:KPCTabsControlSelectionDidChangeNotification object:self];
     
     NSEvent *currentEvent = [NSApp currentEvent];
-    
-    if (currentEvent.type == NSLeftMouseUp && currentEvent.clickCount > 1) { // edit on double click...
+    if (currentEvent.type == NSLeftMouseDown && currentEvent.clickCount > 1) { // edit on double click...
         [self editTabButton:sender];
     }
     // watch for a drag event and initiate dragging if a drag is found...
@@ -574,8 +573,8 @@ static char KPCScrollViewObservationContext;
     NSButton *button = (id)[self.editingTextField superview];
     
     if (title.length > 0 && [self.delegateInterceptor.receiver respondsToSelector:@selector(tabsControl:setTitle:forItem:)]) {
-        [button setTitle:title];
-        [self.delegateInterceptor.receiver tabsControl:self setTitle:title forItem:[button.cell representedObject]];
+        [self.delegateInterceptor.receiver tabsControl:self setTitle:title forItem:button.cell.representedObject];
+        button.cell.representedObject = [self.delegateInterceptor.receiver tabsControl:self itemAtIndex:self.selectedItemIndex];
     }
     
     if ([self.delegateInterceptor.receiver respondsToSelector:@selector(controlTextDidEndEditing:)]) {

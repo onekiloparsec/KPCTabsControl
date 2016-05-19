@@ -195,6 +195,10 @@
 - (void)tabsControl:(KPCTabsControl *)tabControl setTitle:(NSString *)title forItem:(id)item
 {
     NSLog(@"-> %@", title);
+    NSUInteger index = [self.titles indexOfObject:item];
+    NSMutableArray *newTitles = [self.titles mutableCopy];
+    [newTitles replaceObjectAtIndex:index withObject:title];
+    self.titles = [newTitles copy];
 }
 
 
