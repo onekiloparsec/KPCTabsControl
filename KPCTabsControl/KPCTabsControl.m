@@ -65,7 +65,7 @@
 - (void)setup
 {
     [self setWantsLayer:YES];
-    [self setTranslatesAutoresizingMaskIntoConstraints:YES];
+    [self setTranslatesAutoresizingMaskIntoConstraints:NO];
 
     [self setCell:[[KPCTabButtonCell alloc] initTextCell:@""]];
     [self.cell setFont:[NSFont fontWithName:@"HelveticaNeue-Medium" size:13]];
