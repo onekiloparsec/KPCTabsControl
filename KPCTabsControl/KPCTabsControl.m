@@ -785,7 +785,7 @@ static char KPCScrollViewObservationContext;
     return [[[[self tabButtons] firstObject] cell] tabSelectedTitleColor] ?: [NSColor KPC_defaultTabSelectedTitleColor];
 }
 
-- (void)setTabSelectedTittleColor:(NSColor *)tabSelectedTitleColor
+- (void)setTabSelectedTitleColor:(NSColor *)tabSelectedTitleColor
 {
     [[[self tabButtons] valueForKey:@"cell"] setValue:tabSelectedTitleColor forKey:@"tabSelectedTitleColor"];
     [self setNeedsDisplay];
