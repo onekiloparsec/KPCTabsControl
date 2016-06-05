@@ -93,6 +93,12 @@ static CGFloat titleMargin = 5.0;
     [self.controlView setNeedsDisplay:YES];
 }
 
+- (void)setTabStyle:(KPCTabStyle)tabStyle
+{
+    _tabStyle = tabStyle;
+    [self.controlView setNeedsDisplay:YES];
+}
+
 - (void)setTabBorderColor:(NSColor *)tabBorderColor
 {
     _tabBorderColor = tabBorderColor;
@@ -174,7 +180,9 @@ static CGFloat titleMargin = 5.0;
 {
     NSSize titleSize = [[self attributedTitle] size];
     NSSize popupSize = ([self menu] == nil) ? NSZeroSize : [[KPCTabButtonCell popupImage] size];
-    return NSMakeSize(titleSize.width + (popupSize.width * 2) + 36, MAX(titleSize.height, popupSize.height));
+    NSSize cellSize = NSMakeSize(titleSize.width + (popupSize.width * 2) + 36, MAX(titleSize.height, popupSize.height));
+    [self.controlView invalidateIntrinsicContentSize];
+    return cellSize;
 }
 
 - (NSRect)popupRectWithFrame:(NSRect)cellFrame
@@ -242,20 +250,35 @@ static CGFloat titleMargin = 5.0;
 
 - (void)drawBezelWithFrame:(NSRect)cellFrame inView:(NSView *)controlView
 {
-    if (self.isSelected) {
-        [self.tabSelectedBackgroundColor setFill];
-    }
-    else if (self.isHighlighted) {
-        [self.tabHighlightedBackgroundColor setFill];
+    if ([controlView isKindOfClass:[KPCTabButton class]]) {
+        switch (self.tabStyle) {
+            case KPCTabStyleNumbersApp:
+                [self drawNumbersTabsWithFrame:cellFrame inView:controlView];
+                break;
+            case KPCTabStyleChromeBrowser:
+                [self drawChromeTabsWithFrame:cellFrame inView:controlView];
+                break;
+                
+            default:
+                break;
+        }
     }
     else {
-        [self.tabBackgroundColor setFill];
+        if (self.isHighlighted) {
+            [self.tabHighlightedBackgroundColor setFill];
+        }
+        else {
+            [self.tabBackgroundColor setFill];
+        }
+        NSRectFill(cellFrame);
     }
-    NSRectFill(cellFrame);
-    
+}
+
+- (void)drawNumbersTabsWithFrame:(NSRect)cellFrame inView:(NSView *)controlView
+{
     NSRect *borderRects;
     NSInteger borderRectCount;
-    
+
     if (KPCRectArrayWithBorderMask(cellFrame, self.borderMask, &borderRects, &borderRectCount)) {
         if (self.isSelected) {
             [self.tabSelectedBorderColor setFill];
@@ -267,6 +290,57 @@ static CGFloat titleMargin = 5.0;
         NSRectFillList(borderRects, borderRectCount);
     }
 }
+
+- (void)drawChromeTabsWithFrame:(NSRect)cellFrame inView:(NSView *)controlView
+{
+    if (self.isHighlighted) {
+        [self.tabHighlightedBackgroundColor setFill];
+    }
+    else {
+        [self.tabBackgroundColor setFill];
+    }
+    NSRectFill(cellFrame);
+    
+    NSBezierPath *path = [NSBezierPath bezierPath];
+    
+    CGFloat top = CGRectGetMinY(controlView.bounds)+1;
+    CGFloat bottom = CGRectGetMaxY(controlView.bounds);
+    CGFloat left = CGRectGetMinX(controlView.bounds);
+    CGFloat right = CGRectGetMaxX(controlView.bounds);
+    
+    CGPoint startPoint = CGPointMake(left, bottom);
+    [path moveToPoint:startPoint];
+    
+    CGPoint risingFromPoint = CGPointMake(left+5.0, bottom);
+    CGPoint risingPoint = CGPointMake(left+5.0, bottom-3.0);
+    [path appendBezierPathWithArcFromPoint:risingFromPoint toPoint:risingPoint radius:3.0];
+    
+//    CGPoint beforeTopPoint = CGPointMake(left+20.0, top+5.0);
+//    [path lineToPoint:beforeTopPoint];
+//    
+//    CGPoint topPoint = CGPointMake(left+25.0, top);
+//    [path lineToPoint:topPoint];
+//    
+//    CGPoint secondTopPoint = CGPointMake(right-15.0, top);
+//    [path lineToPoint:secondTopPoint];
+//    
+//    CGPoint fallingPoint = CGPointMake(right-10.0, top+5.0);
+//    [path lineToPoint:fallingPoint];
+//    
+//    CGPoint finishPoint = CGPointMake(right-5.0, bottom-5.0);
+//    [path lineToPoint:finishPoint];
+//    
+//    CGPoint endPoint = CGPointMake(right, bottom);
+//    [path lineToPoint:endPoint];
+    
+    [[NSColor redColor] setStroke];
+    [path setLineWidth:1.0];
+    [path stroke];
+    //    [path closePath];
+    //    [path fill];
+
+}
+
 
 - (NSRect)drawTitle:(NSAttributedString *)title withFrame:(NSRect)frame inView:(NSView *)controlView
 {

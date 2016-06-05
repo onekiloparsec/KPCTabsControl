@@ -15,5 +15,10 @@ typedef enum {
     KPCBorderMaskBottom  = (1<<3)
 } KPCBorderMask;
 
+typedef enum {
+    KPCTabStyleChromeBrowser,
+    KPCTabStyleNumbersApp, // default
+} KPCTabStyle;
+
 extern NSString * const KPCTabsControlSelectionDidChangeNotification;
 
