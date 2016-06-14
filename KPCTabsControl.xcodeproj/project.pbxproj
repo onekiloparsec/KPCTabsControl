@@ -48,6 +48,7 @@
 		9FC9CBF61A08BA5E00E7FAD2 /* KPCMessageInterceptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC9CBF51A08BA5E00E7FAD2 /* KPCMessageInterceptor.m */; };
 		9FC9CBF91A08F72400E7FAD2 /* NSColor+KPCTabsControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC9CBF81A08F72400E7FAD2 /* NSColor+KPCTabsControl.m */; };
 		9FF789451D0FDA9700F66AF2 /* MessageInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF789441D0FDA9700F66AF2 /* MessageInterceptor.swift */; };
+		9FF789471D0FDC7800F66AF2 /* NSColor+KPCTabsControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF789461D0FDC7800F66AF2 /* NSColor+KPCTabsControl.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,6 +100,7 @@
 		9FC9CBF71A08F72400E7FAD2 /* NSColor+KPCTabsControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSColor+KPCTabsControl.h"; sourceTree = "<group>"; };
 		9FC9CBF81A08F72400E7FAD2 /* NSColor+KPCTabsControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSColor+KPCTabsControl.m"; sourceTree = "<group>"; };
 		9FF789441D0FDA9700F66AF2 /* MessageInterceptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MessageInterceptor.swift; path = KPCTabsControl/MessageInterceptor.swift; sourceTree = "<group>"; };
+		9FF789461D0FDC7800F66AF2 /* NSColor+KPCTabsControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSColor+KPCTabsControl.swift"; path = "KPCTabsControl/NSColor+KPCTabsControl.swift"; sourceTree = "<group>"; };
 		9FFC4AAB1A068F2000AAF238 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -242,6 +244,7 @@
 		9FF789431D0FDA7A00F66AF2 /* Swift */ = {
 			isa = PBXGroup;
 			children = (
+				9FF789461D0FDC7800F66AF2 /* NSColor+KPCTabsControl.swift */,
 				9FF789441D0FDA9700F66AF2 /* MessageInterceptor.swift */,
 			);
 			name = Swift;
@@ -425,6 +428,7 @@
 				9FA7EDC91AD668DF0060FF79 /* NSButton+KPCTabsControl.m in Sources */,
 				9FA7EDCB1AD668DF0060FF79 /* NSColor+KPCTabsControl.m in Sources */,
 				9FA7EDC31AD668DF0060FF79 /* KPCTabButton.m in Sources */,
+				9FF789471D0FDC7800F66AF2 /* NSColor+KPCTabsControl.swift in Sources */,
 				9FA7EDCD1AD668DF0060FF79 /* KPCMessageInterceptor.m in Sources */,
 				9FA7EDC51AD668DF0060FF79 /* KPCTabButtonCell.m in Sources */,
 				9FA7EDC71AD668DF0060FF79 /* NSImage+KPCTabsControl.m in Sources */,
