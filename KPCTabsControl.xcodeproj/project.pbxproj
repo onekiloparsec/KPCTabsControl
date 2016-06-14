@@ -49,6 +49,8 @@
 		9FC9CBF91A08F72400E7FAD2 /* NSColor+KPCTabsControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC9CBF81A08F72400E7FAD2 /* NSColor+KPCTabsControl.m */; };
 		9FF789451D0FDA9700F66AF2 /* MessageInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF789441D0FDA9700F66AF2 /* MessageInterceptor.swift */; };
 		9FF789471D0FDC7800F66AF2 /* NSColor+KPCTabsControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF789461D0FDC7800F66AF2 /* NSColor+KPCTabsControl.swift */; };
+		9FF7894A1D10464000F66AF2 /* NSButton+KPCTabsControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF789491D10464000F66AF2 /* NSButton+KPCTabsControl.swift */; };
+		9FF7894C1D10470A00F66AF2 /* NSImage+KPCTabsControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF7894B1D10470A00F66AF2 /* NSImage+KPCTabsControl.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -101,6 +103,9 @@
 		9FC9CBF81A08F72400E7FAD2 /* NSColor+KPCTabsControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSColor+KPCTabsControl.m"; sourceTree = "<group>"; };
 		9FF789441D0FDA9700F66AF2 /* MessageInterceptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MessageInterceptor.swift; path = KPCTabsControl/MessageInterceptor.swift; sourceTree = "<group>"; };
 		9FF789461D0FDC7800F66AF2 /* NSColor+KPCTabsControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSColor+KPCTabsControl.swift"; path = "KPCTabsControl/NSColor+KPCTabsControl.swift"; sourceTree = "<group>"; };
+		9FF789481D10464000F66AF2 /* KPCTabsControl-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "KPCTabsControl-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
+		9FF789491D10464000F66AF2 /* NSButton+KPCTabsControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSButton+KPCTabsControl.swift"; path = "KPCTabsControl/NSButton+KPCTabsControl.swift"; sourceTree = "<group>"; };
+		9FF7894B1D10470A00F66AF2 /* NSImage+KPCTabsControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSImage+KPCTabsControl.swift"; path = "KPCTabsControl/NSImage+KPCTabsControl.swift"; sourceTree = "<group>"; };
 		9FFC4AAB1A068F2000AAF238 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -156,6 +161,7 @@
 		9F2155B61A002E6C00819BDF /* ObjC */ = {
 			isa = PBXGroup;
 			children = (
+				9FF789481D10464000F66AF2 /* KPCTabsControl-Bridging-Header.h */,
 				9F2155FE1A003A4B00819BDF /* KPCTabsControlConstants.h */,
 				9F2155FC1A003A3C00819BDF /* KPCTabsControlConstants.m */,
 				9F2155F21A002FE500819BDF /* KPCTabsControlProtocols.h */,
@@ -165,10 +171,10 @@
 				9F2155F41A00309C00819BDF /* KPCTabButton.m */,
 				9F2155F61A0030B000819BDF /* KPCTabButtonCell.h */,
 				9F2155F71A0030B000819BDF /* KPCTabButtonCell.m */,
-				9F2155F91A00314B00819BDF /* NSImage+KPCTabsControl.h */,
-				9F2155FA1A00314B00819BDF /* NSImage+KPCTabsControl.m */,
 				9F3C2E3E1A022ECC00281F4B /* NSButton+KPCTabsControl.h */,
 				9F3C2E3F1A022ECC00281F4B /* NSButton+KPCTabsControl.m */,
+				9F2155F91A00314B00819BDF /* NSImage+KPCTabsControl.h */,
+				9F2155FA1A00314B00819BDF /* NSImage+KPCTabsControl.m */,
 				9FC9CBF71A08F72400E7FAD2 /* NSColor+KPCTabsControl.h */,
 				9FC9CBF81A08F72400E7FAD2 /* NSColor+KPCTabsControl.m */,
 				9FC9CBF41A08BA5E00E7FAD2 /* KPCMessageInterceptor.h */,
@@ -244,6 +250,8 @@
 		9FF789431D0FDA7A00F66AF2 /* Swift */ = {
 			isa = PBXGroup;
 			children = (
+				9FF789491D10464000F66AF2 /* NSButton+KPCTabsControl.swift */,
+				9FF7894B1D10470A00F66AF2 /* NSImage+KPCTabsControl.swift */,
 				9FF789461D0FDC7800F66AF2 /* NSColor+KPCTabsControl.swift */,
 				9FF789441D0FDA9700F66AF2 /* MessageInterceptor.swift */,
 			);
@@ -406,6 +414,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9F2155FF1A00442F00819BDF /* KPCTabsControl.m in Sources */,
+				9FF7894A1D10464000F66AF2 /* NSButton+KPCTabsControl.swift in Sources */,
 				9F2155DA1A002F0200819BDF /* main.m in Sources */,
 				9FC9CBF61A08BA5E00E7FAD2 /* KPCMessageInterceptor.m in Sources */,
 				9F2155F51A00309C00819BDF /* KPCTabButton.m in Sources */,
@@ -430,6 +439,7 @@
 				9FA7EDC31AD668DF0060FF79 /* KPCTabButton.m in Sources */,
 				9FF789471D0FDC7800F66AF2 /* NSColor+KPCTabsControl.swift in Sources */,
 				9FA7EDCD1AD668DF0060FF79 /* KPCMessageInterceptor.m in Sources */,
+				9FF7894C1D10470A00F66AF2 /* NSImage+KPCTabsControl.swift in Sources */,
 				9FA7EDC51AD668DF0060FF79 /* KPCTabButtonCell.m in Sources */,
 				9FA7EDC71AD668DF0060FF79 /* NSImage+KPCTabsControl.m in Sources */,
 				9FA7EDBF1AD668DF0060FF79 /* KPCTabsControlConstants.m in Sources */,
@@ -545,6 +555,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -556,6 +567,8 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.onekiloparsec.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "KPCTabsControlDemo-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -563,6 +576,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = KPCTabsControlDemo/Info.plist;
@@ -570,6 +584,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.onekiloparsec.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "KPCTabsControlDemo-Bridging-Header.h";
 			};
 			name = Release;
 		};
