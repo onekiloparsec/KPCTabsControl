@@ -17,6 +17,8 @@ typedef enum {
 
 typedef enum {
     KPCTabStyleChromeBrowser,
+    KPCTabStyleSafariBrowser,
+    KPCTabStyleXcodeNavigators,
     KPCTabStyleNumbersApp, // default
 } KPCTabStyle;
 
