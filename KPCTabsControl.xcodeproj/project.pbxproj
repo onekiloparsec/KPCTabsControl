@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9F2154A91D2D179500C4DD06 /* TabButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2154A81D2D179500C4DD06 /* TabButton.swift */; };
 		9F2155D81A002F0200819BDF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F2155D71A002F0200819BDF /* AppDelegate.m */; };
 		9F2155DA1A002F0200819BDF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F2155D91A002F0200819BDF /* main.m */; };
 		9F2155DF1A002F0200819BDF /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F2155DD1A002F0200819BDF /* MainMenu.xib */; };
@@ -15,6 +16,8 @@
 		9F2155FB1A00314B00819BDF /* NSImage+KPCTabsControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F2155FA1A00314B00819BDF /* NSImage+KPCTabsControl.m */; };
 		9F2155FD1A003A3C00819BDF /* KPCTabsControlConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F2155FC1A003A3C00819BDF /* KPCTabsControlConstants.m */; };
 		9F2155FF1A00442F00819BDF /* KPCTabsControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F2155B91A002E6C00819BDF /* KPCTabsControl.m */; };
+		9F23FF321D10A99D00326F3B /* TabButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F23FF311D10A99D00326F3B /* TabButtonCell.swift */; };
+		9F23FF371D10A9D800326F3B /* NSButton+TabsControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF789491D10464000F66AF2 /* NSButton+TabsControl.swift */; };
 		9F2FB50D1C28539B0068DFFA /* KPCTabsControl.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F2155B71A002E6C00819BDF /* KPCTabsControl.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9F3C2E391A0182DF00281F4B /* KPCPullDownTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 9F3C2E351A0182DF00281F4B /* KPCPullDownTemplate.pdf */; };
 		9F3C2E3A1A0182DF00281F4B /* KPCTabLeftTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 9F3C2E361A0182DF00281F4B /* KPCTabLeftTemplate.pdf */; };
@@ -48,9 +51,8 @@
 		9FC9CBF61A08BA5E00E7FAD2 /* KPCMessageInterceptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC9CBF51A08BA5E00E7FAD2 /* KPCMessageInterceptor.m */; };
 		9FC9CBF91A08F72400E7FAD2 /* NSColor+KPCTabsControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC9CBF81A08F72400E7FAD2 /* NSColor+KPCTabsControl.m */; };
 		9FF789451D0FDA9700F66AF2 /* MessageInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF789441D0FDA9700F66AF2 /* MessageInterceptor.swift */; };
-		9FF789471D0FDC7800F66AF2 /* NSColor+KPCTabsControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF789461D0FDC7800F66AF2 /* NSColor+KPCTabsControl.swift */; };
-		9FF7894A1D10464000F66AF2 /* NSButton+KPCTabsControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF789491D10464000F66AF2 /* NSButton+KPCTabsControl.swift */; };
-		9FF7894C1D10470A00F66AF2 /* NSImage+KPCTabsControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF7894B1D10470A00F66AF2 /* NSImage+KPCTabsControl.swift */; };
+		9FF789471D0FDC7800F66AF2 /* NSColor+TabsControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF789461D0FDC7800F66AF2 /* NSColor+TabsControl.swift */; };
+		9FF7894C1D10470A00F66AF2 /* NSImage+TabsControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF7894B1D10470A00F66AF2 /* NSImage+TabsControl.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +67,7 @@
 
 /* Begin PBXFileReference section */
 		9F09E9FD1C95668400EA970C /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = SOURCE_ROOT; };
+		9F2154A81D2D179500C4DD06 /* TabButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TabButton.swift; path = KPCTabsControl/TabButton.swift; sourceTree = "<group>"; };
 		9F2155B71A002E6C00819BDF /* KPCTabsControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KPCTabsControl.h; sourceTree = "<group>"; };
 		9F2155B91A002E6C00819BDF /* KPCTabsControl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KPCTabsControl.m; sourceTree = "<group>"; };
 		9F2155D21A002F0200819BDF /* KPCTabsControlDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KPCTabsControlDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -83,6 +86,7 @@
 		9F2155FC1A003A3C00819BDF /* KPCTabsControlConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KPCTabsControlConstants.m; sourceTree = "<group>"; };
 		9F2155FE1A003A4B00819BDF /* KPCTabsControlConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KPCTabsControlConstants.h; sourceTree = "<group>"; };
 		9F2156001A00467900819BDF /* KPCTabsControl.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = KPCTabsControl.podspec; sourceTree = SOURCE_ROOT; };
+		9F23FF311D10A99D00326F3B /* TabButtonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TabButtonCell.swift; path = KPCTabsControl/TabButtonCell.swift; sourceTree = "<group>"; };
 		9F3C2E351A0182DF00281F4B /* KPCPullDownTemplate.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = KPCPullDownTemplate.pdf; sourceTree = "<group>"; };
 		9F3C2E361A0182DF00281F4B /* KPCTabLeftTemplate.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = KPCTabLeftTemplate.pdf; sourceTree = "<group>"; };
 		9F3C2E371A0182DF00281F4B /* KPCTabPlusTemplate.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = KPCTabPlusTemplate.pdf; sourceTree = "<group>"; };
@@ -102,10 +106,10 @@
 		9FC9CBF71A08F72400E7FAD2 /* NSColor+KPCTabsControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSColor+KPCTabsControl.h"; sourceTree = "<group>"; };
 		9FC9CBF81A08F72400E7FAD2 /* NSColor+KPCTabsControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSColor+KPCTabsControl.m"; sourceTree = "<group>"; };
 		9FF789441D0FDA9700F66AF2 /* MessageInterceptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MessageInterceptor.swift; path = KPCTabsControl/MessageInterceptor.swift; sourceTree = "<group>"; };
-		9FF789461D0FDC7800F66AF2 /* NSColor+KPCTabsControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSColor+KPCTabsControl.swift"; path = "KPCTabsControl/NSColor+KPCTabsControl.swift"; sourceTree = "<group>"; };
+		9FF789461D0FDC7800F66AF2 /* NSColor+TabsControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSColor+TabsControl.swift"; path = "KPCTabsControl/NSColor+TabsControl.swift"; sourceTree = "<group>"; };
 		9FF789481D10464000F66AF2 /* KPCTabsControl-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "KPCTabsControl-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
-		9FF789491D10464000F66AF2 /* NSButton+KPCTabsControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSButton+KPCTabsControl.swift"; path = "KPCTabsControl/NSButton+KPCTabsControl.swift"; sourceTree = "<group>"; };
-		9FF7894B1D10470A00F66AF2 /* NSImage+KPCTabsControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSImage+KPCTabsControl.swift"; path = "KPCTabsControl/NSImage+KPCTabsControl.swift"; sourceTree = "<group>"; };
+		9FF789491D10464000F66AF2 /* NSButton+TabsControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSButton+TabsControl.swift"; path = "KPCTabsControl/NSButton+TabsControl.swift"; sourceTree = "<group>"; };
+		9FF7894B1D10470A00F66AF2 /* NSImage+TabsControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSImage+TabsControl.swift"; path = "KPCTabsControl/NSImage+TabsControl.swift"; sourceTree = "<group>"; };
 		9FFC4AAB1A068F2000AAF238 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -250,9 +254,11 @@
 		9FF789431D0FDA7A00F66AF2 /* Swift */ = {
 			isa = PBXGroup;
 			children = (
-				9FF789491D10464000F66AF2 /* NSButton+KPCTabsControl.swift */,
-				9FF7894B1D10470A00F66AF2 /* NSImage+KPCTabsControl.swift */,
-				9FF789461D0FDC7800F66AF2 /* NSColor+KPCTabsControl.swift */,
+				9F2154A81D2D179500C4DD06 /* TabButton.swift */,
+				9F23FF311D10A99D00326F3B /* TabButtonCell.swift */,
+				9FF789491D10464000F66AF2 /* NSButton+TabsControl.swift */,
+				9FF7894B1D10470A00F66AF2 /* NSImage+TabsControl.swift */,
+				9FF789461D0FDC7800F66AF2 /* NSColor+TabsControl.swift */,
 				9FF789441D0FDA9700F66AF2 /* MessageInterceptor.swift */,
 			);
 			name = Swift;
@@ -414,7 +420,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9F2155FF1A00442F00819BDF /* KPCTabsControl.m in Sources */,
-				9FF7894A1D10464000F66AF2 /* NSButton+KPCTabsControl.swift in Sources */,
 				9F2155DA1A002F0200819BDF /* main.m in Sources */,
 				9FC9CBF61A08BA5E00E7FAD2 /* KPCMessageInterceptor.m in Sources */,
 				9F2155F51A00309C00819BDF /* KPCTabButton.m in Sources */,
@@ -437,12 +442,15 @@
 				9FA7EDC91AD668DF0060FF79 /* NSButton+KPCTabsControl.m in Sources */,
 				9FA7EDCB1AD668DF0060FF79 /* NSColor+KPCTabsControl.m in Sources */,
 				9FA7EDC31AD668DF0060FF79 /* KPCTabButton.m in Sources */,
-				9FF789471D0FDC7800F66AF2 /* NSColor+KPCTabsControl.swift in Sources */,
+				9F23FF321D10A99D00326F3B /* TabButtonCell.swift in Sources */,
+				9FF789471D0FDC7800F66AF2 /* NSColor+TabsControl.swift in Sources */,
 				9FA7EDCD1AD668DF0060FF79 /* KPCMessageInterceptor.m in Sources */,
-				9FF7894C1D10470A00F66AF2 /* NSImage+KPCTabsControl.swift in Sources */,
+				9F23FF371D10A9D800326F3B /* NSButton+TabsControl.swift in Sources */,
+				9FF7894C1D10470A00F66AF2 /* NSImage+TabsControl.swift in Sources */,
 				9FA7EDC51AD668DF0060FF79 /* KPCTabButtonCell.m in Sources */,
 				9FA7EDC71AD668DF0060FF79 /* NSImage+KPCTabsControl.m in Sources */,
 				9FA7EDBF1AD668DF0060FF79 /* KPCTabsControlConstants.m in Sources */,
+				9F2154A91D2D179500C4DD06 /* TabButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
