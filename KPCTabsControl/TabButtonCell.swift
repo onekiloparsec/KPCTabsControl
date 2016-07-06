@@ -9,6 +9,8 @@
 import Foundation
 import AppKit
 
+let titleMargin: CGFloat = 5.0
+
 class TabButtonCell: NSButtonCell {
     
     override var state: Int {
@@ -31,7 +33,7 @@ class TabButtonCell: NSButtonCell {
         }
     }
     
-    var hasTitleAlternativeIcon: Bool
+    var hasTitleAlternativeIcon: Bool = false
     var isSelected: Bool {
         get { return self.state == NSOnState }
     }
@@ -44,8 +46,8 @@ class TabButtonCell: NSButtonCell {
         }
     }
     
-    var tabStyle: KPCTabStyle
-    var borderMask: KPCBorderMask
+    var tabStyle: KPCTabStyle = KPCTabStyleNumbersApp
+    var borderMask: KPCBorderMask = KPCBorderMaskTop
     
     var tabBorderColor: NSColor?
     var tabTitleColor: NSColor?
@@ -58,13 +60,13 @@ class TabButtonCell: NSButtonCell {
     
     override init(textCell aString: String) {
         super.init(textCell: aString)
-        
+
         self.bordered = true
         self.backgroundStyle = .Light
         self.highlightsBy = .ChangeBackgroundCellMask
         self.lineBreakMode = .ByTruncatingTail
         self.focusRingType = .None
-        
+
         self.tabBorderColor = NSColor.KPC_defaultTabBorderColor()
         self.tabTitleColor = NSColor.KPC_defaultTabTitleColor()
         self.tabBackgroundColor = NSColor.KPC_defaultTabBackgroundColor()
@@ -73,6 +75,7 @@ class TabButtonCell: NSButtonCell {
         self.tabSelectedBorderColor = NSColor.KPC_defaultTabSelectedBorderColor()
         self.tabSelectedTitleColor = NSColor.KPC_defaultTabSelectedTitleColor()
         self.tabSelectedBackgroundColor = NSColor.KPC_defaultTabSelectedBackgroundColor()
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -101,14 +104,17 @@ class TabButtonCell: NSButtonCell {
     }
     
     func editingRectForBounds(rect: NSRect) -> NSRect {
-        
+        return self.titleRectForBounds(NSOffsetRect(rect, 0, 0)) // used to be != 0...
     }
     
     func highlight(flag: Bool) {
-        
+        self.highlighted = flag
+        self.controlView?.needsDisplay = true
     }
     
     func hasRoomToDrawFullTitle(inRect rect: NSRect) -> Bool {
-        
+        let titleDrawRect = self.titleRectForBounds(rect)
+        let requiredMinimumWidth = self.attributedTitle.size().width + 2.0*titleMargin;
+        return requiredMinimumWidth <= NSWidth(titleDrawRect);
     }
 }

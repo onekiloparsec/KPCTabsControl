@@ -10,28 +10,29 @@ import Foundation
 import AppKit
 
 extension NSButton {
-    static func KPC_auxiliaryButton(withImageNamed imageName: String, target: AnyObject?, action: #selector) -> NSButton {
+    static func KPC_auxiliaryButton(withImageNamed imageName: String, target: AnyObject?, action: Selector) -> NSButton {
         
         let button = NSButton()
         
-        let cell: KPCTabButtonCell = KPCTabButtonCell()
-//        cell.borderMask |= KPCBorderMaskBottom;
+        let cell = TabButtonCell(textCell: "")
+//        cell.borderMask |= KPCBorderMaskBottom.rawValue
         button.cell = cell
-//        [button setCell:cell];
+//        button.cell?.sendActionOn(<#T##mask: Int##Int#>)
 //        [button.cell sendActionOn:NSLeftMouseDownMask|NSPeriodicMask];
 //        
-//        [button setTarget:target];
+        button.target = target
 //        [button setAction:action];
 //        [button setEnabled:action != NULL];
-//        [button setContinuous:YES];
-//        
-//        [button setImagePosition:NSImageOnly];
-//        [button setImage:[NSImage imageNamed:imageName]];
-//        
-//        CGRect r = CGRectZero;
-//        r.size = button.image.size;
-//        r.size.width += 4.0;
-//        button.frame = r;
+        button.continuous = true
+        button.imagePosition = .ImageOnly
+        button.image = NSImage(named: imageName)
+
+        if let img = button.image {
+            var r: CGRect = CGRectZero
+            r.size = img.size
+            r.size.width += 4.0
+            button.frame = r
+        }
         
         return button
     }
