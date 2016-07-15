@@ -303,10 +303,10 @@ static CGFloat titleMargin = 5.0;
     
     NSBezierPath *path = [NSBezierPath bezierPath];
     
-    CGFloat top = CGRectGetMinY(controlView.bounds)+1;
+//    CGFloat top = CGRectGetMinY(controlView.bounds)+1;
     CGFloat bottom = CGRectGetMaxY(controlView.bounds);
     CGFloat left = CGRectGetMinX(controlView.bounds);
-    CGFloat right = CGRectGetMaxX(controlView.bounds);
+//    CGFloat right = CGRectGetMaxX(controlView.bounds);
     
     CGPoint startPoint = CGPointMake(left, bottom);
     [path moveToPoint:startPoint];

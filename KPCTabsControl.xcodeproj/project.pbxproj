@@ -24,6 +24,9 @@
 		9F3C2E3B1A0182DF00281F4B /* KPCTabPlusTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 9F3C2E371A0182DF00281F4B /* KPCTabPlusTemplate.pdf */; };
 		9F3C2E3C1A0182DF00281F4B /* KPCTabRightTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 9F3C2E381A0182DF00281F4B /* KPCTabRightTemplate.pdf */; };
 		9F3C2E401A022ECC00281F4B /* NSButton+KPCTabsControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F3C2E3F1A022ECC00281F4B /* NSButton+KPCTabsControl.m */; };
+		9F4081571D38F63D00ADF6DB /* TabsControlConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F53676D1D38F4A6001C5D54 /* TabsControlConstants.swift */; };
+		9F4081591D39387B00ADF6DB /* TabsControlProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F4081581D39387B00ADF6DB /* TabsControlProtocols.swift */; };
+		9F40815B1D3938E100ADF6DB /* TabsControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F40815A1D3938E100ADF6DB /* TabsControl.swift */; };
 		9F9B7BD81A74EF030032614A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9FFC4AAB1A068F2000AAF238 /* Images.xcassets */; };
 		9FA7EDB01AD668BC0060FF79 /* KPCTabsControl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FA7EDA51AD668BC0060FF79 /* KPCTabsControl.framework */; };
 		9FA7EDB71AD668BC0060FF79 /* KPCTabsControlTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FA7EDB61AD668BC0060FF79 /* KPCTabsControlTests.m */; };
@@ -93,6 +96,9 @@
 		9F3C2E381A0182DF00281F4B /* KPCTabRightTemplate.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = KPCTabRightTemplate.pdf; sourceTree = "<group>"; };
 		9F3C2E3E1A022ECC00281F4B /* NSButton+KPCTabsControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSButton+KPCTabsControl.h"; sourceTree = "<group>"; };
 		9F3C2E3F1A022ECC00281F4B /* NSButton+KPCTabsControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSButton+KPCTabsControl.m"; sourceTree = "<group>"; };
+		9F4081581D39387B00ADF6DB /* TabsControlProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TabsControlProtocols.swift; path = KPCTabsControl/TabsControlProtocols.swift; sourceTree = "<group>"; };
+		9F40815A1D3938E100ADF6DB /* TabsControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TabsControl.swift; path = KPCTabsControl/TabsControl.swift; sourceTree = "<group>"; };
+		9F53676D1D38F4A6001C5D54 /* TabsControlConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TabsControlConstants.swift; path = KPCTabsControl/TabsControlConstants.swift; sourceTree = "<group>"; };
 		9F573D481A06995E00B8E389 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		9FA7EDA51AD668BC0060FF79 /* KPCTabsControl.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = KPCTabsControl.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FA7EDA81AD668BC0060FF79 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -254,6 +260,9 @@
 		9FF789431D0FDA7A00F66AF2 /* Swift */ = {
 			isa = PBXGroup;
 			children = (
+				9F53676D1D38F4A6001C5D54 /* TabsControlConstants.swift */,
+				9F4081581D39387B00ADF6DB /* TabsControlProtocols.swift */,
+				9F40815A1D3938E100ADF6DB /* TabsControl.swift */,
 				9F2154A81D2D179500C4DD06 /* TabButton.swift */,
 				9F23FF311D10A99D00326F3B /* TabButtonCell.swift */,
 				9FF789491D10464000F66AF2 /* NSButton+TabsControl.swift */,
@@ -440,8 +449,11 @@
 				9FA7EDC11AD668DF0060FF79 /* KPCTabsControl.m in Sources */,
 				9FF789451D0FDA9700F66AF2 /* MessageInterceptor.swift in Sources */,
 				9FA7EDC91AD668DF0060FF79 /* NSButton+KPCTabsControl.m in Sources */,
+				9F40815B1D3938E100ADF6DB /* TabsControl.swift in Sources */,
 				9FA7EDCB1AD668DF0060FF79 /* NSColor+KPCTabsControl.m in Sources */,
 				9FA7EDC31AD668DF0060FF79 /* KPCTabButton.m in Sources */,
+				9F4081591D39387B00ADF6DB /* TabsControlProtocols.swift in Sources */,
+				9F4081571D38F63D00ADF6DB /* TabsControlConstants.swift in Sources */,
 				9F23FF321D10A99D00326F3B /* TabButtonCell.swift in Sources */,
 				9FF789471D0FDC7800F66AF2 /* NSColor+TabsControl.swift in Sources */,
 				9FA7EDCD1AD668DF0060FF79 /* KPCMessageInterceptor.m in Sources */,
