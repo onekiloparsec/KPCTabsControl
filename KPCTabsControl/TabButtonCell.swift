@@ -23,11 +23,11 @@ class TabButtonCell: NSButtonCell {
         didSet { self.controlView?.needsDisplay = true }
     }
     
-    var tabStyle: KPCTabStyle = KPCTabStyleNumbersApp {
+    var tabStyle: TabsControlTabsStyle = .NumbersApp {
         didSet { self.controlView?.needsDisplay = true }
     }
     
-    var borderMask: KPCTabsControlBorderMask = .Top {
+    var borderMask: TabsControlBorderMask = .Top {
         didSet { self.controlView?.needsDisplay = true }
     }
     
@@ -194,9 +194,9 @@ class TabButtonCell: NSButtonCell {
     override func drawBezelWithFrame(frame: NSRect, inView controlView: NSView) {
         if controlView.isKindOfClass(TabButton) {
             switch self.tabStyle {
-            case KPCTabStyleNumbersApp:
+            case .NumbersApp:
                 self.drawNumbersTabsWithFrame(frame, inView: controlView)
-            case KPCTabStyleChromeBrowser:
+            case .ChromeBrowser:
                 self.drawChromeTabsWithFrame(frame, inView: controlView)
             default:
                 break
@@ -268,7 +268,7 @@ class TabButtonCell: NSButtonCell {
 }
 
 
-func RectArrayWithBorderMask(sourceRect: NSRect, borderMask: KPCTabsControlBorderMask, inout rectArray: Array<NSRect>, inout rectCount: NSInteger) -> Bool
+func RectArrayWithBorderMask(sourceRect: NSRect, borderMask: TabsControlBorderMask, inout rectArray: Array<NSRect>, inout rectCount: NSInteger) -> Bool
 {
     var outputCount: NSInteger = 0
     var remainderRect: NSRect = NSZeroRect

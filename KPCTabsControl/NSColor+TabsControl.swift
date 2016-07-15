@@ -6,9 +6,9 @@
 //  Copyright © 2016 Cédric Foellmi. All rights reserved.
 //
 
-import Foundation
+import AppKit
 
-extension NSColor {
+public extension NSColor {
     /**
      *  The color of the border of the tabs control.
      */

@@ -6,7 +6,6 @@
 //  Copyright © 2016 Cédric Foellmi. All rights reserved.
 //
 
-import Foundation
 import AppKit
 
 extension NSButton {

@@ -8,18 +8,18 @@
 
 import Foundation
 
-public struct KPCTabsControlBorderMask: OptionSetType {
+public struct TabsControlBorderMask: OptionSetType {
     public let rawValue: UInt32
     public init(rawValue: UInt32) {
         self.rawValue = rawValue
     }
-    static let Top = KPCTabsControlBorderMask(rawValue: 1<<0)
-    static let Left = KPCTabsControlBorderMask(rawValue: 1<<1)
-    static let Right = KPCTabsControlBorderMask(rawValue: 1<<2)
-    static let Bottom = KPCTabsControlBorderMask(rawValue: 1<<3)
+    static let Top = TabsControlBorderMask(rawValue: 1<<0)
+    static let Left = TabsControlBorderMask(rawValue: 1<<1)
+    static let Right = TabsControlBorderMask(rawValue: 1<<2)
+    static let Bottom = TabsControlBorderMask(rawValue: 1<<3)
 }
 
-public enum KPCTabsControlTabStyle {
+public enum TabsControlTabsStyle {
     case NumbersApp
     case ChromeBrowser
     case SafariBrowser
