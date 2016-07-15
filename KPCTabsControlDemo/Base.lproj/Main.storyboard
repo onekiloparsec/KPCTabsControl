@@ -692,6 +692,9 @@
                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
+                                                <connections>
+                                                    <action selector="toggleFullWidthTabs:" target="3kW-kt-052" id="Ef7-7P-di2"/>
+                                                </connections>
                                             </button>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ag9-Gu-Del">
                                                 <rect key="frame" x="18" y="53" width="444" height="17"/>
@@ -724,6 +727,9 @@
                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
+                                                <connections>
+                                                    <action selector="toggleFullWidthTabs:" target="75v-vX-VJy" id="8BA-NJ-Y7V"/>
+                                                </connections>
                                             </button>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mwu-MR-ItH">
                                                 <rect key="frame" x="18" y="57" width="444" height="17"/>
@@ -754,10 +760,30 @@
                             <constraint firstItem="WFz-Ln-tcg" firstAttribute="top" secondItem="mtO-jd-dzn" secondAttribute="top" id="rnI-cI-hZ9"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="bottomPane" destination="75v-vX-VJy" id="PN5-wf-btO"/>
+                        <outlet property="topPane" destination="3kW-kt-052" id="J2s-Ki-TX6"/>
+                    </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <customObject id="3kW-kt-052" userLabel="Top Pane View Controller" customClass="PaneViewController" customModule="KPCTabsControlDemo" customModuleProvider="target">
+                    <connections>
+                        <outlet property="tabWidthsLabel" destination="ag9-Gu-Del" id="i2C-eM-qPP"/>
+                        <outlet property="tabsBar" destination="c1G-E0-GKJ" id="7hD-9N-hsM"/>
+                        <outlet property="useFullWidthTabsCheckButton" destination="5EP-oc-dzE" id="Cdc-3N-Vey"/>
+                        <outlet property="view" destination="7wy-a7-VFr" id="0hm-ls-CcK"/>
+                    </connections>
+                </customObject>
+                <customObject id="75v-vX-VJy" userLabel="Bottom Pane View Controller" customClass="PaneViewController" customModule="KPCTabsControlDemo" customModuleProvider="target">
+                    <connections>
+                        <outlet property="tabWidthsLabel" destination="Mwu-MR-ItH" id="MiE-3t-bPW"/>
+                        <outlet property="tabsBar" destination="Opp-vc-gij" id="zON-Zf-mSx"/>
+                        <outlet property="useFullWidthTabsCheckButton" destination="9Fv-dn-aE3" id="Jdd-TA-f7F"/>
+                        <outlet property="view" destination="OFa-rZ-wN5" id="WSC-Y7-YLL"/>
+                    </connections>
+                </customObject>
             </objects>
-            <point key="canvasLocation" x="75" y="655"/>
+            <point key="canvasLocation" x="75" y="759"/>
         </scene>
     </scenes>
 </document>

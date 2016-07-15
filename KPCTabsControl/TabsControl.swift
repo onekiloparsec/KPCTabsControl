@@ -35,10 +35,6 @@ public class TabsControl: NSControl {
     public var minTabWidth: CGFloat =  50.0
     public var maxTabWidth: CGFloat = 150.0
     
-    public var currentTabWidth: CGFloat {
-        get { return 0.0 }
-    }
-    
 //    public override var highlighted: Bool {
 //        get { return true }
 //    }
@@ -117,7 +113,7 @@ public class TabsControl: NSControl {
     // MARK: Data Source
     
     public func reloadTabs() {
-        
+        let selectedItem = self.selectedItem
     }
     
     private func layoutTabButtons(buttons: Array<TabButton>?, animated anim: Bool) {
@@ -186,7 +182,11 @@ public class TabsControl: NSControl {
     }
     
     private func tabButtons() -> Array<TabButton> {
-        let subviews = self.tabsView!.subviews
+        guard let tb = self.tabsView else {
+            return []
+        }
+        
+        let subviews = tb.subviews
         let filteredSubviews = subviews.filter({ (view) -> Bool in
             view is TabButton
         }) as! Array<TabButton>
@@ -201,6 +201,14 @@ public class TabsControl: NSControl {
     // MARK: Border Mask
     
     // MARK: Tab Widths
+    
+    public func currentTabWidth() -> CGFloat {
+        let tabs = self.tabButtons()
+        if tabs.count > 0 {
+            return CGRectGetWidth(tabs.first!.frame)
+        }
+        return 0.0
+    }
     
     // MARK: Control Colors
     

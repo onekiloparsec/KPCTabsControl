@@ -16,7 +16,7 @@ import AppKit
      
      - returns: A unsigned integer indicating the number of tabs to display.
      */
-    func tabsControlNumberOfTabs(control: TabsControl) -> UInt
+    func tabsControlNumberOfTabs(control: TabsControl) -> Int
     
     /**
      Return the item for the tab at the given index, similarly to a "representedObject" in a cell view.
@@ -26,7 +26,7 @@ import AppKit
      
      - returns: An instance of an object representing the tab.
      */
-    func tabsControl(control: TabsControl, itemAtIndex index: UInt) -> AnyObject
+    func tabsControl(control: TabsControl, itemAtIndex index: Int) -> AnyObject
     
     /**
      Return the title for the tab of the given item
