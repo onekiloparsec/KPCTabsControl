@@ -6,7 +6,7 @@
 //  Copyright © 2016 Cédric Foellmi. All rights reserved.
 //
 
-import Foundation
+import AppKit
 
 extension NSImage {
     func KPC_imageWithTint(tint: NSColor) -> NSImage {

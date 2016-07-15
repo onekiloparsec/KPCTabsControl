@@ -6,7 +6,7 @@
 //  Copyright © 2016 Cédric Foellmi. All rights reserved.
 //
 
-import Foundation
+import AppKit
 
 @objc public protocol TabsControlDataSource: NSObjectProtocol {
     /**
