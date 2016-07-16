@@ -11,17 +11,17 @@ import AppKit
 extension NSButton {
     static func KPC_auxiliaryButton(withImageNamed imageName: String, target: AnyObject?, action: Selector) -> NSButton {
         
-        let button = NSButton()
-        
         let cell = TabButtonCell(textCell: "")
-//        cell.borderMask |= KPCBorderMaskBottom.rawValue
+        cell.borderMask = cell.borderMask.union(.Bottom)
+        let mask = NSEventMask.LeftMouseDownMask.union(NSEventMask.PeriodicMask)
+        cell.sendActionOn(Int(mask.rawValue))
+        
+        let button = NSButton()
         button.cell = cell
-//        button.cell?.sendActionOn(<#T##mask: Int##Int#>)
-//        [button.cell sendActionOn:NSLeftMouseDownMask|NSPeriodicMask];
-//        
+
         button.target = target
-//        [button setAction:action];
-//        [button setEnabled:action != NULL];
+        button.action = action
+        button.enabled = (target != nil && action != nil)
         button.continuous = true
         button.imagePosition = .ImageOnly
         button.image = NSImage(named: imageName)
@@ -34,5 +34,5 @@ extension NSButton {
         }
         
         return button
-    }
+    }    
 }
