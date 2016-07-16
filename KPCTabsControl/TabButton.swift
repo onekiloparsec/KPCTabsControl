@@ -61,6 +61,22 @@ public class TabButton: NSButton {
         fatalError("init(coder:) has not been implemented")
     }
     
+    init(withItem item: AnyObject, target: AnyObject?, action:Selector) {
+        super.init(frame: NSZeroRect)
+
+        let tabCell = TabButtonCell(textCell: "")
+        
+        tabCell.representedObject = item
+        tabCell.imagePosition = .NoImage
+        
+        tabCell.borderMask = [.Right, .Bottom]
+        tabCell.target = target
+        tabCell.action = action
+        
+        tabCell.sendActionOn(Int(NSEventMask.LeftMouseDownMask.rawValue))
+        self.cell = tabCell
+    }
+    
     override public func copy() -> AnyObject {
         let copy = TabButton(frame: self.frame)
         copy.cell = self.cell?.copy() as? NSCell
@@ -99,14 +115,16 @@ public class TabButton: NSButton {
         
         self.addTrackingArea(self.trackingArea!)
         
-        let mouseLocation = self.window!.mouseLocationOutsideOfEventStream
-        let convertedMouseLocation = self.convertPoint(mouseLocation, fromView: nil)
+        if let w = self.window, e = NSApp.currentEvent {
+            let mouseLocation = w.mouseLocationOutsideOfEventStream
+            let convertedMouseLocation = self.convertPoint(mouseLocation, fromView: nil)
         
-        if NSPointInRect(convertedMouseLocation, self.bounds) {
-            self.mouseEntered(NSApp.currentEvent!)
-        }
-        else {
-            self.mouseExited(NSApp.currentEvent!)
+            if NSPointInRect(convertedMouseLocation, self.bounds) {
+                self.mouseEntered(e)
+            }
+            else {
+                self.mouseExited(e)
+            }
         }
         
         super.updateTrackingAreas()
