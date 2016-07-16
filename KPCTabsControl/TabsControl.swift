@@ -24,7 +24,6 @@ public class TabsControl: NSControl {
     private var hideScrollButtons: Bool = true
     private var isHighlighted: Bool = false
 
-
     @IBOutlet public weak var dataSource: TabsControlDataSource?
     @IBOutlet public weak var delegate: TabsControlDelegate?
     
@@ -63,9 +62,15 @@ public class TabsControl: NSControl {
     
     public required init?(coder: NSCoder) {
         super.init(coder: coder)
+        self.setup()
     }
     
-    public override func awakeFromNib() {
+    override init(frame frameRect: NSRect) {
+        super.init(frame: frameRect)
+        self.setup()
+    }
+    
+    func setup() {
         self.wantsLayer = true
         self.translatesAutoresizingMaskIntoConstraints = false
         
@@ -113,7 +118,49 @@ public class TabsControl: NSControl {
     // MARK: Data Source
     
     public func reloadTabs() {
-        let selectedItem = self.selectedItem
+        guard let dataSource = self.dataSource else {
+            // no effect if there is dataSource
+            return
+        }
+        
+        let tabCell = self.cell as! TabButtonCell
+        self.tabButtons().forEach { $0.removeFromSuperview() }
+        
+        let newItemsCount = dataSource.tabsControlNumberOfTabs(self)
+        for i in 0..<newItemsCount {
+            let item = dataSource.tabsControl(self, itemAtIndex: i)
+            let button = TabButton(withItem: item, target: self, action: #selector(TabsControl.selectTab(_:)))
+            
+            var borderMask = tabCell.borderMask
+            if i == 0 && self.automaticSideBorderMasks == true {
+                borderMask = borderMask.union(.Left)
+            }
+            if i == newItemsCount-1 && self.automaticSideBorderMasks == true {
+                borderMask = borderMask.union(.Right)
+            }
+            let buttonCell = button.cell as! TabButtonCell
+            buttonCell.borderMask = borderMask
+            
+            button.title = dataSource.tabsControl(self, titleForItem: item)
+//            button.state = (item == self.selectedItem) ? NSOnState : NSOffState
+            button.highlight(self.isHighlighted)
+            
+            if let img = dataSource.tabsControl?(self, iconForItem: item) {
+                button.icon = img
+            }
+            if let menu = dataSource.tabsControl?(self, menuForItem: item) {
+                button.menu = menu
+            }
+            if let altIcon = dataSource.tabsControl?(self, titleAlternativeIconForItem: item) {
+                button.alternativeTitleIcon = altIcon
+            }
+            
+            self.tabsView?.addSubview(button)
+        }
+        
+        self.layoutTabButtons(nil, animated: false)
+        self.updateAuxiliaryButtons()
+        self.invalidateRestorableState()
     }
     
     private func layoutTabButtons(buttons: Array<TabButton>?, animated anim: Bool) {
@@ -155,11 +202,15 @@ public class TabsControl: NSControl {
         self.invalidateRestorableState()
     }
     
-    // MARK: Actions
+    // MARK: - Actions
     
-    // MARK: Reordering
+    // MARK: - Reordering
     
-    // MARK : Selection
+    // MARK: - Selection
+    
+    func selectTab(sender: AnyObject?) {
+        
+    }
     
     public func selectedItemIndex() -> Int {
         return (self.selectedButton != nil) ? self.selectedButton!.tag : -1
@@ -169,9 +220,9 @@ public class TabsControl: NSControl {
         
     }
     
-    // MARK: Editing
+    // MARK: - Editing
     
-    // MARK: Drawing
+    // MARK: - Drawing
     
     override public var opaque: Bool {
         return true
