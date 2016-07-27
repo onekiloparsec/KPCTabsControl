@@ -35,8 +35,13 @@
     [self.controlView setNeedsDisplay:YES];
 }
 
-- (void)drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView {
+- (NSSize)cellSizeForBounds:(NSRect)aRect
+{
+    return NSMakeSize(36, 0);
+}
 
+- (void)drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView
+{
     if (self.isHighlighted) {
         [self.tabHighlightedBackgroundColor setFill];
     }
