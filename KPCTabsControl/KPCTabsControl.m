@@ -68,7 +68,7 @@
     [self setTranslatesAutoresizingMaskIntoConstraints:NO];
 
     [self setCell:[[KPCTabButtonCell alloc] initTextCell:@""]];
-    [self.cell setFont:[NSFont fontWithName:@"HelveticaNeue-Medium" size:13]];
+    [self.cell setFont:[NSFont systemFontOfSize:13]];
 
     self.controlBorderColor = [NSColor KPC_defaultControlBorderColor];
     self.controlBackgroundColor = [NSColor KPC_defaultControlBackgroundColor];

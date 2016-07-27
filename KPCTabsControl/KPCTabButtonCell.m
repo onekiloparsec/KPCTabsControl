@@ -157,7 +157,7 @@ static CGFloat titleMargin = 5.0;
     NSColor *color = (self.isSelected ? self.tabSelectedTitleColor : self.tabTitleColor);
     [attributedTitle addAttributes:@{ NSForegroundColorAttributeName : color } range:NSMakeRange(0, attributedTitle.length)];
     
-    NSFont *font = (self.isHighlighted) ? [NSFont fontWithName:@"HelveticaNeue-Bold" size:13] : [NSFont fontWithName:@"HelveticaNeue-Medium" size:13];
+    NSFont *font = (self.isHighlighted) ? [NSFont boldSystemFontOfSize:13] : [NSFont systemFontOfSize:13];
     [attributedTitle addAttributes:@{ NSFontAttributeName : font } range:NSMakeRange(0, attributedTitle.length)];
     
     return attributedTitle;
