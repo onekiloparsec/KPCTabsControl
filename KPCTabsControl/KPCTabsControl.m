@@ -9,6 +9,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "KPCTabsControlConstants.h"
 #import "KPCTabsControl.h"
+#import "KPCTabsControlCell.h"
 #import "KPCTabButton.h"
 #import "KPCTabButtonCell.h"
 #import "NSButton+KPCTabsControl.h"
@@ -67,8 +68,8 @@
     [self setWantsLayer:YES];
     [self setTranslatesAutoresizingMaskIntoConstraints:NO];
 
-    [self setCell:[[KPCTabButtonCell alloc] initTextCell:@""]];
-    [self.cell setFont:[NSFont systemFontOfSize:13]];
+    KPCTabsControlCell *backgroundCell = [[KPCTabsControlCell alloc] init];
+    [self setCell:backgroundCell];
 
     self.controlBorderColor = [NSColor KPC_defaultControlBorderColor];
     self.controlBackgroundColor = [NSColor KPC_defaultControlBackgroundColor];
@@ -188,7 +189,7 @@
             mask |= KPCBorderMaskRight;
         }
         [button.cell setBorderMask:[self.cell borderMask]];
-        
+
         [button setTitle:[self.dataSource tabsControl:self titleForItem:item]];
         [button setState:(item == selectedItem) ? NSOnState : NSOffState];
         [button highlight:self.isHighlighted];
