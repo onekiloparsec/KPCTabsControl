@@ -548,6 +548,7 @@
 				9F45CD9E1D396D4200149654 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9FA7EDBC1AD668BC0060FF79 /* Build configuration list for PBXNativeTarget "KPCTabsControl" */ = {
 			isa = XCConfigurationList;
