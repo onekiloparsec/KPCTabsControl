@@ -113,7 +113,7 @@ class TabButtonCell: NSButtonCell {
             let color = (self.isSelected == true) ? self.tabSelectedTitleColor : self.tabTitleColor
             at.addAttributes([NSForegroundColorAttributeName: color], range: NSMakeRange(0, at.length))
             
-            let font = (self.highlighted == true) ? NSFont(name: "HelveticaNeue-Bold", size: 13)! : NSFont(name: "HelveticaNeue-Medium", size: 13)!
+            let font = (self.highlighted == true) ? NSFont.boldSystemFontOfSize(13) : NSFont.systemFontOfSize(13)
             at.addAttributes([NSFontAttributeName : font], range: NSMakeRange(0, at.length))
             
             return at.copy() as! NSAttributedString

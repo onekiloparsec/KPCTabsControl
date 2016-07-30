@@ -80,7 +80,7 @@ public class TabsControl: NSControl {
         self.translatesAutoresizingMaskIntoConstraints = false
         
         self.cell = TabButtonCell(textCell: "")
-        self.cell?.font = NSFont(name: "HelveticaNeue-Medium", size: 13.0)
+        self.cell?.font = NSFont.systemFontOfSize(13)
         
         self.highlight(false)
         if self.scrollView == nil {
