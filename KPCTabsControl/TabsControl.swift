@@ -287,7 +287,6 @@ public class TabsControl: NSControl {
         var showScrollButtons = (contentView.subviews.count > 0) && (NSMaxX(contentView.subviews[0].frame) > NSWidth(contentView.bounds))
         showScrollButtons = showScrollButtons || (self.preferFullWidthTabs == true && self.currentTabWidth() == self.minTabWidth)
         
-        
         self.scrollLeftButton?.hidden = !showScrollButtons
         self.scrollRightButton?.hidden = !showScrollButtons
         if showScrollButtons == true {
@@ -369,7 +368,7 @@ public class TabsControl: NSControl {
         
         while(true) {
             let mask: Int = Int(NSEventMask.LeftMouseUpMask.union(.LeftMouseDraggedMask).rawValue)
-            let event: NSEvent! = self.window?.nextEventMatchingMask(mask , untilDate: NSDate.distantFuture(), inMode: NSEventTrackingRunLoopMode, dequeue: false)!
+            let event: NSEvent! = self.window?.nextEventMatchingMask(mask)
             
             if event.type == NSEventType.LeftMouseUp {
                 NSAnimationContext.currentContext().completionHandler = {
