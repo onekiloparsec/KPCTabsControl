@@ -3,7 +3,7 @@
 ![License](https://img.shields.io/cocoapods/l/KPCTabsControl.svg?style=flat)
 ![Platform](https://img.shields.io/cocoapods/p/KPCTabsControl.svg?style=flat)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
-
+[![Codewake](https://www.codewake.com/badges/ask_question.svg)](https://www.codewake.com/p/kpctabscontrol)
  
 KPCTabsControl
 ==============
