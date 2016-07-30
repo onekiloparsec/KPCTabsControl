@@ -24,8 +24,13 @@ public class TabsControl: NSControl {
     private var hideScrollButtons: Bool = true
     private var isHighlighted: Bool = false
 
-    @IBOutlet public weak var dataSource: TabsControlDataSource?
-    @IBOutlet public weak var delegate: TabsControlDelegate?
+    @IBOutlet public weak var dataSource: TabsControlDataSource? {
+        didSet { self.reloadTabs() }
+    }
+    @IBOutlet public weak var delegate: TabsControlDelegate? {
+        get { return self.delegateInterceptor.receiver as? TabsControlDelegate }
+        set { self.delegateInterceptor.receiver = newValue as? NSObject }
+    }
     
     public weak var selectedItem: AnyObject? = nil
     
@@ -100,7 +105,28 @@ public class TabsControl: NSControl {
         self.addSubview(self.scrollView!)
         
         if self.hideScrollButtons == false {
+            self.scrollLeftButton = NSButton.KPC_auxiliaryButton(withImageNamed: "KPCTabLeftTemplate", target: self, action: #selector(TabsControl.scrollTabView(_:)))
             
+            self.scrollRightButton = NSButton.KPC_auxiliaryButton(withImageNamed: "KPCTabRightTemplate", target: self, action: #selector(TabsControl.scrollTabView(_:)))
+            
+            self.scrollLeftButton?.autoresizingMask = .ViewMinXMargin
+            self.scrollLeftButton?.autoresizingMask = .ViewMinXMargin
+            
+            let leftCell = self.scrollLeftButton!.cell as! TabButtonCell
+            leftCell.borderMask = leftCell.borderMask.union(.Left)
+            
+            self.addSubview(self.scrollLeftButton!)
+            self.addSubview(self.scrollRightButton!)
+            
+            // This is typically what's autolayout is supposed to help avoiding.
+            // But for pixel-control freaking guys like me, I see no escape.
+            var r = CGRectZero
+            r.size.height = CGRectGetHeight(self.scrollView!.frame)
+            r.size.width = CGRectGetWidth(self.scrollLeftButton!.frame)
+            r.origin.x = CGRectGetMaxX(self.scrollView!.frame) - r.size.width
+            self.scrollRightButton!.frame = r;
+            r.origin.x -= r.size.width;
+            self.scrollLeftButton!.frame = r;
         }
         
         self.startObservingScrollView()
@@ -142,7 +168,7 @@ public class TabsControl: NSControl {
             buttonCell.borderMask = borderMask
             
             button.title = dataSource.tabsControl(self, titleForItem: item)
-//            button.state = (item == self.selectedItem) ? NSOnState : NSOffState
+            button.state = (item === self.selectedItem) ? NSOnState : NSOffState // yes triple === to check for instances
             button.highlight(self.isHighlighted)
             
             if let img = dataSource.tabsControl?(self, iconForItem: item) {
@@ -164,11 +190,50 @@ public class TabsControl: NSControl {
     }
     
     private func layoutTabButtons(buttons: Array<TabButton>?, animated anim: Bool) {
+        let tabButtons = (buttons != nil) ? buttons! : self.tabButtons()
+        var tabsViewWidth = CGFloat(0.0)
         
+        let fullSizeWidth = CGRectGetWidth(self.scrollView!.frame) / CGFloat(tabButtons.count)
+        let buttonHeight = CGRectGetHeight(self.tabsView!.frame)
+        
+        for (index, button) in tabButtons.enumerate() {
+            var buttonWidth = (self.preferFullWidthTabs == true) ? fullSizeWidth : min(self.maxTabWidth, fullSizeWidth)
+            buttonWidth = max(buttonWidth, self.minTabWidth)
+            let r = CGRectMake(CGFloat(index)*buttonWidth, 0.0, buttonWidth, buttonHeight)
+            
+            if anim == true && button.hidden == false {
+                button.animator().frame = r
+            }
+            else {
+                button.frame = r
+            }
+            
+            if let delegateReceiver = self.delegateInterceptor.receiver as? TabsControlDelegate {
+                if delegateReceiver.tabsControl?(self, canSelectItem: button.tabButtonCell!.representedObject!) != nil {
+                    button.tabButtonCell!.selectable = delegateReceiver.tabsControl!(self, canSelectItem: button.tabButtonCell!.representedObject!)
+                    // not entirely sure this swift code does what I want...
+                }
+            }
+            
+            button.tag = index
+            tabsViewWidth += buttonWidth
+        }
+        
+        self.tabsView!.frame = CGRectMake(0.0, 0.0, tabsViewWidth, buttonHeight)
     }
     
     private func updateAuxiliaryButtons() {
+        let contentView = self.scrollView!.contentView
+        var showScrollButtons = (contentView.subviews.count > 0) && (NSMaxX(contentView.subviews[0].frame) > NSWidth(contentView.bounds))
+        showScrollButtons = showScrollButtons || (self.preferFullWidthTabs == true && self.currentTabWidth() == self.minTabWidth)
         
+        
+        self.scrollLeftButton?.hidden = !showScrollButtons
+        self.scrollRightButton?.hidden = !showScrollButtons
+        if showScrollButtons == true {
+            self.scrollLeftButton?.enabled = self.visibilityCondition(self.scrollLeftButton!, forLeft: true)
+            self.scrollRightButton?.enabled = self.visibilityCondition(self.scrollRightButton!, forLeft: false)
+        }
     }
 
     // MARK: ScrollView Observation
@@ -204,12 +269,54 @@ public class TabsControl: NSControl {
     
     // MARK: - Actions
     
+    func scrollTabView(sender: AnyObject?) {
+        let forLeft = (sender as? NSButton == self.scrollLeftButton)
+        let tab = self.tabButtons().filter({ self.visibilityCondition($0, forLeft: forLeft) }).first
+            
+        if (tab != nil) {
+            NSAnimationContext.runAnimationGroup({ (context) in
+                context.allowsImplicitAnimation = true
+                tab?.scrollRectToVisible(tab!.bounds)
+                }, completionHandler: {
+                    self.invalidateRestorableState()
+            })
+        }
+    }
+    
+    func visibilityCondition(button: NSButton, forLeft: Bool) -> Bool {
+        let visibleRect = self.tabsView!.visibleRect
+        if forLeft == true {
+            return NSMinX(button.frame) < NSMinX(visibleRect)
+        }
+        else {
+            return NSMaxX(button.frame) > NSMaxX(visibleRect) - 2.0*NSWidth(self.scrollLeftButton!.frame)
+        }
+    }
+    
     // MARK: - Reordering
     
     // MARK: - Selection
     
     func selectTab(sender: AnyObject?) {
+        guard let button = sender else {
+            return
+        }
+        self.selectedButton = button as? NSButton
         
+        for button in self.tabButtons() {
+            button.state = (button === self.selectedButton!) ? NSOnState : NSOffState
+            button.highlighted = self.isHighlighted
+        }
+        
+        NSApplication.sharedApplication().sendAction(self.action, to: self.target, from: self)
+        NSNotificationCenter.defaultCenter().postNotificationName(TabsControlSelectionDidChangeNotification, object: self)
+        
+        if let currentEvent = NSApp.currentEvent {
+            if currentEvent.type == .LeftMouseDown && currentEvent.clickCount > 1 {
+                self.editTabButton(self.selectedButton!)
+            }
+            else if ...
+        }
     }
     
     public func selectedItemIndex() -> Int {
@@ -221,6 +328,10 @@ public class TabsControl: NSControl {
     }
     
     // MARK: - Editing
+    
+    public func editTabButton(button: NSButton) {
+        
+    }
     
     // MARK: - Drawing
     
