@@ -106,7 +106,8 @@ class TabButtonCell: NSButtonCell {
     // MARK: - Properties & Rects
 
     static func popupImage() -> NSImage {
-        return NSImage(named: "KPCPullDownTemplate")!.KPC_imageWithTint(NSColor.darkGrayColor())
+        let path = NSBundle(forClass: self).pathForImageResource("KPCPullDownTemplate")!
+        return NSImage(contentsOfFile: path)!.KPC_imageWithTint(NSColor.darkGrayColor())
     }
     
     override var attributedTitle: NSAttributedString {
@@ -216,7 +217,7 @@ class TabButtonCell: NSButtonCell {
     }
     
     func drawNumbersTabsWithFrame(frame: NSRect, inView controlView: NSView) {
-        var borderRects: Array<NSRect> = []
+        var borderRects: Array<NSRect> = [NSZeroRect, NSZeroRect, NSZeroRect, NSZeroRect]
         var borderRectCount: NSInteger = 0
         
         if RectArrayWithBorderMask(frame, borderMask: self.borderMask, rectArray: &borderRects, rectCount: &borderRectCount) {
