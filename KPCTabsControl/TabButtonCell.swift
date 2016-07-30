@@ -59,6 +59,8 @@ class TabButtonCell: NSButtonCell {
         didSet { self.controlView?.needsDisplay = true }
     }
     
+    // MARK: - Initializers & Copy
+    
     override init(textCell aString: String) {
         super.init(textCell: aString)
 
@@ -101,6 +103,8 @@ class TabButtonCell: NSButtonCell {
         self.controlView?.needsDisplay = true
     }
     
+    // MARK: - Properties & Rects
+
     static func popupImage() -> NSImage {
         return NSImage(named: "KPCPullDownTemplate")!.KPC_imageWithTint(NSColor.darkGrayColor())
     }
@@ -168,6 +172,8 @@ class TabButtonCell: NSButtonCell {
         return self.titleRectForBounds(NSOffsetRect(rect, 0, 0)) // used to be different from 0...
     }
     
+    // MARK: - Drawing
+
     override func drawWithFrame(frame: NSRect, inView controlView: NSView) {
         self.drawBezelWithFrame(frame, inView: controlView)
         
