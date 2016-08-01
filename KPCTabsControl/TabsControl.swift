@@ -8,6 +8,14 @@
 
 import AppKit
 
+/*
+ *  KPCTabsControl is the main class of the library, and is designed to suffice for implementing tabs in your app.
+ *  The only necessary thing for it to work is an implementation of uts dataSource.
+ *  No other classes (such as those of the buttons) should be necessary to access the full features of KPCTabsControl.
+ */
+
+/// TabsControl is the main class of the library, and is designed to suffice for implementing tabs in your app.
+/// The only necessary thing for it to work is an implementation of its dataSource.
 public class TabsControl: NSControl {
     private var ScrollViewObservationContext: UnsafeMutablePointer<Void> = nil // hm, wrong
     private var delegateInterceptor = MessageInterceptor()
@@ -24,47 +32,23 @@ public class TabsControl: NSControl {
     private var hideScrollButtons: Bool = true
     private var isHighlighted: Bool = false
 
-    // MARK: - Public Properties
+    private var tabButtonCell: TabButtonCell {
+        get { return self.cell as! TabButtonCell }
+    }
+
+    // MARK: - Data Source & Delegate
     
+    /// The dataSource of the tabs control, providing all the necessary information for the class to build the tabs.
     @IBOutlet public weak var dataSource: TabsControlDataSource?
+    /// The delegate of the tabs control, providing additional possibilities for customization and precise behavior.
     @IBOutlet public weak var delegate: TabsControlDelegate? {
         get { return self.delegateInterceptor.receiver as? TabsControlDelegate }
         set { self.delegateInterceptor.receiver = newValue as? NSObject }
     }
-
-    public var automaticSideBorderMasks: Bool = true {
-        didSet { self.propagateBorderMask() }
-    }
-    public var preferFullWidthTabs: Bool = false {
-        didSet {
-            self.layoutTabButtons(self.tabButtons(), animated: true)
-            self.updateAuxiliaryButtons()
-        }
-    }
     
-    public var minTabWidth: CGFloat =  50.0 {
-        didSet {
-            self.layoutTabButtons(self.tabButtons(), animated: true)
-            self.updateAuxiliaryButtons()
-        }
-    }
-    public var maxTabWidth: CGFloat = 150.0 {
-        didSet {
-            self.layoutTabButtons(self.tabButtons(), animated: true)
-            self.updateAuxiliaryButtons()
-        }
-    }
-
-//    public override var highlighted: Bool {
-//        get { return true }
-//    }
+    // MARK: - Public Properties
     
-    // MARK: - Public Computed Properties
-    
-    var tabButtonCell: TabButtonCell {
-        get { return self.cell as! TabButtonCell }
-    }
-
+    /// The tabs style.
     public var tabsStyle: TabsControlTabsStyle {
         get { return self.tabButtonCell.tabStyle }
         set {
@@ -72,6 +56,7 @@ public class TabsControl: NSControl {
             self.tabButtons().forEach { $0.tabButtonCell?.tabStyle = newValue }
         }
     }
+    /// The border mask controls for which sides of every tab one should draw a border.
     public var bordersMask: TabsControlBorderMask {
         get { return self.tabButtonCell.borderMask }
         set {
@@ -80,38 +65,90 @@ public class TabsControl: NSControl {
         }
     }
     
+    /// Indicates whether one should automatically add a left border to the most leftish tab, and one right border to the most rightish tab. Default is `true`.
+    public var automaticSideBorderMasks: Bool = true {
+        didSet { self.propagateBorderMask() }
+    }
+
+    /**
+     *  Indicates whether the tabs control should span the whole available width or not. Default is `NO`. If set to `YES`,
+     *  the tabs may occur to have a width smaller than `minTabWidth` or larger than `maxTabWidth`.
+     */
+    public var preferFullWidthTabs: Bool = false {
+        didSet {
+            self.layoutTabButtons(self.tabButtons(), animated: true)
+            self.updateAuxiliaryButtons()
+        }
+    }
+    
+    /**
+     *  When `preferFullWidthTabs` is NO, the minimum width of tabs. Given the total width of the tabs control, it will
+     *  adjust the tab width between the specified minimum and maximum values. All tabs have the same width, always.
+     */
+    public var minTabWidth: CGFloat =  50.0 {
+        didSet {
+            self.layoutTabButtons(self.tabButtons(), animated: true)
+            self.updateAuxiliaryButtons()
+        }
+    }
+    /**
+     *  When `preferFullWidthTabs` is `NO`, the maximum width of tabs. Given the total width of the tabs control, it will
+     *  adjust the tab width between the specified minimum and maximum values. All tabs have the same width, always.
+     */
+    public var maxTabWidth: CGFloat = 150.0 {
+        didSet {
+            self.layoutTabButtons(self.tabButtons(), animated: true)
+            self.updateAuxiliaryButtons()
+        }
+    }
+
+
+//    public override var highlighted: Bool {
+//        get { return true }
+//    }
+    
     // MARK: - Public TabControl Color Properties
     
+    /// The color of the tabs control itself.
     public var controlBorderColor: NSColor = NSColor.KPC_defaultControlBorderColor() {
         didSet { self.needsDisplay = true }
     }
+    /// The color of the background of the tabs control itself (invisible when `preferFullWidthTabs` is `true`).
     public var controlBackgroundColor: NSColor = NSColor.KPC_defaultControlBackgroundColor() {
         didSet { self.needsDisplay = true }
     }
+    /// The color of the background of the tabs control itself when being highlighted (invisible when `preferFullWidthTabs` is `true`).
     public var controlHighlightedBackgroundColor: NSColor = NSColor.KPC_defaultControlHighlightedBackgroundColor() {
         didSet { self.needsDisplay = true }
     }
 
     // MARK: - Public Tabs Color Properties
 
+    /// The color of the tab borders for unselected tabs.
     public var tabBorderColor: NSColor = NSColor.KPC_defaultTabBorderColor() {
         didSet { self.tabButtons().forEach{ $0.tabButtonCell?.tabBorderColor = self.tabBorderColor } }
     }
+    /// The color of the tabs titles for unselected tabs.
     public var tabTitleColor: NSColor = NSColor.KPC_defaultTabBorderColor() {
         didSet { self.tabButtons().forEach{ $0.tabButtonCell?.tabTitleColor = self.tabTitleColor } }
     }
+    /// The color of the tabs background for unselected tabs.
     public var tabBackgroundColor: NSColor = NSColor.KPC_defaultTabTitleColor() {
         didSet { self.tabButtons().forEach{ $0.tabButtonCell?.tabBackgroundColor = self.tabBackgroundColor } }
     }
+    /// The color of the tabs background when highlighted for unselected tabs.
     public var tabHighlightedBackgroundColor: NSColor = NSColor.KPC_defaultTabBackgroundColor() {
         didSet { self.tabButtons().forEach{ $0.tabButtonCell?.tabHighlightedBackgroundColor = self.tabHighlightedBackgroundColor } }
     }
+    /// The color of the selected tab borders.
     public var tabSelectedBorderColor: NSColor = NSColor.KPC_defaultTabHighlightedBackgroundColor() {
         didSet { self.tabButtons().forEach{ $0.tabButtonCell?.tabSelectedBorderColor = self.tabSelectedBorderColor } }
     }
+    /// The color of the selected tab title.
     public var tabSelectedTitleColor: NSColor = NSColor.KPC_defaultTabSelectedTitleColor() {
         didSet { self.tabButtons().forEach{ $0.tabButtonCell?.tabSelectedTitleColor = self.tabSelectedTitleColor } }
     }
+    /// The color of the selected tab background.
     public var tabSelectedBackgroundColor: NSColor = NSColor.KPC_defaultTabSelectedBackgroundColor() {
         didSet { self.tabButtons().forEach{ $0.tabButtonCell?.tabSelectedBackgroundColor = self.tabSelectedBackgroundColor } }
     }
@@ -201,6 +238,9 @@ public class TabsControl: NSControl {
     
     // MARK: - Data Source
     
+    /**
+     Reloads all tabs of the tabs control. Useful when the `dataSource` has changed.
+     */
     public func reloadTabs() {
         guard let dataSource = self.dataSource else {
             // no effect if there is dataSource
@@ -443,6 +483,11 @@ public class TabsControl: NSControl {
         }
     }
     
+    /**
+     *  Each tab being represented by an item, this property points to the currently selected item. Assigning it to
+     *  a new value triggers a new selection. Selecting an unknown item will unselect any tabs, and leave the tabs control
+     *  with no tab selected.
+     */
     public var selectedItem: AnyObject? {
         get { return self.selectedButton?.tabButtonCell?.representedObject }
         set {
@@ -464,10 +509,16 @@ public class TabsControl: NSControl {
         }
     }
     
+    /// The index of the selected item.
     public var selectedItemIndex: Int {
         get { return (self.selectedButton != nil) ? self.selectedButton!.tag : -1 }
     }
     
+    /**
+     Select an item at a given index. Selecting an invalid index will unselected all tabs.
+     
+     - parameter index: An integer indicating the index of the item to be selected.
+     */
     public func selectItemAtIndex(index: Int) {
         let buttons = self.tabButtons()
         if buttons.count > index {
@@ -505,6 +556,12 @@ public class TabsControl: NSControl {
         return filteredSubviews
     }
     
+    /**
+     (Un)highlight the tabs control.
+     
+     - parameter flag: A boolean value indicating whether the tabs control should adopt a 'highlighted' state
+     (with slightly darker default background colors) or not.
+     */
     public func highlight(flag: Bool) {
         self.isHighlighted = flag
         
