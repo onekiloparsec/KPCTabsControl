@@ -132,7 +132,7 @@
     [self.alternativeTitleIconView setHidden:hasRoom];
     self.toolTip = (hasRoom) ? nil : self.title;
     
-    [super drawRect:dirtyRect];
+    [super drawRect:dirtyRect];    
 }
 
 - (NSMenu *)menu
@@ -200,16 +200,6 @@
 - (void)setShowsMenu:(BOOL)showsMenu
 {
     [self.cell setShowsMenu:showsMenu];
-}
-
-- (KPCBorderMask)borderMask
-{
-    return [self.cell borderMask];
-}
-
-- (void)setBorderMask:(KPCBorderMask)borderMask
-{
-    [self.cell setBorderMask:borderMask];
 }
 
 @end

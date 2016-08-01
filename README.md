@@ -10,8 +10,8 @@ KPCTabsControl
 
 A multi-tabs control designed to look and behave like the tab control in Apple's Numbers spreadsheet, with enhanced capabilities. Borrowed initially from the excellent [LITabControl](https://github.com/monyschuk/LITabControl).
 
-I used the LITabControl since some time, and it diverged quite a lot (hence the new repo rather than a fork). More importantly, the AutoLayout parts inside were too instable and hard to debug in a complex app (with various intricated split views with dynamic constraints), like the ones I am currently developing. So even if KCPTabsControl plays well with AutoLayout, it doesn't use it itself internally.
-
+The last stable version is 1.6.3. A complete rewrite in Swift is ongoing, and will labelled 2.0 and on. It will bring a slightly updated API, and, in the future, multiple tab styles, such as Chrome, Safari or Xcode. 
+ 
 Below a screenshot of the demo app with two series of tabs (showing the highlight effect). 
 ![Demo Tabs Screenshot](http://www.onekilopars.ec/s/KPCTabsControlScreenshot1.png)
 

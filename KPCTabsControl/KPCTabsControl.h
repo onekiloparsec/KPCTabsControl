@@ -70,6 +70,11 @@ FOUNDATION_EXPORT const unsigned char KPCTabsVersionString[];
 @property(nonatomic, assign) KPCBorderMask controlBorderMask;
 
 /**
+ *  The tabs style.
+ */
+@property(nonatomic, assign) KPCTabStyle tabStyle;
+
+/**
  *  Indicates whether one should automatically add a left border to the most leftish tab, and one right border to the
  *  most rightish tab. Default is `YES`.
  */

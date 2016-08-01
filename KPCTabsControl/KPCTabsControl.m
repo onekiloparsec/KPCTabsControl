@@ -647,6 +647,21 @@ static char KPCScrollViewObservationContext;
     }];
 }
 
+- (KPCTabStyle)tabStyle
+{
+    return [(KPCTabButtonCell *)self.cell tabStyle];
+}
+
+- (void)setTabStyle:(KPCTabStyle)tabStyle
+{
+    [(KPCTabButtonCell *)self.cell setTabStyle:tabStyle];
+    
+    NSArray *buttons = [self tabButtons];
+    [buttons enumerateObjectsUsingBlock:^(KPCTabButton *button, NSUInteger idx, BOOL *stop) {
+        [button.cell setTabStyle:tabStyle];
+    }];
+}
+
 #pragma mark - Tab Widths
 
 - (CGFloat)currentTabWidth
