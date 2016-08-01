@@ -196,7 +196,6 @@
 			isa = PBXGroup;
 			children = (
 				9F573D481A06995E00B8E389 /* README.md */,
-				9F2156001A00467900819BDF /* KPCTabsControl.podspec */,
 				9F2155D51A002F0200819BDF /* Info.plist */,
 				9F2155D91A002F0200819BDF /* main.m */,
 				9FFC4AAB1A068F2000AAF238 /* Images.xcassets */,
@@ -220,6 +219,7 @@
 			children = (
 				9FA7EDA81AD668BC0060FF79 /* Info.plist */,
 				9F09E9FD1C95668400EA970C /* LICENSE */,
+				9F2156001A00467900819BDF /* KPCTabsControl.podspec */,
 			);
 			name = "Supporting Files";
 			path = KPCTabsControl;
