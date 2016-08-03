@@ -21,7 +21,6 @@
 		9F45CDA41D396EA700149654 /* KPCTabsControl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FA7EDA51AD668BC0060FF79 /* KPCTabsControl.framework */; };
 		9F45CDA61D396EB400149654 /* KPCTabsControl.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9FA7EDA51AD668BC0060FF79 /* KPCTabsControl.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9F45CDA81D39815D00149654 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F45CDA71D39815D00149654 /* ViewController.swift */; };
-		9F6E61DD1D4F6E9B004167F1 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 9F6E61DC1D4F6E9B004167F1 /* README.md */; };
 		9FA7EDCE1AD66A250060FF79 /* KPCPullDownTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 9F3C2E351A0182DF00281F4B /* KPCPullDownTemplate.pdf */; };
 		9FA7EDCF1AD66A250060FF79 /* KPCTabLeftTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 9F3C2E361A0182DF00281F4B /* KPCTabLeftTemplate.pdf */; };
 		9FA7EDD01AD66A250060FF79 /* KPCTabPlusTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 9F3C2E371A0182DF00281F4B /* KPCTabPlusTemplate.pdf */; };
@@ -350,7 +349,6 @@
 				9F23FF371D10A9D800326F3B /* NSButton+TabsControl.swift in Sources */,
 				9FF7894C1D10470A00F66AF2 /* NSImage+TabsControl.swift in Sources */,
 				9F2154A91D2D179500C4DD06 /* TabButton.swift in Sources */,
-				9F6E61DD1D4F6E9B004167F1 /* README.md in Sources */,
 				9F1186431D4CF89B00E6CE39 /* TabsControlCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
