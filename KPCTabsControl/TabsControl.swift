@@ -176,9 +176,7 @@ public class TabsControl: NSControl {
         self.tabsStyle = .NumbersApp
         
         self.highlight(false)
-        if self.scrollView == nil {
-            self.configureSubviews()
-        }
+        self.configureSubviews()
     }
     
     private func configureSubviews() {
@@ -526,12 +524,64 @@ public class TabsControl: NSControl {
         }
     }
     
-    
-    
     // MARK: - Editing
     
-    public func editTabButton(button: NSButton) {
+    public func editTabButton(button: TabButton?) {
+        guard let tab = button else {
+            return
+        }
         
+        if self.delegate?.tabsControl?(self, canEditTitleOfItem: tab.tabButtonCell!.representedObject!) == false {
+            return
+        }
+        
+        // End existing editing, if any...
+        if self.editingTextField != nil {
+            self.window?.makeFirstResponder(self)
+        }
+        
+        let titleRect = tab.tabButtonCell!.editingRectForBounds(tab.bounds)
+        self.editingTextField = NSTextField(frame: titleRect)
+        
+        self.editingTextField?.autoresizingMask = [.ViewWidthSizable]
+        self.editingTextField?.editable = true
+        self.editingTextField?.font = tab.tabButtonCell!.font
+        self.editingTextField?.alignment = tab.tabButtonCell!.alignment
+        self.editingTextField?.backgroundColor = NSColor.clearColor()
+        self.editingTextField?.focusRingType = .None
+        self.editingTextField?.textColor = NSColor.darkGrayColor().blendedColorWithFraction(0.5, ofColor: NSColor.blackColor())
+        self.editingTextField?.stringValue = tab.title
+        
+        self.editingTextField?.cell?.bordered = false
+        self.editingTextField?.cell?.scrollable = true
+        
+        tab.title = ""
+        tab.addSubview(self.editingTextField!)
+        
+        self.delegateInterceptor.middleMan = self
+        self.editingTextField!.delegate = self.delegateInterceptor as? NSTextFieldDelegate
+        self.editingTextField?.selectText(self)
+    }
+    
+    public override func controlTextDidEndEditing(obj: NSNotification) {
+        let title = self.editingTextField!.stringValue
+        let tab = self.editingTextField!.superview! as! TabButton
+        
+        if title.characters.count > 0 && self.delegate?.tabsControl?(self, setTitle: title, forItem: tab.tabButtonCell!.representedObject!) != nil {
+            tab.tabButtonCell!.representedObject = self.dataSource?.tabsControl(self, itemAtIndex: self.selectedItemIndex)
+        }
+        
+        if self.delegate is NSControl {
+            let d = self.delegate as! NSControl
+            d.controlTextDidEndEditing(obj)
+        }
+        
+        self.editingTextField?.removeFromSuperview()
+        self.editingTextField?.delegate = nil
+        self.editingTextField = nil
+        
+        // That's the receiver responsability to store the new title;
+        self.reloadTabs()
     }
     
     // MARK: - Drawing
@@ -564,7 +614,10 @@ public class TabsControl: NSControl {
      */
     public func highlight(flag: Bool) {
         self.isHighlighted = flag
-        
+        self.tabButtonCell.highlight(flag)
+//        self.scrollLeftButton.cell?.highlight(flag)
+//        self.scrollRightButton.cell?.highlight(flag)
+        self.tabButtons().forEach { $0.highlight(flag) }
     }
     
     // MARK: - Tab Widths
@@ -581,12 +634,36 @@ public class TabsControl: NSControl {
     
     public override func encodeRestorableStateWithCoder(coder: NSCoder) {
         super.encodeRestorableStateWithCoder(coder)
-        // TODO: complete!
+        
+        let scrollXOffset = Double(self.scrollView!.contentView.bounds.origin.x)
+        var selectedButtonIndex: Int = NSNotFound
+     
+        let buttons = self.scrollView?.documentView?.subviews.filter({ $0 is NSButton }) as! [NSButton]
+        for (index, button) in buttons.enumerate() {
+            if button.state == NSOnState {
+                selectedButtonIndex = index
+                break
+            }
+        }
+
+        coder.encodeDouble(scrollXOffset, forKey: kScrollXOffsetKey)
+        coder.encodeInteger(selectedButtonIndex, forKey: kSelectedButtonIndexKey)
     }
 
     public override func restoreStateWithCoder(coder: NSCoder) {
         super.restoreStateWithCoder(coder)
-        // TODO: complete!
+        
+        let scrollXOffset = coder.decodeDoubleForKey(kScrollXOffsetKey)
+        let selectedButtonIndex = coder.decodeIntegerForKey(kSelectedButtonIndexKey)
+        
+        var bounds = self.scrollView!.contentView.bounds
+        bounds.origin.x = CGFloat(scrollXOffset)
+        self.scrollView!.contentView.bounds = bounds
+        
+        let buttons = self.scrollView?.documentView?.subviews.filter({ $0 is NSButton }) as! [NSButton]
+        for (index, button) in buttons.enumerate() {
+            button.state = (index == selectedButtonIndex) ? NSOnState : NSOffState
+        }        
     }
     
     // MARK: Helpers
@@ -607,3 +684,6 @@ public class TabsControl: NSControl {
         }
     }
 }
+
+let kScrollXOffsetKey = "scrollOrigin"
+let kSelectedButtonIndexKey = "selectedButtonIndex"
