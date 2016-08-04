@@ -591,16 +591,12 @@ public class TabsControl: NSControl {
         return true
     }
     
-    private func tabButtons() -> Array<TabButton> {
-        guard let tb = self.tabsView else {
+    private func tabButtons() -> [TabButton] {
+        guard let tabsView = self.tabsView else {
             return []
         }
-        
-        let subviews = tb.subviews
-        let filteredSubviews = subviews.filter({ (view) -> Bool in
-            view is TabButton
-        }) as! Array<TabButton>
-        return filteredSubviews
+
+        return tabsView.subviews.flatMap { $0 as? TabButton }
     }
     
     /**
