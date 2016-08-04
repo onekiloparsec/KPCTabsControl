@@ -13,9 +13,9 @@ import AppKit
 public class TabsControl: NSControl {
     private var ScrollViewObservationContext: UnsafeMutablePointer<Void> = nil // hm, wrong
     private var delegateInterceptor = MessageInterceptor()
-    
-    private var scrollView: NSScrollView? = nil
     private var tabsView: NSView? = nil
+
+    private var scrollView: NSScrollView!
     private var editingTextField: NSTextField? = nil
 
     private var addButton: NSButton? = nil
@@ -175,19 +175,19 @@ public class TabsControl: NSControl {
     
     private func configureSubviews() {
         self.scrollView = NSScrollView(frame: self.bounds)
-        self.scrollView?.drawsBackground = false
-        self.scrollView?.hasHorizontalScroller = false
-        self.scrollView?.hasVerticalScroller = false
-        self.scrollView?.usesPredominantAxisScrolling = true
-        self.scrollView?.horizontalScrollElasticity = .Allowed
-        self.scrollView?.verticalScrollElasticity = .None
-        self.scrollView?.autoresizingMask = [.ViewWidthSizable, .ViewHeightSizable]
-        self.scrollView?.translatesAutoresizingMaskIntoConstraints = true
+        self.scrollView.drawsBackground = false
+        self.scrollView.hasHorizontalScroller = false
+        self.scrollView.hasVerticalScroller = false
+        self.scrollView.usesPredominantAxisScrolling = true
+        self.scrollView.horizontalScrollElasticity = .Allowed
+        self.scrollView.verticalScrollElasticity = .None
+        self.scrollView.autoresizingMask = [.ViewWidthSizable, .ViewHeightSizable]
+        self.scrollView.translatesAutoresizingMaskIntoConstraints = true
         
-        self.tabsView = NSView(frame: self.scrollView!.bounds)
-        self.scrollView?.documentView = self.tabsView
+        self.tabsView = NSView(frame: self.scrollView.bounds)
+        self.scrollView.documentView = self.tabsView
         
-        self.addSubview(self.scrollView!)
+        self.addSubview(self.scrollView)
         
         if self.hideScrollButtons == false {
             self.scrollLeftButton = NSButton.KPC_auxiliaryButton(withImageNamed: "KPCTabLeftTemplate", target: self, action: #selector(TabsControl.scrollTabView(_:)))
@@ -206,9 +206,9 @@ public class TabsControl: NSControl {
             // This is typically what's autolayout is supposed to help avoiding.
             // But for pixel-control freaking guys like me, I see no escape.
             var r = CGRectZero
-            r.size.height = CGRectGetHeight(self.scrollView!.frame)
+            r.size.height = CGRectGetHeight(self.scrollView.frame)
             r.size.width = CGRectGetWidth(self.scrollLeftButton!.frame)
-            r.origin.x = CGRectGetMaxX(self.scrollView!.frame) - r.size.width
+            r.origin.x = CGRectGetMaxX(self.scrollView.frame) - r.size.width
             self.scrollRightButton!.frame = r;
             r.origin.x -= r.size.width;
             self.scrollLeftButton!.frame = r;
@@ -285,7 +285,7 @@ public class TabsControl: NSControl {
         let tabButtons = (buttons != nil) ? buttons! : self.tabButtons()
         var tabsViewWidth = CGFloat(0.0)
         
-        let fullSizeWidth = CGRectGetWidth(self.scrollView!.frame) / CGFloat(tabButtons.count)
+        let fullSizeWidth = CGRectGetWidth(self.scrollView.frame) / CGFloat(tabButtons.count)
         let buttonHeight = CGRectGetHeight(self.tabsView!.frame)
         
         for (index, button) in tabButtons.enumerate() {
@@ -315,7 +315,7 @@ public class TabsControl: NSControl {
     }
     
     private func updateAuxiliaryButtons() {
-        let contentView = self.scrollView!.contentView
+        let contentView = self.scrollView.contentView
         var showScrollButtons = (contentView.subviews.count > 0) && (NSMaxX(contentView.subviews[0].frame) > NSWidth(contentView.bounds))
         showScrollButtons = showScrollButtons || (self.preferFullWidthTabs == true && self.currentTabWidth() == self.minTabWidth)
         
@@ -330,15 +330,15 @@ public class TabsControl: NSControl {
     // MARK: - ScrollView Observation
     
     private func startObservingScrollView() {
-        self.scrollView?.addObserver(self, forKeyPath: "frame", options: .New, context: &ScrollViewObservationContext)
-        self.scrollView?.addObserver(self, forKeyPath: "documentView.frame", options: .New, context: &ScrollViewObservationContext)
+        self.scrollView.addObserver(self, forKeyPath: "frame", options: .New, context: &ScrollViewObservationContext)
+        self.scrollView.addObserver(self, forKeyPath: "documentView.frame", options: .New, context: &ScrollViewObservationContext)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(TabsControl.scrollViewDidScroll(_:)), name: NSViewFrameDidChangeNotification, object: self.scrollView)
     }
     
     private func stopObservingScrollView() {
-        self.scrollView?.removeObserver(self, forKeyPath: "frame", context: &ScrollViewObservationContext)
-        self.scrollView?.removeObserver(self, forKeyPath: "documentView.frame", context: &ScrollViewObservationContext)
+        self.scrollView.removeObserver(self, forKeyPath: "frame", context: &ScrollViewObservationContext)
+        self.scrollView.removeObserver(self, forKeyPath: "documentView.frame", context: &ScrollViewObservationContext)
         
         NSNotificationCenter.defaultCenter().removeObserver(self, name: NSViewFrameDidChangeNotification, object: self.scrollView)
     }
@@ -634,7 +634,7 @@ public class TabsControl: NSControl {
     public override func encodeRestorableStateWithCoder(coder: NSCoder) {
         super.encodeRestorableStateWithCoder(coder)
         
-        let scrollXOffset: CGFloat = self.scrollView?.contentView.bounds.origin.x ?? 0.0
+        let scrollXOffset: CGFloat = self.scrollView.contentView.bounds.origin.x ?? 0.0
 
         let buttons: [NSButton] = self.buttons()
         let selectedButtonIndex: Int = buttons.enumerate()
@@ -648,7 +648,7 @@ public class TabsControl: NSControl {
     /// - returns: All `NSButton` instances inside this view's `scrollView`.
     private func buttons() -> [NSButton] {
 
-        return self.scrollView?.documentView?.subviews
+        return self.scrollView.documentView?.subviews
             .flatMap { $0 as? NSButton } ?? []
     }
 
@@ -658,9 +658,9 @@ public class TabsControl: NSControl {
         let scrollXOffset = coder.decodeDoubleForKey(RestorationKeys.scrollXOffset)
         let selectedButtonIndex = coder.decodeIntegerForKey(RestorationKeys.selectedButtonIndex)
         
-        var bounds = self.scrollView!.contentView.bounds
+        var bounds = self.scrollView.contentView.bounds
         bounds.origin.x = CGFloat(scrollXOffset)
-        self.scrollView!.contentView.bounds = bounds
+        self.scrollView.contentView.bounds = bounds
 
         for (index, button) in self.buttons().enumerate() {
             button.state = (index == selectedButtonIndex) ? NSOnState : NSOffState
