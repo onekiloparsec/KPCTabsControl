@@ -38,7 +38,15 @@ class TabButtonCell: NSButtonCell {
     var tabTitleColor: NSColor = NSColor.KPC_defaultTabTitleColor() {
         didSet { self.controlView?.needsDisplay = true }
     }
-    
+
+    var activeBackgroundColor: NSColor {
+        if self.highlighted {
+            return self.tabHighlightedBackgroundColor
+        }
+
+        return self.tabBackgroundColor
+    }
+
     var tabBackgroundColor: NSColor = NSColor.KPC_defaultTabBackgroundColor() {
         didSet { self.controlView?.needsDisplay = true }
     }
@@ -210,7 +218,7 @@ class TabButtonCell: NSButtonCell {
             }
         }
         else {
-            let color = (self.highlighted == true) ? self.tabHighlightedBackgroundColor : self.tabBackgroundColor
+            let color = self.activeBackgroundColor
             color.setFill()
             NSRectFill(frame)
         }
@@ -229,8 +237,7 @@ class TabButtonCell: NSButtonCell {
     }
 
     func drawChromeTabsWithFrame(frame: NSRect, inView controlView: NSView) {
-        let color = (self.highlighted == true) ? self.tabHighlightedBackgroundColor : self.tabBackgroundColor
-        color.setFill()
+        self.activeBackgroundColor.setFill()
         NSRectFill(frame)
         
         let path = NSBezierPath()
