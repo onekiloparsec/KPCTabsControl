@@ -8,14 +8,8 @@
 
 import AppKit
 
-/*
- *  KPCTabsControl is the main class of the library, and is designed to suffice for implementing tabs in your app.
- *  The only necessary thing for it to work is an implementation of uts dataSource.
- *  No other classes (such as those of the buttons) should be necessary to access the full features of KPCTabsControl.
- */
-
 /// TabsControl is the main class of the library, and is designed to suffice for implementing tabs in your app.
-/// The only necessary thing for it to work is an implementation of its dataSource.
+/// The only necessary thing for it to work is an implementation of its `dataSource`.
 public class TabsControl: NSControl {
     private var ScrollViewObservationContext: UnsafeMutablePointer<Void> = nil // hm, wrong
     private var delegateInterceptor = MessageInterceptor()
@@ -633,7 +627,6 @@ public class TabsControl: NSControl {
     // MARK: - State Restoration
 
     enum RestorationKeys {
-
         static let scrollXOffset = "scrollOrigin"
         static let selectedButtonIndex = "selectedButtonIndex"
     }
@@ -641,19 +634,22 @@ public class TabsControl: NSControl {
     public override func encodeRestorableStateWithCoder(coder: NSCoder) {
         super.encodeRestorableStateWithCoder(coder)
         
-        let scrollXOffset = Double(self.scrollView!.contentView.bounds.origin.x)
-        var selectedButtonIndex: Int = NSNotFound
-     
-        let buttons = self.scrollView?.documentView?.subviews.filter({ $0 is NSButton }) as! [NSButton]
-        for (index, button) in buttons.enumerate() {
-            if button.state == NSOnState {
-                selectedButtonIndex = index
-                break
-            }
-        }
+        let scrollXOffset: CGFloat = self.scrollView?.contentView.bounds.origin.x ?? 0.0
 
-        coder.encodeDouble(scrollXOffset, forKey: RestorationKeys.scrollXOffset)
+        let buttons: [NSButton] = self.buttons()
+        let selectedButtonIndex: Int = buttons.enumerate()
+            .findFirst { $0.element.state == NSOnState }?
+            .index ?? NSNotFound
+
+        coder.encodeDouble(Double(scrollXOffset), forKey: RestorationKeys.scrollXOffset)
         coder.encodeInteger(selectedButtonIndex, forKey: RestorationKeys.selectedButtonIndex)
+    }
+
+    /// - returns: All `NSButton` instances inside this view's `scrollView`.
+    private func buttons() -> [NSButton] {
+
+        return self.scrollView?.documentView?.subviews
+            .flatMap { $0 as? NSButton } ?? []
     }
 
     public override func restoreStateWithCoder(coder: NSCoder) {
@@ -665,9 +661,8 @@ public class TabsControl: NSControl {
         var bounds = self.scrollView!.contentView.bounds
         bounds.origin.x = CGFloat(scrollXOffset)
         self.scrollView!.contentView.bounds = bounds
-        
-        let buttons = self.scrollView?.documentView?.subviews.filter({ $0 is NSButton }) as! [NSButton]
-        for (index, button) in buttons.enumerate() {
+
+        for (index, button) in self.buttons().enumerate() {
             button.state = (index == selectedButtonIndex) ? NSOnState : NSOffState
         }        
     }
