@@ -446,32 +446,35 @@ public class TabsControl: NSControl {
     // MARK: - Selection
     
     func selectTab(sender: AnyObject?) {
-        guard let button = sender else {
+        guard let button = sender as? TabButton else {
             return
         }
-        self.selectedButton = button as? TabButton
-        let item: AnyObject! = self.selectedButton?.tabButtonCell?.representedObject
-        
+
+        self.selectedButton = button
+
         for button in self.tabButtons() {
             button.state = (button === self.selectedButton!) ? NSOnState : NSOffState
             button.highlighted = self.isHighlighted
         }
-        
-        NSApplication.sharedApplication().sendAction(self.action, to: self.target, from: self)
+
+        NSApp.sendAction(self.action, to: self.target, from: self)
         NSNotificationCenter.defaultCenter().postNotificationName(TabsControlSelectionDidChangeNotification, object: self)
         
-        if let currentEvent = NSApp.currentEvent {
-            if currentEvent.type == .LeftMouseDown && currentEvent.clickCount > 1 {
-                self.editTabButton(self.selectedButton!)
-            }
-            else if self.delegate?.tabsControl?(self, canReorderItem: item) == true {
-                let mask: Int = Int(NSEventMask.LeftMouseUpMask.union(.LeftMouseDraggedMask).rawValue)
-                let event: NSEvent! = self.window?.nextEventMatchingMask(mask , untilDate: NSDate.distantFuture(), inMode: NSEventTrackingRunLoopMode, dequeue: false)!
-                
-                if event.type == NSEventType.LeftMouseDragged {
-                    self.reorderTab(self.selectedButton!, withEvent:currentEvent)
-                }
-            }
+        guard let currentEvent = NSApp.currentEvent else { return }
+
+        if currentEvent.type == .LeftMouseDown && currentEvent.clickCount > 1 {
+
+            self.editTabButton(button)
+
+        } else if let item = self.selectedButton?.tabButtonCell?.representedObject
+            where self.delegate?.tabsControl?(self, canReorderItem: item) == true {
+
+            let mask: NSEventMask = NSEventMask.LeftMouseUpMask.union(.LeftMouseDraggedMask)
+
+            guard let event = self.window?.nextEventMatchingMask(Int(mask.rawValue), untilDate: NSDate.distantFuture(), inMode: NSEventTrackingRunLoopMode, dequeue: false)
+                where event.type == NSEventType.LeftMouseDragged else { return }
+
+            self.reorderTab(button, withEvent: currentEvent)
         }
     }
     
