@@ -17,6 +17,11 @@ public class TabButton: NSButton {
     var tabButtonCell: TabButtonCell? {
         get { return self.cell as? TabButtonCell }
     }
+
+    var representedObject: AnyObject? {
+        get { return self.tabButtonCell?.representedObject }
+        set { self.tabButtonCell?.representedObject = newValue }
+    }
     
     public var icon: NSImage? = nil {
         didSet {

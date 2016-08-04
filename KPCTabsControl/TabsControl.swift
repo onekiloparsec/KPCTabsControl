@@ -561,23 +561,32 @@ public class TabsControl: NSControl {
     }
     
     public override func controlTextDidEndEditing(obj: NSNotification) {
-        let title = self.editingTextField!.stringValue
-        let tab = self.editingTextField!.superview! as! TabButton
+
+        guard let editingTextField = self.editingTextField else {
+            assertionFailure("Expected controlTextDidEndEditing(_:) to be called by editingTextField")
+            return
+        }
+
+        guard let tab = editingTextField.superview as? TabButton else {
+            assertionFailure("Expected editingTextField to be embedded in TabButton.")
+            return
+        }
+
+        let title = editingTextField.stringValue
         
-        if title.characters.count > 0 && self.delegate?.tabsControl?(self, setTitle: title, forItem: tab.tabButtonCell!.representedObject!) != nil {
-            tab.tabButtonCell!.representedObject = self.dataSource?.tabsControl(self, itemAtIndex: self.selectedItemIndex)
+        if !title.isEmpty && self.delegate?.tabsControl?(self, setTitle: title, forItem: tab.tabButtonCell!.representedObject!) != nil {
+            tab.representedObject = self.dataSource?.tabsControl(self, itemAtIndex: self.selectedItemIndex)
         }
         
-        if self.delegate is NSControl {
-            let d = self.delegate as! NSControl
-            d.controlTextDidEndEditing(obj)
+        if let delegate = self.delegate as? NSControl {
+            delegate.controlTextDidEndEditing(obj)
         }
         
         self.editingTextField?.removeFromSuperview()
         self.editingTextField?.delegate = nil
         self.editingTextField = nil
         
-        // That's the receiver responsability to store the new title;
+        // That's the receiver responsiblity to store the new title;
         self.reloadTabs()
     }
     
@@ -617,10 +626,9 @@ public class TabsControl: NSControl {
     
     public func currentTabWidth() -> CGFloat {
         let tabs = self.tabButtons()
-        if tabs.count > 0 {
-            return CGRectGetWidth(tabs.first!.frame)
-        }
-        return 0.0
+        guard let firstTab = tabs.first else { return 0.0 }
+
+        return CGRectGetWidth(firstTab.frame)
     }
     
     // MARK: - State Restoration
