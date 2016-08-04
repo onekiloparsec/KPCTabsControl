@@ -8,20 +8,14 @@
 
 import AppKit
 
-/*
- *  KPCTabsControl is the main class of the library, and is designed to suffice for implementing tabs in your app.
- *  The only necessary thing for it to work is an implementation of uts dataSource.
- *  No other classes (such as those of the buttons) should be necessary to access the full features of KPCTabsControl.
- */
-
 /// TabsControl is the main class of the library, and is designed to suffice for implementing tabs in your app.
-/// The only necessary thing for it to work is an implementation of its dataSource.
+/// The only necessary thing for it to work is an implementation of its `dataSource`.
 public class TabsControl: NSControl {
     private var ScrollViewObservationContext: UnsafeMutablePointer<Void> = nil // hm, wrong
     private var delegateInterceptor = MessageInterceptor()
-    
-    private var scrollView: NSScrollView? = nil
-    private var tabsView: NSView? = nil
+
+    private var scrollView: NSScrollView!
+    private var tabsView: NSView!
     private var editingTextField: NSTextField? = nil
 
     private var addButton: NSButton? = nil
@@ -181,19 +175,19 @@ public class TabsControl: NSControl {
     
     private func configureSubviews() {
         self.scrollView = NSScrollView(frame: self.bounds)
-        self.scrollView?.drawsBackground = false
-        self.scrollView?.hasHorizontalScroller = false
-        self.scrollView?.hasVerticalScroller = false
-        self.scrollView?.usesPredominantAxisScrolling = true
-        self.scrollView?.horizontalScrollElasticity = .Allowed
-        self.scrollView?.verticalScrollElasticity = .None
-        self.scrollView?.autoresizingMask = [.ViewWidthSizable, .ViewHeightSizable]
-        self.scrollView?.translatesAutoresizingMaskIntoConstraints = true
+        self.scrollView.drawsBackground = false
+        self.scrollView.hasHorizontalScroller = false
+        self.scrollView.hasVerticalScroller = false
+        self.scrollView.usesPredominantAxisScrolling = true
+        self.scrollView.horizontalScrollElasticity = .Allowed
+        self.scrollView.verticalScrollElasticity = .None
+        self.scrollView.autoresizingMask = [.ViewWidthSizable, .ViewHeightSizable]
+        self.scrollView.translatesAutoresizingMaskIntoConstraints = true
         
-        self.tabsView = NSView(frame: self.scrollView!.bounds)
-        self.scrollView?.documentView = self.tabsView
+        self.tabsView = NSView(frame: self.scrollView.bounds)
+        self.scrollView.documentView = self.tabsView
         
-        self.addSubview(self.scrollView!)
+        self.addSubview(self.scrollView)
         
         if self.hideScrollButtons == false {
             self.scrollLeftButton = NSButton.KPC_auxiliaryButton(withImageNamed: "KPCTabLeftTemplate", target: self, action: #selector(TabsControl.scrollTabView(_:)))
@@ -212,9 +206,9 @@ public class TabsControl: NSControl {
             // This is typically what's autolayout is supposed to help avoiding.
             // But for pixel-control freaking guys like me, I see no escape.
             var r = CGRectZero
-            r.size.height = CGRectGetHeight(self.scrollView!.frame)
+            r.size.height = CGRectGetHeight(self.scrollView.frame)
             r.size.width = CGRectGetWidth(self.scrollLeftButton!.frame)
-            r.origin.x = CGRectGetMaxX(self.scrollView!.frame) - r.size.width
+            r.origin.x = CGRectGetMaxX(self.scrollView.frame) - r.size.width
             self.scrollRightButton!.frame = r;
             r.origin.x -= r.size.width;
             self.scrollLeftButton!.frame = r;
@@ -277,7 +271,7 @@ public class TabsControl: NSControl {
                 button.alternativeTitleIcon = altIcon
             }
             
-            self.tabsView?.addSubview(button)
+            self.tabsView.addSubview(button)
         }
         
         self.layoutTabButtons(nil, animated: false)
@@ -291,8 +285,8 @@ public class TabsControl: NSControl {
         let tabButtons = (buttons != nil) ? buttons! : self.tabButtons()
         var tabsViewWidth = CGFloat(0.0)
         
-        let fullSizeWidth = CGRectGetWidth(self.scrollView!.frame) / CGFloat(tabButtons.count)
-        let buttonHeight = CGRectGetHeight(self.tabsView!.frame)
+        let fullSizeWidth = CGRectGetWidth(self.scrollView.frame) / CGFloat(tabButtons.count)
+        let buttonHeight = CGRectGetHeight(self.tabsView.frame)
         
         for (index, button) in tabButtons.enumerate() {
             var buttonWidth = (self.preferFullWidthTabs == true) ? fullSizeWidth : min(self.maxTabWidth, fullSizeWidth)
@@ -317,11 +311,11 @@ public class TabsControl: NSControl {
             tabsViewWidth += buttonWidth
         }
         
-        self.tabsView!.frame = CGRectMake(0.0, 0.0, tabsViewWidth, buttonHeight)
+        self.tabsView.animator().frame = CGRectMake(0.0, 0.0, tabsViewWidth, buttonHeight)
     }
     
     private func updateAuxiliaryButtons() {
-        let contentView = self.scrollView!.contentView
+        let contentView = self.scrollView.contentView
         var showScrollButtons = (contentView.subviews.count > 0) && (NSMaxX(contentView.subviews[0].frame) > NSWidth(contentView.bounds))
         showScrollButtons = showScrollButtons || (self.preferFullWidthTabs == true && self.currentTabWidth() == self.minTabWidth)
         
@@ -336,15 +330,15 @@ public class TabsControl: NSControl {
     // MARK: - ScrollView Observation
     
     private func startObservingScrollView() {
-        self.scrollView?.addObserver(self, forKeyPath: "frame", options: .New, context: &ScrollViewObservationContext)
-        self.scrollView?.addObserver(self, forKeyPath: "documentView.frame", options: .New, context: &ScrollViewObservationContext)
+        self.scrollView.addObserver(self, forKeyPath: "frame", options: .New, context: &ScrollViewObservationContext)
+        self.scrollView.addObserver(self, forKeyPath: "documentView.frame", options: .New, context: &ScrollViewObservationContext)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(TabsControl.scrollViewDidScroll(_:)), name: NSViewFrameDidChangeNotification, object: self.scrollView)
     }
     
     private func stopObservingScrollView() {
-        self.scrollView?.removeObserver(self, forKeyPath: "frame", context: &ScrollViewObservationContext)
-        self.scrollView?.removeObserver(self, forKeyPath: "documentView.frame", context: &ScrollViewObservationContext)
+        self.scrollView.removeObserver(self, forKeyPath: "frame", context: &ScrollViewObservationContext)
+        self.scrollView.removeObserver(self, forKeyPath: "documentView.frame", context: &ScrollViewObservationContext)
         
         NSNotificationCenter.defaultCenter().removeObserver(self, name: NSViewFrameDidChangeNotification, object: self.scrollView)
     }
@@ -381,7 +375,7 @@ public class TabsControl: NSControl {
     }
     
     func visibilityCondition(button: NSButton, forLeft: Bool) -> Bool {
-        let visibleRect = self.tabsView!.visibleRect
+        let visibleRect = self.tabsView.visibleRect
         if forLeft == true {
             return NSMinX(button.frame) < NSMinX(visibleRect)
         }
@@ -395,7 +389,7 @@ public class TabsControl: NSControl {
     func reorderTab(tab: TabButton, withEvent event: NSEvent) {
         var orderedTabs = self.tabButtons()
         let tabX = NSMinX(tab.frame)
-        let dragPoint = self.tabsView!.convertPoint(event.locationInWindow, fromView: nil)
+        let dragPoint = self.tabsView.convertPoint(event.locationInWindow, fromView: nil)
 
         var prevPoint = dragPoint
         var reordered = false
@@ -422,7 +416,7 @@ public class TabsControl: NSControl {
                 break
             }
             
-            let nextPoint = self.tabsView!.convertPoint(event.locationInWindow, fromView: nil)
+            let nextPoint = self.tabsView.convertPoint(event.locationInWindow, fromView: nil)
             let nextX = tabX + (nextPoint.x - dragPoint.x)
             
             var r = draggingTab.frame
@@ -452,32 +446,35 @@ public class TabsControl: NSControl {
     // MARK: - Selection
     
     func selectTab(sender: AnyObject?) {
-        guard let button = sender else {
+        guard let button = sender as? TabButton else {
             return
         }
-        self.selectedButton = button as? TabButton
-        let item: AnyObject! = self.selectedButton?.tabButtonCell?.representedObject
-        
+
+        self.selectedButton = button
+
         for button in self.tabButtons() {
             button.state = (button === self.selectedButton!) ? NSOnState : NSOffState
             button.highlighted = self.isHighlighted
         }
-        
-        NSApplication.sharedApplication().sendAction(self.action, to: self.target, from: self)
+
+        NSApp.sendAction(self.action, to: self.target, from: self)
         NSNotificationCenter.defaultCenter().postNotificationName(TabsControlSelectionDidChangeNotification, object: self)
         
-        if let currentEvent = NSApp.currentEvent {
-            if currentEvent.type == .LeftMouseDown && currentEvent.clickCount > 1 {
-                self.editTabButton(self.selectedButton!)
-            }
-            else if self.delegate?.tabsControl?(self, canReorderItem: item) == true {
-                let mask: Int = Int(NSEventMask.LeftMouseUpMask.union(.LeftMouseDraggedMask).rawValue)
-                let event: NSEvent! = self.window?.nextEventMatchingMask(mask , untilDate: NSDate.distantFuture(), inMode: NSEventTrackingRunLoopMode, dequeue: false)!
-                
-                if event.type == NSEventType.LeftMouseDragged {
-                    self.reorderTab(self.selectedButton!, withEvent:currentEvent)
-                }
-            }
+        guard let currentEvent = NSApp.currentEvent else { return }
+
+        if currentEvent.type == .LeftMouseDown && currentEvent.clickCount > 1 {
+
+            self.editTabButton(button)
+
+        } else if let item = self.selectedButton?.tabButtonCell?.representedObject
+            where self.delegate?.tabsControl?(self, canReorderItem: item) == true {
+
+            let mask: NSEventMask = NSEventMask.LeftMouseUpMask.union(.LeftMouseDraggedMask)
+
+            guard let event = self.window?.nextEventMatchingMask(Int(mask.rawValue), untilDate: NSDate.distantFuture(), inMode: NSEventTrackingRunLoopMode, dequeue: false)
+                where event.type == NSEventType.LeftMouseDragged else { return }
+
+            self.reorderTab(button, withEvent: currentEvent)
         }
     }
     
@@ -564,23 +561,32 @@ public class TabsControl: NSControl {
     }
     
     public override func controlTextDidEndEditing(obj: NSNotification) {
-        let title = self.editingTextField!.stringValue
-        let tab = self.editingTextField!.superview! as! TabButton
+
+        guard let editingTextField = self.editingTextField else {
+            assertionFailure("Expected controlTextDidEndEditing(_:) to be called by editingTextField")
+            return
+        }
+
+        guard let tab = editingTextField.superview as? TabButton else {
+            assertionFailure("Expected editingTextField to be embedded in TabButton.")
+            return
+        }
+
+        let title = editingTextField.stringValue
         
-        if title.characters.count > 0 && self.delegate?.tabsControl?(self, setTitle: title, forItem: tab.tabButtonCell!.representedObject!) != nil {
-            tab.tabButtonCell!.representedObject = self.dataSource?.tabsControl(self, itemAtIndex: self.selectedItemIndex)
+        if !title.isEmpty && self.delegate?.tabsControl?(self, setTitle: title, forItem: tab.tabButtonCell!.representedObject!) != nil {
+            tab.representedObject = self.dataSource?.tabsControl(self, itemAtIndex: self.selectedItemIndex)
         }
         
-        if self.delegate is NSControl {
-            let d = self.delegate as! NSControl
-            d.controlTextDidEndEditing(obj)
+        if let delegate = self.delegate as? NSControl {
+            delegate.controlTextDidEndEditing(obj)
         }
         
         self.editingTextField?.removeFromSuperview()
         self.editingTextField?.delegate = nil
         self.editingTextField = nil
         
-        // That's the receiver responsability to store the new title;
+        // That's the receiver responsiblity to store the new title;
         self.reloadTabs()
     }
     
@@ -594,16 +600,12 @@ public class TabsControl: NSControl {
         return true
     }
     
-    private func tabButtons() -> Array<TabButton> {
-        guard let tb = self.tabsView else {
+    private func tabButtons() -> [TabButton] {
+        guard let tabsView = self.tabsView else {
             return []
         }
-        
-        let subviews = tb.subviews
-        let filteredSubviews = subviews.filter({ (view) -> Bool in
-            view is TabButton
-        }) as! Array<TabButton>
-        return filteredSubviews
+
+        return tabsView.subviews.flatMap { $0 as? TabButton }
     }
     
     /**
@@ -624,44 +626,50 @@ public class TabsControl: NSControl {
     
     public func currentTabWidth() -> CGFloat {
         let tabs = self.tabButtons()
-        if tabs.count > 0 {
-            return CGRectGetWidth(tabs.first!.frame)
-        }
-        return 0.0
+        guard let firstTab = tabs.first else { return 0.0 }
+
+        return CGRectGetWidth(firstTab.frame)
     }
     
     // MARK: - State Restoration
-    
+
+    enum RestorationKeys {
+        static let scrollXOffset = "scrollOrigin"
+        static let selectedButtonIndex = "selectedButtonIndex"
+    }
+
     public override func encodeRestorableStateWithCoder(coder: NSCoder) {
         super.encodeRestorableStateWithCoder(coder)
         
-        let scrollXOffset = Double(self.scrollView!.contentView.bounds.origin.x)
-        var selectedButtonIndex: Int = NSNotFound
-     
-        let buttons = self.scrollView?.documentView?.subviews.filter({ $0 is NSButton }) as! [NSButton]
-        for (index, button) in buttons.enumerate() {
-            if button.state == NSOnState {
-                selectedButtonIndex = index
-                break
-            }
-        }
+        let scrollXOffset: CGFloat = self.scrollView.contentView.bounds.origin.x ?? 0.0
 
-        coder.encodeDouble(scrollXOffset, forKey: kScrollXOffsetKey)
-        coder.encodeInteger(selectedButtonIndex, forKey: kSelectedButtonIndexKey)
+        let buttons: [NSButton] = self.buttons()
+        let selectedButtonIndex: Int = buttons.enumerate()
+            .findFirst { $0.element.state == NSOnState }?
+            .index ?? NSNotFound
+
+        coder.encodeDouble(Double(scrollXOffset), forKey: RestorationKeys.scrollXOffset)
+        coder.encodeInteger(selectedButtonIndex, forKey: RestorationKeys.selectedButtonIndex)
+    }
+
+    /// - returns: All `NSButton` instances inside this view's `scrollView`.
+    private func buttons() -> [NSButton] {
+
+        return self.scrollView.documentView?.subviews
+            .flatMap { $0 as? NSButton } ?? []
     }
 
     public override func restoreStateWithCoder(coder: NSCoder) {
         super.restoreStateWithCoder(coder)
         
-        let scrollXOffset = coder.decodeDoubleForKey(kScrollXOffsetKey)
-        let selectedButtonIndex = coder.decodeIntegerForKey(kSelectedButtonIndexKey)
+        let scrollXOffset = coder.decodeDoubleForKey(RestorationKeys.scrollXOffset)
+        let selectedButtonIndex = coder.decodeIntegerForKey(RestorationKeys.selectedButtonIndex)
         
-        var bounds = self.scrollView!.contentView.bounds
+        var bounds = self.scrollView.contentView.bounds
         bounds.origin.x = CGFloat(scrollXOffset)
-        self.scrollView!.contentView.bounds = bounds
-        
-        let buttons = self.scrollView?.documentView?.subviews.filter({ $0 is NSButton }) as! [NSButton]
-        for (index, button) in buttons.enumerate() {
+        self.scrollView.contentView.bounds = bounds
+
+        for (index, button) in self.buttons().enumerate() {
             button.state = (index == selectedButtonIndex) ? NSOnState : NSOffState
         }        
     }
@@ -684,6 +692,3 @@ public class TabsControl: NSControl {
         }
     }
 }
-
-let kScrollXOffsetKey = "scrollOrigin"
-let kSelectedButtonIndexKey = "selectedButtonIndex"

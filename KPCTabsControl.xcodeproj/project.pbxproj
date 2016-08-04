@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5004722A1D5350120095FCCB /* SequenceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500472291D5350120095FCCB /* SequenceType.swift */; };
 		9F1186431D4CF89B00E6CE39 /* TabsControlCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1186421D4CF89B00E6CE39 /* TabsControlCell.swift */; };
 		9F2154A91D2D179500C4DD06 /* TabButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2154A81D2D179500C4DD06 /* TabButton.swift */; };
 		9F23FF321D10A99D00326F3B /* TabButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F23FF311D10A99D00326F3B /* TabButtonCell.swift */; };
@@ -54,6 +55,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		500472291D5350120095FCCB /* SequenceType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SequenceType.swift; sourceTree = "<group>"; };
 		9F09E9FD1C95668400EA970C /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = SOURCE_ROOT; };
 		9F1186421D4CF89B00E6CE39 /* TabsControlCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TabsControlCell.swift; path = KPCTabsControl/TabsControlCell.swift; sourceTree = "<group>"; };
 		9F2154A81D2D179500C4DD06 /* TabButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TabButton.swift; path = KPCTabsControl/TabButton.swift; sourceTree = "<group>"; };
@@ -211,6 +213,7 @@
 				9FF7894B1D10470A00F66AF2 /* NSImage+TabsControl.swift */,
 				9FF789461D0FDC7800F66AF2 /* NSColor+TabsControl.swift */,
 				9FF789441D0FDA9700F66AF2 /* MessageInterceptor.swift */,
+				500472291D5350120095FCCB /* SequenceType.swift */,
 			);
 			name = Swift;
 			sourceTree = "<group>";
@@ -349,6 +352,7 @@
 				9F23FF371D10A9D800326F3B /* NSButton+TabsControl.swift in Sources */,
 				9FF7894C1D10470A00F66AF2 /* NSImage+TabsControl.swift in Sources */,
 				9F2154A91D2D179500C4DD06 /* TabButton.swift in Sources */,
+				5004722A1D5350120095FCCB /* SequenceType.swift in Sources */,
 				9F1186431D4CF89B00E6CE39 /* TabsControlCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
