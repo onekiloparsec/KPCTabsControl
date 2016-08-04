@@ -631,7 +631,13 @@ public class TabsControl: NSControl {
     }
     
     // MARK: - State Restoration
-    
+
+    enum RestorationKeys {
+
+        static let scrollXOffset = "scrollOrigin"
+        static let selectedButtonIndex = "selectedButtonIndex"
+    }
+
     public override func encodeRestorableStateWithCoder(coder: NSCoder) {
         super.encodeRestorableStateWithCoder(coder)
         
@@ -646,15 +652,15 @@ public class TabsControl: NSControl {
             }
         }
 
-        coder.encodeDouble(scrollXOffset, forKey: kScrollXOffsetKey)
-        coder.encodeInteger(selectedButtonIndex, forKey: kSelectedButtonIndexKey)
+        coder.encodeDouble(scrollXOffset, forKey: RestorationKeys.scrollXOffset)
+        coder.encodeInteger(selectedButtonIndex, forKey: RestorationKeys.selectedButtonIndex)
     }
 
     public override func restoreStateWithCoder(coder: NSCoder) {
         super.restoreStateWithCoder(coder)
         
-        let scrollXOffset = coder.decodeDoubleForKey(kScrollXOffsetKey)
-        let selectedButtonIndex = coder.decodeIntegerForKey(kSelectedButtonIndexKey)
+        let scrollXOffset = coder.decodeDoubleForKey(RestorationKeys.scrollXOffset)
+        let selectedButtonIndex = coder.decodeIntegerForKey(RestorationKeys.selectedButtonIndex)
         
         var bounds = self.scrollView!.contentView.bounds
         bounds.origin.x = CGFloat(scrollXOffset)
@@ -684,6 +690,3 @@ public class TabsControl: NSControl {
         }
     }
 }
-
-let kScrollXOffsetKey = "scrollOrigin"
-let kSelectedButtonIndexKey = "selectedButtonIndex"
