@@ -13,9 +13,9 @@ import AppKit
 public class TabsControl: NSControl {
     private var ScrollViewObservationContext: UnsafeMutablePointer<Void> = nil // hm, wrong
     private var delegateInterceptor = MessageInterceptor()
-    private var tabsView: NSView? = nil
 
     private var scrollView: NSScrollView!
+    private var tabsView: NSView!
     private var editingTextField: NSTextField? = nil
 
     private var addButton: NSButton? = nil
@@ -271,7 +271,7 @@ public class TabsControl: NSControl {
                 button.alternativeTitleIcon = altIcon
             }
             
-            self.tabsView?.addSubview(button)
+            self.tabsView.addSubview(button)
         }
         
         self.layoutTabButtons(nil, animated: false)
@@ -286,7 +286,7 @@ public class TabsControl: NSControl {
         var tabsViewWidth = CGFloat(0.0)
         
         let fullSizeWidth = CGRectGetWidth(self.scrollView.frame) / CGFloat(tabButtons.count)
-        let buttonHeight = CGRectGetHeight(self.tabsView!.frame)
+        let buttonHeight = CGRectGetHeight(self.tabsView.frame)
         
         for (index, button) in tabButtons.enumerate() {
             var buttonWidth = (self.preferFullWidthTabs == true) ? fullSizeWidth : min(self.maxTabWidth, fullSizeWidth)
@@ -311,7 +311,7 @@ public class TabsControl: NSControl {
             tabsViewWidth += buttonWidth
         }
         
-        self.tabsView!.frame = CGRectMake(0.0, 0.0, tabsViewWidth, buttonHeight)
+        self.tabsView.frame = CGRectMake(0.0, 0.0, tabsViewWidth, buttonHeight)
     }
     
     private func updateAuxiliaryButtons() {
@@ -375,7 +375,7 @@ public class TabsControl: NSControl {
     }
     
     func visibilityCondition(button: NSButton, forLeft: Bool) -> Bool {
-        let visibleRect = self.tabsView!.visibleRect
+        let visibleRect = self.tabsView.visibleRect
         if forLeft == true {
             return NSMinX(button.frame) < NSMinX(visibleRect)
         }
@@ -389,7 +389,7 @@ public class TabsControl: NSControl {
     func reorderTab(tab: TabButton, withEvent event: NSEvent) {
         var orderedTabs = self.tabButtons()
         let tabX = NSMinX(tab.frame)
-        let dragPoint = self.tabsView!.convertPoint(event.locationInWindow, fromView: nil)
+        let dragPoint = self.tabsView.convertPoint(event.locationInWindow, fromView: nil)
 
         var prevPoint = dragPoint
         var reordered = false
@@ -416,7 +416,7 @@ public class TabsControl: NSControl {
                 break
             }
             
-            let nextPoint = self.tabsView!.convertPoint(event.locationInWindow, fromView: nil)
+            let nextPoint = self.tabsView.convertPoint(event.locationInWindow, fromView: nil)
             let nextX = tabX + (nextPoint.x - dragPoint.x)
             
             var r = draggingTab.frame
