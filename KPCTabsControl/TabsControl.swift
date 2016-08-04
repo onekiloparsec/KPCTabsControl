@@ -16,7 +16,6 @@ public class TabsControl: NSControl {
 
     private var scrollView: NSScrollView!
     private var tabsView: NSView!
-    private var editingTextField: NSTextField? = nil
 
     private var addButton: NSButton? = nil
     private var scrollLeftButton: NSButton? = nil
@@ -246,7 +245,8 @@ public class TabsControl: NSControl {
         for i in 0..<newItemsCount {
             let item = dataSource.tabsControl(self, itemAtIndex: i)
             let button = TabButton(withItem: item, target: self, action: #selector(TabsControl.selectTab(_:)))
-            
+            button.editable = true
+
             var borderMask = tabCell.borderMask
             if i == 0 && self.automaticSideBorderMasks == true {
                 borderMask = borderMask.union(.Left)
@@ -528,6 +528,8 @@ public class TabsControl: NSControl {
         self.window?.makeFirstResponder(self)
     }
 
+    var tabEditing: TabEditing?
+
     public func editTabButton(tab: TabButton) {
 
         guard let representedObject = tab.representedObject
@@ -535,58 +537,14 @@ public class TabsControl: NSControl {
             else { return }
 
         forceEndEditing()
-        
-        let titleRect = tab.tabButtonCell!.editingRectForBounds(tab.bounds)
-        self.editingTextField = NSTextField(frame: titleRect)
-        
-        self.editingTextField?.autoresizingMask = [.ViewWidthSizable]
-        self.editingTextField?.editable = true
-        self.editingTextField?.font = tab.tabButtonCell!.font
-        self.editingTextField?.alignment = tab.tabButtonCell!.alignment
-        self.editingTextField?.backgroundColor = NSColor.clearColor()
-        self.editingTextField?.focusRingType = .None
-        self.editingTextField?.textColor = NSColor.darkGrayColor().blendedColorWithFraction(0.5, ofColor: NSColor.blackColor())
-        self.editingTextField?.stringValue = tab.title
-        
-        self.editingTextField?.cell?.bordered = false
-        self.editingTextField?.cell?.scrollable = true
-        
-        tab.title = ""
-        tab.addSubview(self.editingTextField!)
-        
+
+        guard let fieldEditor = self.window?.fieldEditor(true, forObject: tab) else { return }
+
+        let newEditing = TabEditing(tabButton: tab, fieldEditor: fieldEditor, delegate: self)
+        self.tabEditing = newEditing
+        newEditing.edit()
+
         self.delegateInterceptor.middleMan = self
-        self.editingTextField!.delegate = self.delegateInterceptor as? NSTextFieldDelegate
-        self.editingTextField?.selectText(self)
-    }
-    
-    public override func controlTextDidEndEditing(obj: NSNotification) {
-
-        guard let editingTextField = self.editingTextField else {
-            assertionFailure("Expected controlTextDidEndEditing(_:) to be called by editingTextField")
-            return
-        }
-
-        guard let tab = editingTextField.superview as? TabButton else {
-            assertionFailure("Expected editingTextField to be embedded in TabButton.")
-            return
-        }
-
-        let title = editingTextField.stringValue
-        
-        if !title.isEmpty && self.delegate?.tabsControl?(self, setTitle: title, forItem: tab.tabButtonCell!.representedObject!) != nil {
-            tab.representedObject = self.dataSource?.tabsControl(self, itemAtIndex: self.selectedItemIndex)
-        }
-        
-        if let delegate = self.delegate as? NSControl {
-            delegate.controlTextDidEndEditing(obj)
-        }
-        
-        self.editingTextField?.removeFromSuperview()
-        self.editingTextField?.delegate = nil
-        self.editingTextField = nil
-        
-        // That's the receiver responsiblity to store the new title;
-        self.reloadTabs()
     }
     
     // MARK: - Drawing
@@ -689,5 +647,22 @@ public class TabsControl: NSControl {
             let buttonCell = button.cell as! TabButtonCell
             buttonCell.borderMask = borderMask
         }
+    }
+}
+
+extension MessageInterceptor: NSTextDelegate { }
+
+extension TabsControl: TabEditingDelegate {
+
+    func tabButtonDidEndEditing(tabButton: TabButton, newValue: String) {
+
+        defer { self.reloadTabs() }
+
+        guard !newValue.isEmpty
+            && self.delegate?.tabsControl?(self, setTitle: newValue, forItem: tabButton.representedObject!) != nil else { return }
+
+        // TODO add callback to client code to replace forwarding controlTextDidEndEditing(_:)
+
+        tabButton.representedObject = self.dataSource?.tabsControl(self, itemAtIndex: self.selectedItemIndex)
     }
 }

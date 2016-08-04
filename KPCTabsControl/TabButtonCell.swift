@@ -176,7 +176,34 @@ class TabButtonCell: NSButtonCell {
         let titleSize = self.attributedTitle.size()
         return NSMakeRect(NSMinX(theRect), NSMidY(theRect) - titleSize.height/2.0, NSWidth(theRect), titleSize.height)
     }
-    
+
+    // MARK: - Editing
+
+    func edit(fieldEditor fieldEditor: NSText, inView view: NSView, delegate: NSTextDelegate) {
+
+        self.highlighted = true
+
+        let frame = editingRectForBounds(view.bounds)
+        let length = (self.stringValue as NSString).length
+        self.selectWithFrame(frame,
+            inView: view,
+            editor: fieldEditor,
+            delegate: delegate,
+            start: 0,
+            length: length)
+
+        fieldEditor.backgroundColor = self.activeBackgroundColor
+        fieldEditor.drawsBackground = true
+        fieldEditor.horizontallyResizable = true
+        fieldEditor.font = self.font
+        fieldEditor.alignment = self.alignment
+        fieldEditor.textColor = NSColor.darkGrayColor().blendedColorWithFraction(0.5, ofColor: NSColor.blackColor())
+
+        // Replace content so that resizing is triggered
+        fieldEditor.string = ""
+        fieldEditor.insertText(self.title)
+    }
+
     func editingRectForBounds(rect: NSRect) -> NSRect {
         return self.titleRectForBounds(NSOffsetRect(rect, 0, 0)) // used to be different from 0...
     }
