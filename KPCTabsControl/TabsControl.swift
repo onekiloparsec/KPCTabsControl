@@ -311,7 +311,7 @@ public class TabsControl: NSControl {
             tabsViewWidth += buttonWidth
         }
         
-        self.tabsView.frame = CGRectMake(0.0, 0.0, tabsViewWidth, buttonHeight)
+        self.tabsView.animator().frame = CGRectMake(0.0, 0.0, tabsViewWidth, buttonHeight)
     }
     
     private func updateAuxiliaryButtons() {
