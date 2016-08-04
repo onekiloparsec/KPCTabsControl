@@ -522,20 +522,19 @@ public class TabsControl: NSControl {
     }
     
     // MARK: - Editing
-    
-    public func editTabButton(button: TabButton?) {
-        guard let tab = button else {
-            return
-        }
-        
-        if self.delegate?.tabsControl?(self, canEditTitleOfItem: tab.tabButtonCell!.representedObject!) == false {
-            return
-        }
-        
-        // End existing editing, if any...
-        if self.editingTextField != nil {
-            self.window?.makeFirstResponder(self)
-        }
+
+    func forceEndEditing() {
+
+        self.window?.makeFirstResponder(self)
+    }
+
+    public func editTabButton(tab: TabButton) {
+
+        guard let representedObject = tab.representedObject
+            where self.delegate?.tabsControl?(self, canEditTitleOfItem: representedObject) == true
+            else { return }
+
+        forceEndEditing()
         
         let titleRect = tab.tabButtonCell!.editingRectForBounds(tab.bounds)
         self.editingTextField = NSTextField(frame: titleRect)
