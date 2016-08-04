@@ -117,7 +117,7 @@ class TabButtonCell: NSButtonCell {
         let path = NSBundle(forClass: self).pathForImageResource("KPCPullDownTemplate")!
         return NSImage(contentsOfFile: path)!.KPC_imageWithTint(NSColor.darkGrayColor())
     }
-    
+
     override var attributedTitle: NSAttributedString {
         set { super.attributedTitle = newValue }
         get {
@@ -192,8 +192,7 @@ class TabButtonCell: NSButtonCell {
             start: 0,
             length: length)
 
-        fieldEditor.backgroundColor = self.activeBackgroundColor
-        fieldEditor.drawsBackground = true
+        fieldEditor.drawsBackground = false
         fieldEditor.horizontallyResizable = true
         fieldEditor.font = self.font
         fieldEditor.alignment = self.alignment
@@ -202,10 +201,17 @@ class TabButtonCell: NSButtonCell {
         // Replace content so that resizing is triggered
         fieldEditor.string = ""
         fieldEditor.insertText(self.title)
+
+        self.title = ""
+    }
+
+    func finishEditing(newValue: String) {
+
+        self.title = newValue
     }
 
     func editingRectForBounds(rect: NSRect) -> NSRect {
-        return self.titleRectForBounds(NSOffsetRect(rect, 0, 0)) // used to be different from 0...
+        return self.titleRectForBounds(rect.offsetBy(dx: 0, dy: 1))
     }
     
     // MARK: - Drawing
