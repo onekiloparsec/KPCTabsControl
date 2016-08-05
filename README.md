@@ -10,7 +10,7 @@ KPCTabsControl
 
 A multi-tabs control designed to look and behave like the tab control in Apple's Numbers spreadsheet, with enhanced capabilities. Borrowed initially from the excellent [LITabControl](https://github.com/monyschuk/LITabControl).
 
-The last stable version is 1.6.3. A complete rewrite in Swift is ongoing, and will labelled 2.0 and on. It will bring a slightly updated API, and, in the future, multiple tab styles, such as Chrome, Safari or Xcode. 
+The last stable (and Pod) version is 1.6.3, written in Obj-C. A complete rewrite in Swift is ongoing, and will labelled 2.0 and on. It will bring a slightly updated API, and, in the future, multiple tab styles, such as Chrome, Safari or Xcode. You can participate [here](https://github.com/onekiloparsec/KPCTabsControl/issues/9).
  
 Below a screenshot of the demo app with two series of tabs (showing the highlight effect). 
 ![Demo Tabs Screenshot](http://www.onekilopars.ec/s/KPCTabsControlScreenshot1.png)
