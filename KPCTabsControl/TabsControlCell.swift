@@ -37,6 +37,7 @@ class TabsControlCell: NSCell {
         self.backgroundStyle = .Light
         self.focusRingType = .None
         self.enabled = false
+        self.font = NSFont.systemFontOfSize(13)        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -53,9 +54,7 @@ class TabsControlCell: NSCell {
     }
     
     override func drawWithFrame(cellFrame: NSRect, inView controlView: NSView) {
-        let color = (self.highlighted == true) ? self.tabHighlightedBackgroundColor : self.tabBackgroundColor
-        color.setFill()
-        
+        self.tabBackgroundColor.setFill()
         NSRectFill(cellFrame)
         
         var borderRects: Array<NSRect> = [NSZeroRect, NSZeroRect, NSZeroRect, NSZeroRect]

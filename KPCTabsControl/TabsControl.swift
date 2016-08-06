@@ -26,8 +26,8 @@ public class TabsControl: NSControl, TabEditingDelegate {
     private var hideScrollButtons: Bool = true
     private var isHighlighted: Bool = false
 
-    private var tabButtonCell: TabButtonCell {
-        get { return self.cell as! TabButtonCell }
+    private var tabsControlCell: TabsControlCell {
+        get { return self.cell as! TabsControlCell }
     }
 
     // MARK: - Data Source & Delegate
@@ -44,17 +44,17 @@ public class TabsControl: NSControl, TabEditingDelegate {
     
     /// The tabs style.
     public var tabsStyle: TabsControlTabsStyle {
-        get { return self.tabButtonCell.tabStyle }
+        get { return self.tabsControlCell.tabStyle }
         set {
-            self.tabButtonCell.tabStyle = newValue
+            self.tabsControlCell.tabStyle = newValue
             self.tabButtons().forEach { $0.tabButtonCell?.tabStyle = newValue }
         }
     }
     /// The border mask controls for which sides of every tab one should draw a border.
     public var bordersMask: TabsControlBorderMask {
-        get { return self.tabButtonCell.borderMask }
+        get { return self.tabsControlCell.borderMask }
         set {
-            self.tabButtonCell.borderMask = newValue
+            self.tabsControlCell.borderMask = newValue
             self.propagateBorderMask()
         }
     }
@@ -163,8 +163,7 @@ public class TabsControl: NSControl, TabEditingDelegate {
         self.wantsLayer = true
         self.translatesAutoresizingMaskIntoConstraints = false
         
-        self.cell = TabButtonCell(textCell: "")
-        self.cell?.font = NSFont.systemFontOfSize(13)
+        self.cell = TabsControlCell(textCell: "")
         
         self.bordersMask = .Top
         self.tabsStyle = .NumbersApp
@@ -239,7 +238,6 @@ public class TabsControl: NSControl, TabEditingDelegate {
             return
         }
         
-        let tabCell = self.cell as! TabButtonCell
         self.tabButtons().forEach { $0.removeFromSuperview() }
         
         let newItemsCount = dataSource.tabsControlNumberOfTabs(self)
@@ -248,7 +246,7 @@ public class TabsControl: NSControl, TabEditingDelegate {
             let button = TabButton(withItem: item, target: self, action: #selector(TabsControl.selectTab(_:)))
             button.editable = true
 
-            var borderMask = tabCell.borderMask
+            var borderMask = self.tabsControlCell.borderMask
             if i == 0 && self.automaticSideBorderMasks == true {
                 borderMask = borderMask.union(.Left)
             }
@@ -260,7 +258,7 @@ public class TabsControl: NSControl, TabEditingDelegate {
             
             button.title = dataSource.tabsControl(self, titleForItem: item)
             button.state = (item === self.selectedItem) ? NSOnState : NSOffState // yes triple === to check for instances
-            button.highlight(self.isHighlighted)
+//            button.highlight(self.isHighlighted)
             
             if let img = dataSource.tabsControl?(self, iconForItem: item) {
                 button.icon = img
@@ -645,7 +643,7 @@ public class TabsControl: NSControl, TabEditingDelegate {
 
     private func propagateBorderMask() {
         let buttons = self.tabButtons()
-        var borderMask = self.tabButtonCell.borderMask
+        var borderMask = self.tabsControlCell.borderMask
         
         for (index, button) in buttons.enumerate() {
             if index == 0 && self.automaticSideBorderMasks == true {
