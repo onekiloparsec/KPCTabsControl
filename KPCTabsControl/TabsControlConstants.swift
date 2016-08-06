@@ -13,10 +13,10 @@ public struct TabsControlBorderMask: OptionSetType {
     public init(rawValue: UInt32) {
         self.rawValue = rawValue
     }
-    static let Top = TabsControlBorderMask(rawValue: 1<<0)
-    static let Left = TabsControlBorderMask(rawValue: 1<<1)
-    static let Right = TabsControlBorderMask(rawValue: 1<<2)
-    static let Bottom = TabsControlBorderMask(rawValue: 1<<3)
+    static public let Top = TabsControlBorderMask(rawValue: 1<<0)
+    static public let Left = TabsControlBorderMask(rawValue: 1<<1)
+    static public let Right = TabsControlBorderMask(rawValue: 1<<2)
+    static public let Bottom = TabsControlBorderMask(rawValue: 1<<3)
 }
 
 public enum TabsControlTabsStyle {

@@ -89,5 +89,13 @@ public extension NSColor {
         return NSColor(calibratedRed: 205.0/255.0, green: 222.0/255.0, blue: 244.0/255.0, alpha: 1.0)
     }
     
+ 
+    // Helpers
+    
+    func lighterColor() -> NSColor {
+        var h: CGFloat = 0, s: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
+        self.getHue(&h, saturation: &s, brightness: &b, alpha: &a)
+        return NSColor(calibratedHue: h, saturation: max(s - 0.2, 0.0), brightness: b, alpha: a)
+    }
     
 }

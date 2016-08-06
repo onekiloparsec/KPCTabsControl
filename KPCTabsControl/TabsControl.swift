@@ -12,7 +12,7 @@ import AppKit
 /// The only necessary thing for it to work is an implementation of its `dataSource`.
 public class TabsControl: NSControl, TabEditingDelegate {
     
-    private var ScrollViewObservationContext: UnsafeMutablePointer<Void> = nil // hm, wrong
+    private var ScrollViewObservationContext: UnsafeMutablePointer<Void> = nil // hm, wrong?
     private var delegateInterceptor = MessageInterceptor()
 
     private var scrollView: NSScrollView!
@@ -34,6 +34,7 @@ public class TabsControl: NSControl, TabEditingDelegate {
     
     /// The dataSource of the tabs control, providing all the necessary information for the class to build the tabs.
     @IBOutlet public weak var dataSource: TabsControlDataSource?
+    
     /// The delegate of the tabs control, providing additional possibilities for customization and precise behavior.
     @IBOutlet public weak var delegate: TabsControlDelegate? {
         get { return self.delegateInterceptor.receiver as? TabsControlDelegate }
@@ -176,9 +177,13 @@ public class TabsControl: NSControl, TabEditingDelegate {
         self.addSubview(self.scrollView)
         
         if self.hideScrollButtons == false {
-            self.scrollLeftButton = NSButton.KPC_auxiliaryButton(withImageNamed: "KPCTabLeftTemplate", target: self, action: #selector(TabsControl.scrollTabView(_:)))
+            self.scrollLeftButton = NSButton.KPC_auxiliaryButton(withImageNamed: "KPCTabLeftTemplate",
+                                                                 target: self,
+                                                                 action: #selector(TabsControl.scrollTabView(_:)))
             
-            self.scrollRightButton = NSButton.KPC_auxiliaryButton(withImageNamed: "KPCTabRightTemplate", target: self, action: #selector(TabsControl.scrollTabView(_:)))
+            self.scrollRightButton = NSButton.KPC_auxiliaryButton(withImageNamed: "KPCTabRightTemplate",
+                                                                  target: self,
+                                                                  action: #selector(TabsControl.scrollTabView(_:)))
             
             self.scrollLeftButton?.autoresizingMask = .ViewMinXMargin
             self.scrollLeftButton?.autoresizingMask = .ViewMinXMargin
@@ -289,7 +294,7 @@ public class TabsControl: NSControl, TabEditingDelegate {
             if let delegateReceiver = self.delegateInterceptor.receiver as? TabsControlDelegate {
                 if delegateReceiver.tabsControl?(self, canSelectItem: button.tabButtonCell!.representedObject!) != nil {
                     button.tabButtonCell!.selectable = delegateReceiver.tabsControl!(self, canSelectItem: button.tabButtonCell!.representedObject!)
-                    // not entirely sure this swift code does what I want...
+                    // TODO: not entirely sure this swift code does what I want... fix that.
                 }
             }
             
@@ -319,14 +324,19 @@ public class TabsControl: NSControl, TabEditingDelegate {
         self.scrollView.addObserver(self, forKeyPath: "frame", options: .New, context: &ScrollViewObservationContext)
         self.scrollView.addObserver(self, forKeyPath: "documentView.frame", options: .New, context: &ScrollViewObservationContext)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(TabsControl.scrollViewDidScroll(_:)), name: NSViewFrameDidChangeNotification, object: self.scrollView)
+        NSNotificationCenter.defaultCenter().addObserver(self,
+                                                         selector: #selector(TabsControl.scrollViewDidScroll(_:)),
+                                                         name: NSViewFrameDidChangeNotification,
+                                                         object: self.scrollView)
     }
     
     private func stopObservingScrollView() {
         self.scrollView.removeObserver(self, forKeyPath: "frame", context: &ScrollViewObservationContext)
         self.scrollView.removeObserver(self, forKeyPath: "documentView.frame", context: &ScrollViewObservationContext)
         
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: NSViewFrameDidChangeNotification, object: self.scrollView)
+        NSNotificationCenter.defaultCenter().removeObserver(self,
+                                                            name: NSViewFrameDidChangeNotification,
+                                                            object: self.scrollView)
     }
     
     public override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
@@ -576,7 +586,7 @@ public class TabsControl: NSControl, TabEditingDelegate {
     
     // MARK: - State Restoration
 
-    enum RestorationKeys {
+    private enum RestorationKeys {
         static let scrollXOffset = "scrollOrigin"
         static let selectedButtonIndex = "selectedButtonIndex"
     }

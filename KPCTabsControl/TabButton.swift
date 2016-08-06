@@ -121,7 +121,9 @@ public class TabButton: NSButton {
         let item: AnyObject? = self.cell?.representedObject
         
         let userInfo: [String: AnyObject]? = (item != nil) ? ["item": item!] : nil
-        self.trackingArea = NSTrackingArea(rect: self.bounds, options: [.MouseEnteredAndExited, .ActiveInActiveApp, .InVisibleRect], owner: self, userInfo: userInfo)
+        self.trackingArea = NSTrackingArea(rect: self.bounds,
+                                           options: [.MouseEnteredAndExited, .ActiveInActiveApp, .InVisibleRect],
+                                           owner: self, userInfo: userInfo)
         
         self.addTrackingArea(self.trackingArea!)
         
