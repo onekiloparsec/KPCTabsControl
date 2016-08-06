@@ -159,7 +159,7 @@ public class TabsControl: NSControl, TabEditingDelegate {
         self.setup()
     }
     
-    func setup() {
+    private func setup() {
         self.wantsLayer = true
         self.translatesAutoresizingMaskIntoConstraints = false
         
@@ -361,7 +361,7 @@ public class TabsControl: NSControl, TabEditingDelegate {
     
     // MARK: - Actions
     
-    func scrollTabView(sender: AnyObject?) {
+    @objc private func scrollTabView(sender: AnyObject?) {
         let forLeft = (sender as? NSButton == self.scrollLeftButton)
         let tab = self.tabButtons().filter({ self.visibilityCondition($0, forLeft: forLeft) }).first
             
@@ -375,7 +375,7 @@ public class TabsControl: NSControl, TabEditingDelegate {
         }
     }
     
-    func visibilityCondition(button: NSButton, forLeft: Bool) -> Bool {
+    private func visibilityCondition(button: NSButton, forLeft: Bool) -> Bool {
         let visibleRect = self.tabsView.visibleRect
         if forLeft == true {
             return NSMinX(button.frame) < NSMinX(visibleRect)
@@ -387,7 +387,7 @@ public class TabsControl: NSControl, TabEditingDelegate {
     
     // MARK: - Reordering
     
-    func reorderTab(tab: TabButton, withEvent event: NSEvent) {
+    private func reorderTab(tab: TabButton, withEvent event: NSEvent) {
         var orderedTabs = self.tabButtons()
         let tabX = NSMinX(tab.frame)
         let dragPoint = self.tabsView.convertPoint(event.locationInWindow, fromView: nil)
@@ -446,7 +446,7 @@ public class TabsControl: NSControl, TabEditingDelegate {
     
     // MARK: - Selection
     
-    func selectTab(sender: AnyObject?) {
+    @objc private func selectTab(sender: AnyObject?) {
         guard let button = sender as? TabButton else {
             return
         }
@@ -524,7 +524,7 @@ public class TabsControl: NSControl, TabEditingDelegate {
     
     // MARK: - Editing
 
-    func forceEndEditing() {
+    private func forceEndEditing() {
         self.window?.makeFirstResponder(self)
     }
 
