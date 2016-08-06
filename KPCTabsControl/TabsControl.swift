@@ -123,7 +123,7 @@ public class TabsControl: NSControl, TabEditingDelegate {
         didSet { self.tabButtons().forEach{ $0.tabButtonCell?.tabBorderColor = self.tabBorderColor } }
     }
     /// The color of the tabs titles for unselected tabs.
-    public var tabTitleColor: NSColor = NSColor.KPC_defaultTabBorderColor() {
+    public var tabTitleColor: NSColor = NSColor.KPC_defaultTabTitleColor() {
         didSet { self.tabButtons().forEach{ $0.tabButtonCell?.tabTitleColor = self.tabTitleColor } }
     }
     /// The color of the tabs background for unselected tabs.
@@ -135,7 +135,7 @@ public class TabsControl: NSControl, TabEditingDelegate {
         didSet { self.tabButtons().forEach{ $0.tabButtonCell?.tabHighlightedBackgroundColor = self.tabHighlightedBackgroundColor } }
     }
     /// The color of the selected tab borders.
-    public var tabSelectedBorderColor: NSColor = NSColor.KPC_defaultTabHighlightedBackgroundColor() {
+    public var tabSelectedBorderColor: NSColor = NSColor.KPC_defaultTabSelectedBorderColor() {
         didSet { self.tabButtons().forEach{ $0.tabButtonCell?.tabSelectedBorderColor = self.tabSelectedBorderColor } }
     }
     /// The color of the selected tab title.
@@ -165,7 +165,7 @@ public class TabsControl: NSControl, TabEditingDelegate {
         
         self.cell = TabsControlCell(textCell: "")
         
-        self.bordersMask = .Top
+        self.bordersMask = .Bottom
         self.tabsStyle = .NumbersApp
         
         self.highlight(false)
