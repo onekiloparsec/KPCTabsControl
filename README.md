@@ -1,3 +1,17 @@
+<h3 align="center">
+    <img src="http://onekilopars.ec/s/OnekiloparsecProComponents.png" width="90%" />
+</h3>
+<p align="center">
+  <b>KPCTabsControl</b> &bull;
+  <a href="https://github.com/onekiloparsec/KPCJumpBarControl">KPCJumpBarControl</a> &bull;
+  <a href="https://github.com/onekiloparsec/KPCSplitPanes">KPCSplitPanes</a>
+</p>
+
+-------
+
+KPCTabsControl
+==============
+
 [![Build Status](http://img.shields.io/travis/onekiloparsec/KPCTabsControl.svg?style=flat)](https://travis-ci.org/onekiloparsec/KPCTabsControl)
 ![Version](https://img.shields.io/cocoapods/v/KPCTabsControl.svg?style=flat)
 ![License](https://img.shields.io/cocoapods/l/KPCTabsControl.svg?style=flat)
@@ -5,17 +19,14 @@
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Codewake](https://www.codewake.com/badges/ask_question.svg)](https://www.codewake.com/p/kpctabscontrol)
  
-KPCTabsControl
-==============
+A multi-tabs control first designed to look and behave like the tab control in Apple's Numbers spreadsheet, with enhanced capabilities, and soon, new tab styles, such as Chrome, Safari or Xcode as well as custom ones. 
 
-A multi-tabs control designed to look and behave like the tab control in Apple's Numbers spreadsheet, with enhanced capabilities. Borrowed initially from the excellent [LITabControl](https://github.com/monyschuk/LITabControl).
-
-The last stable (and Pod) version is 1.6.3, written in Obj-C. A complete rewrite in Swift is ongoing, and will labelled 2.0 and on. It will bring a slightly updated API, and, in the future, multiple tab styles, such as Chrome, Safari or Xcode. You can participate [here](https://github.com/onekiloparsec/KPCTabsControl/issues/9).
+The complete rewrite in Swift is ongoing, and will labelled 2.0 and on. You can participate [here](https://github.com/onekiloparsec/KPCTabsControl/issues/9). The last stable (and Pod) version (written in Obj-C) is 1.6.3 and is well suited for production, even in a Swift app. 
  
-Below a screenshot of the demo app with two series of tabs (showing the highlight effect). 
+Below a screenshot of the 1.6.3 demo app with two series of tabs (showing the highlight effect). 
 ![Demo Tabs Screenshot](http://www.onekilopars.ec/s/KPCTabsControlScreenshot1.png)
 
-I also added the possibility to provide alternative icons for titles too large to be drawn without linebreak. When the icons are visible, the tabs titles are moved to the tooltips of the buttons.
+KPCTabsControl also has the possibility to provide alternative icons for titles too large to be drawn without linebreak. When the icons are visible, the tabs titles are moved to the tooltips of the buttons.
 
  ![Demo Auxiliary Icons](http://www.onekilopars.ec/s/KPCTabsControlAuxiliaryIconMovie.gif) 
 
@@ -23,10 +34,9 @@ I also added the possibility to provide alternative icons for titles too large t
 Installation
 ------------
 
-Using [CocoaPods](http://cocoapods.org/): `pod 'KPCTabsControl'`
- 
 Using [Carthage](https://github.com/Carthage/Carthage): add `github "onekiloparsec/KPCTabsControl"` to your `Cartfile` and then run `carthage update`.
 
+Using [CocoaPods](http://cocoapods.org/): `pod 'KPCTabsControl'`
 
 
 Usage
@@ -35,6 +45,7 @@ Usage
 KPCTabsControl is designed for you to use only the `KPCTabsControl` class, and its associated data source methods. Simply place a `NSView` in a xib, where you need tabs, change its class to `KPCTabsControl` and assign its dataSource property. Then implement the data source methods in your controller.
 
 You can also assign a delegate if you want to play with the editing and the reordering of the tab titles.
+
 
 Customization
 -------------
