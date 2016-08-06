@@ -162,7 +162,9 @@ class TabButtonCell: NSButtonCell {
             let location = controlView.convertPoint(theEvent.locationInWindow, fromView: nil)
             
             if self.menu?.itemArray.count > 0 && NSPointInRect(location, popupRect) {
-                self.menu?.popUpMenuPositioningItem(self.menu!.itemArray.first, atLocation: NSMakePoint(NSMidX(popupRect), NSMaxY(popupRect)), inView: controlView)
+                self.menu?.popUpMenuPositioningItem(self.menu!.itemArray.first,
+                                                    atLocation: NSMakePoint(NSMidX(popupRect), NSMaxY(popupRect)),
+                                                    inView: controlView)
                 
                 self.showsMenu = true
                 return true
@@ -228,7 +230,12 @@ class TabButtonCell: NSButtonCell {
         }
         
         if self.showsMenu == true {
-            TabButtonCell.popupImage().drawInRect(self.popupRectWithFrame(frame), fromRect: NSZeroRect, operation: .CompositeSourceOver, fraction: 1.0, respectFlipped: true, hints: nil)
+            TabButtonCell.popupImage().drawInRect(self.popupRectWithFrame(frame),
+                                                  fromRect: NSZeroRect,
+                                                  operation: .CompositeSourceOver,
+                                                  fraction: 1.0,
+                                                  respectFlipped: true,
+                                                  hints: nil)
         }
     }
     
