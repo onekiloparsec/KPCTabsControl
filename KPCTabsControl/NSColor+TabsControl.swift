@@ -65,27 +65,28 @@ public extension NSColor {
     
     
     // There is no customization of the colors for the selected tab following the highlight state of the control.
+    // It is done automatically.
     
     
     /**
      *  The color of the border of an individual tab when it is selected.
      */
     static func KPC_defaultTabSelectedBorderColor() -> NSColor {
-        return NSColor(calibratedRed: CGFloat(185.0/255.0), green: CGFloat(202.0/255.0), blue: CGFloat(224.0/255.0), alpha: CGFloat(1.0))
+        return NSColor(calibratedRed: 185.0/255.0, green: 202.0/255.0, blue: 224.0/255.0, alpha: 1.0)
     }
     
     /**
      *  The color of the title an individual tab when it is selected.
      */
     static func KPC_defaultTabSelectedTitleColor() -> NSColor {
-        return NSColor(calibratedRed: CGFloat(185.0/255.0), green: CGFloat(202.0/255.0), blue: CGFloat(224.0/255.0), alpha: CGFloat(1.0))
+        return NSColor(calibratedRed: 185.0/255.0, green: 202.0/255.0, blue: 224.0/255.0, alpha: 1.0)
     }
     
     /**
      *  The color of the background an individual tab when it is selected.
      */
     static func KPC_defaultTabSelectedBackgroundColor() -> NSColor {
-        return NSColor(calibratedRed: CGFloat(205.0/255.0), green: CGFloat(222.0/255.0), blue: CGFloat(244.0/255.0), alpha: CGFloat(1.0))
+        return NSColor(calibratedRed: 205.0/255.0, green: 222.0/255.0, blue: 244.0/255.0, alpha: 1.0)
     }
     
     
