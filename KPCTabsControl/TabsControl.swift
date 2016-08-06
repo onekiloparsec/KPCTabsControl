@@ -450,22 +450,17 @@ public class TabsControl: NSControl, TabEditingDelegate {
         }
 
         self.selectedButton = button
-
-        for button in self.tabButtons() {
-            button.state = (button === self.selectedButton!) ? NSOnState : NSOffState
-            button.highlighted = self.isHighlighted
-        }
-
+        self.tabButtons().forEach { $0.state = ($0 === self.selectedButton!) ? NSOnState : NSOffState }
+        
         NSApp.sendAction(self.action, to: self.target, from: self)
         NSNotificationCenter.defaultCenter().postNotificationName(TabsControlSelectionDidChangeNotification, object: self)
         
         guard let currentEvent = NSApp.currentEvent else { return }
 
         if currentEvent.type == .LeftMouseDown && currentEvent.clickCount > 1 {
-
             self.editTabButton(button)
-
-        } else if let item = self.selectedButton?.tabButtonCell?.representedObject
+        }
+        else if let item = self.selectedButton?.tabButtonCell?.representedObject
             where self.delegate?.tabsControl?(self, canReorderItem: item) == true {
 
             let mask: NSEventMask = NSEventMask.LeftMouseUpMask.union(.LeftMouseDraggedMask)
