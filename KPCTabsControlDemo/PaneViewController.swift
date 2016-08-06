@@ -42,7 +42,7 @@ class PaneViewController: NSViewController, TabsControlDataSource, TabsControlDe
         super.mouseDown(theEvent)
     
         let sendNotification = (self.tabsBar?.highlighted == false)
-        self.tabsBar?.highlight(true)
+//        self.tabsBar?.highlight(true)
         
         if (sendNotification) {
     NSNotificationCenter.defaultCenter().postNotificationName("PaneSelectionDidChangeNotification", object: self)

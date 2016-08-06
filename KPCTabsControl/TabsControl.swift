@@ -24,7 +24,7 @@ public class TabsControl: NSControl, TabEditingDelegate {
     private weak var selectedButton: TabButton? = nil
 
     private var hideScrollButtons: Bool = true
-    private var isHighlighted: Bool = false
+//    private var isHighlighted: Bool = false
 
     private var tabsControlCell: TabsControlCell {
         get { return self.cell as! TabsControlCell }
@@ -95,11 +95,6 @@ public class TabsControl: NSControl, TabEditingDelegate {
             self.updateAuxiliaryButtons()
         }
     }
-
-
-//    public override var highlighted: Bool {
-//        get { return true }
-//    }
     
     // MARK: - Public TabControl Color Properties
     
@@ -111,12 +106,8 @@ public class TabsControl: NSControl, TabEditingDelegate {
     public var controlBackgroundColor: NSColor = NSColor.KPC_defaultControlBackgroundColor() {
         didSet { self.needsDisplay = true }
     }
-    /// The color of the background of the tabs control itself when being highlighted (invisible when `preferFullWidthTabs` is `true`).
-    public var controlHighlightedBackgroundColor: NSColor = NSColor.KPC_defaultControlHighlightedBackgroundColor() {
-        didSet { self.needsDisplay = true }
-    }
-
-    // MARK: - Public Tabs Color Properties
+    
+    // MARK: - Public Tab Color Properties
 
     /// The color of the tab borders for unselected tabs.
     public var tabBorderColor: NSColor = NSColor.KPC_defaultTabBorderColor() {
@@ -130,10 +121,7 @@ public class TabsControl: NSControl, TabEditingDelegate {
     public var tabBackgroundColor: NSColor = NSColor.KPC_defaultTabTitleColor() {
         didSet { self.tabButtons().forEach{ $0.tabButtonCell?.tabBackgroundColor = self.tabBackgroundColor } }
     }
-    /// The color of the tabs background when highlighted for unselected tabs.
-    public var tabHighlightedBackgroundColor: NSColor = NSColor.KPC_defaultTabBackgroundColor() {
-        didSet { self.tabButtons().forEach{ $0.tabButtonCell?.tabHighlightedBackgroundColor = self.tabHighlightedBackgroundColor } }
-    }
+    
     /// The color of the selected tab borders.
     public var tabSelectedBorderColor: NSColor = NSColor.KPC_defaultTabSelectedBorderColor() {
         didSet { self.tabButtons().forEach{ $0.tabButtonCell?.tabSelectedBorderColor = self.tabSelectedBorderColor } }
@@ -168,7 +156,6 @@ public class TabsControl: NSControl, TabEditingDelegate {
         self.bordersMask = .Bottom
         self.tabsStyle = .NumbersApp
         
-        self.highlight(false)
         self.configureSubviews()
     }
     
@@ -570,13 +557,13 @@ public class TabsControl: NSControl, TabEditingDelegate {
      - parameter flag: A boolean value indicating whether the tabs control should adopt a 'highlighted' state
      (with slightly darker default background colors) or not.
      */
-    public func highlight(flag: Bool) {
-        self.isHighlighted = flag
-        self.tabButtonCell.highlight(flag)
+//    public func highlight(flag: Bool) {
+//        self.isHighlighted = flag
+//        self.tabButtonCell.highlight(flag)
 //        self.scrollLeftButton.cell?.highlight(flag)
 //        self.scrollRightButton.cell?.highlight(flag)
-        self.tabButtons().forEach { $0.highlight(flag) }
-    }
+//        self.tabButtons().forEach { $0.highlight(flag) }
+//    }
     
     // MARK: - Tab Widths
     

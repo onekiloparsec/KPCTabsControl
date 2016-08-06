@@ -39,19 +39,7 @@ class TabButtonCell: NSButtonCell {
         didSet { self.controlView?.needsDisplay = true }
     }
 
-    var activeBackgroundColor: NSColor {
-        if self.highlighted {
-            return self.tabHighlightedBackgroundColor
-        }
-
-        return self.tabBackgroundColor
-    }
-
     var tabBackgroundColor: NSColor = NSColor.KPC_defaultTabBackgroundColor() {
-        didSet { self.controlView?.needsDisplay = true }
-    }
-    
-    var tabHighlightedBackgroundColor: NSColor = NSColor.KPC_defaultTabHighlightedBackgroundColor() {
         didSet { self.controlView?.needsDisplay = true }
     }
     
@@ -89,7 +77,6 @@ class TabButtonCell: NSButtonCell {
         copy.tabBorderColor = self.tabBorderColor
         copy.tabTitleColor = self.tabTitleColor
         copy.tabBackgroundColor = self.tabBackgroundColor
-        copy.tabHighlightedBackgroundColor = self.tabHighlightedBackgroundColor
         
         copy.tabSelectedBorderColor = self.tabSelectedBorderColor
         copy.tabSelectedTitleColor = self.tabSelectedTitleColor
@@ -106,10 +93,10 @@ class TabButtonCell: NSButtonCell {
         return copy
     }
     
-    func highlight(flag: Bool) {
-        self.highlighted = flag
-        self.controlView?.needsDisplay = true
-    }
+//    func highlight(flag: Bool) {
+//        self.highlighted = flag
+//        self.controlView?.needsDisplay = true
+//    }
     
     // MARK: - Properties & Rects
 
@@ -123,10 +110,9 @@ class TabButtonCell: NSButtonCell {
         get {
             let at: NSMutableAttributedString = super.attributedTitle.mutableCopy() as! NSMutableAttributedString
             
-            let color = (self.isSelected == true) ? self.tabSelectedTitleColor : self.tabTitleColor
-            at.addAttributes([NSForegroundColorAttributeName: color], range: NSMakeRange(0, at.length))
+            at.addAttributes([NSForegroundColorAttributeName: self.activeTitleColor], range: NSMakeRange(0, at.length))
             
-            let font = (self.highlighted == true) ? NSFont.boldSystemFontOfSize(13) : NSFont.systemFontOfSize(13)
+            let font = (self.isSelected == true) ? NSFont.boldSystemFontOfSize(13) : NSFont.systemFontOfSize(13)
             at.addAttributes([NSFontAttributeName : font], range: NSMakeRange(0, at.length))
             
             return at.copy() as! NSAttributedString
@@ -216,6 +202,18 @@ class TabButtonCell: NSButtonCell {
     }
     
     // MARK: - Drawing
+
+    var activeBorderColor: NSColor {
+        get { return (self.isSelected) ? self.tabSelectedBorderColor : self.tabBorderColor }
+    }
+    
+    var activeTitleColor: NSColor {
+        get { return (self.isSelected) ? self.tabSelectedTitleColor : self.tabTitleColor }
+    }
+
+    var activeBackgroundColor: NSColor {
+        get { return (self.isSelected) ? self.tabSelectedBackgroundColor : self.tabBackgroundColor }
+    }
 
     override func drawWithFrame(frame: NSRect, inView controlView: NSView) {
         self.drawBezelWithFrame(frame, inView: controlView)
