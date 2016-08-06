@@ -256,14 +256,13 @@ class TabButtonCell: NSButtonCell {
                 break
             }
         }
-        else {
-            let color = self.activeBackgroundColor
-            color.setFill()
-            NSRectFill(frame)
-        }
     }
     
     func drawNumbersTabsWithFrame(frame: NSRect, inView controlView: NSView) {
+        let color = self.activeBackgroundColor
+        color.setFill()
+        NSRectFill(frame)
+        
         var borderRects: Array<NSRect> = [NSZeroRect, NSZeroRect, NSZeroRect, NSZeroRect]
         var borderRectCount: NSInteger = 0
         
