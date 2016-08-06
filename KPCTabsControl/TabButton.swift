@@ -22,7 +22,12 @@ public class TabButton: NSButton {
         get { return self.tabButtonCell?.representedObject }
         set { self.tabButtonCell?.representedObject = newValue }
     }
-    
+
+    var editable: Bool {
+        get { return self.cell?.editable ?? false }
+        set { self.cell?.editable = newValue }
+    }
+
     public var icon: NSImage? = nil {
         didSet {
             if self.icon != nil && self.iconView == nil {
@@ -177,5 +182,9 @@ public class TabButton: NSButton {
         }
         
         super.drawRect(dirtyRect)
+    }
+
+    func edit(fieldEditor fieldEditor: NSText, delegate: NSTextDelegate) {
+        tabButtonCell?.edit(fieldEditor: fieldEditor, inView: self, delegate: delegate)
     }
 }

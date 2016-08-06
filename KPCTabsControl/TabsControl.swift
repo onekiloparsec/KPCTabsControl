@@ -10,13 +10,13 @@ import AppKit
 
 /// TabsControl is the main class of the library, and is designed to suffice for implementing tabs in your app.
 /// The only necessary thing for it to work is an implementation of its `dataSource`.
-public class TabsControl: NSControl {
+public class TabsControl: NSControl, TabEditingDelegate {
+    
     private var ScrollViewObservationContext: UnsafeMutablePointer<Void> = nil // hm, wrong
     private var delegateInterceptor = MessageInterceptor()
 
     private var scrollView: NSScrollView!
     private var tabsView: NSView!
-    private var editingTextField: NSTextField? = nil
 
     private var addButton: NSButton? = nil
     private var scrollLeftButton: NSButton? = nil
@@ -246,7 +246,8 @@ public class TabsControl: NSControl {
         for i in 0..<newItemsCount {
             let item = dataSource.tabsControl(self, itemAtIndex: i)
             let button = TabButton(withItem: item, target: self, action: #selector(TabsControl.selectTab(_:)))
-            
+            button.editable = true
+
             var borderMask = tabCell.borderMask
             if i == 0 && self.automaticSideBorderMasks == true {
                 borderMask = borderMask.union(.Left)
@@ -522,74 +523,44 @@ public class TabsControl: NSControl {
     }
     
     // MARK: - Editing
-    
-    public func editTabButton(button: TabButton?) {
-        guard let tab = button else {
-            return
-        }
-        
-        if self.delegate?.tabsControl?(self, canEditTitleOfItem: tab.tabButtonCell!.representedObject!) == false {
-            return
-        }
-        
-        // End existing editing, if any...
-        if self.editingTextField != nil {
-            self.window?.makeFirstResponder(self)
-        }
-        
-        let titleRect = tab.tabButtonCell!.editingRectForBounds(tab.bounds)
-        self.editingTextField = NSTextField(frame: titleRect)
-        
-        self.editingTextField?.autoresizingMask = [.ViewWidthSizable]
-        self.editingTextField?.editable = true
-        self.editingTextField?.font = tab.tabButtonCell!.font
-        self.editingTextField?.alignment = tab.tabButtonCell!.alignment
-        self.editingTextField?.backgroundColor = NSColor.clearColor()
-        self.editingTextField?.focusRingType = .None
-        self.editingTextField?.textColor = NSColor.darkGrayColor().blendedColorWithFraction(0.5, ofColor: NSColor.blackColor())
-        self.editingTextField?.stringValue = tab.title
-        
-        self.editingTextField?.cell?.bordered = false
-        self.editingTextField?.cell?.scrollable = true
-        
-        tab.title = ""
-        tab.addSubview(self.editingTextField!)
-        
+
+    func forceEndEditing() {
+        self.window?.makeFirstResponder(self)
+    }
+
+    var tabEditing: TabEditing?
+
+    public func editTabButton(tab: TabButton) {
+
+        guard let representedObject = tab.representedObject
+            where self.delegate?.tabsControl?(self, canEditTitleOfItem: representedObject) == true
+            else { return }
+
+        forceEndEditing()
+
+        guard let fieldEditor = self.window?.fieldEditor(true, forObject: tab) else { return }
+
+        let newEditing = TabEditing(tabButton: tab, fieldEditor: fieldEditor, delegate: self)
+        self.tabEditing = newEditing
+        newEditing.edit()
+
         self.delegateInterceptor.middleMan = self
-        self.editingTextField!.delegate = self.delegateInterceptor as? NSTextFieldDelegate
-        self.editingTextField?.selectText(self)
     }
     
-    public override func controlTextDidEndEditing(obj: NSNotification) {
-
-        guard let editingTextField = self.editingTextField else {
-            assertionFailure("Expected controlTextDidEndEditing(_:) to be called by editingTextField")
-            return
-        }
-
-        guard let tab = editingTextField.superview as? TabButton else {
-            assertionFailure("Expected editingTextField to be embedded in TabButton.")
-            return
-        }
-
-        let title = editingTextField.stringValue
-        
-        if !title.isEmpty && self.delegate?.tabsControl?(self, setTitle: title, forItem: tab.tabButtonCell!.representedObject!) != nil {
-            tab.representedObject = self.dataSource?.tabsControl(self, itemAtIndex: self.selectedItemIndex)
-        }
-        
-        if let delegate = self.delegate as? NSControl {
-            delegate.controlTextDidEndEditing(obj)
-        }
-        
-        self.editingTextField?.removeFromSuperview()
-        self.editingTextField?.delegate = nil
-        self.editingTextField = nil
-        
-        // That's the receiver responsiblity to store the new title;
-        self.reloadTabs()
-    }
+    // MARK : - TabEditingDelegate
     
+    func tabButtonDidEndEditing(tabButton: TabButton, newValue: String) {
+        
+        defer { self.reloadTabs() }
+        
+        guard !newValue.isEmpty
+            && self.delegate?.tabsControl?(self, setTitle: newValue, forItem: tabButton.representedObject!) != nil else { return }
+        
+        // TODO add callback to client code to replace forwarding controlTextDidEndEditing(_:)
+        
+        tabButton.representedObject = self.dataSource?.tabsControl(self, itemAtIndex: self.selectedItemIndex)
+    }
+
     // MARK: - Drawing
     
     override public var opaque: Bool {
@@ -598,14 +569,6 @@ public class TabsControl: NSControl {
 
     override public var flipped: Bool {
         return true
-    }
-    
-    private func tabButtons() -> [TabButton] {
-        guard let tabsView = self.tabsView else {
-            return []
-        }
-
-        return tabsView.subviews.flatMap { $0 as? TabButton }
     }
     
     /**
@@ -652,13 +615,6 @@ public class TabsControl: NSControl {
         coder.encodeInteger(selectedButtonIndex, forKey: RestorationKeys.selectedButtonIndex)
     }
 
-    /// - returns: All `NSButton` instances inside this view's `scrollView`.
-    private func buttons() -> [NSButton] {
-
-        return self.scrollView.documentView?.subviews
-            .flatMap { $0 as? NSButton } ?? []
-    }
-
     public override func restoreStateWithCoder(coder: NSCoder) {
         super.restoreStateWithCoder(coder)
         
@@ -674,8 +630,19 @@ public class TabsControl: NSControl {
         }        
     }
     
-    // MARK: Helpers
+    // MARK: - Helpers
     
+    private func tabButtons() -> [TabButton] {
+        guard let tabsView = self.tabsView else { return [] }
+        
+        return tabsView.subviews.flatMap { $0 as? TabButton }
+    }
+
+    /// - returns: All `NSButton` instances inside this view's `scrollView`.
+    private func buttons() -> [NSButton] {
+        return self.scrollView.documentView?.subviews.flatMap { $0 as? NSButton } ?? []
+    }
+
     private func propagateBorderMask() {
         let buttons = self.tabButtons()
         var borderMask = self.tabButtonCell.borderMask
@@ -692,3 +659,6 @@ public class TabsControl: NSControl {
         }
     }
 }
+
+extension MessageInterceptor: NSTextDelegate { }
+

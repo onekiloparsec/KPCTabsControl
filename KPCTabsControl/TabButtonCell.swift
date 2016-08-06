@@ -38,7 +38,15 @@ class TabButtonCell: NSButtonCell {
     var tabTitleColor: NSColor = NSColor.KPC_defaultTabTitleColor() {
         didSet { self.controlView?.needsDisplay = true }
     }
-    
+
+    var activeBackgroundColor: NSColor {
+        if self.highlighted {
+            return self.tabHighlightedBackgroundColor
+        }
+
+        return self.tabBackgroundColor
+    }
+
     var tabBackgroundColor: NSColor = NSColor.KPC_defaultTabBackgroundColor() {
         didSet { self.controlView?.needsDisplay = true }
     }
@@ -109,7 +117,7 @@ class TabButtonCell: NSButtonCell {
         let path = NSBundle(forClass: self).pathForImageResource("KPCPullDownTemplate")!
         return NSImage(contentsOfFile: path)!.KPC_imageWithTint(NSColor.darkGrayColor())
     }
-    
+
     override var attributedTitle: NSAttributedString {
         set { super.attributedTitle = newValue }
         get {
@@ -168,9 +176,41 @@ class TabButtonCell: NSButtonCell {
         let titleSize = self.attributedTitle.size()
         return NSMakeRect(NSMinX(theRect), NSMidY(theRect) - titleSize.height/2.0, NSWidth(theRect), titleSize.height)
     }
-    
+
+    // MARK: - Editing
+
+    func edit(fieldEditor fieldEditor: NSText, inView view: NSView, delegate: NSTextDelegate) {
+
+        self.highlighted = true
+
+        let frame = editingRectForBounds(view.bounds)
+        let length = (self.stringValue as NSString).length
+        self.selectWithFrame(frame,
+                             inView: view,
+                             editor: fieldEditor,
+                             delegate: delegate,
+                             start: 0,
+                             length: length)
+
+        fieldEditor.drawsBackground = false
+        fieldEditor.horizontallyResizable = true
+        fieldEditor.font = self.font
+        fieldEditor.alignment = self.alignment
+        fieldEditor.textColor = NSColor.darkGrayColor().blendedColorWithFraction(0.5, ofColor: NSColor.blackColor())
+
+        // Replace content so that resizing is triggered
+        fieldEditor.string = ""
+        fieldEditor.insertText(self.title)
+
+        self.title = ""
+    }
+
+    func finishEditing(newValue: String) {
+        self.title = newValue
+    }
+
     func editingRectForBounds(rect: NSRect) -> NSRect {
-        return self.titleRectForBounds(NSOffsetRect(rect, 0, 0)) // used to be different from 0...
+        return self.titleRectForBounds(rect.offsetBy(dx: 0, dy: 1))
     }
     
     // MARK: - Drawing
@@ -210,7 +250,7 @@ class TabButtonCell: NSButtonCell {
             }
         }
         else {
-            let color = (self.highlighted == true) ? self.tabHighlightedBackgroundColor : self.tabBackgroundColor
+            let color = self.activeBackgroundColor
             color.setFill()
             NSRectFill(frame)
         }
@@ -229,8 +269,7 @@ class TabButtonCell: NSButtonCell {
     }
 
     func drawChromeTabsWithFrame(frame: NSRect, inView controlView: NSView) {
-        let color = (self.highlighted == true) ? self.tabHighlightedBackgroundColor : self.tabBackgroundColor
-        color.setFill()
+        self.activeBackgroundColor.setFill()
         NSRectFill(frame)
         
         let path = NSBezierPath()
