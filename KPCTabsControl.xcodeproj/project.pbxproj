@@ -20,7 +20,7 @@
 		9F45CD971D396D4200149654 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9F45CD961D396D4200149654 /* Assets.xcassets */; };
 		9F45CDA11D396DD200149654 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9F45CD9F1D396DD200149654 /* Main.storyboard */; };
 		9F45CDA41D396EA700149654 /* KPCTabsControl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FA7EDA51AD668BC0060FF79 /* KPCTabsControl.framework */; };
-		9F45CDA61D396EB400149654 /* KPCTabsControl.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9FA7EDA51AD668BC0060FF79 /* KPCTabsControl.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9F45CDA61D396EB400149654 /* KPCTabsControl.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 9FA7EDA51AD668BC0060FF79 /* KPCTabsControl.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9F45CDA81D39815D00149654 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F45CDA71D39815D00149654 /* ViewController.swift */; };
 		9F76CEE51D560DB500D817F7 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F76CEE31D560DB500D817F7 /* Error.swift */; };
 		9F76CEE61D560DB500D817F7 /* TabEditing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F76CEE41D560DB500D817F7 /* TabEditing.swift */; };
@@ -44,14 +44,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		9F45CDA51D396EAB00149654 /* CopyFiles */ = {
+		9F45CDA51D396EAB00149654 /* Copy Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				9F45CDA61D396EB400149654 /* KPCTabsControl.framework in CopyFiles */,
+				9F45CDA61D396EB400149654 /* KPCTabsControl.framework in Copy Frameworks */,
 			);
+			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -244,7 +245,7 @@
 				9F45CD8C1D396D4200149654 /* Sources */,
 				9F45CD8D1D396D4200149654 /* Frameworks */,
 				9F45CD8E1D396D4200149654 /* Resources */,
-				9F45CDA51D396EAB00149654 /* CopyFiles */,
+				9F45CDA51D396EAB00149654 /* Copy Frameworks */,
 			);
 			buildRules = (
 			);
