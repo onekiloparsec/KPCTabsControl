@@ -3,7 +3,7 @@
 //  KPCTabsControl
 //
 //  Created by Cédric Foellmi on 14/06/16.
-//  Copyright © 2016 Cédric Foellmi. All rights reserved.
+//  Licensed under the MIT License (see LICENSE file)
 //
 
 import AppKit
