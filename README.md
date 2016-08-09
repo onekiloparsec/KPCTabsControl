@@ -60,7 +60,7 @@ Tabs titles can be edited in place, and tabs can be reordred by simple drag & dr
 Highlighting
 ------------
 
-The tabs control support the possibility to be highlighted. This is useful when you have multiple subviews, each with tab controls, and you need to indicate to the user which subview is actually 'active'. (In the screenshot above, the upper tabs have a darker background than the lower ones).
+The tabs control support the possibility to be highlighted. This is useful when you have multiple subviews, for instance using <a href="https://github.com/onekiloparsec/KPCSplitPanes">KPCSplitPanes</a>, each with tab controls, and you need to indicate to the user which subview is actually 'active'. (In the screenshot above, the upper tabs have a darker background than the lower ones).
 
 
 Author
