@@ -51,6 +51,7 @@ public class TabsControl: NSControl, TabEditingDelegate {
             self.tabButtons().forEach { $0.tabButtonCell?.tabStyle = newValue }
         }
     }
+
     /// The border mask controls for which sides of every tab one should draw a border.
     public var bordersMask: TabsControlBorderMask {
         get { return self.tabsControlCell.borderMask }
@@ -75,28 +76,27 @@ public class TabsControl: NSControl, TabEditingDelegate {
             self.updateAuxiliaryButtons()
         }
     }
-    
+
+    public var style: Style = ThemedStyle(theme: DefaultTheme()) {
+        didSet {
+            self.layoutTabButtons(self.tabButtons(), animated: true)
+            self.updateAuxiliaryButtons()
+        }
+    }
+
     /**
      *  When `preferFullWidthTabs` is NO, the minimum width of tabs. Given the total width of the tabs control, it will
      *  adjust the tab width between the specified minimum and maximum values. All tabs have the same width, always.
      */
-    public var minTabWidth: CGFloat =  50.0 {
-        didSet {
-            self.layoutTabButtons(self.tabButtons(), animated: true)
-            self.updateAuxiliaryButtons()
-        }
-    }
+    public var minTabWidth: CGFloat { return style.tabWidth.min }
+
     /**
      *  When `preferFullWidthTabs` is `NO`, the maximum width of tabs. Given the total width of the tabs control, it will
      *  adjust the tab width between the specified minimum and maximum values. All tabs have the same width, always.
      */
-    public var maxTabWidth: CGFloat = 150.0 {
-        didSet {
-            self.layoutTabButtons(self.tabButtons(), animated: true)
-            self.updateAuxiliaryButtons()
-        }
-    }
-    
+    public var maxTabWidth: CGFloat { return style.tabWidth.max }
+
+    @available(*, deprecated=1.0, message="Delegate drawing to Style")
     var theme: Theme = DefaultTheme() {
         didSet {
             self.tabsControlCell.theme = self.theme

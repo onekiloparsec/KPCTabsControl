@@ -11,6 +11,7 @@
 		501FD7741D5B188F00C3B1F3 /* NSRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501FD7731D5B188F00C3B1F3 /* NSRect.swift */; };
 		501FD7771D5B2A0100C3B1F3 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501FD7761D5B2A0100C3B1F3 /* Style.swift */; };
 		501FD7791D5B2CA300C3B1F3 /* DefaultTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501FD7781D5B2CA300C3B1F3 /* DefaultTheme.swift */; };
+		501FD77B1D5B34C200C3B1F3 /* ThemedStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501FD77A1D5B34C200C3B1F3 /* ThemedStyle.swift */; };
 		9F1186431D4CF89B00E6CE39 /* TabsControlCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1186421D4CF89B00E6CE39 /* TabsControlCell.swift */; };
 		9F2154A91D2D179500C4DD06 /* TabButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2154A81D2D179500C4DD06 /* TabButton.swift */; };
 		9F23FF321D10A99D00326F3B /* TabButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F23FF311D10A99D00326F3B /* TabButtonCell.swift */; };
@@ -65,6 +66,7 @@
 		501FD7731D5B188F00C3B1F3 /* NSRect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSRect.swift; sourceTree = "<group>"; };
 		501FD7761D5B2A0100C3B1F3 /* Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Style.swift; path = KPCTabsControl/Style.swift; sourceTree = "<group>"; };
 		501FD7781D5B2CA300C3B1F3 /* DefaultTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DefaultTheme.swift; path = KPCTabsControl/DefaultTheme.swift; sourceTree = "<group>"; };
+		501FD77A1D5B34C200C3B1F3 /* ThemedStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemedStyle.swift; sourceTree = "<group>"; };
 		9F09E9FD1C95668400EA970C /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = SOURCE_ROOT; };
 		9F1186421D4CF89B00E6CE39 /* TabsControlCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TabsControlCell.swift; path = KPCTabsControl/TabsControlCell.swift; sourceTree = "<group>"; };
 		9F2154A81D2D179500C4DD06 /* TabButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TabButton.swift; path = KPCTabsControl/TabButton.swift; sourceTree = "<group>"; };
@@ -134,6 +136,7 @@
 			isa = PBXGroup;
 			children = (
 				501FD7761D5B2A0100C3B1F3 /* Style.swift */,
+				501FD77A1D5B34C200C3B1F3 /* ThemedStyle.swift */,
 				501FD7781D5B2CA300C3B1F3 /* DefaultTheme.swift */,
 			);
 			name = Styles;
@@ -368,6 +371,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9FF789451D0FDA9700F66AF2 /* MessageInterceptor.swift in Sources */,
+				501FD77B1D5B34C200C3B1F3 /* ThemedStyle.swift in Sources */,
 				9F40815B1D3938E100ADF6DB /* TabsControl.swift in Sources */,
 				9F4081591D39387B00ADF6DB /* TabsControlProtocols.swift in Sources */,
 				9F4081571D38F63D00ADF6DB /* TabsControlConstants.swift in Sources */,

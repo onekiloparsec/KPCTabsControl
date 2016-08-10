@@ -8,24 +8,20 @@
 
 import Cocoa
 
-protocol Theme {
-    var tabStyle: TabStyle { get }
-    var highlightedTabStyle: TabStyle { get }
-    var selectedTabStyle: TabStyle { get }
+public struct FlexibleWidth {
+    public let min: CGFloat
+    public let max: CGFloat
 
-    var tabBarStyle: TabBarStyle { get }
-    var highlightedTabBarStyle: TabBarStyle { get }
+    public init(min: CGFloat, max: CGFloat) {
+
+        self.min = min
+        self.max = max
+    }
 }
 
-protocol TabStyle {
-    var backgroundColor: NSColor { get }
-    var borderColor: NSColor { get }
-    var titleColor: NSColor { get }
-}
+public protocol Style {
 
-protocol TabBarStyle {
-    var backgroundColor: NSColor { get }
-    var borderColor: NSColor { get }
+    var tabWidth: FlexibleWidth { get }
 }
 
 @available(*, deprecated=1.0)

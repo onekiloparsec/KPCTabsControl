@@ -27,8 +27,7 @@ class ViewController: NSViewController {
         
         self.bottomPane?.title = "pane2"
         self.bottomPane?.titles = ["Tab a", "Tab b", "Tab c", "Tab d"]
-        self.bottomPane?.tabsBar?.maxTabWidth = 130.0;
-        self.bottomPane?.tabsBar?.minTabWidth = 100.0;
+        self.bottomPane?.tabsBar?.style = ThemedStyle(theme: DefaultTheme(), tabWidth: FlexibleWidth(min: 100, max: 130))
         
         self.topPane?.tabsBar?.reloadTabs()
         self.bottomPane?.tabsBar?.reloadTabs()

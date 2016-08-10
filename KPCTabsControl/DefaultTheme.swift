@@ -8,13 +8,16 @@
 
 import Cocoa
 
-struct DefaultTheme: Theme {
-    let tabStyle: TabStyle = DefaultTabStyle()
-    let highlightedTabStyle: TabStyle = HighlightedTabStyle(base: DefaultTabStyle())
-    let selectedTabStyle: TabStyle = SelectedTabStyle(base: DefaultTabStyle())
+public struct DefaultTheme: Theme {
 
-    let tabBarStyle: TabBarStyle = DefaultTabBarStyle()
-    let highlightedTabBarStyle: TabBarStyle = HighlightedTabBarStyle(base: DefaultTabBarStyle())
+    public init() { }
+    
+    public let tabStyle: TabStyle = DefaultTabStyle()
+    public let highlightedTabStyle: TabStyle = HighlightedTabStyle(base: DefaultTabStyle())
+    public let selectedTabStyle: TabStyle = SelectedTabStyle(base: DefaultTabStyle())
+
+    public let tabBarStyle: TabBarStyle = DefaultTabBarStyle()
+    public let highlightedTabBarStyle: TabBarStyle = HighlightedTabBarStyle(base: DefaultTabBarStyle())
 
     private static var sharedBorderColor: NSColor { return NSColor.lightGrayColor() }
     private static var sharedBackgroundColor: NSColor { return NSColor(calibratedWhite: 0.95, alpha: 1.0) }
