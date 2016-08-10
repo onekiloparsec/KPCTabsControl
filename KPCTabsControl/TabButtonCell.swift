@@ -258,6 +258,8 @@ class TabButtonCell: NSButtonCell {
     }
 
     override func drawTitle(title: NSAttributedString, withFrame frame: NSRect, inView controlView: NSView) -> NSRect {
+
+
         let titleRect = self.titleRectForBounds(frame)
         title.drawInRect(titleRect)
         return titleRect

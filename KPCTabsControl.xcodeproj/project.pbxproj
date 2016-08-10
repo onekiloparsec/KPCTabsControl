@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		5004722A1D5350120095FCCB /* SequenceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500472291D5350120095FCCB /* SequenceType.swift */; };
 		501FD7741D5B188F00C3B1F3 /* NSRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501FD7731D5B188F00C3B1F3 /* NSRect.swift */; };
+		501FD7771D5B2A0100C3B1F3 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501FD7761D5B2A0100C3B1F3 /* Style.swift */; };
+		501FD7791D5B2CA300C3B1F3 /* DefaultTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501FD7781D5B2CA300C3B1F3 /* DefaultTheme.swift */; };
 		9F1186431D4CF89B00E6CE39 /* TabsControlCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1186421D4CF89B00E6CE39 /* TabsControlCell.swift */; };
 		9F2154A91D2D179500C4DD06 /* TabButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2154A81D2D179500C4DD06 /* TabButton.swift */; };
 		9F23FF321D10A99D00326F3B /* TabButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F23FF311D10A99D00326F3B /* TabButtonCell.swift */; };
@@ -61,6 +63,8 @@
 /* Begin PBXFileReference section */
 		500472291D5350120095FCCB /* SequenceType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SequenceType.swift; path = KPCTabsControl/SequenceType.swift; sourceTree = "<group>"; };
 		501FD7731D5B188F00C3B1F3 /* NSRect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSRect.swift; sourceTree = "<group>"; };
+		501FD7761D5B2A0100C3B1F3 /* Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Style.swift; path = KPCTabsControl/Style.swift; sourceTree = "<group>"; };
+		501FD7781D5B2CA300C3B1F3 /* DefaultTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DefaultTheme.swift; path = KPCTabsControl/DefaultTheme.swift; sourceTree = "<group>"; };
 		9F09E9FD1C95668400EA970C /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = SOURCE_ROOT; };
 		9F1186421D4CF89B00E6CE39 /* TabsControlCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TabsControlCell.swift; path = KPCTabsControl/TabsControlCell.swift; sourceTree = "<group>"; };
 		9F2154A81D2D179500C4DD06 /* TabButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TabButton.swift; path = KPCTabsControl/TabButton.swift; sourceTree = "<group>"; };
@@ -126,6 +130,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		501FD7751D5B29EF00C3B1F3 /* Styles */ = {
+			isa = PBXGroup;
+			children = (
+				501FD7761D5B2A0100C3B1F3 /* Style.swift */,
+				501FD7781D5B2CA300C3B1F3 /* DefaultTheme.swift */,
+			);
+			name = Styles;
+			sourceTree = "<group>";
+		};
 		9F2155AB1A002E6C00819BDF = {
 			isa = PBXGroup;
 			children = (
@@ -217,6 +230,7 @@
 				9F2154A81D2D179500C4DD06 /* TabButton.swift */,
 				9F23FF311D10A99D00326F3B /* TabButtonCell.swift */,
 				9F76CEE41D560DB500D817F7 /* TabEditing.swift */,
+				501FD7751D5B29EF00C3B1F3 /* Styles */,
 				9FF789491D10464000F66AF2 /* NSButton+TabsControl.swift */,
 				9FF7894B1D10470A00F66AF2 /* NSImage+TabsControl.swift */,
 				9FF789461D0FDC7800F66AF2 /* NSColor+TabsControl.swift */,
@@ -357,6 +371,8 @@
 				9F40815B1D3938E100ADF6DB /* TabsControl.swift in Sources */,
 				9F4081591D39387B00ADF6DB /* TabsControlProtocols.swift in Sources */,
 				9F4081571D38F63D00ADF6DB /* TabsControlConstants.swift in Sources */,
+				501FD7771D5B2A0100C3B1F3 /* Style.swift in Sources */,
+				501FD7791D5B2CA300C3B1F3 /* DefaultTheme.swift in Sources */,
 				9F76CEE51D560DB500D817F7 /* Error.swift in Sources */,
 				9F23FF321D10A99D00326F3B /* TabButtonCell.swift in Sources */,
 				501FD7741D5B188F00C3B1F3 /* NSRect.swift in Sources */,
