@@ -79,7 +79,7 @@ public extension NSColor {
      *  The color of the title an individual tab when it is selected.
      */
     static func KPC_defaultTabSelectedTitleColor() -> NSColor {
-        return NSColor(calibratedRed: 185.0/255.0, green: 202.0/255.0, blue: 224.0/255.0, alpha: 1.0)
+        return NSColor(calibratedRed: 85.0/255.0, green: 102.0/255.0, blue: 124.0/255.0, alpha: 1.0)
     }
     
     /**
