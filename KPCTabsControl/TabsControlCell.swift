@@ -13,22 +13,20 @@ class TabsControlCell: NSCell {
     var tabStyle: TabsControlTabsStyle = .NumbersApp {
         didSet { self.controlView?.needsDisplay = true }
     }
-    
+
     var borderMask: TabsControlBorderMask = .Top {
         didSet { self.controlView?.needsDisplay = true }
     }
-    
-    var tabBorderColor: NSColor = NSColor.KPC_defaultTabBorderColor() {
+
+    var theme: Theme = DefaultTheme() {
         didSet { self.controlView?.needsDisplay = true }
     }
+
+    private var tabBarBorderColor: NSColor { return theme.tabBarStyle.borderColor }
     
-    var tabBackgroundColor: NSColor = NSColor.KPC_defaultTabBackgroundColor() {
-        didSet { self.controlView?.needsDisplay = true }
-    }
+    private var tabBarBackgroundColor: NSColor { return theme.tabBarStyle.backgroundColor }
     
-    var tabHighlightedBackgroundColor: NSColor = NSColor.KPC_defaultTabHighlightedBackgroundColor() {
-        didSet { self.controlView?.needsDisplay = true }
-    }
+    private var tabBarHighlightedBackgroundColor: NSColor { return theme.highlightedTabBarStyle.backgroundColor }
    
     override init(textCell aString: String) {
         super.init(textCell: aString)
@@ -54,15 +52,15 @@ class TabsControlCell: NSCell {
     }
     
     override func drawWithFrame(cellFrame: NSRect, inView controlView: NSView) {
-        self.tabBackgroundColor.setFill()
+        self.tabBarBackgroundColor.setFill()
         NSRectFill(cellFrame)
         
         var borderRects: Array<NSRect> = [NSZeroRect, NSZeroRect, NSZeroRect, NSZeroRect]
         var borderRectCount: NSInteger = 0
         
         if RectArrayWithBorderMask(cellFrame, borderMask: self.borderMask, rectArray: &borderRects, rectCount: &borderRectCount) {
-            self.tabBorderColor.setFill()
-            self.tabBorderColor.setStroke()
+            self.tabBarBorderColor.setFill()
+            self.tabBarBorderColor.setStroke()
             NSRectFillList(borderRects, borderRectCount)
         }
 
