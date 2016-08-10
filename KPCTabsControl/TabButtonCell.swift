@@ -121,8 +121,8 @@ class TabButtonCell: NSButtonCell {
     
     func hasRoomToDrawFullTitle(inRect rect: NSRect) -> Bool {
         let titleDrawRect = self.titleRectForBounds(rect)
-        let requiredMinimumWidth = self.attributedTitle.size().width + 2.0*titleMargin;
-        return requiredMinimumWidth <= NSWidth(titleDrawRect);
+        let requiredMinimumWidth = self.attributedTitle.size().width + 2.0*titleMargin
+        return requiredMinimumWidth <= NSWidth(titleDrawRect)
     }
 
     override func cellSizeForBounds(aRect: NSRect) -> NSSize {
@@ -215,28 +215,43 @@ class TabButtonCell: NSButtonCell {
         get { return (self.isSelected) ? self.tabSelectedBackgroundColor : self.tabBackgroundColor }
     }
 
+    var showsImage: Bool {
+        return self.image != nil
+            && self.imagePosition != .NoImage
+    }
+
     override func drawWithFrame(frame: NSRect, inView controlView: NSView) {
         self.drawBezelWithFrame(frame, inView: controlView)
         
-        if self.hasRoomToDrawFullTitle(inRect: frame) || self.hasTitleAlternativeIcon == false {
+        if self.hasRoomToDrawFullTitle(inRect: frame)
+            || self.hasTitleAlternativeIcon == false {
+
             self.drawTitle(self.attributedTitle, withFrame: frame, inView: controlView)
         }
         
-        if self.image != nil && self.imagePosition != .NoImage {
+        if let image = self.image
+            where self.showsImage {
+
             let tint = (self.highlighted == true) ? NSColor.darkGrayColor() : NSColor.lightGrayColor()
-            self.drawImage(self.image!.KPC_imageWithTint(tint), withFrame: frame, inView: controlView)
+            self.drawImage(image.KPC_imageWithTint(tint), withFrame: frame, inView: controlView)
         }
         
-        if self.showsMenu == true {
-            TabButtonCell.popupImage().drawInRect(self.popupRectWithFrame(frame),
-                                                  fromRect: NSZeroRect,
-                                                  operation: .CompositeSourceOver,
-                                                  fraction: 1.0,
-                                                  respectFlipped: true,
-                                                  hints: nil)
+        if self.showsMenu {
+            self.drawPopupButtonWithFrame(frame)
         }
     }
-    
+
+    private func drawPopupButtonWithFrame(frame: NSRect) {
+        let image = TabButtonCell.popupImage()
+        image.drawInRect(
+            self.popupRectWithFrame(frame),
+            fromRect: NSZeroRect,
+            operation: .CompositeSourceOver,
+            fraction: 1.0,
+            respectFlipped: true,
+            hints: nil)
+    }
+
     override func drawTitle(title: NSAttributedString, withFrame frame: NSRect, inView controlView: NSView) -> NSRect {
         let titleRect = self.titleRectForBounds(frame)
         title.drawInRect(titleRect)
