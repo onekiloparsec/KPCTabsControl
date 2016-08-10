@@ -27,3 +27,11 @@ protocol TabBarStyle {
     var backgroundColor: NSColor { get }
     var borderColor: NSColor { get }
 }
+
+@available(*, deprecated=1.0)
+public enum TabsControlTabsStyle {
+    case NumbersApp
+    case ChromeBrowser
+    case SafariBrowser
+    case XcodeNavigators
+}

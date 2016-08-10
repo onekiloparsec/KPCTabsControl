@@ -19,11 +19,4 @@ public struct TabsControlBorderMask: OptionSetType {
     static public let Bottom = TabsControlBorderMask(rawValue: 1<<3)
 }
 
-public enum TabsControlTabsStyle {
-    case NumbersApp
-    case ChromeBrowser
-    case SafariBrowser
-    case XcodeNavigators
-}
-
 public let TabsControlSelectionDidChangeNotification = "TabsControlSelectionDidChangeNotification"
