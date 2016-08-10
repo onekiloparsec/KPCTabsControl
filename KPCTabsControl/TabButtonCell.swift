@@ -161,8 +161,28 @@ class TabButtonCell: NSButtonCell {
     }
     
     override func titleRectForBounds(theRect: NSRect) -> NSRect {
+
         let titleSize = self.attributedTitle.size()
-        return NSMakeRect(NSMinX(theRect), NSMidY(theRect) - titleSize.height/2.0, NSWidth(theRect), titleSize.height)
+        let fullWidthRect = NSMakeRect(NSMinX(theRect), NSMidY(theRect) - titleSize.height/2.0, NSWidth(theRect), titleSize.height)
+
+        return padForImage(fullWidthRect)
+    }
+
+    private func padForImage(rect: NSRect) -> NSRect {
+
+        guard let image = self.image
+            where self.showsImage
+            else { return rect }
+
+        let width = image.size.width
+        let padding = CGFloat(8)
+        let horizontalOffset = width + padding
+
+        switch self.imagePosition {
+        case .ImageLeft: return rect.offsetBy(dx: horizontalOffset, dy: 0).shrinkBy(dx: horizontalOffset, dy: 0)
+        case .ImageRight: return rect.offsetBy(dx: horizontalOffset, dy: 0).shrinkBy(dx: horizontalOffset, dy: 0)
+        default: return rect
+        }
     }
 
     // MARK: - Editing
