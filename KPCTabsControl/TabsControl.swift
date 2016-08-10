@@ -41,7 +41,7 @@ public class TabsControl: NSControl, TabEditingDelegate {
         set { self.delegateInterceptor.receiver = newValue as? NSObject }
     }
     
-    // MARK: - Public Properties
+    // MARK: - Styling
     
     /// The tabs style.
     public var tabsStyle: TabsControlTabsStyle {
@@ -97,43 +97,11 @@ public class TabsControl: NSControl, TabEditingDelegate {
         }
     }
     
-    // MARK: - Public TabControl Color Properties
-    
-    /// The color of the tabs control itself.
-    public var controlBorderColor: NSColor = NSColor.KPC_defaultControlBorderColor() {
-        didSet { self.needsDisplay = true }
-    }
-    /// The color of the background of the tabs control itself (invisible when `preferFullWidthTabs` is `true`).
-    public var controlBackgroundColor: NSColor = NSColor.KPC_defaultControlBackgroundColor() {
-        didSet { self.needsDisplay = true }
-    }
-    
-    // MARK: - Public Tab Color Properties
-
-    /// The color of the tab borders for unselected tabs.
-    public var tabBorderColor: NSColor = NSColor.KPC_defaultTabBorderColor() {
-        didSet { self.tabButtons().forEach{ $0.tabButtonCell?.tabBorderColor = self.tabBorderColor } }
-    }
-    /// The color of the tabs titles for unselected tabs.
-    public var tabTitleColor: NSColor = NSColor.KPC_defaultTabTitleColor() {
-        didSet { self.tabButtons().forEach{ $0.tabButtonCell?.tabTitleColor = self.tabTitleColor } }
-    }
-    /// The color of the tabs background for unselected tabs.
-    public var tabBackgroundColor: NSColor = NSColor.KPC_defaultTabTitleColor() {
-        didSet { self.tabButtons().forEach{ $0.tabButtonCell?.tabBackgroundColor = self.tabBackgroundColor } }
-    }
-    
-    /// The color of the selected tab borders.
-    public var tabSelectedBorderColor: NSColor = NSColor.KPC_defaultTabSelectedBorderColor() {
-        didSet { self.tabButtons().forEach{ $0.tabButtonCell?.tabSelectedBorderColor = self.tabSelectedBorderColor } }
-    }
-    /// The color of the selected tab title.
-    public var tabSelectedTitleColor: NSColor = NSColor.KPC_defaultTabSelectedTitleColor() {
-        didSet { self.tabButtons().forEach{ $0.tabButtonCell?.tabSelectedTitleColor = self.tabSelectedTitleColor } }
-    }
-    /// The color of the selected tab background.
-    public var tabSelectedBackgroundColor: NSColor = NSColor.KPC_defaultTabSelectedBackgroundColor() {
-        didSet { self.tabButtons().forEach{ $0.tabButtonCell?.tabSelectedBackgroundColor = self.tabSelectedBackgroundColor } }
+    var theme: Theme = DefaultTheme() {
+        didSet {
+            self.tabsControlCell.theme = self.theme
+            self.tabButtons().forEach { $0.tabButtonCell?.theme = self.theme }
+        }
     }
     
     // MARK: - Initializers & Setup

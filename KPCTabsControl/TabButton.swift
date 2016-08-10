@@ -13,7 +13,7 @@ public class TabButton: NSButton {
     var iconView: NSImageView?
     var alternativeTitleIconView: NSImageView?
     var trackingArea: NSTrackingArea?
-    
+
     var tabButtonCell: TabButtonCell? {
         get { return self.cell as? TabButtonCell }
     }
