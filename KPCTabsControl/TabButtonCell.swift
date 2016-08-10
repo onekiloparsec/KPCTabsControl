@@ -19,6 +19,10 @@ class TabButtonCell: NSButtonCell {
         get { return self.state == NSOnState }
     }
 
+    var showsIcon: Bool = false {
+        didSet { self.controlView?.needsDisplay = true }
+    }
+
     var showsMenu: Bool = false {
         didSet { self.controlView?.needsDisplay = true }
     }
@@ -89,7 +93,6 @@ class TabButtonCell: NSButtonCell {
 
         copy.state = self.state
         copy.highlighted = self.highlighted
-
         return copy
     }
     
@@ -165,24 +168,18 @@ class TabButtonCell: NSButtonCell {
         let titleSize = self.attributedTitle.size()
         let fullWidthRect = NSMakeRect(NSMinX(theRect), NSMidY(theRect) - titleSize.height/2.0, NSWidth(theRect), titleSize.height)
 
-        return padForImage(fullWidthRect)
+        return padedRectForIcon(fullWidthRect)
     }
 
-    private func padForImage(rect: NSRect) -> NSRect {
+    private func padedRectForIcon(rect: NSRect) -> NSRect {
 
-        guard let image = self.image
-            where self.showsImage
-            else { return rect }
+        guard self.showsIcon else { return rect }
 
-        let width = image.size.width
+        let width = CGFloat(19) // TODO replace assumption about icon size with different mechanism (like handing down the `icon` to this cell, using `image` and code from commit `2f56dbdbfed4d15fa063b03301ed49d5e00cad6e`)
         let padding = CGFloat(8)
         let horizontalOffset = width + padding
 
-        switch self.imagePosition {
-        case .ImageLeft: return rect.offsetBy(dx: horizontalOffset, dy: 0).shrinkBy(dx: horizontalOffset, dy: 0)
-        case .ImageRight: return rect.offsetBy(dx: horizontalOffset, dy: 0).shrinkBy(dx: horizontalOffset, dy: 0)
-        default: return rect
-        }
+        return rect.offsetBy(dx: horizontalOffset, dy: 0).shrinkBy(dx: horizontalOffset, dy: 0)
     }
 
     // MARK: - Editing
@@ -218,7 +215,7 @@ class TabButtonCell: NSButtonCell {
     }
 
     func editingRectForBounds(rect: NSRect) -> NSRect {
-        return self.titleRectForBounds(rect.offsetBy(dx: 0, dy: 1))
+        return self.titleRectForBounds(rect)//.offsetBy(dx: 0, dy: 1))
     }
     
     // MARK: - Drawing
@@ -235,11 +232,6 @@ class TabButtonCell: NSButtonCell {
         get { return (self.isSelected) ? self.tabSelectedBackgroundColor : self.tabBackgroundColor }
     }
 
-    var showsImage: Bool {
-        return self.image != nil
-            && self.imagePosition != .NoImage
-    }
-
     override func drawWithFrame(frame: NSRect, inView controlView: NSView) {
         self.drawBezelWithFrame(frame, inView: controlView)
         
@@ -248,14 +240,7 @@ class TabButtonCell: NSButtonCell {
 
             self.drawTitle(self.attributedTitle, withFrame: frame, inView: controlView)
         }
-        
-        if let image = self.image
-            where self.showsImage {
 
-            let tint = (self.highlighted == true) ? NSColor.darkGrayColor() : NSColor.lightGrayColor()
-            self.drawImage(image.KPC_imageWithTint(tint), withFrame: frame, inView: controlView)
-        }
-        
         if self.showsMenu {
             self.drawPopupButtonWithFrame(frame)
         }
