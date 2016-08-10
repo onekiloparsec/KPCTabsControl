@@ -34,30 +34,18 @@ class TabButtonCell: NSButtonCell {
     var borderMask: TabsControlBorderMask = .Top {
         didSet { self.controlView?.needsDisplay = true }
     }
-    
-    var tabBorderColor: NSColor = NSColor.KPC_defaultTabBorderColor() {
-        didSet { self.controlView?.needsDisplay = true }
-    }
-    
-    var tabTitleColor: NSColor = NSColor.KPC_defaultTabTitleColor() {
+
+    var theme: Theme = DefaultTheme() {
         didSet { self.controlView?.needsDisplay = true }
     }
 
-    var tabBackgroundColor: NSColor = NSColor.KPC_defaultTabBackgroundColor() {
-        didSet { self.controlView?.needsDisplay = true }
-    }
+    var tabBorderColor: NSColor { return theme.tabStyle.borderColor }
+    var tabTitleColor: NSColor { return theme.tabStyle.titleColor }
+    var tabBackgroundColor: NSColor { return theme.tabStyle.backgroundColor }
     
-    var tabSelectedBorderColor: NSColor = NSColor.KPC_defaultTabSelectedBorderColor() {
-        didSet { self.controlView?.needsDisplay = true }
-    }
-    
-    var tabSelectedTitleColor: NSColor = NSColor.KPC_defaultTabSelectedTitleColor() {
-        didSet { self.controlView?.needsDisplay = true }
-    }
-    
-    var tabSelectedBackgroundColor: NSColor = NSColor.KPC_defaultTabSelectedBackgroundColor() {
-        didSet { self.controlView?.needsDisplay = true }
-    }
+    var tabSelectedBorderColor: NSColor { return theme.selectedTabStyle.borderColor }
+    var tabSelectedTitleColor: NSColor { return theme.selectedTabStyle.titleColor }
+    var tabSelectedBackgroundColor: NSColor { return theme.selectedTabStyle.backgroundColor }
     
     // MARK: - Initializers & Copy
     
@@ -77,15 +65,8 @@ class TabButtonCell: NSButtonCell {
     
     override func copy() -> AnyObject {
         let copy = TabButtonCell(textCell:self.title)
-        
-        copy.tabBorderColor = self.tabBorderColor
-        copy.tabTitleColor = self.tabTitleColor
-        copy.tabBackgroundColor = self.tabBackgroundColor
-        
-        copy.tabSelectedBorderColor = self.tabSelectedBorderColor
-        copy.tabSelectedTitleColor = self.tabSelectedTitleColor
-        copy.tabSelectedBackgroundColor = self.tabSelectedBackgroundColor
-        
+
+        copy.theme = self.theme
         copy.tabStyle = self.tabStyle
         copy.borderMask = self.borderMask
         copy.showsMenu = self.showsMenu
