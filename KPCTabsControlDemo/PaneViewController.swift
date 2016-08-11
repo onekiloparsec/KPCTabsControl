@@ -29,12 +29,12 @@ class PaneViewController: NSViewController, TabsControlDataSource, TabsControlDe
 
         self.tabWidthsLabel?.stringValue = labelString as String
         
-        self.tabsBar!.preferFullWidthTabs = self.useFullWidthTabsCheckButton!.state == NSOnState
+        self.tabsBar!.preferFullWidthTabs(self.useFullWidthTabsCheckButton!.state == NSOnState)
         self.tabsBar!.reloadTabs()
     }
 
     @IBAction func toggleFullWidthTabs(sender: AnyObject) {
-        self.tabsBar!.preferFullWidthTabs = self.useFullWidthTabsCheckButton!.state == NSOnState
+        self.tabsBar!.preferFullWidthTabs(self.useFullWidthTabsCheckButton!.state == NSOnState, animated: true)
     }
     
     override func mouseDown(theEvent: NSEvent) {

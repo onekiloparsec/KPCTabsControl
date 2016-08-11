@@ -47,10 +47,11 @@ public class TabsControl: NSControl, TabEditingDelegate {
      *  Indicates whether the tabs control should span the whole available width or not. Default is `NO`. If set to `YES`,
      *  the tabs may occur to have a width smaller than `minTabWidth` or larger than `maxTabWidth`.
      */
-    public var preferFullWidthTabs: Bool = false {
-        didSet {
-            updateTabs()
-        }
+    private(set) var prefersFullWidthTabs: Bool = false
+
+    public func preferFullWidthTabs(state: Bool, animated: Bool = false) {
+        prefersFullWidthTabs = state
+        updateTabs(animated: animated)
     }
 
     public var style: Style = ThemedStyle(theme: DefaultTheme()) {
@@ -61,8 +62,8 @@ public class TabsControl: NSControl, TabEditingDelegate {
         }
     }
 
-    private func updateTabs() {
-        self.layoutTabButtons(self.tabButtons(), animated: true)
+    private func updateTabs(animated animated: Bool = false) {
+        self.layoutTabButtons(self.tabButtons(), animated: animated)
         self.updateAuxiliaryButtons()
     }
 
@@ -215,7 +216,7 @@ public class TabsControl: NSControl, TabEditingDelegate {
 
     var tabHeight: CGFloat { return self.tabsView.frame.height }
 
-    private func layoutTabButtons(buttons: Array<TabButton>?, animated anim: Bool) {
+    private func layoutTabButtons(buttons: [TabButton]?, animated: Bool) {
         let tabButtons = (buttons != nil) ? buttons! : self.tabButtons()
         var tabsViewWidth = CGFloat(0.0)
         
@@ -223,15 +224,14 @@ public class TabsControl: NSControl, TabEditingDelegate {
         let buttonHeight = self.tabHeight
         
         for (index, button) in tabButtons.enumerate() {
-            var buttonWidth = (self.preferFullWidthTabs == true) ? fullSizeWidth : min(self.maxTabWidth, fullSizeWidth)
+            var buttonWidth = (self.prefersFullWidthTabs == true) ? fullSizeWidth : min(self.maxTabWidth, fullSizeWidth)
             buttonWidth = max(buttonWidth, self.minTabWidth)
-            let r = CGRectMake(CGFloat(index)*buttonWidth, 0.0, buttonWidth, buttonHeight)
+            let buttonFrame = CGRectMake(CGFloat(index)*buttonWidth, 0.0, buttonWidth, buttonHeight)
             
-            if anim == true && button.hidden == false {
-                button.animator().frame = r
-            }
-            else {
-                button.frame = r
+            if animated && !button.hidden {
+                button.animator().frame = buttonFrame
+            } else {
+                button.frame = buttonFrame
             }
             
             if let delegateReceiver = self.delegateInterceptor.receiver as? TabsControlDelegate {
@@ -244,14 +244,19 @@ public class TabsControl: NSControl, TabEditingDelegate {
             button.tag = index
             tabsViewWidth += buttonWidth
         }
-        
-        self.tabsView.animator().frame = CGRectMake(0.0, 0.0, tabsViewWidth, buttonHeight)
+
+        let viewFrame = CGRectMake(0.0, 0.0, tabsViewWidth, buttonHeight)
+        if animated {
+            self.tabsView.animator().frame = viewFrame
+        } else {
+            self.tabsView.frame = viewFrame
+        }
     }
     
     private func updateAuxiliaryButtons() {
         let contentView = self.scrollView.contentView
         var showScrollButtons = (contentView.subviews.count > 0) && (NSMaxX(contentView.subviews[0].frame) > NSWidth(contentView.bounds))
-        showScrollButtons = showScrollButtons || (self.preferFullWidthTabs == true && self.currentTabWidth() == self.minTabWidth)
+        showScrollButtons = showScrollButtons || (self.prefersFullWidthTabs == true && self.currentTabWidth() == self.minTabWidth)
         
         self.scrollLeftButton?.hidden = !showScrollButtons
         self.scrollRightButton?.hidden = !showScrollButtons
