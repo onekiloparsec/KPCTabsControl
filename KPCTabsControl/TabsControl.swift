@@ -72,16 +72,20 @@ public class TabsControl: NSControl, TabEditingDelegate {
      */
     public var preferFullWidthTabs: Bool = false {
         didSet {
-            self.layoutTabButtons(self.tabButtons(), animated: true)
-            self.updateAuxiliaryButtons()
+            updateTabs()
         }
     }
 
     public var style: Style = ThemedStyle(theme: DefaultTheme()) {
         didSet {
-            self.layoutTabButtons(self.tabButtons(), animated: true)
-            self.updateAuxiliaryButtons()
+            self.tabButtons().forEach { $0.style = style }
+            updateTabs()
         }
+    }
+
+    private func updateTabs() {
+        self.layoutTabButtons(self.tabButtons(), animated: true)
+        self.updateAuxiliaryButtons()
     }
 
     /**
@@ -204,6 +208,7 @@ public class TabsControl: NSControl, TabEditingDelegate {
         for i in 0..<newItemsCount {
             let item = dataSource.tabsControl(self, itemAtIndex: i)
             let button = TabButton(withItem: item, target: self, action: #selector(TabsControl.selectTab(_:)))
+            button.style = self.style
             button.editable = true
 
             var borderMask = self.tabsControlCell.borderMask
@@ -213,8 +218,7 @@ public class TabsControl: NSControl, TabEditingDelegate {
             if i == newItemsCount-1 && self.automaticSideBorderMasks == true {
                 borderMask = borderMask.union(.Right)
             }
-            let buttonCell = button.cell as! TabButtonCell
-            buttonCell.borderMask = borderMask
+            button.tabButtonCell!.borderMask = borderMask
             
             button.title = dataSource.tabsControl(self, titleForItem: item)
             button.state = (item === self.selectedItem) ? NSOnState : NSOffState // yes triple === to check for instances
@@ -240,12 +244,14 @@ public class TabsControl: NSControl, TabEditingDelegate {
     
     // MARK: - Layout
 
+    var tabHeight: CGFloat { return self.tabsView.frame.height }
+
     private func layoutTabButtons(buttons: Array<TabButton>?, animated anim: Bool) {
         let tabButtons = (buttons != nil) ? buttons! : self.tabButtons()
         var tabsViewWidth = CGFloat(0.0)
         
         let fullSizeWidth = CGRectGetWidth(self.scrollView.frame) / CGFloat(tabButtons.count)
-        let buttonHeight = CGRectGetHeight(self.tabsView.frame)
+        let buttonHeight = self.tabHeight
         
         for (index, button) in tabButtons.enumerate() {
             var buttonWidth = (self.preferFullWidthTabs == true) ? fullSizeWidth : min(self.maxTabWidth, fullSizeWidth)

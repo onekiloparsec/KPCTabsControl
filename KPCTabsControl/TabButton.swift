@@ -10,6 +10,9 @@ import Foundation
 import AppKit
 
 public class TabButton: NSButton {
+
+    var style: Style!
+
     var iconView: NSImageView?
     var alternativeTitleIconView: NSImageView?
     var trackingArea: NSTrackingArea?
