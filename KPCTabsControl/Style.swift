@@ -19,9 +19,16 @@ public struct FlexibleWidth {
     }
 }
 
+public typealias IconFrames = (iconFrame: NSRect, alternativeTitleIconFrame: NSRect)
+
 public protocol Style {
 
     var tabWidth: FlexibleWidth { get }
+
+    func maxIconHeight(tabRect rect: NSRect, scale: CGFloat) -> CGFloat
+    func iconFrames(tabRect rect: NSRect) -> IconFrames
+    
+    func drawTabButton(rect dirtyRect: NSRect, scale: CGFloat)
 }
 
 @available(*, deprecated=1.0)

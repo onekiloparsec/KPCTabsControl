@@ -161,32 +161,36 @@ public class TabButton: NSButton {
     }
     
     public override func drawRect(dirtyRect: NSRect) {
-        let y: CGFloat = 2.0
-        let s = CGRectGetHeight(self.frame) - 2*y
-        let x = CGRectGetWidth(self.frame) / 2.0 - s / 2.0
-        let scale = (self.layer != nil) ? self.layer!.contentsScale : 1.0
-        
-        self.iconView?.frame = NSMakeRect(10.0, y, s, s)
-        self.alternativeTitleIconView?.frame = NSMakeRect(x, y, s, s)
-                
-        if self.icon?.size.width > 1.2*s*scale {
-            let smallIcon = NSImage(size: NSMakeSize(s, s))
+
+        guard let tabButtonCell = self.tabButtonCell
+            else { assertionFailure("TabButtonCell expected in drawRect(_:)"); return }
+
+        let scale: CGFloat = (self.layer != nil) ? self.layer!.contentsScale : 1.0
+
+        let layouts = style.iconFrames(tabRect: self.frame)
+        self.iconView?.frame = layouts.iconFrame
+        self.alternativeTitleIconView?.frame = layouts.alternativeTitleIconFrame
+
+        let maxIconHeight = style.maxIconHeight(tabRect: self.frame, scale: scale)
+
+        if self.icon?.size.width > maxIconHeight {
+            let smallIcon = NSImage(size: layouts.iconFrame.size)
             smallIcon.addRepresentation(NSBitmapImageRep(data: self.icon!.TIFFRepresentation!)!)
             self.iconView?.image = smallIcon
         }
-        
-        if self.alternativeTitleIcon?.size.width > 1.2*s*scale {
-            let smallIcon = NSImage(size: NSMakeSize(s, s))
+
+        if self.alternativeTitleIcon?.size.width > maxIconHeight {
+            let smallIcon = NSImage(size: layouts.alternativeTitleIconFrame.size)
             smallIcon.addRepresentation(NSBitmapImageRep(data: self.alternativeTitleIcon!.TIFFRepresentation!)!)
             self.alternativeTitleIconView?.image = smallIcon
         }
-        
-        if let tbc = self.tabButtonCell {
-            let hasRoom = tbc.hasRoomToDrawFullTitle(inRect: self.bounds)
-            self.alternativeTitleIconView?.hidden = hasRoom
-            self.toolTip = (hasRoom == true) ? nil : self.title
-        }
-        
+
+        style.drawTabButton(rect: self.frame, scale: scale)
+
+        let hasRoom = tabButtonCell.hasRoomToDrawFullTitle(inRect: self.bounds)
+        self.alternativeTitleIconView?.hidden = hasRoom
+        self.toolTip = (hasRoom == true) ? nil : self.title
+
         super.drawRect(dirtyRect)
     }
 
