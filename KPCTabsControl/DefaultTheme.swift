@@ -28,6 +28,7 @@ public struct DefaultTheme: Theme {
         var borderColor: NSColor { return DefaultTheme.sharedBorderColor }
         var backgroundColor: NSColor { return DefaultTheme.sharedBackgroundColor }
         var titleColor: NSColor { return NSColor.darkGrayColor() }
+        var titleFont: NSFont { return NSFont.systemFontOfSize(13) }
     }
 
     struct HighlightedTabStyle: KPCTabsControl.TabStyle {
@@ -37,6 +38,7 @@ public struct DefaultTheme: Theme {
         var borderColor: NSColor { return base.borderColor }
         var backgroundColor: NSColor { return DefaultTheme.sharedHighlightedBackgroundColor }
         var titleColor: NSColor { return base.titleColor }
+        var titleFont: NSFont { return NSFont.boldSystemFontOfSize(13) }
     }
 
     struct SelectedTabStyle: KPCTabsControl.TabStyle {
@@ -46,6 +48,7 @@ public struct DefaultTheme: Theme {
         var borderColor: NSColor { return NSColor(calibratedRed: 185.0/255.0, green: 202.0/255.0, blue: 224.0/255.0, alpha: 1.0) }
         var backgroundColor: NSColor { return NSColor(calibratedRed: 205.0/255.0, green: 222.0/255.0, blue: 244.0/255.0, alpha: 1.0) }
         var titleColor: NSColor { return NSColor(calibratedRed: 85.0/255.0, green: 102.0/255.0, blue: 124.0/255.0, alpha: 1.0) }
+        var titleFont: NSFont { return NSFont.boldSystemFontOfSize(13) }
     }
 
     struct DefaultTabBarStyle: KPCTabsControl.TabBarStyle {

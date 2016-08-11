@@ -127,6 +127,7 @@ public protocol TabStyle {
     var backgroundColor: NSColor { get }
     var borderColor: NSColor { get }
     var titleColor: NSColor { get }
+    var titleFont: NSFont { get }
 }
 
 public protocol TabBarStyle {
