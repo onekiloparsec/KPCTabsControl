@@ -84,6 +84,23 @@ public struct ThemedStyle: Style {
         return rect.offsetBy(dx: horizontalOffset, dy: 0).shrinkBy(dx: horizontalOffset, dy: 0)
     }
 
+    public func attributedTitle(content content: String, isSelected: Bool) -> NSAttributedString {
+
+        let activeStyle = isSelected ? self.theme.selectedTabStyle : self.theme.tabStyle
+        let titleColor = activeStyle.titleColor
+        let font = activeStyle.titleFont
+
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = .Center
+
+        let attributes = [
+            NSForegroundColorAttributeName : titleColor,
+            NSFontAttributeName : font,
+            NSParagraphStyleAttributeName : paragraphStyle
+        ]
+
+        return NSAttributedString(string: content, attributes: attributes)
+    }
 }
 
 @available(*, deprecated=1.0)

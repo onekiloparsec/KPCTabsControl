@@ -36,16 +36,6 @@ class TabButtonCell: NSButtonCell {
 
     var style: Style!
 
-    @available(*, deprecated=1.0)
-    var theme: Theme = DefaultTheme() {
-        didSet { self.controlView?.needsDisplay = true }
-    }
-
-    @available(*, deprecated=1.0)
-    var tabTitleColor: NSColor { return theme.tabStyle.titleColor }
-    @available(*, deprecated=1.0)
-    var tabSelectedTitleColor: NSColor { return theme.selectedTabStyle.titleColor }
-
     // MARK: - Initializers & Copy
     
     override init(textCell aString: String) {
@@ -65,7 +55,6 @@ class TabButtonCell: NSButtonCell {
     override func copy() -> AnyObject {
         let copy = TabButtonCell(textCell:self.title)
 
-        copy.theme = self.theme
         copy.showsMenu = self.showsMenu
         copy.hasTitleAlternativeIcon = self.hasTitleAlternativeIcon
 
@@ -86,28 +75,17 @@ class TabButtonCell: NSButtonCell {
         return NSImage(contentsOfFile: path)!.KPC_imageWithTint(NSColor.darkGrayColor())
     }
 
-    override var attributedTitle: NSAttributedString {
-        set { super.attributedTitle = newValue }
-        get {
-            let at: NSMutableAttributedString = super.attributedTitle.mutableCopy() as! NSMutableAttributedString
-            
-            at.addAttributes([NSForegroundColorAttributeName: self.activeTitleColor], range: NSMakeRange(0, at.length))
-            
-            let font = (self.isSelected == true) ? NSFont.boldSystemFontOfSize(13) : NSFont.systemFontOfSize(13)
-            at.addAttributes([NSFontAttributeName : font], range: NSMakeRange(0, at.length))
-            
-            return at.copy() as! NSAttributedString
-        }
-    }
-    
     func hasRoomToDrawFullTitle(inRect rect: NSRect) -> Bool {
+        let title = style.attributedTitle(content: self.attributedTitle.string, isSelected: self.isSelected)
+        let requiredMinimumWidth = title.size().width + 2.0*titleMargin
+
         let titleDrawRect = self.titleRectForBounds(rect)
-        let requiredMinimumWidth = self.attributedTitle.size().width + 2.0*titleMargin
         return requiredMinimumWidth <= NSWidth(titleDrawRect)
     }
 
     override func cellSizeForBounds(aRect: NSRect) -> NSSize {
-        let titleSize = self.attributedTitle.size()
+        let title = style.attributedTitle(content: self.attributedTitle.string, isSelected: self.isSelected)
+        let titleSize = title.size()
         let popupSize = (self.menu == nil) ? NSZeroSize : TabButtonCell.popupImage().size
         let cellSize = NSMakeSize(titleSize.width + (popupSize.width * 2) + 36, max(titleSize.height, popupSize.height));
         self.controlView?.invalidateIntrinsicContentSize()
@@ -142,7 +120,8 @@ class TabButtonCell: NSButtonCell {
     }
     
     override func titleRectForBounds(theRect: NSRect) -> NSRect {
-        return style.titleRect(title: self.attributedTitle, inBounds: theRect, showingIcon: self.showsIcon)
+        let title = style.attributedTitle(content: self.attributedTitle.string, isSelected: self.isSelected)
+        return style.titleRect(title: title, inBounds: theRect, showingIcon: self.showsIcon)
     }
 
     // MARK: - Editing
@@ -183,10 +162,6 @@ class TabButtonCell: NSButtonCell {
     
     // MARK: - Drawing
 
-    var activeTitleColor: NSColor {
-        get { return (self.isSelected) ? self.tabSelectedTitleColor : self.tabTitleColor }
-    }
-
     override func drawWithFrame(frame: NSRect, inView controlView: NSView) {
 
         self.style.drawTabBezel(frame: frame, position: self.buttonPosition, isSelected: self.isSelected)
@@ -194,7 +169,8 @@ class TabButtonCell: NSButtonCell {
         if self.hasRoomToDrawFullTitle(inRect: frame)
             || self.hasTitleAlternativeIcon == false {
 
-            self.drawTitle(self.attributedTitle, withFrame: frame, inView: controlView)
+            let title = style.attributedTitle(content: self.attributedTitle.string, isSelected: self.isSelected)
+            self.drawTitle(title, withFrame: frame, inView: controlView)
         }
 
         if self.showsMenu {

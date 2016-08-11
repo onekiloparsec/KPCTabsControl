@@ -76,14 +76,6 @@ public class TabsControl: NSControl, TabEditingDelegate {
      *  adjust the tab width between the specified minimum and maximum values. All tabs have the same width, always.
      */
     public var maxTabWidth: CGFloat { return style.tabWidth.max }
-
-    @available(*, deprecated=1.0, message="Delegate drawing to Style")
-    var theme: Theme = DefaultTheme() {
-        didSet {
-            self.tabsControlCell.theme = self.theme
-            self.tabButtons().forEach { $0.tabButtonCell?.theme = self.theme }
-        }
-    }
     
     // MARK: - Initializers & Setup
     

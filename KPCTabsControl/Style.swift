@@ -28,6 +28,7 @@ public protocol Style {
     func maxIconHeight(tabRect rect: NSRect, scale: CGFloat) -> CGFloat
     func iconFrames(tabRect rect: NSRect) -> IconFrames
     func titleRect(title title: NSAttributedString, inBounds rect: NSRect, showingIcon: Bool) -> NSRect
+    func attributedTitle(content content: String, isSelected: Bool) -> NSAttributedString
 
     func drawTabBezel(frame frame: NSRect, position: TabButtonPosition, isSelected: Bool)
 }
