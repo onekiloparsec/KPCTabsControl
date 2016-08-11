@@ -46,23 +46,16 @@ public struct ThemedStyle: Style {
         color.setFill()
         NSRectFill(frame)
 
-        var borderRects: Array<NSRect> = [NSZeroRect, NSZeroRect, NSZeroRect, NSZeroRect]
-        var borderRectCount: NSInteger = 0
-        let borderMask: TabsControlBorderMask = {
+        let borderMask: BorderDrawing.Mask = {
             switch position {
-            case .first: return [.Left, .Bottom]
-            case .middle: return .Bottom
-            case .last: return [.Right, .Bottom]
+            case .first: return [.left, .bottom]
+            case .middle: return .bottom
+            case .last: return [.right, .bottom]
             }
         }()
+        let borderDrawing = BorderDrawing.fromMask(frame, borderMask: borderMask)
 
-        if RectArrayWithBorderMask(frame, borderMask: borderMask, rectArray: &borderRects, rectCount: &borderRectCount) {
-
-            let color = activeStyle.borderColor
-            color.setFill()
-            color.setStroke()
-            NSRectFillList(borderRects, borderRectCount)
-        }
+        drawBorder(borderDrawing, color: activeStyle.borderColor)
     }
 
     public func titleRect(title title: NSAttributedString, inBounds rect: NSRect, showingIcon: Bool) -> NSRect {
@@ -101,34 +94,70 @@ public struct ThemedStyle: Style {
 
         return NSAttributedString(string: content, attributes: attributes)
     }
+
+    public func drawTabControlBezel(frame frame: NSRect) {
+        self.theme.tabBarStyle.backgroundColor.setFill()
+        NSRectFill(frame)
+
+        let borderDrawing = BorderDrawing.fromMask(frame, borderMask: .top)
+        drawBorder(borderDrawing, color: self.theme.tabBarStyle.borderColor)
+    }
+
+    private func drawBorder(border: BorderDrawing, color: NSColor) {
+
+        guard case let .draw(borderRects: borderRects, rectCount: borderRectCount) = border
+            else { return }
+
+        color.setFill()
+        color.setStroke()
+        NSRectFillList(borderRects, borderRectCount)
+    }
 }
 
-@available(*, deprecated=1.0)
-func RectArrayWithBorderMask(sourceRect: NSRect, borderMask: TabsControlBorderMask, inout rectArray: Array<NSRect>, inout rectCount: NSInteger) -> Bool
-{
-    var outputCount: NSInteger = 0
-    var remainderRect: NSRect = NSZeroRect
+private enum BorderDrawing {
+    case empty
+    case draw(borderRects: [NSRect], rectCount: Int)
 
-    if borderMask.contains(.Top) {
-        NSDivideRect(sourceRect, &rectArray[outputCount], &remainderRect, 1, .MinY)
-        outputCount += 1
-    }
-    if borderMask.contains(.Left) {
-        NSDivideRect(sourceRect, &rectArray[outputCount], &remainderRect, 1, .MinX)
-        outputCount += 1
-    }
-    if borderMask.contains(.Right) {
-        NSDivideRect(sourceRect, &rectArray[outputCount], &remainderRect, 1, .MaxX)
-        outputCount += 1
-    }
-    if borderMask.contains(.Bottom) {
-        NSDivideRect(sourceRect, &rectArray[outputCount], &remainderRect, 1, .MaxY)
-        outputCount += 1
+    static func fromMask(sourceRect: NSRect, borderMask: Mask) -> BorderDrawing {
+
+        var outputCount: NSInteger = 0
+        var remainderRect = NSZeroRect
+        var borderRects: [NSRect] = [NSZeroRect, NSZeroRect, NSZeroRect, NSZeroRect]
+
+        if borderMask.contains(.top) {
+            NSDivideRect(sourceRect, &borderRects[outputCount], &remainderRect, 1, .MinY)
+            outputCount += 1
+        }
+        if borderMask.contains(.left) {
+            NSDivideRect(sourceRect, &borderRects[outputCount], &remainderRect, 1, .MinX)
+            outputCount += 1
+        }
+        if borderMask.contains(.right) {
+            NSDivideRect(sourceRect, &borderRects[outputCount], &remainderRect, 1, .MaxX)
+            outputCount += 1
+        }
+        if borderMask.contains(.bottom) {
+            NSDivideRect(sourceRect, &borderRects[outputCount], &remainderRect, 1, .MaxY)
+            outputCount += 1
+        }
+
+        guard outputCount > 0 else { return .empty }
+
+        return .draw(borderRects: borderRects, rectCount: outputCount)
     }
 
-    rectCount = outputCount
+    struct Mask: OptionSetType {
+        let rawValue: Int
 
-    return (outputCount > 0)
+        init(rawValue: Int) {
+            self.rawValue = rawValue
+        }
+
+        static let top = Mask(rawValue: 1 << 0)
+        static let left = Mask(rawValue: 1 << 1)
+        static let right = Mask(rawValue: 1 << 2)
+        static let bottom = Mask(rawValue: 1 << 3)
+    }
 }
 
 public protocol Theme {

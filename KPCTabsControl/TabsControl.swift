@@ -55,6 +55,7 @@ public class TabsControl: NSControl, TabEditingDelegate {
 
     public var style: Style = ThemedStyle(theme: DefaultTheme()) {
         didSet {
+            self.tabsControlCell.style = style
             self.tabButtons().forEach { $0.style = style }
             updateTabs()
         }

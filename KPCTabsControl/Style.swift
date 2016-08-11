@@ -31,4 +31,5 @@ public protocol Style {
     func attributedTitle(content content: String, isSelected: Bool) -> NSAttributedString
 
     func drawTabBezel(frame frame: NSRect, position: TabButtonPosition, isSelected: Bool)
+    func drawTabControlBezel(frame frame: NSRect)
 }
