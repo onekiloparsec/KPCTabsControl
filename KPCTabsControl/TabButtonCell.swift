@@ -26,27 +26,29 @@ class TabButtonCell: NSButtonCell {
     var showsMenu: Bool = false {
         didSet { self.controlView?.needsDisplay = true }
     }
-    
+
+    @available(*, deprecated=1.0)
     var tabStyle: TabsControlTabsStyle = .NumbersApp {
         didSet { self.controlView?.needsDisplay = true }
     }
-    
+
+    @available(*, deprecated=1.0)
     var borderMask: TabsControlBorderMask = .Top {
         didSet { self.controlView?.needsDisplay = true }
     }
 
+    var style: Style!
+
+    @available(*, deprecated=1.0)
     var theme: Theme = DefaultTheme() {
         didSet { self.controlView?.needsDisplay = true }
     }
 
-    var tabBorderColor: NSColor { return theme.tabStyle.borderColor }
+    @available(*, deprecated=1.0)
     var tabTitleColor: NSColor { return theme.tabStyle.titleColor }
-    var tabBackgroundColor: NSColor { return theme.tabStyle.backgroundColor }
-    
-    var tabSelectedBorderColor: NSColor { return theme.selectedTabStyle.borderColor }
+    @available(*, deprecated=1.0)
     var tabSelectedTitleColor: NSColor { return theme.selectedTabStyle.titleColor }
-    var tabSelectedBackgroundColor: NSColor { return theme.selectedTabStyle.backgroundColor }
-    
+
     // MARK: - Initializers & Copy
     
     override init(textCell aString: String) {
@@ -145,22 +147,7 @@ class TabButtonCell: NSButtonCell {
     }
     
     override func titleRectForBounds(theRect: NSRect) -> NSRect {
-
-        let titleSize = self.attributedTitle.size()
-        let fullWidthRect = NSMakeRect(NSMinX(theRect), NSMidY(theRect) - titleSize.height/2.0, NSWidth(theRect), titleSize.height)
-
-        return padedRectForIcon(fullWidthRect)
-    }
-
-    private func padedRectForIcon(rect: NSRect) -> NSRect {
-
-        guard self.showsIcon else { return rect }
-
-        let width = CGFloat(19) // TODO replace assumption about icon size with different mechanism (like handing down the `icon` to this cell, using `image` and code from commit `2f56dbdbfed4d15fa063b03301ed49d5e00cad6e`)
-        let padding = CGFloat(8)
-        let horizontalOffset = width + padding
-
-        return rect.offsetBy(dx: horizontalOffset, dy: 0).shrinkBy(dx: horizontalOffset, dy: 0)
+        return style.titleRect(title: self.attributedTitle, inBounds: theRect, showingIcon: self.showsIcon)
     }
 
     // MARK: - Editing
@@ -201,20 +188,13 @@ class TabButtonCell: NSButtonCell {
     
     // MARK: - Drawing
 
-    var activeBorderColor: NSColor {
-        get { return (self.isSelected) ? self.tabSelectedBorderColor : self.tabBorderColor }
-    }
-    
     var activeTitleColor: NSColor {
         get { return (self.isSelected) ? self.tabSelectedTitleColor : self.tabTitleColor }
     }
 
-    var activeBackgroundColor: NSColor {
-        get { return (self.isSelected) ? self.tabSelectedBackgroundColor : self.tabBackgroundColor }
-    }
-
     override func drawWithFrame(frame: NSRect, inView controlView: NSView) {
-        self.drawBezelWithFrame(frame, inView: controlView)
+
+        self.style.drawTabBezel(frame: frame, isSelected: self.isSelected)
         
         if self.hasRoomToDrawFullTitle(inRect: frame)
             || self.hasTitleAlternativeIcon == false {
@@ -227,6 +207,13 @@ class TabButtonCell: NSButtonCell {
         }
     }
 
+    override func drawTitle(title: NSAttributedString, withFrame frame: NSRect, inView controlView: NSView) -> NSRect {
+
+        let titleRect = self.titleRectForBounds(frame)
+        title.drawInRect(titleRect)
+        return titleRect
+    }
+
     private func drawPopupButtonWithFrame(frame: NSRect) {
         let image = TabButtonCell.popupImage()
         image.drawInRect(
@@ -237,117 +224,4 @@ class TabButtonCell: NSButtonCell {
             respectFlipped: true,
             hints: nil)
     }
-
-    override func drawTitle(title: NSAttributedString, withFrame frame: NSRect, inView controlView: NSView) -> NSRect {
-
-
-        let titleRect = self.titleRectForBounds(frame)
-        title.drawInRect(titleRect)
-        return titleRect
-    }
-
-    override func drawBezelWithFrame(frame: NSRect, inView controlView: NSView) {
-        if controlView.isKindOfClass(TabButton) {
-            switch self.tabStyle {
-            case .NumbersApp:
-                self.drawNumbersTabsWithFrame(frame, inView: controlView)
-            case .ChromeBrowser:
-                self.drawChromeTabsWithFrame(frame, inView: controlView)
-            default:
-                break
-            }
-        }
-    }
-    
-    func drawNumbersTabsWithFrame(frame: NSRect, inView controlView: NSView) {
-        let color = self.activeBackgroundColor
-        color.setFill()
-        NSRectFill(frame)
-        
-        var borderRects: Array<NSRect> = [NSZeroRect, NSZeroRect, NSZeroRect, NSZeroRect]
-        var borderRectCount: NSInteger = 0
-        
-        if RectArrayWithBorderMask(frame, borderMask: self.borderMask, rectArray: &borderRects, rectCount: &borderRectCount) {
-            let color = (self.isSelected == true) ? self.tabSelectedBorderColor : self.tabBorderColor
-            color.setFill()
-            self.tabBorderColor.setStroke()
-            NSRectFillList(borderRects, borderRectCount)
-        }
-    }
-
-    func drawChromeTabsWithFrame(frame: NSRect, inView controlView: NSView) {
-        self.activeBackgroundColor.setFill()
-        NSRectFill(frame)
-        
-        let path = NSBezierPath()
-        
-//        let top = CGRectGetMinY(controlView.bounds)+1
-        let bottom = CGRectGetMaxY(controlView.bounds)
-        let left = CGRectGetMinX(controlView.bounds)
-//        let right = CGRectGetMaxX(controlView.bounds)
-        
-        let startPoint = CGPointMake(left, bottom)
-        path.moveToPoint(startPoint)
-        
-        let risingFromPoint = CGPointMake(left+5.0, bottom)
-        let risingPoint = CGPointMake(left+5.0, bottom-3.0)
-        path.appendBezierPathWithArcFromPoint(risingFromPoint, toPoint:risingPoint, radius:3.0)
-        
-        //    CGPoint beforeTopPoint = CGPointMake(left+20.0, top+5.0);
-        //    [path lineToPoint:beforeTopPoint];
-        //
-        //    CGPoint topPoint = CGPointMake(left+25.0, top);
-        //    [path lineToPoint:topPoint];
-        //
-        //    CGPoint secondTopPoint = CGPointMake(right-15.0, top);
-        //    [path lineToPoint:secondTopPoint];
-        //
-        //    CGPoint fallingPoint = CGPointMake(right-10.0, top+5.0);
-        //    [path lineToPoint:fallingPoint];
-        //
-        //    CGPoint finishPoint = CGPointMake(right-5.0, bottom-5.0);
-        //    [path lineToPoint:finishPoint];
-        //
-        //    CGPoint endPoint = CGPointMake(right, bottom);
-        //    [path lineToPoint:endPoint];
-        
-        NSColor.redColor().setStroke()
-        path.lineWidth = 1.0
-        path.stroke()
-        //    [path closePath];
-        //    [path fill];
-
-    }
 }
-
-
-func RectArrayWithBorderMask(sourceRect: NSRect, borderMask: TabsControlBorderMask, inout rectArray: Array<NSRect>, inout rectCount: NSInteger) -> Bool
-{
-    var outputCount: NSInteger = 0
-    var remainderRect: NSRect = NSZeroRect
-    
-    if borderMask.contains(.Top) {
-        NSDivideRect(sourceRect, &rectArray[outputCount], &remainderRect, 1, .MinY)
-        outputCount += 1
-    }
-    if borderMask.contains(.Left) {
-        NSDivideRect(sourceRect, &rectArray[outputCount], &remainderRect, 1, .MinX)
-        outputCount += 1
-    }
-    if borderMask.contains(.Right) {
-        NSDivideRect(sourceRect, &rectArray[outputCount], &remainderRect, 1, .MaxX)
-        outputCount += 1
-    }
-    if borderMask.contains(.Bottom) {
-        NSDivideRect(sourceRect, &rectArray[outputCount], &remainderRect, 1, .MaxY)
-        outputCount += 1
-    }
-    
-    rectCount = outputCount
-    
-    return (outputCount > 0)
-}
-
-
-
-

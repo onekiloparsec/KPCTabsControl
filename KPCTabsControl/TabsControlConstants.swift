@@ -8,6 +8,7 @@
 
 import Foundation
 
+@available(*, deprecated=1.0, message="Move this into `Style` drawing code instead")
 public struct TabsControlBorderMask: OptionSetType {
     public let rawValue: UInt32
     public init(rawValue: UInt32) {

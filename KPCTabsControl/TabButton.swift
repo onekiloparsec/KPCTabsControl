@@ -11,7 +11,9 @@ import AppKit
 
 public class TabButton: NSButton {
 
-    var style: Style!
+    var style: Style! {
+        didSet { tabButtonCell?.style = style }
+    }
 
     var iconView: NSImageView?
     var alternativeTitleIconView: NSImageView?
@@ -184,8 +186,6 @@ public class TabButton: NSButton {
             smallIcon.addRepresentation(NSBitmapImageRep(data: self.alternativeTitleIcon!.TIFFRepresentation!)!)
             self.alternativeTitleIconView?.image = smallIcon
         }
-
-        style.drawTabButton(rect: self.frame, scale: scale)
 
         let hasRoom = tabButtonCell.hasRoomToDrawFullTitle(inRect: self.bounds)
         self.alternativeTitleIconView?.hidden = hasRoom

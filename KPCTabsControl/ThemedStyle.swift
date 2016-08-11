@@ -38,10 +38,74 @@ public struct ThemedStyle: Style {
         return 1.2 * paddedHeight * scale
     }
 
-    public func drawTabButton(rect dirtyRect: NSRect, scale: CGFloat = 1.0) {
+    public func drawTabBezel(frame frame: NSRect, isSelected: Bool) {
 
-        // nothing done for this style
+        let activeStyle = isSelected ? theme.selectedTabStyle : theme.tabStyle
+
+        let color = activeStyle.backgroundColor
+        color.setFill()
+        NSRectFill(frame)
+
+        var borderRects: Array<NSRect> = [NSZeroRect, NSZeroRect, NSZeroRect, NSZeroRect]
+        var borderRectCount: NSInteger = 0
+
+        let borderMask = TabsControlBorderMask.Top
+        if RectArrayWithBorderMask(frame, borderMask: borderMask, rectArray: &borderRects, rectCount: &borderRectCount) {
+
+            let color = activeStyle.borderColor
+            color.setFill()
+            color.setStroke()
+            NSRectFillList(borderRects, borderRectCount)
+        }
     }
+
+    public func titleRect(title title: NSAttributedString, inBounds rect: NSRect, showingIcon: Bool) -> NSRect {
+
+        let titleSize = title.size()
+        let fullWidthRect = NSMakeRect(NSMinX(rect), NSMidY(rect) - titleSize.height/2.0, NSWidth(rect), titleSize.height)
+
+        return paddedRectForIcon(fullWidthRect, showingIcon: showingIcon)
+    }
+
+    private func paddedRectForIcon(rect: NSRect, showingIcon: Bool) -> NSRect {
+
+        guard showingIcon else { return rect }
+
+        let width = CGFloat(19) // TODO replace assumption about icon size with different mechanism (like handing down the `icon` to this cell, using `image` and code from commit `2f56dbdbfed4d15fa063b03301ed49d5e00cad6e`)
+        let padding = CGFloat(8)
+        let horizontalOffset = width + padding
+
+        return rect.offsetBy(dx: horizontalOffset, dy: 0).shrinkBy(dx: horizontalOffset, dy: 0)
+    }
+
+}
+
+@available(*, deprecated=1.0)
+func RectArrayWithBorderMask(sourceRect: NSRect, borderMask: TabsControlBorderMask, inout rectArray: Array<NSRect>, inout rectCount: NSInteger) -> Bool
+{
+    var outputCount: NSInteger = 0
+    var remainderRect: NSRect = NSZeroRect
+
+    if borderMask.contains(.Top) {
+        NSDivideRect(sourceRect, &rectArray[outputCount], &remainderRect, 1, .MinY)
+        outputCount += 1
+    }
+    if borderMask.contains(.Left) {
+        NSDivideRect(sourceRect, &rectArray[outputCount], &remainderRect, 1, .MinX)
+        outputCount += 1
+    }
+    if borderMask.contains(.Right) {
+        NSDivideRect(sourceRect, &rectArray[outputCount], &remainderRect, 1, .MaxX)
+        outputCount += 1
+    }
+    if borderMask.contains(.Bottom) {
+        NSDivideRect(sourceRect, &rectArray[outputCount], &remainderRect, 1, .MaxY)
+        outputCount += 1
+    }
+
+    rectCount = outputCount
+
+    return (outputCount > 0)
 }
 
 public protocol Theme {
