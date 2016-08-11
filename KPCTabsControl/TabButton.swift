@@ -83,8 +83,10 @@ public class TabButton: NSButton {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(withItem item: AnyObject, target: AnyObject?, action:Selector) {
+    init(withItem item: AnyObject, target: AnyObject?, action:Selector, style: Style) {
         super.init(frame: NSZeroRect)
+
+        self.style = style
 
         let tabCell = TabButtonCell(textCell: "")
         
@@ -93,6 +95,7 @@ public class TabButton: NSButton {
         
         tabCell.target = target
         tabCell.action = action
+        tabCell.style = style
         
         tabCell.sendActionOn(Int(NSEventMask.LeftMouseDownMask.rawValue))
         self.cell = tabCell
@@ -102,6 +105,7 @@ public class TabButton: NSButton {
         let copy = TabButton(frame: self.frame)
         copy.cell = self.cell?.copy() as? NSCell
         copy.icon = self.icon
+        copy.style = self.style
         copy.alternativeTitleIcon = self.alternativeTitleIcon
         return copy
     }

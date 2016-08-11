@@ -174,8 +174,11 @@ public class TabsControl: NSControl, TabEditingDelegate {
         let newItemsCount = dataSource.tabsControlNumberOfTabs(self)
         for i in 0..<newItemsCount {
             let item = dataSource.tabsControl(self, itemAtIndex: i)
-            let button = TabButton(withItem: item, target: self, action: #selector(TabsControl.selectTab(_:)))
-            button.style = self.style
+            let button = TabButton(
+                withItem: item,
+                target: self,
+                action: #selector(TabsControl.selectTab(_:)),
+                style: style)
             button.editable = true
 
             button.tabButtonCell!.buttonPosition = {
