@@ -38,7 +38,7 @@ public struct ThemedStyle: Style {
         return 1.2 * paddedHeight * scale
     }
 
-    public func drawTabBezel(frame frame: NSRect, isSelected: Bool) {
+    public func drawTabBezel(frame frame: NSRect, position: TabButtonPosition, isSelected: Bool) {
 
         let activeStyle = isSelected ? theme.selectedTabStyle : theme.tabStyle
 
@@ -48,8 +48,14 @@ public struct ThemedStyle: Style {
 
         var borderRects: Array<NSRect> = [NSZeroRect, NSZeroRect, NSZeroRect, NSZeroRect]
         var borderRectCount: NSInteger = 0
+        let borderMask: TabsControlBorderMask = {
+            switch position {
+            case .first: return [.Left, .Bottom]
+            case .middle: return .Bottom
+            case .last: return [.Right, .Bottom]
+            }
+        }()
 
-        let borderMask = TabsControlBorderMask.Top
         if RectArrayWithBorderMask(frame, borderMask: borderMask, rectArray: &borderRects, rectCount: &borderRectCount) {
 
             let color = activeStyle.borderColor

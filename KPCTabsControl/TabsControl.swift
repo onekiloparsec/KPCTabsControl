@@ -52,20 +52,6 @@ public class TabsControl: NSControl, TabEditingDelegate {
         }
     }
 
-    /// The border mask controls for which sides of every tab one should draw a border.
-    public var bordersMask: TabsControlBorderMask {
-        get { return self.tabsControlCell.borderMask }
-        set {
-            self.tabsControlCell.borderMask = newValue
-            self.propagateBorderMask()
-        }
-    }
-    
-    /// Indicates whether one should automatically add a left border to the most leftish tab, and one right border to the most rightish tab. Default is `true`.
-    public var automaticSideBorderMasks: Bool = true {
-        didSet { self.propagateBorderMask() }
-    }
-
     /**
      *  Indicates whether the tabs control should span the whole available width or not. Default is `NO`. If set to `YES`,
      *  the tabs may occur to have a width smaller than `minTabWidth` or larger than `maxTabWidth`.
@@ -125,8 +111,7 @@ public class TabsControl: NSControl, TabEditingDelegate {
         self.translatesAutoresizingMaskIntoConstraints = false
         
         self.cell = TabsControlCell(textCell: "")
-        
-        self.bordersMask = .Bottom
+
         self.tabsStyle = .NumbersApp
         
         self.configureSubviews()
@@ -161,8 +146,8 @@ public class TabsControl: NSControl, TabEditingDelegate {
             self.scrollLeftButton?.autoresizingMask = .ViewMinXMargin
             
             let leftCell = self.scrollLeftButton!.cell as! TabButtonCell
-            leftCell.borderMask = leftCell.borderMask.union(.Left)
-            
+            leftCell.buttonPosition = .first
+
             self.addSubview(self.scrollLeftButton!)
             self.addSubview(self.scrollRightButton!)
             
@@ -211,15 +196,14 @@ public class TabsControl: NSControl, TabEditingDelegate {
             button.style = self.style
             button.editable = true
 
-            var borderMask = self.tabsControlCell.borderMask
-            if i == 0 && self.automaticSideBorderMasks == true {
-                borderMask = borderMask.union(.Left)
-            }
-            if i == newItemsCount-1 && self.automaticSideBorderMasks == true {
-                borderMask = borderMask.union(.Right)
-            }
-            button.tabButtonCell!.borderMask = borderMask
-            
+            button.tabButtonCell!.buttonPosition = {
+                switch i {
+                case 0: return .first
+                case newItemsCount-1: return .last
+                default: return .middle
+                }
+            }()
+
             button.title = dataSource.tabsControl(self, titleForItem: item)
             button.state = (item === self.selectedItem) ? NSOnState : NSOffState // yes triple === to check for instances
 //            button.highlight(self.isHighlighted)
@@ -605,22 +589,6 @@ public class TabsControl: NSControl, TabEditingDelegate {
     /// - returns: All `NSButton` instances inside this view's `scrollView`.
     private func buttons() -> [NSButton] {
         return self.scrollView.documentView?.subviews.flatMap { $0 as? NSButton } ?? []
-    }
-
-    private func propagateBorderMask() {
-        let buttons = self.tabButtons()
-        var borderMask = self.tabsControlCell.borderMask
-        
-        for (index, button) in buttons.enumerate() {
-            if index == 0 && self.automaticSideBorderMasks == true {
-                borderMask = borderMask.union(.Left)
-            }
-            if index == buttons.count-1 && self.automaticSideBorderMasks == true {
-                borderMask = borderMask.union(.Right)
-            }
-            let buttonCell = button.cell as! TabButtonCell
-            buttonCell.borderMask = borderMask
-        }
     }
 }
 

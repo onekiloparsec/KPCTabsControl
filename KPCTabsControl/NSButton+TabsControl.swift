@@ -12,7 +12,7 @@ extension NSButton {
     static func KPC_auxiliaryButton(withImageNamed imageName: String, target: AnyObject?, action: Selector) -> NSButton {
         
         let cell = TabButtonCell(textCell: "")
-        cell.borderMask = cell.borderMask.union(.Bottom)
+        cell.isAuxiliary = true
         let mask = NSEventMask.LeftMouseDownMask.union(NSEventMask.PeriodicMask)
         cell.sendActionOn(Int(mask.rawValue))
         

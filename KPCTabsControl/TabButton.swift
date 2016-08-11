@@ -9,6 +9,12 @@
 import Foundation
 import AppKit
 
+public enum TabButtonPosition {
+    case first
+    case middle
+    case last
+}
+
 public class TabButton: NSButton {
 
     var style: Style! {
@@ -85,7 +91,6 @@ public class TabButton: NSButton {
         tabCell.representedObject = item
         tabCell.imagePosition = .NoImage
         
-        tabCell.borderMask = [.Right, .Bottom]
         tabCell.target = target
         tabCell.action = action
         

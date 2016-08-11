@@ -32,8 +32,10 @@ class TabButtonCell: NSButtonCell {
         didSet { self.controlView?.needsDisplay = true }
     }
 
-    @available(*, deprecated=1.0)
-    var borderMask: TabsControlBorderMask = .Top {
+    @available(*, deprecated=1.0, message="replaces KPC_auxiliaryButton's borderMask setting; move this to different drawing methods")
+    var isAuxiliary = false
+
+    var buttonPosition: TabButtonPosition = .middle {
         didSet { self.controlView?.needsDisplay = true }
     }
 
@@ -70,7 +72,6 @@ class TabButtonCell: NSButtonCell {
 
         copy.theme = self.theme
         copy.tabStyle = self.tabStyle
-        copy.borderMask = self.borderMask
         copy.showsMenu = self.showsMenu
         copy.hasTitleAlternativeIcon = self.hasTitleAlternativeIcon
 
@@ -194,7 +195,7 @@ class TabButtonCell: NSButtonCell {
 
     override func drawWithFrame(frame: NSRect, inView controlView: NSView) {
 
-        self.style.drawTabBezel(frame: frame, isSelected: self.isSelected)
+        self.style.drawTabBezel(frame: frame, position: self.buttonPosition, isSelected: self.isSelected)
         
         if self.hasRoomToDrawFullTitle(inRect: frame)
             || self.hasTitleAlternativeIcon == false {

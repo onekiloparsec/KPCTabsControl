@@ -29,8 +29,7 @@ public protocol Style {
     func iconFrames(tabRect rect: NSRect) -> IconFrames
     func titleRect(title title: NSAttributedString, inBounds rect: NSRect, showingIcon: Bool) -> NSRect
 
-    func drawTabBezel(frame frame: NSRect, isSelected: Bool)
-//    func drawTitle(title: NSAttributedString, withFrame frame: NSRect, showingIcon: Bool)
+    func drawTabBezel(frame frame: NSRect, position: TabButtonPosition, isSelected: Bool)
 }
 
 @available(*, deprecated=1.0)
