@@ -42,15 +42,6 @@ public class TabsControl: NSControl, TabEditingDelegate {
     }
     
     // MARK: - Styling
-    
-    /// The tabs style.
-    public var tabsStyle: TabsControlTabsStyle {
-        get { return self.tabsControlCell.tabStyle }
-        set {
-            self.tabsControlCell.tabStyle = newValue
-            self.tabButtons().forEach { $0.tabButtonCell?.tabStyle = newValue }
-        }
-    }
 
     /**
      *  Indicates whether the tabs control should span the whole available width or not. Default is `NO`. If set to `YES`,
@@ -111,9 +102,7 @@ public class TabsControl: NSControl, TabEditingDelegate {
         self.translatesAutoresizingMaskIntoConstraints = false
         
         self.cell = TabsControlCell(textCell: "")
-
-        self.tabsStyle = .NumbersApp
-        
+       
         self.configureSubviews()
     }
     

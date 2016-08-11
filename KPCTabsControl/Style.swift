@@ -31,11 +31,3 @@ public protocol Style {
 
     func drawTabBezel(frame frame: NSRect, position: TabButtonPosition, isSelected: Bool)
 }
-
-@available(*, deprecated=1.0)
-public enum TabsControlTabsStyle {
-    case NumbersApp
-    case ChromeBrowser
-    case SafariBrowser
-    case XcodeNavigators
-}

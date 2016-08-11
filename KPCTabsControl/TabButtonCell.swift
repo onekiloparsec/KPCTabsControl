@@ -27,11 +27,6 @@ class TabButtonCell: NSButtonCell {
         didSet { self.controlView?.needsDisplay = true }
     }
 
-    @available(*, deprecated=1.0)
-    var tabStyle: TabsControlTabsStyle = .NumbersApp {
-        didSet { self.controlView?.needsDisplay = true }
-    }
-
     @available(*, deprecated=1.0, message="replaces KPC_auxiliaryButton's borderMask setting; move this to different drawing methods")
     var isAuxiliary = false
 
@@ -71,7 +66,6 @@ class TabButtonCell: NSButtonCell {
         let copy = TabButtonCell(textCell:self.title)
 
         copy.theme = self.theme
-        copy.tabStyle = self.tabStyle
         copy.showsMenu = self.showsMenu
         copy.hasTitleAlternativeIcon = self.hasTitleAlternativeIcon
 

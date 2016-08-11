@@ -10,10 +10,6 @@ import Cocoa
 
 class TabsControlCell: NSCell {
     
-    var tabStyle: TabsControlTabsStyle = .NumbersApp {
-        didSet { self.controlView?.needsDisplay = true }
-    }
-
     var borderMask: TabsControlBorderMask = .Top {
         didSet { self.controlView?.needsDisplay = true }
     }
