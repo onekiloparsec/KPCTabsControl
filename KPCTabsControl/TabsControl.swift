@@ -44,7 +44,7 @@ public class TabsControl: NSControl, TabEditingDelegate {
     // MARK: - Styling
 
     /**
-     *  Indicates whether the tabs control should span the whole available width or not. Default is `NO`. If set to `YES`,
+     *  Indicates whether the tabs control should span the whole available width or not. Default is `false`. If set to `true`,
      *  the tabs may occur to have a width smaller than `minTabWidth` or larger than `maxTabWidth`.
      */
     private(set) var prefersFullWidthTabs: Bool = false
@@ -349,7 +349,7 @@ public class TabsControl: NSControl, TabEditingDelegate {
                     tab.hidden = false
                     let items = orderedTabs.map({ return $0.tabButtonCell!.representedObject! })
                     if reordered == true && self.delegate?.tabsControl?(self, didReorderItems: items) != nil {
-                        
+                        // TODO: Something missing here?
                     }
                     self.reloadTabs()
                 }
