@@ -50,15 +50,15 @@ public class TabsControl: NSControl, TabEditingDelegate {
     private(set) var prefersFullWidthTabs: Bool = false
 
     public func preferFullWidthTabs(state: Bool, animated: Bool = false) {
-        prefersFullWidthTabs = state
-        updateTabs(animated: animated)
+        self.prefersFullWidthTabs = state
+        self.updateTabs(animated: animated)
     }
 
     public var style: Style = ThemedStyle(theme: DefaultTheme()) {
         didSet {
-            self.tabsControlCell.style = style
-            self.tabButtons().forEach { $0.style = style }
-            updateTabs()
+            self.tabsControlCell.style = self.style
+            self.tabButtons().forEach { $0.style = self.style }
+            self.updateTabs()
         }
     }
 
@@ -71,13 +71,13 @@ public class TabsControl: NSControl, TabEditingDelegate {
      *  When `preferFullWidthTabs` is NO, the minimum width of tabs. Given the total width of the tabs control, it will
      *  adjust the tab width between the specified minimum and maximum values. All tabs have the same width, always.
      */
-    public var minTabWidth: CGFloat { return style.tabWidth.min }
+    public var minTabWidth: CGFloat { return self.style.tabWidth.min }
 
     /**
      *  When `preferFullWidthTabs` is `NO`, the maximum width of tabs. Given the total width of the tabs control, it will
      *  adjust the tab width between the specified minimum and maximum values. All tabs have the same width, always.
      */
-    public var maxTabWidth: CGFloat { return style.tabWidth.max }
+    public var maxTabWidth: CGFloat { return self.style.tabWidth.max }
     
     // MARK: - Initializers & Setup
     
@@ -474,7 +474,7 @@ public class TabsControl: NSControl, TabEditingDelegate {
             where self.delegate?.tabsControl?(self, canEditTitleOfItem: representedObject) == true
             else { return }
 
-        forceEndEditing()
+        self.forceEndEditing()
 
         guard let fieldEditor = self.window?.fieldEditor(true, forObject: tab) else { return }
 

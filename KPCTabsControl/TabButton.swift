@@ -18,7 +18,7 @@ public enum TabButtonPosition {
 public class TabButton: NSButton {
 
     var style: Style! {
-        didSet { tabButtonCell?.style = style }
+        didSet { tabButtonCell?.style = self.style }
     }
 
     var iconView: NSImageView?
