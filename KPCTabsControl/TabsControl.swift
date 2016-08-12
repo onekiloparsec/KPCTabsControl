@@ -48,7 +48,7 @@ public class TabsControl: NSControl, TabEditingDelegate {
      *  the tabs may occur to have a width smaller than `minTabWidth` or larger than `maxTabWidth`.
      */
     private(set) var prefersFullWidthTabs: Bool = false
-
+    
     public func preferFullWidthTabs(state: Bool, animated: Bool = false) {
         self.prefersFullWidthTabs = state
         self.updateTabs(animated: animated)
@@ -60,11 +60,6 @@ public class TabsControl: NSControl, TabEditingDelegate {
             self.tabButtons().forEach { $0.style = self.style }
             self.updateTabs()
         }
-    }
-
-    private func updateTabs(animated animated: Bool = false) {
-        self.layoutTabButtons(self.tabButtons(), animated: animated)
-        self.updateAuxiliaryButtons()
     }
 
     /**
@@ -94,9 +89,7 @@ public class TabsControl: NSControl, TabEditingDelegate {
     private func setup() {
         self.wantsLayer = true
         self.translatesAutoresizingMaskIntoConstraints = false
-        
         self.cell = TabsControlCell(textCell: "")
-       
         self.configureSubviews()
     }
     
@@ -175,12 +168,12 @@ public class TabsControl: NSControl, TabEditingDelegate {
         let newItemsCount = dataSource.tabsControlNumberOfTabs(self)
         for i in 0..<newItemsCount {
             let item = dataSource.tabsControl(self, itemAtIndex: i)
-            let button = TabButton(
-                withItem: item,
-                target: self,
-                action: #selector(TabsControl.selectTab(_:)),
-                style: style)
-            button.editable = true
+            let button = TabButton(withItem: item,
+                                   target: self,
+                                   action: #selector(TabsControl.selectTab(_:)),
+                                   style: style)
+            
+            button.editable = self.delegate?.tabsControl?(self, canEditTitleOfItem: item) == true
 
             button.tabButtonCell!.buttonPosition = {
                 switch i {
@@ -214,14 +207,17 @@ public class TabsControl: NSControl, TabEditingDelegate {
     
     // MARK: - Layout
 
-    var tabHeight: CGFloat { return self.tabsView.frame.height }
+    private func updateTabs(animated animated: Bool = false) {
+        self.layoutTabButtons(self.tabButtons(), animated: animated)
+        self.updateAuxiliaryButtons()
+    }
 
     private func layoutTabButtons(buttons: [TabButton]?, animated: Bool) {
         let tabButtons = (buttons != nil) ? buttons! : self.tabButtons()
         var tabsViewWidth = CGFloat(0.0)
         
         let fullSizeWidth = CGRectGetWidth(self.scrollView.frame) / CGFloat(tabButtons.count)
-        let buttonHeight = self.tabHeight
+        let buttonHeight = self.tabsView.frame.height
         
         for (index, button) in tabButtons.enumerate() {
             var buttonWidth = (self.prefersFullWidthTabs == true) ? fullSizeWidth : min(self.maxTabWidth, fullSizeWidth)
@@ -248,7 +244,8 @@ public class TabsControl: NSControl, TabEditingDelegate {
         let viewFrame = CGRectMake(0.0, 0.0, tabsViewWidth, buttonHeight)
         if animated {
             self.tabsView.animator().frame = viewFrame
-        } else {
+        }
+        else {
             self.tabsView.frame = viewFrame
         }
     }

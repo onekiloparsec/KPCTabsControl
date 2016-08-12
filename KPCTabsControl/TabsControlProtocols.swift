@@ -131,5 +131,4 @@ import AppKit
      *  @param item       The item representing the given tab.
      */
     optional func tabsControl(control: TabsControl, setTitle newTitle: String, forItem item: AnyObject)
-
 }

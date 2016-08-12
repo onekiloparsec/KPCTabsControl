@@ -179,7 +179,6 @@ class TabButtonCell: NSButtonCell {
     }
 
     override func drawTitle(title: NSAttributedString, withFrame frame: NSRect, inView controlView: NSView) -> NSRect {
-
         let titleRect = self.titleRectForBounds(frame)
         title.drawInRect(titleRect)
         return titleRect
@@ -187,12 +186,11 @@ class TabButtonCell: NSButtonCell {
 
     private func drawPopupButtonWithFrame(frame: NSRect) {
         let image = TabButtonCell.popupImage()
-        image.drawInRect(
-            self.popupRectWithFrame(frame),
-            fromRect: NSZeroRect,
-            operation: .CompositeSourceOver,
-            fraction: 1.0,
-            respectFlipped: true,
-            hints: nil)
+        image.drawInRect(self.popupRectWithFrame(frame),
+                         fromRect: NSZeroRect,
+                         operation: .CompositeSourceOver,
+                         fraction: 1.0,
+                         respectFlipped: true,
+                         hints: nil)
     }
 }
