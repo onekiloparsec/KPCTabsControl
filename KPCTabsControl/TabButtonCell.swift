@@ -55,11 +55,14 @@ class TabButtonCell: NSButtonCell {
     override func copy() -> AnyObject {
         let copy = TabButtonCell(textCell:self.title)
 
-        copy.showsMenu = self.showsMenu
         copy.hasTitleAlternativeIcon = self.hasTitleAlternativeIcon
+        copy.showsIcon = self.showsIcon
+        copy.showsMenu = self.showsMenu
+        copy.buttonPosition = self.buttonPosition
 
         copy.state = self.state
         copy.highlighted = self.highlighted
+        
         return copy
     }
     
