@@ -18,8 +18,8 @@ class ViewController: NSViewController {
         
         self.topPane?.title = "pane1"
         self.topPane?.titles = ["Tab 1", "Tab 2", "Tab 3", "Tab 4", "Tab 5"]
-//        self.topPane?.tabsBar?.highlight(true)
-        
+        self.topPane?.tabsBar?.style = ThemedStyle(theme: DefaultTheme(), tabWidth: FlexibleWidth(min: 150, max: 180))
+
         let tab2Menu = NSMenu()
         tab2Menu.addItemWithTitle("Action 1", action: nil, keyEquivalent: "")
         tab2Menu.addItemWithTitle("Action 2", action: nil, keyEquivalent: "")
@@ -27,9 +27,8 @@ class ViewController: NSViewController {
         
         self.bottomPane?.title = "pane2"
         self.bottomPane?.titles = ["Tab a", "Tab b", "Tab c", "Tab d"]
-        self.bottomPane?.tabsBar?.maxTabWidth = 130.0;
-        self.bottomPane?.tabsBar?.minTabWidth = 100.0;
-        
+        self.bottomPane?.tabsBar?.style = ThemedStyle(theme: DefaultTheme(), tabWidth: FlexibleWidth(min: 100, max: 130))
+
         self.topPane?.tabsBar?.reloadTabs()
         self.bottomPane?.tabsBar?.reloadTabs()
     }

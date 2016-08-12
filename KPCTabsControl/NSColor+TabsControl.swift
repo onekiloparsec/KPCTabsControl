@@ -12,6 +12,7 @@ public extension NSColor {
     /**
      *  The color of the border of the tabs control.
      */
+    @available(*, deprecated=1.0)
     static func KPC_defaultControlBorderColor() -> NSColor {
         return NSColor.lightGrayColor()
     }
@@ -19,6 +20,7 @@ public extension NSColor {
     /**
      *  The color of the tab control background in normal state (unhighlighted);
      */
+    @available(*, deprecated=1.0)
     static func KPC_defaultControlBackgroundColor() -> NSColor {
         return NSColor(calibratedWhite: 0.95, alpha: 1.0)
     }
@@ -26,6 +28,7 @@ public extension NSColor {
     /**
      *  The color of the tab control background in highlighted state;
      */
+    @available(*, deprecated=1.0)
     static func KPC_defaultControlHighlightedBackgroundColor() -> NSColor {
         return NSColor(calibratedWhite: 0.85, alpha: 1.0)
     }
@@ -35,6 +38,7 @@ public extension NSColor {
     /**
      *  The color of the border of an individual tab button.
      */
+    @available(*, deprecated=1.0)
     static func KPC_defaultTabBorderColor() -> NSColor {
         return NSColor.KPC_defaultControlBorderColor()
     }
@@ -42,6 +46,7 @@ public extension NSColor {
     /**
      *  The color of the title of an individual tab button, when the button is not selected.
      */
+    @available(*, deprecated=1.0)
     static func KPC_defaultTabTitleColor() -> NSColor {
         return NSColor.darkGrayColor()
     }
@@ -50,6 +55,7 @@ public extension NSColor {
      *  The color of the background of an individual tab button, when the button is not selected,
      *  and the control is in normal state (unhighlighted)
      */
+    @available(*, deprecated=1.0)
     static func KPC_defaultTabBackgroundColor() -> NSColor {
         return NSColor.KPC_defaultControlBackgroundColor()
     }
@@ -58,6 +64,7 @@ public extension NSColor {
      *  The color of the background of an individual tab button, when the button is not selected,
      *  and the control is in highlighted state
      */
+    @available(*, deprecated=1.0)
     static func KPC_defaultTabHighlightedBackgroundColor() -> NSColor {
         return NSColor.KPC_defaultControlHighlightedBackgroundColor()
     }
@@ -71,6 +78,7 @@ public extension NSColor {
     /**
      *  The color of the border of an individual tab when it is selected.
      */
+    @available(*, deprecated=1.0)
     static func KPC_defaultTabSelectedBorderColor() -> NSColor {
         return NSColor(calibratedRed: 185.0/255.0, green: 202.0/255.0, blue: 224.0/255.0, alpha: 1.0)
     }
@@ -78,13 +86,15 @@ public extension NSColor {
     /**
      *  The color of the title an individual tab when it is selected.
      */
+    @available(*, deprecated=1.0)
     static func KPC_defaultTabSelectedTitleColor() -> NSColor {
-        return NSColor(calibratedRed: 185.0/255.0, green: 202.0/255.0, blue: 224.0/255.0, alpha: 1.0)
+        return NSColor(calibratedRed: 85.0/255.0, green: 102.0/255.0, blue: 124.0/255.0, alpha: 1.0)
     }
     
     /**
      *  The color of the background an individual tab when it is selected.
      */
+    @available(*, deprecated=1.0)
     static func KPC_defaultTabSelectedBackgroundColor() -> NSColor {
         return NSColor(calibratedRed: 205.0/255.0, green: 222.0/255.0, blue: 244.0/255.0, alpha: 1.0)
     }

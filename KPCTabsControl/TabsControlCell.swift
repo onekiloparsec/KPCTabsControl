@@ -10,23 +10,7 @@ import Cocoa
 
 class TabsControlCell: NSCell {
     
-    var tabStyle: TabsControlTabsStyle = .NumbersApp {
-        didSet { self.controlView?.needsDisplay = true }
-    }
-    
-    var borderMask: TabsControlBorderMask = .Top {
-        didSet { self.controlView?.needsDisplay = true }
-    }
-    
-    var tabBorderColor: NSColor = NSColor.KPC_defaultTabBorderColor() {
-        didSet { self.controlView?.needsDisplay = true }
-    }
-    
-    var tabBackgroundColor: NSColor = NSColor.KPC_defaultTabBackgroundColor() {
-        didSet { self.controlView?.needsDisplay = true }
-    }
-    
-    var tabHighlightedBackgroundColor: NSColor = NSColor.KPC_defaultTabHighlightedBackgroundColor() {
+    var style: Style! {
         didSet { self.controlView?.needsDisplay = true }
     }
    
@@ -54,17 +38,10 @@ class TabsControlCell: NSCell {
     }
     
     override func drawWithFrame(cellFrame: NSRect, inView controlView: NSView) {
-        self.tabBackgroundColor.setFill()
-        NSRectFill(cellFrame)
-        
-        var borderRects: Array<NSRect> = [NSZeroRect, NSZeroRect, NSZeroRect, NSZeroRect]
-        var borderRectCount: NSInteger = 0
-        
-        if RectArrayWithBorderMask(cellFrame, borderMask: self.borderMask, rectArray: &borderRects, rectCount: &borderRectCount) {
-            self.tabBorderColor.setFill()
-            self.tabBorderColor.setStroke()
-            NSRectFillList(borderRects, borderRectCount)
-        }
 
+        // TODO can we get rid of this by setting `style` earlier?
+        guard style != nil else { return }
+
+        style.drawTabControlBezel(frame: cellFrame)
     }
 }

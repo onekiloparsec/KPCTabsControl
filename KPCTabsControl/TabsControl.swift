@@ -41,100 +41,43 @@ public class TabsControl: NSControl, TabEditingDelegate {
         set { self.delegateInterceptor.receiver = newValue as? NSObject }
     }
     
-    // MARK: - Public Properties
-    
-    /// The tabs style.
-    public var tabsStyle: TabsControlTabsStyle {
-        get { return self.tabsControlCell.tabStyle }
-        set {
-            self.tabsControlCell.tabStyle = newValue
-            self.tabButtons().forEach { $0.tabButtonCell?.tabStyle = newValue }
-        }
-    }
-    /// The border mask controls for which sides of every tab one should draw a border.
-    public var bordersMask: TabsControlBorderMask {
-        get { return self.tabsControlCell.borderMask }
-        set {
-            self.tabsControlCell.borderMask = newValue
-            self.propagateBorderMask()
-        }
-    }
-    
-    /// Indicates whether one should automatically add a left border to the most leftish tab, and one right border to the most rightish tab. Default is `true`.
-    public var automaticSideBorderMasks: Bool = true {
-        didSet { self.propagateBorderMask() }
-    }
+    // MARK: - Styling
 
     /**
      *  Indicates whether the tabs control should span the whole available width or not. Default is `NO`. If set to `YES`,
      *  the tabs may occur to have a width smaller than `minTabWidth` or larger than `maxTabWidth`.
      */
-    public var preferFullWidthTabs: Bool = false {
+    private(set) var prefersFullWidthTabs: Bool = false
+
+    public func preferFullWidthTabs(state: Bool, animated: Bool = false) {
+        prefersFullWidthTabs = state
+        updateTabs(animated: animated)
+    }
+
+    public var style: Style = ThemedStyle(theme: DefaultTheme()) {
         didSet {
-            self.layoutTabButtons(self.tabButtons(), animated: true)
-            self.updateAuxiliaryButtons()
+            self.tabsControlCell.style = style
+            self.tabButtons().forEach { $0.style = style }
+            updateTabs()
         }
     }
-    
+
+    private func updateTabs(animated animated: Bool = false) {
+        self.layoutTabButtons(self.tabButtons(), animated: animated)
+        self.updateAuxiliaryButtons()
+    }
+
     /**
      *  When `preferFullWidthTabs` is NO, the minimum width of tabs. Given the total width of the tabs control, it will
      *  adjust the tab width between the specified minimum and maximum values. All tabs have the same width, always.
      */
-    public var minTabWidth: CGFloat =  50.0 {
-        didSet {
-            self.layoutTabButtons(self.tabButtons(), animated: true)
-            self.updateAuxiliaryButtons()
-        }
-    }
+    public var minTabWidth: CGFloat { return style.tabWidth.min }
+
     /**
      *  When `preferFullWidthTabs` is `NO`, the maximum width of tabs. Given the total width of the tabs control, it will
      *  adjust the tab width between the specified minimum and maximum values. All tabs have the same width, always.
      */
-    public var maxTabWidth: CGFloat = 150.0 {
-        didSet {
-            self.layoutTabButtons(self.tabButtons(), animated: true)
-            self.updateAuxiliaryButtons()
-        }
-    }
-    
-    // MARK: - Public TabControl Color Properties
-    
-    /// The color of the tabs control itself.
-    public var controlBorderColor: NSColor = NSColor.KPC_defaultControlBorderColor() {
-        didSet { self.needsDisplay = true }
-    }
-    /// The color of the background of the tabs control itself (invisible when `preferFullWidthTabs` is `true`).
-    public var controlBackgroundColor: NSColor = NSColor.KPC_defaultControlBackgroundColor() {
-        didSet { self.needsDisplay = true }
-    }
-    
-    // MARK: - Public Tab Color Properties
-
-    /// The color of the tab borders for unselected tabs.
-    public var tabBorderColor: NSColor = NSColor.KPC_defaultTabBorderColor() {
-        didSet { self.tabButtons().forEach{ $0.tabButtonCell?.tabBorderColor = self.tabBorderColor } }
-    }
-    /// The color of the tabs titles for unselected tabs.
-    public var tabTitleColor: NSColor = NSColor.KPC_defaultTabTitleColor() {
-        didSet { self.tabButtons().forEach{ $0.tabButtonCell?.tabTitleColor = self.tabTitleColor } }
-    }
-    /// The color of the tabs background for unselected tabs.
-    public var tabBackgroundColor: NSColor = NSColor.KPC_defaultTabTitleColor() {
-        didSet { self.tabButtons().forEach{ $0.tabButtonCell?.tabBackgroundColor = self.tabBackgroundColor } }
-    }
-    
-    /// The color of the selected tab borders.
-    public var tabSelectedBorderColor: NSColor = NSColor.KPC_defaultTabSelectedBorderColor() {
-        didSet { self.tabButtons().forEach{ $0.tabButtonCell?.tabSelectedBorderColor = self.tabSelectedBorderColor } }
-    }
-    /// The color of the selected tab title.
-    public var tabSelectedTitleColor: NSColor = NSColor.KPC_defaultTabSelectedTitleColor() {
-        didSet { self.tabButtons().forEach{ $0.tabButtonCell?.tabSelectedTitleColor = self.tabSelectedTitleColor } }
-    }
-    /// The color of the selected tab background.
-    public var tabSelectedBackgroundColor: NSColor = NSColor.KPC_defaultTabSelectedBackgroundColor() {
-        didSet { self.tabButtons().forEach{ $0.tabButtonCell?.tabSelectedBackgroundColor = self.tabSelectedBackgroundColor } }
-    }
+    public var maxTabWidth: CGFloat { return style.tabWidth.max }
     
     // MARK: - Initializers & Setup
     
@@ -153,10 +96,7 @@ public class TabsControl: NSControl, TabEditingDelegate {
         self.translatesAutoresizingMaskIntoConstraints = false
         
         self.cell = TabsControlCell(textCell: "")
-        
-        self.bordersMask = .Bottom
-        self.tabsStyle = .NumbersApp
-        
+       
         self.configureSubviews()
     }
     
@@ -189,8 +129,8 @@ public class TabsControl: NSControl, TabEditingDelegate {
             self.scrollLeftButton?.autoresizingMask = .ViewMinXMargin
             
             let leftCell = self.scrollLeftButton!.cell as! TabButtonCell
-            leftCell.borderMask = leftCell.borderMask.union(.Left)
-            
+            leftCell.buttonPosition = .first
+
             self.addSubview(self.scrollLeftButton!)
             self.addSubview(self.scrollRightButton!)
             
@@ -235,19 +175,21 @@ public class TabsControl: NSControl, TabEditingDelegate {
         let newItemsCount = dataSource.tabsControlNumberOfTabs(self)
         for i in 0..<newItemsCount {
             let item = dataSource.tabsControl(self, itemAtIndex: i)
-            let button = TabButton(withItem: item, target: self, action: #selector(TabsControl.selectTab(_:)))
+            let button = TabButton(
+                withItem: item,
+                target: self,
+                action: #selector(TabsControl.selectTab(_:)),
+                style: style)
             button.editable = true
 
-            var borderMask = self.tabsControlCell.borderMask
-            if i == 0 && self.automaticSideBorderMasks == true {
-                borderMask = borderMask.union(.Left)
-            }
-            if i == newItemsCount-1 && self.automaticSideBorderMasks == true {
-                borderMask = borderMask.union(.Right)
-            }
-            let buttonCell = button.cell as! TabButtonCell
-            buttonCell.borderMask = borderMask
-            
+            button.tabButtonCell!.buttonPosition = {
+                switch i {
+                case 0: return .first
+                case newItemsCount-1: return .last
+                default: return .middle
+                }
+            }()
+
             button.title = dataSource.tabsControl(self, titleForItem: item)
             button.state = (item === self.selectedItem) ? NSOnState : NSOffState // yes triple === to check for instances
 //            button.highlight(self.isHighlighted)
@@ -272,23 +214,24 @@ public class TabsControl: NSControl, TabEditingDelegate {
     
     // MARK: - Layout
 
-    private func layoutTabButtons(buttons: Array<TabButton>?, animated anim: Bool) {
+    var tabHeight: CGFloat { return self.tabsView.frame.height }
+
+    private func layoutTabButtons(buttons: [TabButton]?, animated: Bool) {
         let tabButtons = (buttons != nil) ? buttons! : self.tabButtons()
         var tabsViewWidth = CGFloat(0.0)
         
         let fullSizeWidth = CGRectGetWidth(self.scrollView.frame) / CGFloat(tabButtons.count)
-        let buttonHeight = CGRectGetHeight(self.tabsView.frame)
+        let buttonHeight = self.tabHeight
         
         for (index, button) in tabButtons.enumerate() {
-            var buttonWidth = (self.preferFullWidthTabs == true) ? fullSizeWidth : min(self.maxTabWidth, fullSizeWidth)
+            var buttonWidth = (self.prefersFullWidthTabs == true) ? fullSizeWidth : min(self.maxTabWidth, fullSizeWidth)
             buttonWidth = max(buttonWidth, self.minTabWidth)
-            let r = CGRectMake(CGFloat(index)*buttonWidth, 0.0, buttonWidth, buttonHeight)
+            let buttonFrame = CGRectMake(CGFloat(index)*buttonWidth, 0.0, buttonWidth, buttonHeight)
             
-            if anim == true && button.hidden == false {
-                button.animator().frame = r
-            }
-            else {
-                button.frame = r
+            if animated && !button.hidden {
+                button.animator().frame = buttonFrame
+            } else {
+                button.frame = buttonFrame
             }
             
             if let delegateReceiver = self.delegateInterceptor.receiver as? TabsControlDelegate {
@@ -301,14 +244,19 @@ public class TabsControl: NSControl, TabEditingDelegate {
             button.tag = index
             tabsViewWidth += buttonWidth
         }
-        
-        self.tabsView.animator().frame = CGRectMake(0.0, 0.0, tabsViewWidth, buttonHeight)
+
+        let viewFrame = CGRectMake(0.0, 0.0, tabsViewWidth, buttonHeight)
+        if animated {
+            self.tabsView.animator().frame = viewFrame
+        } else {
+            self.tabsView.frame = viewFrame
+        }
     }
     
     private func updateAuxiliaryButtons() {
         let contentView = self.scrollView.contentView
         var showScrollButtons = (contentView.subviews.count > 0) && (NSMaxX(contentView.subviews[0].frame) > NSWidth(contentView.bounds))
-        showScrollButtons = showScrollButtons || (self.preferFullWidthTabs == true && self.currentTabWidth() == self.minTabWidth)
+        showScrollButtons = showScrollButtons || (self.prefersFullWidthTabs == true && self.currentTabWidth() == self.minTabWidth)
         
         self.scrollLeftButton?.hidden = !showScrollButtons
         self.scrollRightButton?.hidden = !showScrollButtons
@@ -631,22 +579,6 @@ public class TabsControl: NSControl, TabEditingDelegate {
     /// - returns: All `NSButton` instances inside this view's `scrollView`.
     private func buttons() -> [NSButton] {
         return self.scrollView.documentView?.subviews.flatMap { $0 as? NSButton } ?? []
-    }
-
-    private func propagateBorderMask() {
-        let buttons = self.tabButtons()
-        var borderMask = self.tabsControlCell.borderMask
-        
-        for (index, button) in buttons.enumerate() {
-            if index == 0 && self.automaticSideBorderMasks == true {
-                borderMask = borderMask.union(.Left)
-            }
-            if index == buttons.count-1 && self.automaticSideBorderMasks == true {
-                borderMask = borderMask.union(.Right)
-            }
-            let buttonCell = button.cell as! TabButtonCell
-            buttonCell.borderMask = borderMask
-        }
     }
 }
 
