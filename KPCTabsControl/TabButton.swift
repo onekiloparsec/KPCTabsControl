@@ -110,10 +110,6 @@ public class TabButton: NSButton {
         return copy
     }
     
-    private func buttonCell() -> TabButtonCell? {
-        return self.cell as? TabButtonCell
-    }
-    
 //    public override func highlight(flag: Bool) {
 //        if let c = self.cell as? TabButtonCell {
 //            c.highlight(flag)
