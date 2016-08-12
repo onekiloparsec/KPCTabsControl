@@ -176,6 +176,7 @@ public protocol TabStyle {
     var titleFont: NSFont { get }
 }
 
+// TODO: To my opinion, this should be named TabsControlStyle for consistency with the rest
 public protocol TabBarStyle {
     var backgroundColor: NSColor { get }
     var borderColor: NSColor { get }
