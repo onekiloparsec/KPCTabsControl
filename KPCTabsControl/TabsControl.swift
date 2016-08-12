@@ -579,5 +579,4 @@ public class TabsControl: NSControl, TabEditingDelegate {
     }
 }
 
-extension MessageInterceptor: NSTextDelegate { }
 
