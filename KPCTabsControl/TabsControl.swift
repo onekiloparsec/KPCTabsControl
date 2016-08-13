@@ -218,11 +218,14 @@ public class TabsControl: NSControl, TabEditingDelegate {
         
         let fullSizeWidth = CGRectGetWidth(self.scrollView.frame) / CGFloat(tabButtons.count)
         let buttonHeight = self.tabsView.frame.height
-        
+
+        var buttonX = CGFloat(0)
         for (index, button) in tabButtons.enumerate() {
             var buttonWidth = (self.prefersFullWidthTabs == true) ? fullSizeWidth : min(self.maxTabWidth, fullSizeWidth)
             buttonWidth = max(buttonWidth, self.minTabWidth)
-            let buttonFrame = CGRectMake(CGFloat(index)*buttonWidth, 0.0, buttonWidth, buttonHeight)
+            let offset = style.tabButtonOffset(position: button.buttonPosition)
+            let buttonFrame = CGRectMake(buttonX + offset.x, offset.y, buttonWidth, buttonHeight)
+            buttonX += buttonWidth + offset.x
             
             if animated && !button.hidden {
                 button.animator().frame = buttonFrame

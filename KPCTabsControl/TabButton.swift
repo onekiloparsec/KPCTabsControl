@@ -29,6 +29,8 @@ public class TabButton: NSButton {
         get { return self.cell as? TabButtonCell }
     }
 
+    var buttonPosition: TabButtonPosition! { return tabButtonCell?.buttonPosition }
+
     var representedObject: AnyObject? {
         get { return self.tabButtonCell?.representedObject }
         set { self.tabButtonCell?.representedObject = newValue }
