@@ -27,7 +27,7 @@ class ViewController: NSViewController {
         
         self.bottomPane?.title = "pane2"
         self.bottomPane?.titles = ["Tab a", "Tab b", "Tab c", "Tab d"]
-        self.bottomPane?.tabsBar?.style = ThemedStyle(theme: DefaultTheme(), tabWidth: FlexibleWidth(min: 100, max: 130))
+        self.bottomPane?.tabsBar?.style = ChromeStyle()
 
         self.topPane?.tabsBar?.reloadTabs()
         self.bottomPane?.tabsBar?.reloadTabs()
