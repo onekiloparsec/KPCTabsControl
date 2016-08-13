@@ -21,10 +21,13 @@ public struct FlexibleWidth {
 
 public typealias IconFrames = (iconFrame: NSRect, alternativeTitleIconFrame: NSRect)
 
+public typealias Offset = NSPoint
+
 public protocol Style {
 
     var tabWidth: FlexibleWidth { get }
 
+    func tabButtonOffset(position position: TabButtonPosition) -> Offset
     func maxIconHeight(tabRect rect: NSRect, scale: CGFloat) -> CGFloat
     func iconFrames(tabRect rect: NSRect) -> IconFrames
     func titleRect(title title: NSAttributedString, inBounds rect: NSRect, showingIcon: Bool) -> NSRect

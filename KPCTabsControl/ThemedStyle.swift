@@ -112,6 +112,11 @@ public struct ThemedStyle: Style {
         color.setStroke()
         NSRectFillList(borderRects, borderRectCount)
     }
+
+    public func tabButtonOffset(position position: TabButtonPosition) -> Offset {
+        
+        return NSPoint()
+    }
 }
 
 private enum BorderDrawing {

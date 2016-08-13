@@ -173,10 +173,16 @@ public struct ChromeStyle: Style {
         Colors.border.setFill()
         NSRectFill(bottomBorder)
     }
+
+    public func tabButtonOffset(position position: TabButtonPosition) -> Offset {
+
+        switch position {
+        case .first: return NSPoint()
+        case .middle, .last: return NSPoint(x: -10, y: 0)
+        }
+    }
 }
 
-typealias Offset = NSPoint
-
-func +(lhs:     NSPoint, rhs: Offset) -> NSPoint {
+func +(lhs: NSPoint, rhs: Offset) -> NSPoint {
     return NSPoint(x: lhs.x + rhs.x, y: lhs.y + rhs.y)
 }
