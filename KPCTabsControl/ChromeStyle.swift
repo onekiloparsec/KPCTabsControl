@@ -11,10 +11,19 @@ import Cocoa
 public struct ChromeStyle: Style {
 
     enum Colors {
-        static let tabBackground = NSColor(calibratedWhite: 245/256.0, alpha: 1.0)
         static let tabControlBackground = NSColor(calibratedWhite: 216/256.0, alpha: 1.0)
 
         static let border = NSColor(calibratedWhite: 152/256.0, alpha: 1.0)
+
+        static let tabBackgroundUnselected = Colors.tabControlBackground
+        static let tabBackgroundSelected = NSColor(calibratedWhite: 245/256.0, alpha: 1.0)
+
+        static func tabBackground(isSelected: Bool) -> NSColor {
+
+            if isSelected { return tabBackgroundSelected }
+
+            return tabBackgroundUnselected
+        }
     }
 
     public let tabWidth: FlexibleWidth = FlexibleWidth(min: 80, max: 180)
@@ -54,6 +63,7 @@ public struct ChromeStyle: Style {
     }
 
     public func drawTabBezel(frame frame: NSRect, position: TabButtonPosition, isSelected: Bool) {
+
         let height: CGFloat = {
             let paddedHeight = frame.height * 0.7
 
@@ -76,7 +86,7 @@ public struct ChromeStyle: Style {
         path.lineToPoint(lowerRight)
         path.lineWidth = 1
 
-        Colors.tabBackground.setFill()
+        Colors.tabBackground(isSelected).setFill()
         path.fill()
 
         Colors.border.setStroke()
