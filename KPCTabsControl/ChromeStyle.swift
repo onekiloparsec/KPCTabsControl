@@ -135,17 +135,50 @@ public struct ChromeStyle: Style {
     public func drawTabBezel(frame frame: NSRect, position: TabButtonPosition, isSelected: Bool) {
 
         let height: CGFloat = PaddedHeight.fromFrame(frame).value
-        let xOffset = height / 2 // 45˚ angle
-        let lowerLeft = frame.origin + Offset(x: 0, y: frame.height)
-        let upperLeft = lowerLeft + Offset(x: xOffset, y: -height)
+        let xOffset = height / 2.0
+        
+        let lowerLeft  = frame.origin + Offset(x: 0, y: frame.height)
+        let upperLeft  = lowerLeft + Offset(x: xOffset, y: -height)
         let lowerRight = lowerLeft + Offset(x: frame.width, y: 0)
         let upperRight = lowerRight + Offset(x: -xOffset, y: -height)
 
         let path = NSBezierPath()
+
+        // TODO: Remove these awful hardcoded values...
+        // Remember that Origin start in upper left corner.
+        
+        // Lower left point.
         path.moveToPoint(lowerLeft)
-        path.lineToPoint(upperLeft)
+        
+        // Before aligning to the top, make a slight curve.
+        let leftRisingFromPoint = CGPointMake(lowerLeft.x+5.0, lowerLeft.y);
+        let leftRisingToPoint = CGPointMake(lowerLeft.x+5.0, lowerLeft.y-5.0);
+        path.appendBezierPathWithArcFromPoint(leftRisingFromPoint, toPoint:leftRisingToPoint, radius:5.0)
+
+        // Before reaching the top, stop at the point of the coming curve
+        let leftToppingPoint = CGPointMake(upperLeft.x-5.0, upperLeft.y+5.0);
+        path.lineToPoint(leftToppingPoint)
+        
+        // Curve to the top!
+        let leftToppingFromPoint = CGPointMake(upperLeft.x-5.0, upperLeft.y);
+        path.appendBezierPathWithArcFromPoint(leftToppingFromPoint, toPoint:upperLeft, radius:5.0)
+
+        // Line to the upper right
         path.lineToPoint(upperRight)
-        path.lineToPoint(lowerRight)
+        
+        // Before aligning to fall down, make a slight curve
+        let rightFallingFromPoint = CGPointMake(upperRight.x+5.0, upperRight.y);
+        let rightFallingToPoint = CGPointMake(upperRight.x+5.0, upperRight.y+5.0);
+        path.appendBezierPathWithArcFromPoint(rightFallingFromPoint, toPoint:rightFallingToPoint, radius:5.0)
+
+        // Before reaching the bottom right, stop at the point of the coming curve
+        let rightBottomingPoint = CGPointMake(lowerRight.x-5.0, lowerRight.y-5.0);
+        path.lineToPoint(rightBottomingPoint)
+        
+        // Curve to the bottom
+        let rightBottomingFromPoint = CGPointMake(lowerRight.x-5.0, lowerRight.y);
+        path.appendBezierPathWithArcFromPoint(rightBottomingFromPoint, toPoint:lowerRight, radius:5.0)
+
         path.lineWidth = 1
 
         Colors.tabBackground(isSelected).setFill()
@@ -162,8 +195,7 @@ public struct ChromeStyle: Style {
     public func drawTabControlBezel(frame frame: NSRect) {
         Colors.tabControlBackground.setFill()
         NSRectFill(frame)
-
-        drawBottomBorder(frame: frame)
+        self.drawBottomBorder(frame: frame)
     }
 
     private func drawBottomBorder(frame frame: NSRect) {
@@ -175,7 +207,6 @@ public struct ChromeStyle: Style {
     }
 
     public func tabButtonOffset(position position: TabButtonPosition) -> Offset {
-
         switch position {
         case .first: return NSPoint()
         case .middle, .last: return NSPoint(x: -10, y: 0)
