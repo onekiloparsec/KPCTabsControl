@@ -96,11 +96,11 @@ public struct ThemedStyle: Style {
     }
 
     public func drawTabControlBezel(frame frame: NSRect) {
-        self.theme.tabBarStyle.backgroundColor.setFill()
+        self.theme.tabsControlStyle.backgroundColor.setFill()
         NSRectFill(frame)
 
         let borderDrawing = BorderDrawing.fromMask(frame, borderMask: .top)
-        drawBorder(borderDrawing, color: self.theme.tabBarStyle.borderColor)
+        drawBorder(borderDrawing, color: self.theme.tabsControlStyle.borderColor)
     }
 
     private func drawBorder(border: BorderDrawing, color: NSColor) {
@@ -165,8 +165,8 @@ public protocol Theme {
     var highlightedTabStyle: TabStyle { get }
     var selectedTabStyle: TabStyle { get }
 
-    var tabBarStyle: TabBarStyle { get }
-    var highlightedTabBarStyle: TabBarStyle { get }
+    var tabsControlStyle: TabsControlStyle { get }
+    var highlightedTabsControlStyle: TabsControlStyle { get }
 }
 
 public protocol TabStyle {
@@ -176,8 +176,7 @@ public protocol TabStyle {
     var titleFont: NSFont { get }
 }
 
-// TODO: To my opinion, this should be named TabsControlStyle for consistency with the rest
-public protocol TabBarStyle {
+public protocol TabsControlStyle {
     var backgroundColor: NSColor { get }
     var borderColor: NSColor { get }
 }

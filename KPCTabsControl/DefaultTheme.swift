@@ -16,8 +16,8 @@ public struct DefaultTheme: Theme {
     public let highlightedTabStyle: TabStyle = HighlightedTabStyle(base: DefaultTabStyle())
     public let selectedTabStyle: TabStyle = SelectedTabStyle(base: DefaultTabStyle())
 
-    public let tabBarStyle: TabBarStyle = DefaultTabBarStyle()
-    public let highlightedTabBarStyle: TabBarStyle = HighlightedTabBarStyle(base: DefaultTabBarStyle())
+    public let tabsControlStyle: TabsControlStyle = DefaultTabsControlStyle()
+    public let highlightedTabsControlStyle: TabsControlStyle = HighlightedTabsControlStyle(base: DefaultTabsControlStyle())
 
     private static var sharedBorderColor: NSColor { return NSColor.lightGrayColor() }
     private static var sharedBackgroundColor: NSColor { return NSColor(calibratedWhite: 0.95, alpha: 1.0) }
@@ -51,15 +51,15 @@ public struct DefaultTheme: Theme {
         var titleFont: NSFont { return NSFont.boldSystemFontOfSize(13) }
     }
 
-    struct DefaultTabBarStyle: KPCTabsControl.TabBarStyle {
+    struct DefaultTabsControlStyle: KPCTabsControl.TabsControlStyle {
 
         var borderColor: NSColor { return DefaultTheme.sharedBorderColor }
         var backgroundColor: NSColor { return DefaultTheme.sharedBackgroundColor }
     }
 
-    struct HighlightedTabBarStyle: KPCTabsControl.TabBarStyle {
+    struct HighlightedTabsControlStyle: KPCTabsControl.TabsControlStyle {
 
-        let base: DefaultTabBarStyle
+        let base: DefaultTabsControlStyle
 
         var borderColor: NSColor { return base.borderColor }
         var backgroundColor: NSColor { return DefaultTheme.sharedHighlightedBackgroundColor }
