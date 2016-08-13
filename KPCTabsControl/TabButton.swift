@@ -6,14 +6,7 @@
 //  Licensed under the MIT License (see LICENSE file)
 //
 
-import Foundation
 import AppKit
-
-public enum TabButtonPosition {
-    case first
-    case middle
-    case last
-}
 
 public class TabButton: NSButton {
 
@@ -200,6 +193,6 @@ public class TabButton: NSButton {
     }
 
     func edit(fieldEditor fieldEditor: NSText, delegate: NSTextDelegate) {
-        tabButtonCell?.edit(fieldEditor: fieldEditor, inView: self, delegate: delegate)
+        self.tabButtonCell?.edit(fieldEditor: fieldEditor, inView: self, delegate: delegate)
     }
 }

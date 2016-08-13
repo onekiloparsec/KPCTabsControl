@@ -9,3 +9,9 @@
 import Foundation
 
 public let TabsControlSelectionDidChangeNotification = "TabsControlSelectionDidChangeNotification"
+
+public enum TabButtonPosition {
+    case first
+    case middle
+    case last
+}
