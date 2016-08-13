@@ -42,8 +42,10 @@ public struct ChromeStyle: Style {
     }
 
     public func titleRect(title title: NSAttributedString, inBounds rect: NSRect, showingIcon: Bool) -> NSRect {
-
+        let xOffset = CGFloat(35)
         return rect
+            .offsetBy(dx: xOffset, dy: 4)
+            .shrinkBy(dx: xOffset, dy: 4)
     }
 
     public func attributedTitle(content content: String, isSelected: Bool) -> NSAttributedString {
@@ -52,14 +54,22 @@ public struct ChromeStyle: Style {
     }
 
     public func drawTabBezel(frame frame: NSRect, position: TabButtonPosition, isSelected: Bool) {
+        let height: CGFloat = {
+            let paddedHeight = frame.height * 0.7
 
-        let path = NSBezierPath()
-        let height = frame.height * 0.7
-        let xOffset = height / 2
+            // Chrome tabs have lots of whitespace to the top; if that's 
+            // too cramped, don't try to achieve that effect.
+            guard paddedHeight > 30 else { return frame.height - 2 }
+
+            return paddedHeight
+        }()
+        let xOffset = height / 2 // 45˚ angle
         let lowerLeft = frame.origin + Offset(x: 0, y: frame.height)
         let upperLeft = lowerLeft + Offset(x: xOffset, y: -height)
         let lowerRight = lowerLeft + Offset(x: frame.width, y: 0)
         let upperRight = lowerRight + Offset(x: -xOffset, y: -height)
+
+        let path = NSBezierPath()
         path.moveToPoint(lowerLeft)
         path.lineToPoint(upperLeft)
         path.lineToPoint(upperRight)
