@@ -96,13 +96,20 @@ public struct ChromeStyle: Style {
 
         Colors.border.setStroke()
         path.stroke()
+
+        if !isSelected {
+            drawBottomBorder(frame: frame)
+        }
     }
 
     public func drawTabControlBezel(frame frame: NSRect) {
-
         Colors.tabControlBackground.setFill()
         NSRectFill(frame)
 
+        drawBottomBorder(frame: frame)
+    }
+
+    private func drawBottomBorder(frame frame: NSRect) {
         let bottomBorder = NSRect(
             origin: frame.origin + Offset(x: 0, y: frame.height - 1),
             size: NSSize(width: frame.width, height: 1))
