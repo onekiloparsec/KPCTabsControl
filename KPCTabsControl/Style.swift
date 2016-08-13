@@ -8,7 +8,7 @@
 
 import Cocoa
 
-public struct FlexibleWidth {
+public struct FlexibleTabWidth {
     public let min: CGFloat
     public let max: CGFloat
 
@@ -23,7 +23,7 @@ public typealias IconFrames = (iconFrame: NSRect, alternativeTitleIconFrame: NSR
 
 public protocol Style {
 
-    var tabWidth: FlexibleWidth { get }
+    var tabWidth: FlexibleTabWidth { get }
 
     func maxIconHeight(tabRect rect: NSRect, scale: CGFloat) -> CGFloat
     func iconFrames(tabRect rect: NSRect) -> IconFrames
