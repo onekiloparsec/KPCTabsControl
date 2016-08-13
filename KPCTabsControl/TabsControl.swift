@@ -21,7 +21,7 @@ public class TabsControl: NSControl, TabEditingDelegate {
     private var addButton: NSButton? = nil
     private var scrollLeftButton: NSButton? = nil
     private var scrollRightButton: NSButton? = nil
-    private weak var selectedButton: TabButton? = nil
+    private var selectedButton: TabButton? = nil
 
     private var hideScrollButtons: Bool = true
 //    private var isHighlighted: Bool = false
@@ -172,6 +172,8 @@ public class TabsControl: NSControl, TabEditingDelegate {
                                    target: self,
                                    action: #selector(TabsControl.selectTab(_:)),
                                    style: style)
+            button.wantsLayer = true
+            button.tag = i
             
             button.editable = self.delegate?.tabsControl?(self, canEditTitleOfItem: item) == true
 
@@ -226,21 +228,22 @@ public class TabsControl: NSControl, TabEditingDelegate {
             let offset = style.tabButtonOffset(position: button.buttonPosition)
             let buttonFrame = CGRectMake(buttonX + offset.x, offset.y, buttonWidth, buttonHeight)
             buttonX += buttonWidth + offset.x
-            
+
+            button.layer?.zPosition = button.state == NSOnState ? CGFloat(FLT_MAX) : CGFloat(index)
+
             if animated && !button.hidden {
                 button.animator().frame = buttonFrame
             } else {
                 button.frame = buttonFrame
             }
             
-            if let delegateReceiver = self.delegateInterceptor.receiver as? TabsControlDelegate {
-                if delegateReceiver.tabsControl?(self, canSelectItem: button.tabButtonCell!.representedObject!) != nil {
-                    button.tabButtonCell!.selectable = delegateReceiver.tabsControl!(self, canSelectItem: button.tabButtonCell!.representedObject!)
-                    // TODO: not entirely sure this swift code does what I want... fix that.
-                }
+            if let delegateReceiver = self.delegateInterceptor.receiver as? TabsControlDelegate
+                where delegateReceiver.tabsControl?(self, canSelectItem: button.tabButtonCell!.representedObject!) != nil {
+
+                button.tabButtonCell!.selectable = delegateReceiver.tabsControl!(self, canSelectItem: button.tabButtonCell!.representedObject!)
+                // TODO: not entirely sure this swift code does what I want... fix that.
             }
-            
-            button.tag = index
+
             tabsViewWidth += buttonWidth
         }
 
@@ -395,8 +398,10 @@ public class TabsControl: NSControl, TabEditingDelegate {
         }
 
         self.selectedButton = button
-        self.tabButtons().forEach { $0.state = ($0 === self.selectedButton!) ? NSOnState : NSOffState }
-        
+        let tabButtons = self.tabButtons()
+        tabButtons.forEach { $0.state = ($0 === self.selectedButton!) ? NSOnState : NSOffState }
+        layoutTabButtons(tabButtons, animated: false)
+
         NSApp.sendAction(self.action, to: self.target, from: self)
         NSNotificationCenter.defaultCenter().postNotificationName(TabsControlSelectionDidChangeNotification, object: self)
         
@@ -444,8 +449,10 @@ public class TabsControl: NSControl, TabEditingDelegate {
     }
     
     /// The index of the selected item.
-    public var selectedItemIndex: Int {
-        get { return (self.selectedButton != nil) ? self.selectedButton!.tag : -1 }
+    public var selectedItemIndex: Int? {
+        guard let selectedButton = self.selectedButton
+            else { return nil }
+        return selectedButton.tag
     }
     
     /**
@@ -492,11 +499,13 @@ public class TabsControl: NSControl, TabEditingDelegate {
         defer { self.reloadTabs() }
         
         guard !newValue.isEmpty
-            && self.delegate?.tabsControl?(self, setTitle: newValue, forItem: tabButton.representedObject!) != nil else { return }
+            && self.delegate?.tabsControl?(self, setTitle: newValue, forItem: tabButton.representedObject!) != nil,
+            let selectedItemIndex = self.selectedItemIndex
+            else { return }
         
         // TODO add callback to client code to replace forwarding controlTextDidEndEditing(_:)
         
-        tabButton.representedObject = self.dataSource?.tabsControl(self, itemAtIndex: self.selectedItemIndex)
+        tabButton.representedObject = self.dataSource?.tabsControl(self, itemAtIndex: selectedItemIndex)
     }
 
     // MARK: - Drawing
