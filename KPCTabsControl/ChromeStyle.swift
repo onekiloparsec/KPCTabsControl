@@ -10,6 +10,13 @@ import Cocoa
 
 public struct ChromeStyle: Style {
 
+    enum Colors {
+        static let tabBackground = NSColor(calibratedWhite: 245/256.0, alpha: 1.0)
+        static let tabControlBackground = NSColor(calibratedWhite: 216/256.0, alpha: 1.0)
+
+        static let border = NSColor(calibratedWhite: 152/256.0, alpha: 1.0)
+    }
+
     public let tabWidth: FlexibleWidth = FlexibleWidth(min: 80, max: 180)
 
     public init() { }
@@ -46,13 +53,35 @@ public struct ChromeStyle: Style {
 
     public func drawTabBezel(frame frame: NSRect, position: TabButtonPosition, isSelected: Bool) {
 
-        NSColor.lightGrayColor().setFill()
-        NSRectFill(frame)
+        let path = NSBezierPath()
+        let height = frame.height * 0.7
+        let xOffset = height / 2
+        let lowerLeft = frame.origin + Offset(x: 0, y: frame.height)
+        let upperLeft = lowerLeft + Offset(x: xOffset, y: -height)
+        let lowerRight = lowerLeft + Offset(x: frame.width, y: 0)
+        let upperRight = lowerRight + Offset(x: -xOffset, y: -height)
+        path.moveToPoint(lowerLeft)
+        path.lineToPoint(upperLeft)
+        path.lineToPoint(upperRight)
+        path.lineToPoint(lowerRight)
+        path.lineWidth = 1
+
+        Colors.tabBackground.setFill()
+        path.fill()
+
+        Colors.border.setStroke()
+        path.stroke()
     }
 
     public func drawTabControlBezel(frame frame: NSRect) {
 
-        NSColor.darkGrayColor().setFill()
+        Colors.tabControlBackground.setFill()
         NSRectFill(frame)
     }
+}
+
+typealias Offset = NSPoint
+
+func +(lhs:     NSPoint, rhs: Offset) -> NSPoint {
+    return NSPoint(x: lhs.x + rhs.x, y: lhs.y + rhs.y)
 }
