@@ -87,6 +87,12 @@ public struct ChromeStyle: Style {
 
         Colors.tabControlBackground.setFill()
         NSRectFill(frame)
+
+        let bottomBorder = NSRect(
+            origin: frame.origin + Offset(x: 0, y: frame.height - 1),
+            size: NSSize(width: frame.width, height: 1))
+        Colors.border.setFill()
+        NSRectFill(bottomBorder)
     }
 }
 
