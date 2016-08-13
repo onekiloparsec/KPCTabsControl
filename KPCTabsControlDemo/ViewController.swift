@@ -18,7 +18,7 @@ class ViewController: NSViewController {
         
         self.topPane?.title = "pane1"
         self.topPane?.titles = ["Tab 1", "Tab 2", "Tab 3", "Tab 4", "Tab 5"]
-        self.topPane?.tabsBar?.style = ThemedStyle(theme: DefaultTheme(), tabWidth: FlexibleWidth(min: 150, max: 180))
+        self.topPane?.tabsBar?.style = DefaultStyle()
 
         let tab2Menu = NSMenu()
         tab2Menu.addItemWithTitle("Action 1", action: nil, keyEquivalent: "")

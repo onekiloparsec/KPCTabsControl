@@ -8,7 +8,7 @@
 
 import Cocoa
 
-public struct FlexibleWidth {
+public struct FlexibleTabWidth {
     public let min: CGFloat
     public let max: CGFloat
 
@@ -25,7 +25,7 @@ public typealias Offset = NSPoint
 
 public protocol Style {
 
-    var tabWidth: FlexibleWidth { get }
+    var tabWidth: FlexibleTabWidth { get }
 
     func tabButtonOffset(position position: TabButtonPosition) -> Offset
     func maxIconHeight(tabRect rect: NSRect, scale: CGFloat) -> CGFloat

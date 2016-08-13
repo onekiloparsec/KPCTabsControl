@@ -8,12 +8,14 @@
 
 import Cocoa
 
-public struct ThemedStyle: Style {
+/**
+ *  The default TabsControl style. Used with the DefaultTheme, it provides an experience similar to Apple's Numbers.app.
+ */
+public struct DefaultStyle: Style {
     public let theme: Theme
-    public let tabWidth: FlexibleWidth
+    public let tabWidth: FlexibleTabWidth
 
-    public init(theme: Theme, tabWidth: FlexibleWidth = FlexibleWidth(min: 50, max: 150)) {
-
+    public init(theme: Theme = DefaultTheme(), tabWidth: FlexibleTabWidth = FlexibleTabWidth(min: 50, max: 150)) {
         self.theme = theme
         self.tabWidth = tabWidth
     }
@@ -40,7 +42,7 @@ public struct ThemedStyle: Style {
 
     public func drawTabBezel(frame frame: NSRect, position: TabButtonPosition, isSelected: Bool) {
 
-        let activeStyle = isSelected ? theme.selectedTabStyle : theme.tabStyle
+        let activeStyle = isSelected ? self.theme.selectedTabButtonTheme : theme.tabButtonTheme
 
         let color = activeStyle.backgroundColor
         color.setFill()
@@ -55,7 +57,7 @@ public struct ThemedStyle: Style {
         }()
         let borderDrawing = BorderDrawing.fromMask(frame, borderMask: borderMask)
 
-        drawBorder(borderDrawing, color: activeStyle.borderColor)
+        self.drawBorder(borderDrawing, color: activeStyle.borderColor)
     }
 
     public func titleRect(title title: NSAttributedString, inBounds rect: NSRect, showingIcon: Bool) -> NSRect {
@@ -63,7 +65,7 @@ public struct ThemedStyle: Style {
         let titleSize = title.size()
         let fullWidthRect = NSMakeRect(NSMinX(rect), NSMidY(rect) - titleSize.height/2.0, NSWidth(rect), titleSize.height)
 
-        return paddedRectForIcon(fullWidthRect, showingIcon: showingIcon)
+        return self.paddedRectForIcon(fullWidthRect, showingIcon: showingIcon)
     }
 
     private func paddedRectForIcon(rect: NSRect, showingIcon: Bool) -> NSRect {
@@ -79,7 +81,7 @@ public struct ThemedStyle: Style {
 
     public func attributedTitle(content content: String, isSelected: Bool) -> NSAttributedString {
 
-        let activeStyle = isSelected ? self.theme.selectedTabStyle : self.theme.tabStyle
+        let activeStyle = isSelected ? self.theme.selectedTabButtonTheme : self.theme.tabButtonTheme
         let titleColor = activeStyle.titleColor
         let font = activeStyle.titleFont
 
@@ -96,11 +98,11 @@ public struct ThemedStyle: Style {
     }
 
     public func drawTabControlBezel(frame frame: NSRect) {
-        self.theme.tabsControlStyle.backgroundColor.setFill()
+        self.theme.tabsControlTheme.backgroundColor.setFill()
         NSRectFill(frame)
 
         let borderDrawing = BorderDrawing.fromMask(frame, borderMask: .top)
-        drawBorder(borderDrawing, color: self.theme.tabsControlStyle.borderColor)
+        self.drawBorder(borderDrawing, color: self.theme.tabsControlTheme.borderColor)
     }
 
     private func drawBorder(border: BorderDrawing, color: NSColor) {
@@ -165,23 +167,3 @@ private enum BorderDrawing {
     }
 }
 
-public protocol Theme {
-    var tabStyle: TabStyle { get }
-    var highlightedTabStyle: TabStyle { get }
-    var selectedTabStyle: TabStyle { get }
-
-    var tabsControlStyle: TabsControlStyle { get }
-    var highlightedTabsControlStyle: TabsControlStyle { get }
-}
-
-public protocol TabStyle {
-    var backgroundColor: NSColor { get }
-    var borderColor: NSColor { get }
-    var titleColor: NSColor { get }
-    var titleFont: NSFont { get }
-}
-
-public protocol TabsControlStyle {
-    var backgroundColor: NSColor { get }
-    var borderColor: NSColor { get }
-}

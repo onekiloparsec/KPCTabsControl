@@ -45,7 +45,7 @@ class PaneViewController: NSViewController, TabsControlDataSource, TabsControlDe
 //        self.tabsBar?.highlight(true)
         
         if (sendNotification) {
-    NSNotificationCenter.defaultCenter().postNotificationName("PaneSelectionDidChangeNotification", object: self)
+            NSNotificationCenter.defaultCenter().postNotificationName("PaneSelectionDidChangeNotification", object: self)
         }
     }
     

@@ -35,7 +35,7 @@ public struct ChromeStyle: Style {
         }
     }
 
-    public let tabWidth: FlexibleWidth = FlexibleWidth(min: 80, max: 180)
+    public let tabWidth: FlexibleTabWidth = FlexibleTabWidth(min: 80, max: 180)
 
     public init() { }
 
