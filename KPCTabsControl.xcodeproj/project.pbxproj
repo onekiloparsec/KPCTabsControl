@@ -13,6 +13,7 @@
 		501FD7791D5B2CA300C3B1F3 /* DefaultTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501FD7781D5B2CA300C3B1F3 /* DefaultTheme.swift */; };
 		501FD77B1D5B34C200C3B1F3 /* ThemedStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501FD77A1D5B34C200C3B1F3 /* ThemedStyle.swift */; };
 		50BF2D711D5F09A8006A54F5 /* ChromeStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BF2D701D5F09A8006A54F5 /* ChromeStyle.swift */; };
+		50BF2D731D5F1C44006A54F5 /* ColoredView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BF2D721D5F1C44006A54F5 /* ColoredView.swift */; };
 		9F1186431D4CF89B00E6CE39 /* TabsControlCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1186421D4CF89B00E6CE39 /* TabsControlCell.swift */; };
 		9F2154A91D2D179500C4DD06 /* TabButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2154A81D2D179500C4DD06 /* TabButton.swift */; };
 		9F23FF321D10A99D00326F3B /* TabButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F23FF311D10A99D00326F3B /* TabButtonCell.swift */; };
@@ -69,6 +70,7 @@
 		501FD7781D5B2CA300C3B1F3 /* DefaultTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DefaultTheme.swift; path = KPCTabsControl/DefaultTheme.swift; sourceTree = "<group>"; };
 		501FD77A1D5B34C200C3B1F3 /* ThemedStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ThemedStyle.swift; path = KPCTabsControl/ThemedStyle.swift; sourceTree = "<group>"; };
 		50BF2D701D5F09A8006A54F5 /* ChromeStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChromeStyle.swift; path = KPCTabsControl/ChromeStyle.swift; sourceTree = "<group>"; };
+		50BF2D721D5F1C44006A54F5 /* ColoredView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColoredView.swift; sourceTree = "<group>"; };
 		9F09E9FD1C95668400EA970C /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = SOURCE_ROOT; };
 		9F1186421D4CF89B00E6CE39 /* TabsControlCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TabsControlCell.swift; path = KPCTabsControl/TabsControlCell.swift; sourceTree = "<group>"; };
 		9F2154A81D2D179500C4DD06 /* TabButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TabButton.swift; path = KPCTabsControl/TabButton.swift; sourceTree = "<group>"; };
@@ -191,6 +193,7 @@
 			children = (
 				9F45CD921D396D4200149654 /* AppDelegate.swift */,
 				9F45CDA71D39815D00149654 /* ViewController.swift */,
+				50BF2D721D5F1C44006A54F5 /* ColoredView.swift */,
 				9F45CD941D396D4200149654 /* PaneViewController.swift */,
 				9F45CD961D396D4200149654 /* Assets.xcassets */,
 				9F45CD9F1D396DD200149654 /* Main.storyboard */,
@@ -347,6 +350,7 @@
 				9F45CDA81D39815D00149654 /* ViewController.swift in Sources */,
 				9F45CD951D396D4200149654 /* PaneViewController.swift in Sources */,
 				9F45CD931D396D4200149654 /* AppDelegate.swift in Sources */,
+				50BF2D731D5F1C44006A54F5 /* ColoredView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -711,7 +711,7 @@
                                             <constraint firstItem="c1G-E0-GKJ" firstAttribute="top" secondItem="7wy-a7-VFr" secondAttribute="top" id="pKZ-MP-vom"/>
                                         </constraints>
                                     </customView>
-                                    <customView id="OFa-rZ-wN5">
+                                    <customView id="OFa-rZ-wN5" customClass="ColoredView" customModule="KPCTabsControlDemo" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="181" width="480" height="179"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <subviews>

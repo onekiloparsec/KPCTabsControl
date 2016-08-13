@@ -28,8 +28,10 @@ class ViewController: NSViewController {
         self.bottomPane?.title = "pane2"
         self.bottomPane?.titles = ["Tab a", "Tab b", "Tab c", "Tab d"]
         self.bottomPane?.tabsBar?.style = ChromeStyle()
+        (self.bottomPane?.view as? ColoredView)?.backgroundColor = ChromeStyle.panelBackgroundColor
 
         self.topPane?.tabsBar?.reloadTabs()
         self.bottomPane?.tabsBar?.reloadTabs()
     }
 }
+

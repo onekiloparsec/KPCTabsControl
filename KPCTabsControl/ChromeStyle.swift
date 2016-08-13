@@ -10,6 +10,11 @@ import Cocoa
 
 public struct ChromeStyle: Style {
 
+    /// Exposes the color used by selected tabs to style the view below in a matching way.
+    public static var panelBackgroundColor: NSColor {
+        return Colors.tabBackgroundSelected
+    }
+
     enum Colors {
         static let tabControlBackground = NSColor(calibratedWhite: 216/256.0, alpha: 1.0)
 
