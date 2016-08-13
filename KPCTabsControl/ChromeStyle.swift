@@ -15,6 +15,10 @@ public struct ChromeStyle: Style {
         return Colors.tabBackgroundSelected
     }
 
+    public static var recommendedTabsControlHeight: CGFloat {
+        return 34
+    }
+
     enum Colors {
         static let tabControlBackground = NSColor(calibratedWhite: 216/256.0, alpha: 1.0)
 
@@ -37,47 +41,100 @@ public struct ChromeStyle: Style {
 
     public func maxIconHeight(tabRect rect: NSRect, scale: CGFloat) -> CGFloat {
 
-        let verticalPadding: CGFloat = 2.0
-        let paddedHeight = CGRectGetHeight(rect) - 2 * verticalPadding
+        let verticalPadding: CGFloat = 4.0
+        let paddedHeight = rect.height - 2 * verticalPadding
 
         return 1.2 * paddedHeight * scale
     }
 
     public func iconFrames(tabRect rect: NSRect) -> IconFrames {
+        let paddedHeight = PaddedHeight.fromFrame(rect)
+        let topPadding = paddedHeight.topPadding
+        let iconHeight = paddedHeight.iconHeight
+        let x = rect.width / 2.0 - iconHeight / 2.0
 
-        let verticalPadding: CGFloat = 2.0
-        let paddedHeight = CGRectGetHeight(rect) - 2*verticalPadding
-        let x = CGRectGetWidth(rect) / 2.0 - paddedHeight / 2.0
-
+        // Left border is angled at 45˚, so it grows proportionally wider
+        let iconXOffset = paddedHeight.value / 2
+        
         return (
-            NSMakeRect(10.0, verticalPadding, paddedHeight, paddedHeight),
-            NSMakeRect(x, verticalPadding, paddedHeight, paddedHeight)
+            NSMakeRect(iconXOffset, topPadding, iconHeight, iconHeight),
+            NSMakeRect(x, topPadding, iconHeight, iconHeight)
         )
     }
 
     public func titleRect(title title: NSAttributedString, inBounds rect: NSRect, showingIcon: Bool) -> NSRect {
-        let xOffset = CGFloat(35)
+        let paddedHeight = PaddedHeight.fromFrame(rect)
+        // Left border is angled at 45˚, so it grows proportionally wider
+        let iconOffset = showingIcon ? paddedHeight.iconHeight + 4 : 0.0
+        let xOffset = paddedHeight.value / 2 + iconOffset
+        let yOffset = paddedHeight.topPadding - 2
+
         return rect
-            .offsetBy(dx: xOffset, dy: 4)
-            .shrinkBy(dx: xOffset, dy: 4)
+            .offsetBy(dx: xOffset, dy: yOffset)
+            .shrinkBy(dx: xOffset, dy: yOffset)
     }
 
     public func attributedTitle(content content: String, isSelected: Bool) -> NSAttributedString {
+        let attributes = [
+            NSFontAttributeName: NSFont.systemFontOfSize(14)
+        ]
+        return NSAttributedString(string: content, attributes: attributes)
+    }
 
-        return NSAttributedString(string: content)
+    enum PaddedHeight {
+
+        case unpadded(CGFloat, originalHeight: CGFloat)
+        case padded(CGFloat, originalHeight: CGFloat)
+
+        static func fromFrame(frame: NSRect) -> PaddedHeight {
+
+            let paddedHeight = frame.height * 0.7
+
+            // Chrome tabs have lots of whitespace to the top; if that's
+            // too cramped, don't try to achieve that effect.
+            guard paddedHeight > 20 else {
+                return .unpadded(frame.height - 2, originalHeight: frame.height)
+            }
+
+            return .padded(paddedHeight, originalHeight: frame.height)
+        }
+
+        var value: CGFloat {
+            switch self {
+            case .unpadded(let height, _): return height
+            case .padded(let height, _): return height
+            }
+        }
+
+        var bottomPadding: CGFloat {
+            return CGFloat(4)
+        }
+
+        var topPadding: CGFloat {
+            switch self {
+            case .unpadded: return bottomPadding + 2
+            case let .padded(height, originalHeight):
+                /// Visual distance to top TabsControl border.
+                let tabMargin = originalHeight - height
+                return tabMargin + bottomPadding
+            }
+        }
+
+        var originalHeight: CGFloat {
+            switch self {
+            case .unpadded(_, let originalHeight): return originalHeight
+            case .padded(_, let originalHeight): return originalHeight
+            }
+        }
+
+        var iconHeight: CGFloat {
+            return originalHeight - topPadding - bottomPadding
+        }
     }
 
     public func drawTabBezel(frame frame: NSRect, position: TabButtonPosition, isSelected: Bool) {
 
-        let height: CGFloat = {
-            let paddedHeight = frame.height * 0.7
-
-            // Chrome tabs have lots of whitespace to the top; if that's 
-            // too cramped, don't try to achieve that effect.
-            guard paddedHeight > 30 else { return frame.height - 2 }
-
-            return paddedHeight
-        }()
+        let height: CGFloat = PaddedHeight.fromFrame(frame).value
         let xOffset = height / 2 // 45˚ angle
         let lowerLeft = frame.origin + Offset(x: 0, y: frame.height)
         let upperLeft = lowerLeft + Offset(x: xOffset, y: -height)
