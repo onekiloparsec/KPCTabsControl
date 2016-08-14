@@ -137,47 +137,49 @@ public struct ChromeStyle: Style {
         let height: CGFloat = PaddedHeight.fromFrame(frame).value
         let xOffset = height / 2.0
         
-        let lowerLeft  = frame.origin + Offset(x: 0, y: frame.height)
+        let lowerLeft  = frame.origin + Offset(y: frame.height)
         let upperLeft  = lowerLeft + Offset(x: xOffset, y: -height)
-        let lowerRight = lowerLeft + Offset(x: frame.width, y: 0)
+        let lowerRight = lowerLeft + Offset(x: frame.width)
         let upperRight = lowerRight + Offset(x: -xOffset, y: -height)
+
+        let curve = CGFloat(3)
 
         let path = NSBezierPath()
 
         // TODO: Remove these awful hardcoded values...
-        // Remember that Origin start in upper left corner.
+        // Remember that Origin start in lower left corner.
         
         // Lower left point.
         path.moveToPoint(lowerLeft)
         
         // Before aligning to the top, make a slight curve.
-        let leftRisingFromPoint = CGPointMake(lowerLeft.x+5.0, lowerLeft.y);
-        let leftRisingToPoint = CGPointMake(lowerLeft.x+5.0, lowerLeft.y-5.0);
-        path.appendBezierPathWithArcFromPoint(leftRisingFromPoint, toPoint:leftRisingToPoint, radius:5.0)
+        let leftRisingFromPoint = lowerLeft + Offset(x: curve)
+        let leftRisingToPoint = lowerLeft + Offset(x: curve, y: curve)
+        path.appendBezierPathWithArcFromPoint(leftRisingFromPoint, toPoint: leftRisingToPoint, radius: curve)
 
         // Before reaching the top, stop at the point of the coming curve
-        let leftToppingPoint = CGPointMake(upperLeft.x-5.0, upperLeft.y+5.0);
+        let leftToppingPoint = upperLeft + Offset(x: -curve, y: curve)
         path.lineToPoint(leftToppingPoint)
         
         // Curve to the top!
-        let leftToppingFromPoint = CGPointMake(upperLeft.x-5.0, upperLeft.y);
-        path.appendBezierPathWithArcFromPoint(leftToppingFromPoint, toPoint:upperLeft, radius:5.0)
+        let leftToppingFromPoint = upperLeft + Offset(x: -curve)
+        path.appendBezierPathWithArcFromPoint(leftToppingFromPoint, toPoint: upperLeft, radius: curve)
 
         // Line to the upper right
         path.lineToPoint(upperRight)
         
         // Before aligning to fall down, make a slight curve
-        let rightFallingFromPoint = CGPointMake(upperRight.x+5.0, upperRight.y);
-        let rightFallingToPoint = CGPointMake(upperRight.x+5.0, upperRight.y+5.0);
-        path.appendBezierPathWithArcFromPoint(rightFallingFromPoint, toPoint:rightFallingToPoint, radius:5.0)
+        let rightFallingFromPoint = upperRight + Offset(x: curve)
+        let rightFallingToPoint = upperRight + Offset(x: curve, y: curve);
+        path.appendBezierPathWithArcFromPoint(rightFallingFromPoint, toPoint: rightFallingToPoint, radius: curve)
 
         // Before reaching the bottom right, stop at the point of the coming curve
-        let rightBottomingPoint = CGPointMake(lowerRight.x-5.0, lowerRight.y-5.0);
+        let rightBottomingPoint = lowerRight + Offset(x: -curve, y: curve)
         path.lineToPoint(rightBottomingPoint)
         
         // Curve to the bottom
-        let rightBottomingFromPoint = CGPointMake(lowerRight.x-5.0, lowerRight.y);
-        path.appendBezierPathWithArcFromPoint(rightBottomingFromPoint, toPoint:lowerRight, radius:5.0)
+        let rightBottomingFromPoint = lowerRight + Offset(x: -curve)
+        path.appendBezierPathWithArcFromPoint(rightBottomingFromPoint, toPoint: lowerRight, radius: curve)
 
         path.lineWidth = 1
 
