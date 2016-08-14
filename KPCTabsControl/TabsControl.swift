@@ -66,13 +66,13 @@ public class TabsControl: NSControl, TabEditingDelegate {
      *  When `preferFullWidthTabs` is NO, the minimum width of tabs. Given the total width of the tabs control, it will
      *  adjust the tab width between the specified minimum and maximum values. All tabs have the same width, always.
      */
-    public var minTabWidth: CGFloat { return self.style.tabWidth.min }
+    public var minTabWidth: CGFloat { return self.style.tabButtonWidth.min }
 
     /**
      *  When `preferFullWidthTabs` is `NO`, the maximum width of tabs. Given the total width of the tabs control, it will
      *  adjust the tab width between the specified minimum and maximum values. All tabs have the same width, always.
      */
-    public var maxTabWidth: CGFloat { return self.style.tabWidth.max }
+    public var maxTabWidth: CGFloat { return self.style.tabButtonWidth.max }
     
     // MARK: - Initializers & Setup
     

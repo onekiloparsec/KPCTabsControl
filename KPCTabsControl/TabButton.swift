@@ -167,22 +167,20 @@ public class TabButton: NSButton {
         guard let tabButtonCell = self.tabButtonCell
             else { assertionFailure("TabButtonCell expected in drawRect(_:)"); return }
 
+        let iconFrames = self.style.iconFrames(tabRect: self.frame)
+        self.iconView?.frame = iconFrames.iconFrame
+        self.alternativeTitleIconView?.frame = iconFrames.alternativeTitleIconFrame
+
         let scale: CGFloat = (self.layer != nil) ? self.layer!.contentsScale : 1.0
 
-        let layouts = style.iconFrames(tabRect: self.frame)
-        self.iconView?.frame = layouts.iconFrame
-        self.alternativeTitleIconView?.frame = layouts.alternativeTitleIconFrame
-
-        let maxIconHeight = style.maxIconHeight(tabRect: self.frame, scale: scale)
-
-        if self.icon?.size.width > maxIconHeight {
-            let smallIcon = NSImage(size: layouts.iconFrame.size)
+        if self.icon?.size.width > CGRectGetHeight(iconFrames.iconFrame)*scale {
+            let smallIcon = NSImage(size: iconFrames.iconFrame.size)
             smallIcon.addRepresentation(NSBitmapImageRep(data: self.icon!.TIFFRepresentation!)!)
             self.iconView?.image = smallIcon
         }
 
-        if self.alternativeTitleIcon?.size.width > maxIconHeight {
-            let smallIcon = NSImage(size: layouts.alternativeTitleIconFrame.size)
+        if self.alternativeTitleIcon?.size.width > CGRectGetHeight(iconFrames.alternativeTitleIconFrame)*scale {
+            let smallIcon = NSImage(size: iconFrames.alternativeTitleIconFrame.size)
             smallIcon.addRepresentation(NSBitmapImageRep(data: self.alternativeTitleIcon!.TIFFRepresentation!)!)
             self.alternativeTitleIconView?.image = smallIcon
         }

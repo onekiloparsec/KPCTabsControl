@@ -9,45 +9,23 @@
 import Cocoa
 
 public struct ChromeStyle: Style {
-
-    /// Exposes the color used by selected tabs to style the view below in a matching way.
-    public static var panelBackgroundColor: NSColor {
-        return Colors.tabBackgroundSelected
+    public let theme: Theme
+    public let tabButtonWidth: FlexibleTabWidth
+    public let recommendedTabsControlHeight: CGFloat = 34.0
+    
+    public init(theme: Theme = ChromeTheme(), tabButtonWidth: FlexibleTabWidth = FlexibleTabWidth(min: 80, max: 180)) {
+        self.theme = theme
+        self.tabButtonWidth = tabButtonWidth
     }
-
-    public static var recommendedTabsControlHeight: CGFloat {
-        return 34
-    }
-
-    enum Colors {
-        static let tabControlBackground = NSColor(calibratedWhite: 216/256.0, alpha: 1.0)
-
-        static let border = NSColor(calibratedWhite: 152/256.0, alpha: 1.0)
-
-        static let tabBackgroundUnselected = Colors.tabControlBackground
-        static let tabBackgroundSelected = NSColor(calibratedWhite: 245/256.0, alpha: 1.0)
-
-        static func tabBackground(isSelected: Bool) -> NSColor {
-
-            if isSelected { return tabBackgroundSelected }
-
-            return tabBackgroundUnselected
-        }
-    }
-
-    public let tabWidth: FlexibleTabWidth = FlexibleTabWidth(min: 80, max: 180)
-
-    public init() { }
 
     public func maxIconHeight(tabRect rect: NSRect, scale: CGFloat) -> CGFloat {
-
         let verticalPadding: CGFloat = 4.0
         let paddedHeight = rect.height - 2 * verticalPadding
-
         return 1.2 * paddedHeight * scale
     }
 
     public func iconFrames(tabRect rect: NSRect) -> IconFrames {
+        
         let paddedHeight = PaddedHeight.fromFrame(rect)
         let topPadding = paddedHeight.topPadding
         let iconHeight = paddedHeight.iconHeight
@@ -132,7 +110,7 @@ public struct ChromeStyle: Style {
         }
     }
 
-    public func drawTabBezel(frame frame: NSRect, position: TabButtonPosition, isSelected: Bool) {
+    public func drawTabButtonBezel(frame frame: NSRect, position: TabButtonPosition, isSelected: Bool) {
 
         let height: CGFloat = PaddedHeight.fromFrame(frame).value
         let xOffset = height / 2.0
@@ -183,10 +161,11 @@ public struct ChromeStyle: Style {
 
         path.lineWidth = 1
 
-        Colors.tabBackground(isSelected).setFill()
+        let activeTheme = isSelected ? self.theme.selectedTabButtonTheme : self.theme.tabButtonTheme
+        activeTheme.backgroundColor.setFill()
         path.fill()
 
-        Colors.border.setStroke()
+        activeTheme.borderColor.setStroke()
         path.stroke()
 
         if !isSelected {
@@ -195,16 +174,16 @@ public struct ChromeStyle: Style {
     }
 
     public func drawTabControlBezel(frame frame: NSRect) {
-        Colors.tabControlBackground.setFill()
+        self.theme.tabsControlTheme.backgroundColor.setFill()
         NSRectFill(frame)
         self.drawBottomBorder(frame: frame)
     }
 
     private func drawBottomBorder(frame frame: NSRect) {
-        let bottomBorder = NSRect(
-            origin: frame.origin + Offset(x: 0, y: frame.height - 1),
-            size: NSSize(width: frame.width, height: 1))
-        Colors.border.setFill()
+        let bottomBorder = NSRect(origin: frame.origin + Offset(y: frame.height - 1),
+                                  size: NSSize(width: frame.width, height: 1))
+        
+        self.theme.tabsControlTheme.borderColor.setFill()
         NSRectFill(bottomBorder)
     }
 

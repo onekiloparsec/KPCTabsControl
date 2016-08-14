@@ -13,11 +13,12 @@ import Cocoa
  */
 public struct DefaultStyle: Style {
     public let theme: Theme
-    public let tabWidth: FlexibleTabWidth
+    public let tabButtonWidth: FlexibleTabWidth
+    public let recommendedTabsControlHeight: CGFloat = 21.0
 
-    public init(theme: Theme = DefaultTheme(), tabWidth: FlexibleTabWidth = FlexibleTabWidth(min: 50, max: 150)) {
+    public init(theme: Theme = DefaultTheme(), tabButtonWidth: FlexibleTabWidth = FlexibleTabWidth(min: 50, max: 150)) {
         self.theme = theme
-        self.tabWidth = tabWidth
+        self.tabButtonWidth = tabButtonWidth
     }
 
     public func iconFrames(tabRect rect: NSRect) -> IconFrames {
@@ -40,12 +41,11 @@ public struct DefaultStyle: Style {
         return 1.2 * paddedHeight * scale
     }
 
-    public func drawTabBezel(frame frame: NSRect, position: TabButtonPosition, isSelected: Bool) {
+    public func drawTabButtonBezel(frame frame: NSRect, position: TabButtonPosition, isSelected: Bool) {
 
-        let activeStyle = isSelected ? self.theme.selectedTabButtonTheme : theme.tabButtonTheme
+        let activeTheme = isSelected ? self.theme.selectedTabButtonTheme : self.theme.tabButtonTheme
 
-        let color = activeStyle.backgroundColor
-        color.setFill()
+        activeTheme.backgroundColor.setFill()
         NSRectFill(frame)
 
         let borderMask: BorderDrawing.Mask = {
@@ -57,7 +57,7 @@ public struct DefaultStyle: Style {
         }()
         let borderDrawing = BorderDrawing.fromMask(frame, borderMask: borderMask)
 
-        self.drawBorder(borderDrawing, color: activeStyle.borderColor)
+        self.drawBorder(borderDrawing, color: activeTheme.borderColor)
     }
 
     public func titleRect(title title: NSAttributedString, inBounds rect: NSRect, showingIcon: Bool) -> NSRect {

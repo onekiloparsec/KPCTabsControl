@@ -21,33 +21,18 @@ public struct FlexibleTabWidth {
 
 public typealias IconFrames = (iconFrame: NSRect, alternativeTitleIconFrame: NSRect)
 
-public typealias Offset = NSPoint
-
-extension Offset {
-
-    init(x: CGFloat) {
-
-        self.x = x
-        self.y = 0
-    }
-
-    init(y: CGFloat) {
-
-        self.x = 0
-        self.y = y
-    }
-}
-
 public protocol Style {
-
-    var tabWidth: FlexibleTabWidth { get }
-
+    var theme: Theme { get }
+    var tabButtonWidth: FlexibleTabWidth { get }
+    
     func tabButtonOffset(position position: TabButtonPosition) -> Offset
-    func maxIconHeight(tabRect rect: NSRect, scale: CGFloat) -> CGFloat
+    
     func iconFrames(tabRect rect: NSRect) -> IconFrames
     func titleRect(title title: NSAttributedString, inBounds rect: NSRect, showingIcon: Bool) -> NSRect
     func attributedTitle(content content: String, isSelected: Bool) -> NSAttributedString
 
-    func drawTabBezel(frame frame: NSRect, position: TabButtonPosition, isSelected: Bool)
+    var recommendedTabsControlHeight: CGFloat { get }
+
+    func drawTabButtonBezel(frame frame: NSRect, position: TabButtonPosition, isSelected: Bool)
     func drawTabControlBezel(frame frame: NSRect)
 }

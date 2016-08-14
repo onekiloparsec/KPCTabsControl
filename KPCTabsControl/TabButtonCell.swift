@@ -167,7 +167,7 @@ class TabButtonCell: NSButtonCell {
 
     override func drawWithFrame(frame: NSRect, inView controlView: NSView) {
 
-        self.style.drawTabBezel(frame: frame, position: self.buttonPosition, isSelected: self.isSelected)
+        self.style.drawTabButtonBezel(frame: frame, position: self.buttonPosition, isSelected: self.isSelected)
         
         if self.hasRoomToDrawFullTitle(inRect: frame)
             || self.hasTitleAlternativeIcon == false {

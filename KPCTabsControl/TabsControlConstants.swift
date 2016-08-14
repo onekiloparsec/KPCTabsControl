@@ -15,3 +15,20 @@ public enum TabButtonPosition {
     case middle
     case last
 }
+
+public typealias Offset = NSPoint
+
+extension Offset {
+    
+    init(x: CGFloat) {
+        
+        self.x = x
+        self.y = 0
+    }
+    
+    init(y: CGFloat) {
+        
+        self.x = 0
+        self.y = y
+    }
+}
