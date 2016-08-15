@@ -138,7 +138,7 @@ public struct ChromeStyle: Style {
         let lowerRight = lowerLeft + Offset(x: frame.width - 1)
         let upperRight = lowerRight + Offset(x: -xOffset, y: -height - 0.5)
 
-        let curve = CGFloat(3)
+        let curve = CGFloat(4)
 
         let path = NSBezierPath()
 
@@ -150,7 +150,7 @@ public struct ChromeStyle: Style {
         
         // Before aligning to the top, make a slight curve.
         let leftRisingFromPoint = lowerLeft + Offset(x: curve)
-        let leftRisingToPoint = lowerLeft + Offset(x: curve, y: curve)
+        let leftRisingToPoint = lowerLeft + Offset(x: curve, y: -curve)
         path.appendBezierPathWithArcFromPoint(leftRisingFromPoint, toPoint: leftRisingToPoint, radius: curve)
 
         // Before reaching the top, stop at the point of the coming curve
@@ -166,11 +166,11 @@ public struct ChromeStyle: Style {
         
         // Before aligning to fall down, make a slight curve
         let rightFallingFromPoint = upperRight + Offset(x: curve)
-        let rightFallingToPoint = upperRight + Offset(x: curve, y: curve);
+        let rightFallingToPoint = upperRight + Offset(x: curve, y: curve)
         path.appendBezierPathWithArcFromPoint(rightFallingFromPoint, toPoint: rightFallingToPoint, radius: curve)
 
         // Before reaching the bottom right, stop at the point of the coming curve
-        let rightBottomingPoint = lowerRight + Offset(x: -curve, y: curve)
+        let rightBottomingPoint = lowerRight + Offset(x: -curve, y: -curve)
         path.lineToPoint(rightBottomingPoint)
         
         // Curve to the bottom
