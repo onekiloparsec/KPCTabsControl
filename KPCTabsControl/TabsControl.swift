@@ -157,22 +157,19 @@ public class TabsControl: NSControl, TabEditingDelegate {
      Reloads all tabs of the tabs control. Useful when the `dataSource` has changed.
      */
     public func reloadTabs() {
-        guard let dataSource = self.dataSource else {
-            // no effect if there is dataSource
-            return
-        }
+        guard let dataSource = self.dataSource else { return }
         
         self.tabButtons().forEach { $0.removeFromSuperview() }
         
         let newItemsCount = dataSource.tabsControlNumberOfTabs(self)
         for i in 0..<newItemsCount {
             let item = dataSource.tabsControl(self, itemAtIndex: i)
-            let button = TabButton(withItem: item,
+            let button = TabButton(index: i,
+                                   item: item,
                                    target: self,
                                    action: #selector(TabsControl.selectTab(_:)),
-                                   style: style)
+                                   style: self.style)
             button.wantsLayer = true
-            button.tag = i
             
             button.editable = self.delegate?.tabsControl?(self, canEditTitleOfItem: item) == true
 
@@ -213,7 +210,7 @@ public class TabsControl: NSControl, TabEditingDelegate {
     }
 
     private func layoutTabButtons(buttons: [TabButton]?, animated: Bool) {
-        let tabButtons = (buttons != nil) ? buttons! : self.tabButtons()
+        let tabButtons = buttons ?? self.tabButtons()
         var tabsViewWidth = CGFloat(0.0)
         
         let fullSizeWidth = CGRectGetWidth(self.scrollView.frame) / CGFloat(tabButtons.count)
@@ -270,6 +267,7 @@ public class TabsControl: NSControl, TabEditingDelegate {
     // MARK: - ScrollView Observation
     
     private func startObservingScrollView() {
+        // TODO replace this with scroll view change notifications
         self.scrollView.addObserver(self, forKeyPath: "frame", options: .New, context: &ScrollViewObservationContext)
         self.scrollView.addObserver(self, forKeyPath: "documentView.frame", options: .New, context: &ScrollViewObservationContext)
         
@@ -307,16 +305,16 @@ public class TabsControl: NSControl, TabEditingDelegate {
     
     @objc private func scrollTabView(sender: AnyObject?) {
         let forLeft = (sender as? NSButton == self.scrollLeftButton)
-        let tab = self.tabButtons().filter({ self.visibilityCondition($0, forLeft: forLeft) }).first
             
-        if (tab != nil) {
-            NSAnimationContext.runAnimationGroup({ (context) in
-                context.allowsImplicitAnimation = true
-                tab?.scrollRectToVisible(tab!.bounds)
-                }, completionHandler: {
-                    self.invalidateRestorableState()
-            })
-        }
+        guard let tab = self.tabButtons().findFirst({ self.visibilityCondition($0, forLeft: forLeft) })
+            else { return }
+
+        NSAnimationContext.runAnimationGroup({ (context) in
+            context.allowsImplicitAnimation = true
+            tab.scrollRectToVisible(tab.bounds)
+            }, completionHandler: {
+                self.invalidateRestorableState()
+        })
     }
     
     private func visibilityCondition(button: NSButton, forLeft: Bool) -> Bool {
@@ -437,7 +435,6 @@ public class TabsControl: NSControl, TabEditingDelegate {
     }
 
     private func scrollToSelectedButton() {
-
         guard let selectedButton = self.selectedButton else { return }
 
         NSAnimationContext.runAnimationGroup({ (context) in
@@ -455,7 +452,7 @@ public class TabsControl: NSControl, TabEditingDelegate {
     }
 
     var selectedItemIndex: Int? {
-        return self.selectedButton?.tag
+        return self.selectedButton?.index
     }
     
     /**
@@ -601,7 +598,7 @@ public class TabsControl: NSControl, TabEditingDelegate {
     }
 
     /// - returns: All `NSButton` instances inside this view's `scrollView`.
-    @available(*, deprecated=1.0, message="Is this the same as tabButtons")
+    @available(*, deprecated=1.0, message="Is this the same as tabButtons?")
     private func buttons() -> [NSButton] {
         return self.scrollView.documentView?.subviews.flatMap { $0 as? NSButton } ?? []
     }

@@ -14,6 +14,9 @@ public class TabButton: NSButton {
         didSet { tabButtonCell?.style = self.style }
     }
 
+    /// The button is aware of its last known index in the tab bar.
+    var index: Int? = nil
+
     var iconView: NSImageView?
     var alternativeTitleIconView: NSImageView?
     var trackingArea: NSTrackingArea?
@@ -78,9 +81,11 @@ public class TabButton: NSButton {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(withItem item: AnyObject, target: AnyObject?, action:Selector, style: Style) {
+    init(index: Int, item item: AnyObject, target: AnyObject?, action:Selector, style: Style) {
+
         super.init(frame: NSZeroRect)
 
+        self.index = index
         self.style = style
 
         let tabCell = TabButtonCell(textCell: "")
@@ -103,6 +108,7 @@ public class TabButton: NSButton {
         copy.style = self.style
         copy.alternativeTitleIcon = self.alternativeTitleIcon
         copy.state = self.state
+        copy.index = self.index
         return copy
     }
     
