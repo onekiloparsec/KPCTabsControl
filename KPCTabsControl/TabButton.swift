@@ -102,6 +102,7 @@ public class TabButton: NSButton {
         copy.icon = self.icon
         copy.style = self.style
         copy.alternativeTitleIcon = self.alternativeTitleIcon
+        copy.state = self.state
         return copy
     }
     
