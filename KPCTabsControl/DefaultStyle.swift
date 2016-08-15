@@ -63,7 +63,11 @@ public struct DefaultStyle: Style {
     public func titleRect(title title: NSAttributedString, inBounds rect: NSRect, showingIcon: Bool) -> NSRect {
 
         let titleSize = title.size()
-        let fullWidthRect = NSMakeRect(NSMinX(rect), NSMidY(rect) - titleSize.height/2.0, NSWidth(rect), titleSize.height)
+        let fullWidthRect = NSRect(
+            x: NSMinX(rect),
+            y: NSMidY(rect) - titleSize.height/2.0 + 0.5,
+            width: NSWidth(rect),
+            height: titleSize.height)
 
         return self.paddedRectForIcon(fullWidthRect, showingIcon: showingIcon)
     }
