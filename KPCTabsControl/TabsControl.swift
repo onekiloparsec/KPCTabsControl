@@ -341,7 +341,8 @@ public class TabsControl: NSControl, TabEditingDelegate {
         let draggingTab = tab.copy() as! TabButton
         self.addSubview(draggingTab)
         tab.hidden = true
-        
+
+        var temporarySelectedButtonIndex = self.selectedButtonIndex!
         while(true) {
             let mask: Int = Int(NSEventMask.LeftMouseUpMask.union(.LeftMouseDraggedMask).rawValue)
             let event: NSEvent! = self.window?.nextEventMatchingMask(mask)
@@ -355,8 +356,7 @@ public class TabsControl: NSControl, TabEditingDelegate {
                         // TODO: Something missing here?
                     }
                     self.reloadTabs()
-                    self.updateButtonStatesForSelection()
-                    self.layoutTabButtons(nil, animated: false)
+                    self.selectedButtonIndex = temporarySelectedButtonIndex
                 }
                 draggingTab.animator().frame = tab.frame
                 break
@@ -376,10 +376,12 @@ public class TabsControl: NSControl, TabEditingDelegate {
             if movingLeft == true && NSMidX(draggingTab.frame) < NSMinX(tab.frame) && tab !== orderedTabs.first! {
                 // shift left
                 swap(&orderedTabs[index], &orderedTabs[index-1])
+                temporarySelectedButtonIndex -= 1
                 reordered = true
             }
             else if movingLeft == false && NSMidX(draggingTab.frame) > NSMaxX(tab.frame) && tab != orderedTabs.last! {
                 swap(&orderedTabs[index+1], &orderedTabs[index])
+                temporarySelectedButtonIndex += 1
                 reordered = true
             }
             
@@ -396,7 +398,7 @@ public class TabsControl: NSControl, TabEditingDelegate {
             return
         }
 
-        self.selectedItem = button.representedObject
+        self.selectedButtonIndex = button.index
 
         NSApp.sendAction(self.action, to: self.target, from: self)
         NSNotificationCenter.defaultCenter().postNotificationName(TabsControlSelectionDidChangeNotification, object: self)
@@ -406,7 +408,7 @@ public class TabsControl: NSControl, TabEditingDelegate {
         if currentEvent.type == .LeftMouseDown && currentEvent.clickCount > 1 {
             self.editTabButton(button)
         }
-        else if let item = self.selectedItem
+        else if let item = button.representedObject
             where self.delegate?.tabsControl?(self, canReorderItem: item) == true {
 
             let mask: NSEventMask = NSEventMask.LeftMouseUpMask.union(.LeftMouseDraggedMask)
@@ -416,22 +418,6 @@ public class TabsControl: NSControl, TabEditingDelegate {
                 else { return }
 
             self.reorderTab(button, withEvent: currentEvent)
-        }
-    }
-    
-    /**
-     *  Each tab being represented by an item, this property points to the currently selected item. Assigning it to
-     *  a new value triggers a new selection. Selecting an unknown item will unselect any tabs, and leave the tabs control
-     *  with no tab selected.
-     */
-    public private(set) var selectedItem: AnyObject? {
-        didSet {
-            scrollToSelectedButton()
-            updateButtonStatesForSelection()
-            layoutTabButtons(nil, animated: false)
-
-            NSNotificationCenter.defaultCenter().postNotificationName(TabsControlSelectionDidChangeNotification, object: self)
-            self.invalidateRestorableState()
         }
     }
 
@@ -446,14 +432,21 @@ public class TabsControl: NSControl, TabEditingDelegate {
     }
 
     private var selectedButton: TabButton? {
-        guard let item = self.selectedItem else { return nil }
+        guard let index = self.selectedButtonIndex else { return nil }
 
         return self.tabButtons()
-            .findFirst({ $0.representedObject === item })
+            .findFirst({ $0.index == index })
     }
 
-    var selectedItemIndex: Int? {
-        return self.selectedButton?.index
+    var selectedButtonIndex: Int? = nil {
+        didSet {
+            scrollToSelectedButton()
+            updateButtonStatesForSelection()
+            layoutTabButtons(nil, animated: false)
+
+            NSNotificationCenter.defaultCenter().postNotificationName(TabsControlSelectionDidChangeNotification, object: self)
+            self.invalidateRestorableState()
+        }
     }
     
     /**
@@ -469,14 +462,12 @@ public class TabsControl: NSControl, TabEditingDelegate {
 
     private func updateButtonStatesForSelection() {
         for button in self.tabButtons() {
-            if let equatableSelectedItem = selectedItem as? String,
-                equatableButtonItem = button.representedObject as? String {
-
-                button.state = equatableButtonItem == equatableSelectedItem ? NSOnState : NSOffState
-            } else {
-                /// Instance equality can be misleading
-                button.state = button.representedObject === selectedItem ? NSOnState : NSOffState
+            guard let selectedIndex = self.selectedButtonIndex else {
+                button.state = NSOffState
+                continue
             }
+
+            button.state = button.index == selectedIndex ? NSOnState : NSOffState
         }
     }
 
@@ -513,12 +504,12 @@ public class TabsControl: NSControl, TabEditingDelegate {
         
         guard !newValue.isEmpty
             && self.delegate?.tabsControl?(self, setTitle: newValue, forItem: tabButton.representedObject!) != nil,
-            let selectedItemIndex = self.selectedItemIndex
+            let selectedButtonIndex = self.selectedButtonIndex
             else { return }
         
         // TODO add callback to client code to replace forwarding controlTextDidEndEditing(_:)
         
-        tabButton.representedObject = self.dataSource?.tabsControl(self, itemAtIndex: selectedItemIndex)
+        tabButton.representedObject = self.dataSource?.tabsControl(self, itemAtIndex: selectedButtonIndex)
     }
 
     // MARK: - Drawing
@@ -566,8 +557,7 @@ public class TabsControl: NSControl, TabEditingDelegate {
         
         let scrollXOffset: CGFloat = self.scrollView.contentView.bounds.origin.x ?? 0.0
 
-        let buttons: [NSButton] = self.buttons()
-        let selectedButtonIndex: Int = self.selectedItemIndex ?? NSNotFound
+        let selectedButtonIndex: Int = self.selectedButtonIndex ?? NSNotFound
 
         coder.encodeDouble(Double(scrollXOffset), forKey: RestorationKeys.scrollXOffset)
         coder.encodeInteger(selectedButtonIndex, forKey: RestorationKeys.selectedButtonIndex)
