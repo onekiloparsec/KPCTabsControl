@@ -44,12 +44,12 @@ public struct ChromeStyle: Style {
         let paddedHeight = PaddedHeight.fromFrame(rect)
         // Left border is angled at 45˚, so it grows proportionally wider
         let iconOffset = showingIcon ? paddedHeight.iconHeight + 4 : 0.0
-        let xOffset = paddedHeight.value / 2 + iconOffset
+        let xOffset = paddedHeight.value / 2
         let yOffset = paddedHeight.topPadding - 2
 
         return rect
-            .offsetBy(dx: xOffset, dy: yOffset)
-            .shrinkBy(dx: xOffset, dy: yOffset)
+            .offsetBy(dx: xOffset + iconOffset, dy: yOffset)
+            .shrinkBy(dx: 2 * xOffset + iconOffset, dy: yOffset)
     }
 
     public func attributedTitle(content content: String, isSelected: Bool) -> NSAttributedString {
