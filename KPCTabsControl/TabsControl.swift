@@ -404,7 +404,8 @@ public class TabsControl: NSControl, TabEditingDelegate {
 
         NSApp.sendAction(self.action, to: self.target, from: self)
         NSNotificationCenter.defaultCenter().postNotificationName(TabsControlSelectionDidChangeNotification, object: self)
-        
+        delegate?.tabsControlDidChangeSelection?(self, item: button.representedObject!)
+
         guard let currentEvent = NSApp.currentEvent else { return }
 
         if currentEvent.type == .LeftMouseDown && currentEvent.clickCount > 1 {
