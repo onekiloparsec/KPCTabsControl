@@ -17,17 +17,27 @@ class ViewController: NSViewController {
         super.viewDidLoad()
         
         self.topPane?.title = "pane1"
-        self.topPane?.titles = ["Tab 1", "Tab 2", "Tab 3", "Tab 4", "Tab 5"]
         self.topPane?.tabsBar?.style = DefaultStyle()
-
+        
         let tab2Menu = NSMenu()
         tab2Menu.addItemWithTitle("Action 1", action: nil, keyEquivalent: "")
         tab2Menu.addItemWithTitle("Action 2", action: nil, keyEquivalent: "")
-        self.topPane?.menus = ["Tab 2": tab2Menu]
+
+        self.topPane?.items = [Item(title: "Tab 1", icon: NSImage(named: "Star"), menu: nil),
+                               Item(title: "Tab 2", icon: NSImage(named: "Oval"), menu: tab2Menu),
+                               Item(title: "Tab 3", icon: nil, menu: nil),
+                               Item(title: "Tab 4", icon: nil, menu: nil),
+                               Item(title: "Tab 5", icon: nil, menu: nil)]
+                                    
         
         self.bottomPane?.title = "pane2"
-        self.bottomPane?.titles = ["Tab a", "Tab b", "Tab c", "Tab d"]
         self.bottomPane?.tabsBar?.style = ChromeStyle()
+
+        self.bottomPane?.items = [Item(title: "Tab a", icon: NSImage(named: "Star"), menu: nil),
+                                  Item(title: "Tab b", icon: NSImage(named: "Triangle"), menu: nil),
+                                  Item(title: "Tab c", icon: NSImage(named: "Spiral"), menu: nil),
+                                  Item(title: "Tab d", icon: NSImage(named: "Polygon"), menu: nil)]
+        
         (self.bottomPane?.view as? ColoredView)?.backgroundColor = self.bottomPane?.tabsBar?.style.theme.selectedTabButtonTheme.backgroundColor
 
         self.topPane?.tabsBar?.reloadTabs()

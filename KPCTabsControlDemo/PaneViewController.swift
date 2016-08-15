@@ -9,15 +9,29 @@
 import Cocoa
 import KPCTabsControl
 
+// We need a class (rather than a struct or a tuple, which would be nice, because TabsControlDelegate has
+// @optional methods. To have such optionaling, we need to mark the protocol as @objc. With such marking,
+// we can't have pure-Swift 'Any' return object or argument. Buh...
+
+class Item {
+    var title: String = ""
+    var icon: NSImage?
+    var menu: NSMenu?
+    
+    init(title: String, icon: NSImage?, menu: NSMenu?) {
+        self.title = title
+        self.icon = icon
+        self.menu = menu
+    }
+}
+
 class PaneViewController: NSViewController, TabsControlDataSource, TabsControlDelegate {
 
     @IBOutlet weak var tabsBar: TabsControl?
     @IBOutlet weak var useFullWidthTabsCheckButton: NSButton?
     @IBOutlet weak var tabWidthsLabel: NSTextField?
-    
-    var titles: Array<String> = []
-    var icons: [String: NSImage] = [:]
-    var menus: [String: NSMenu] = [:]
+
+    var items: Array<Item> = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,52 +79,25 @@ class PaneViewController: NSViewController, TabsControlDataSource, TabsControlDe
     // MARK: TabsControlDataSource
     
     func tabsControlNumberOfTabs(control: TabsControl) -> Int {
-        return self.titles.count
+        return self.items.count
     }
     
     func tabsControl(control: TabsControl, itemAtIndex index: Int) -> AnyObject {
-        return self.titles[index]
+        return self.items[index]
     }
     
     func tabsControl(control: TabsControl, titleForItem item: AnyObject) -> String {
-        let index = self.titles.indexOf(item as! String)!
-        return (index == NSNotFound) ? "?" : self.titles[index];
-
+        return (item as! Item).title
     }
     
     // MARK: TabsControlDataSource : Optionals
     
     func tabsControl(control: TabsControl, menuForItem item: AnyObject) -> NSMenu? {
-        return self.menus[item as! String]
+        return (item as! Item).menu
     }
     
     func tabsControl(control: TabsControl, iconForItem item: AnyObject) -> NSImage? {
-        let titleItem = item as! String
-        
-        if self.title == "pane1" {
-            if titleItem == self.titles[0] {
-                return NSImage(named:"Star")
-            }
-            else if titleItem == self.titles[1] {
-                return NSImage(named:"Oval")
-            }
-        }
-        else {
-            if titleItem == self.titles[0] {
-                return NSImage(named:"Star")
-            }
-            else if titleItem == self.titles[1] {
-                return NSImage(named:"Triangle")
-            }
-            else if titleItem == self.titles[2] {
-                return NSImage(named:"Spiral")
-            }
-            else if titleItem == self.titles[3] {
-                return NSImage(named:"Polygon")
-            }
-        }
-        
-        return nil
+        return (item as! Item).icon
     }
 
     // MARK: TabsControlDelegate
@@ -120,7 +107,7 @@ class PaneViewController: NSViewController, TabsControlDataSource, TabsControlDe
     }
     
     func tabsControl(control: TabsControl, didReorderItems items: [AnyObject]) {
-        self.titles = items as! [String]
+        self.items = items.map { $0 as! Item }
     }
     
     func tabsControl(control: TabsControl, canEditTitleOfItem: AnyObject) -> Bool {
@@ -128,8 +115,13 @@ class PaneViewController: NSViewController, TabsControlDataSource, TabsControlDe
     }
     
     func tabsControl(control: TabsControl, setTitle newTitle: String, forItem item: AnyObject) {
-        let index = self.titles.indexOf(item as! String)!
-        self.titles[index] = newTitle
+        let typedItem = item as! Item
+        let titles = self.items.map { $0.title }
+        let index = titles.indexOf(typedItem.title)!
+
+        let newItem = Item(title: newTitle, icon: typedItem.icon, menu: typedItem.menu)
+        let range = index..<index+1
+        self.items.replaceRange(range, with: [newItem])
     }
 }
 
