@@ -88,8 +88,9 @@ import AppKit
      *  See also TabsControlSelectionDidChangeNotification
      *
      *  - parameter tabControl: The instance of the tabs control.
+     *  - parameter item:       The item representing the selected tab.
      */
-    optional func tabsControlDidChangeSelection(control: TabsControl)
+    optional func tabsControlDidChangeSelection(control: TabsControl, item: AnyObject)
 
     /**
      *  Return `true` if the tab is allowed to be reordered (by being dragged with the mouse).
