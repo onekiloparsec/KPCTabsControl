@@ -131,12 +131,12 @@ public struct ChromeStyle: Style {
     public func drawTabButtonBezel(frame frame: NSRect, position: TabButtonPosition, isSelected: Bool) {
 
         let height: CGFloat = PaddedHeight.fromFrame(frame).value
-        let xOffset = height / 2.0 + 0.5
+        let xOffset = height / 2.0
         
         let lowerLeft  = frame.origin + Offset(y: frame.height)
-        let upperLeft  = lowerLeft + Offset(x: xOffset, y: -height)
-        let lowerRight = lowerLeft + Offset(x: frame.width)
-        let upperRight = lowerRight + Offset(x: -xOffset, y: -height)
+        let upperLeft  = lowerLeft + Offset(x: xOffset, y: -height - 0.5)
+        let lowerRight = lowerLeft + Offset(x: frame.width - 1)
+        let upperRight = lowerRight + Offset(x: -xOffset, y: -height - 0.5)
 
         let curve = CGFloat(3)
 
