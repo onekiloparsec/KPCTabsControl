@@ -170,6 +170,7 @@ public class TabsControl: NSControl, TabEditingDelegate {
                                    action: #selector(TabsControl.selectTab(_:)),
                                    style: self.style)
             button.wantsLayer = true
+            button.state = NSOffState
             
             button.editable = self.delegate?.tabsControl?(self, canEditTitleOfItem: item) == true
 
@@ -566,9 +567,7 @@ public class TabsControl: NSControl, TabEditingDelegate {
         let scrollXOffset: CGFloat = self.scrollView.contentView.bounds.origin.x ?? 0.0
 
         let buttons: [NSButton] = self.buttons()
-        let selectedButtonIndex: Int = buttons.enumerate()
-            .findFirst { $0.element.state == NSOnState }?
-            .index ?? NSNotFound
+        let selectedButtonIndex: Int = self.selectedItemIndex ?? NSNotFound
 
         coder.encodeDouble(Double(scrollXOffset), forKey: RestorationKeys.scrollXOffset)
         coder.encodeInteger(selectedButtonIndex, forKey: RestorationKeys.selectedButtonIndex)
@@ -584,9 +583,11 @@ public class TabsControl: NSControl, TabEditingDelegate {
         bounds.origin.x = CGFloat(scrollXOffset)
         self.scrollView.contentView.bounds = bounds
 
-        for (index, button) in self.buttons().enumerate() {
-            button.state = (index == selectedButtonIndex) ? NSOnState : NSOffState
-        }        
+        guard selectedButtonIndex != NSNotFound,
+            let selectedButton = self.tabButtons().findFirst({ $0.index == selectedButtonIndex })
+            else { return }
+
+        selectTab(selectedButton)
     }
     
     // MARK: - Helpers

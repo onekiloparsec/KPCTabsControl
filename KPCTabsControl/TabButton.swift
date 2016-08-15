@@ -81,7 +81,7 @@ public class TabButton: NSButton {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(index: Int, item item: AnyObject, target: AnyObject?, action:Selector, style: Style) {
+    init(index: Int, item: AnyObject, target: AnyObject?, action:Selector, style: Style) {
 
         super.init(frame: NSZeroRect)
 
