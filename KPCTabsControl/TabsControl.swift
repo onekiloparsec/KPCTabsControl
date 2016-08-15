@@ -351,10 +351,12 @@ public class TabsControl: NSControl, TabEditingDelegate {
                 NSAnimationContext.currentContext().completionHandler = {
                     draggingTab.removeFromSuperview()
                     tab.hidden = false
-                    let items = orderedTabs.map({ return $0.tabButtonCell!.representedObject! })
-                    if reordered == true && self.delegate?.tabsControl?(self, didReorderItems: items) != nil {
-                        // TODO: Something missing here?
+
+                    if reordered == true {
+                        let items = orderedTabs.map({ return $0.tabButtonCell!.representedObject! })
+                        self.delegate?.tabsControl?(self, didReorderItems: items)
                     }
+
                     self.reloadTabs()
                     self.selectedButtonIndex = temporarySelectedButtonIndex
                 }
