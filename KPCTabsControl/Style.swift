@@ -21,6 +21,8 @@ public struct FlexibleTabWidth {
 
 public typealias IconFrames = (iconFrame: NSRect, alternativeTitleIconFrame: NSRect)
 
+public typealias EditorSettings = (textColor: NSColor, font: NSFont, alignment: NSTextAlignment)
+
 public protocol Style {
     var theme: Theme { get }
     var tabButtonWidth: FlexibleTabWidth { get }
@@ -29,6 +31,8 @@ public protocol Style {
     
     func iconFrames(tabRect rect: NSRect) -> IconFrames
     func titleRect(title title: NSAttributedString, inBounds rect: NSRect, showingIcon: Bool) -> NSRect
+
+    func editorSettings() -> EditorSettings
     func attributedTitle(content content: String, isSelected: Bool) -> NSAttributedString
 
     var recommendedTabsControlHeight: CGFloat { get }

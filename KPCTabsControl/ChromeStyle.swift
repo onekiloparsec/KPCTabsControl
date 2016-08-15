@@ -52,10 +52,28 @@ public struct ChromeStyle: Style {
             .shrinkBy(dx: 2 * xOffset + iconOffset, dy: yOffset)
     }
 
+    enum Defaults {
+        static let font = NSFont.systemFontOfSize(14)
+        static let alignment = NSTextAlignment.Left
+    }
+
+    public func editorSettings() -> EditorSettings {
+        return (
+            textColor: NSColor.blackColor(),
+            font: Defaults.font,
+            alignment: Defaults.alignment
+        )
+    }
+
     public func attributedTitle(content content: String, isSelected: Bool) -> NSAttributedString {
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = Defaults.alignment
+
         let attributes = [
-            NSFontAttributeName: NSFont.systemFontOfSize(14)
+            NSFontAttributeName: NSFont.systemFontOfSize(14),
+            NSParagraphStyleAttributeName: paragraphStyle
         ]
+
         return NSAttributedString(string: content, attributes: attributes)
     }
 

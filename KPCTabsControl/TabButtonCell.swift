@@ -144,9 +144,11 @@ class TabButtonCell: NSButtonCell {
 
         fieldEditor.drawsBackground = false
         fieldEditor.horizontallyResizable = true
-        fieldEditor.font = self.font
-        fieldEditor.alignment = self.alignment
-        fieldEditor.textColor = NSColor.darkGrayColor().blendedColorWithFraction(0.5, ofColor: NSColor.blackColor())
+
+        let editorSettings = self.style.editorSettings()
+        fieldEditor.font = editorSettings.font
+        fieldEditor.alignment = editorSettings.alignment
+        fieldEditor.textColor = editorSettings.textColor
 
         // Replace content so that resizing is triggered
         fieldEditor.string = ""

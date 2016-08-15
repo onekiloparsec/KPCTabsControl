@@ -79,6 +79,17 @@ public struct DefaultStyle: Style {
         return rect.offsetBy(dx: horizontalOffset, dy: 0).shrinkBy(dx: horizontalOffset, dy: 0)
     }
 
+    var alignment: NSTextAlignment { return .Center }
+
+    public func editorSettings() -> EditorSettings {
+
+        return (
+            textColor: NSColor(calibratedWhite: 1.0/6, alpha: 1.0),
+            font: self.theme.tabButtonTheme.titleFont,
+            alignment: self.alignment
+        )
+    }
+
     public func attributedTitle(content content: String, isSelected: Bool) -> NSAttributedString {
 
         let activeStyle = isSelected ? self.theme.selectedTabButtonTheme : self.theme.tabButtonTheme
@@ -86,7 +97,7 @@ public struct DefaultStyle: Style {
         let font = activeStyle.titleFont
 
         let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.alignment = .Center
+        paragraphStyle.alignment = self.alignment
 
         let attributes = [
             NSForegroundColorAttributeName : titleColor,
