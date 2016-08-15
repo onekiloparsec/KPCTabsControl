@@ -17,11 +17,13 @@ class Item {
     var title: String = ""
     var icon: NSImage?
     var menu: NSMenu?
+    var altIcon: NSImage?
     
-    init(title: String, icon: NSImage?, menu: NSMenu?) {
+    init(title: String, icon: NSImage?, menu: NSMenu?, altIcon: NSImage?) {
         self.title = title
         self.icon = icon
         self.menu = menu
+        self.altIcon = altIcon
     }
 }
 
@@ -99,6 +101,10 @@ class PaneViewController: NSViewController, TabsControlDataSource, TabsControlDe
     func tabsControl(control: TabsControl, iconForItem item: AnyObject) -> NSImage? {
         return (item as! Item).icon
     }
+    
+    func tabsControl(control: TabsControl, titleAlternativeIconForItem item: AnyObject) -> NSImage? {
+        return (item as! Item).altIcon
+    }
 
     // MARK: TabsControlDelegate
     
@@ -119,7 +125,7 @@ class PaneViewController: NSViewController, TabsControlDataSource, TabsControlDe
         let titles = self.items.map { $0.title }
         let index = titles.indexOf(typedItem.title)!
 
-        let newItem = Item(title: newTitle, icon: typedItem.icon, menu: typedItem.menu)
+        let newItem = Item(title: newTitle, icon: typedItem.icon, menu: typedItem.menu, altIcon: typedItem.altIcon)
         let range = index..<index+1
         self.items.replaceRange(range, with: [newItem])
     }

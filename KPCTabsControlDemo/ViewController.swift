@@ -23,20 +23,20 @@ class ViewController: NSViewController {
         tab2Menu.addItemWithTitle("Action 1", action: nil, keyEquivalent: "")
         tab2Menu.addItemWithTitle("Action 2", action: nil, keyEquivalent: "")
 
-        self.topPane?.items = [Item(title: "Tab 1", icon: NSImage(named: "Star"), menu: nil),
-                               Item(title: "Tab 2", icon: NSImage(named: "Oval"), menu: tab2Menu),
-                               Item(title: "Tab 3", icon: nil, menu: nil),
-                               Item(title: "Tab 4", icon: nil, menu: nil),
-                               Item(title: "Tab 5", icon: nil, menu: nil)]
+        self.topPane?.items = [Item(title: "Tab 1", icon: NSImage(named: "Star"), menu: nil, altIcon: nil),
+                               Item(title: "Tab 2", icon: NSImage(named: "Oval"), menu: tab2Menu, altIcon: nil),
+                               Item(title: "Tab 3 Very Long Title", icon: nil, menu: nil, altIcon: NSImage(named: "Polygon")),
+                               Item(title: "Tab 4", icon: nil, menu: nil, altIcon: nil),
+                               Item(title: "Tab 5", icon: nil, menu: nil, altIcon: nil)]
                                     
         
         self.bottomPane?.title = "pane2"
         self.bottomPane?.tabsBar?.style = ChromeStyle()
 
-        self.bottomPane?.items = [Item(title: "Tab a", icon: NSImage(named: "Star"), menu: nil),
-                                  Item(title: "Tab b", icon: NSImage(named: "Triangle"), menu: nil),
-                                  Item(title: "Tab c", icon: NSImage(named: "Spiral"), menu: nil),
-                                  Item(title: "Tab d", icon: NSImage(named: "Polygon"), menu: nil)]
+        self.bottomPane?.items = [Item(title: "Tab a", icon: NSImage(named: "Star"), menu: nil, altIcon: nil),
+                                  Item(title: "Tab b", icon: NSImage(named: "Triangle"), menu: nil, altIcon: nil),
+                                  Item(title: "Tab c", icon: NSImage(named: "Spiral"), menu: nil, altIcon: nil),
+                                  Item(title: "Tab d", icon: NSImage(named: "Polygon"), menu: nil, altIcon: nil)]
         
         (self.bottomPane?.view as? ColoredView)?.backgroundColor = self.bottomPane?.tabsBar?.style.theme.selectedTabButtonTheme.backgroundColor
 
