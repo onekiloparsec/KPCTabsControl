@@ -21,8 +21,7 @@ public class TabsControl: NSControl, TabEditingDelegate {
     private var addButton: NSButton? = nil
     private var scrollLeftButton: NSButton? = nil
     private var scrollRightButton: NSButton? = nil
-    private var selectedButton: TabButton? = nil
-
+    
     private var hideScrollButtons: Bool = true
 //    private var isHighlighted: Bool = false
 
@@ -186,7 +185,6 @@ public class TabsControl: NSControl, TabEditingDelegate {
             }()
 
             button.title = dataSource.tabsControl(self, titleForItem: item)
-            button.state = (item === self.selectedItem) ? NSOnState : NSOffState // yes triple === to check for instances
 //            button.highlight(self.isHighlighted)
             
             if let img = dataSource.tabsControl?(self, iconForItem: item) {
@@ -210,7 +208,7 @@ public class TabsControl: NSControl, TabEditingDelegate {
     // MARK: - Layout
 
     private func updateTabs(animated animated: Bool = false) {
-        self.layoutTabButtons(self.tabButtons(), animated: animated)
+        self.layoutTabButtons(nil, animated: animated)
         self.updateAuxiliaryButtons()
     }
 
@@ -342,7 +340,7 @@ public class TabsControl: NSControl, TabEditingDelegate {
         var reordered = false
         
         let draggingTab = tab.copy() as! TabButton
-        self.addSubview(draggingTab as NSView)
+        self.addSubview(draggingTab)
         tab.hidden = true
         
         while(true) {
@@ -358,6 +356,8 @@ public class TabsControl: NSControl, TabEditingDelegate {
                         // TODO: Something missing here?
                     }
                     self.reloadTabs()
+                    self.updateButtonStatesForSelection()
+                    self.layoutTabButtons(nil, animated: false)
                 }
                 draggingTab.animator().frame = tab.frame
                 break
@@ -397,10 +397,7 @@ public class TabsControl: NSControl, TabEditingDelegate {
             return
         }
 
-        self.selectedButton = button
-        let tabButtons = self.tabButtons()
-        tabButtons.forEach { $0.state = ($0 === self.selectedButton!) ? NSOnState : NSOffState }
-        layoutTabButtons(tabButtons, animated: false)
+        self.selectedItem = button.representedObject
 
         NSApp.sendAction(self.action, to: self.target, from: self)
         NSNotificationCenter.defaultCenter().postNotificationName(TabsControlSelectionDidChangeNotification, object: self)
@@ -410,13 +407,14 @@ public class TabsControl: NSControl, TabEditingDelegate {
         if currentEvent.type == .LeftMouseDown && currentEvent.clickCount > 1 {
             self.editTabButton(button)
         }
-        else if let item = self.selectedButton?.tabButtonCell?.representedObject
+        else if let item = self.selectedItem
             where self.delegate?.tabsControl?(self, canReorderItem: item) == true {
 
             let mask: NSEventMask = NSEventMask.LeftMouseUpMask.union(.LeftMouseDraggedMask)
 
             guard let event = self.window?.nextEventMatchingMask(Int(mask.rawValue), untilDate: NSDate.distantFuture(), inMode: NSEventTrackingRunLoopMode, dequeue: false)
-                where event.type == NSEventType.LeftMouseDragged else { return }
+                where event.type == NSEventType.LeftMouseDragged
+                else { return }
 
             self.reorderTab(button, withEvent: currentEvent)
         }
@@ -427,32 +425,37 @@ public class TabsControl: NSControl, TabEditingDelegate {
      *  a new value triggers a new selection. Selecting an unknown item will unselect any tabs, and leave the tabs control
      *  with no tab selected.
      */
-    public var selectedItem: AnyObject? {
-        get { return self.selectedButton?.tabButtonCell?.representedObject }
-        set {
-            for button in self.tabButtons() {
-                if button.tabButtonCell?.representedObject === newValue {
-                    button.state = NSOnState
-                    self.selectedButton = button
-                    NSAnimationContext.runAnimationGroup({ (context) in
-                        context.allowsImplicitAnimation = true
-                        button.scrollRectToVisible(button.bounds)
-                        }, completionHandler: nil)
-                }
-                else {
-                    button.state = NSOffState
-                }
-            }
+    public private(set) var selectedItem: AnyObject? {
+        didSet {
+            scrollToSelectedButton()
+            updateButtonStatesForSelection()
+            layoutTabButtons(nil, animated: false)
+
             NSNotificationCenter.defaultCenter().postNotificationName(TabsControlSelectionDidChangeNotification, object: self)
             self.invalidateRestorableState()
         }
     }
-    
-    /// The index of the selected item.
-    public var selectedItemIndex: Int? {
-        guard let selectedButton = self.selectedButton
-            else { return nil }
-        return selectedButton.tag
+
+    private func scrollToSelectedButton() {
+
+        guard let selectedButton = self.selectedButton else { return }
+
+        NSAnimationContext.runAnimationGroup({ (context) in
+            context.allowsImplicitAnimation = true
+            selectedButton.scrollRectToVisible(selectedButton.bounds)
+            }, completionHandler: nil)
+
+    }
+
+    private var selectedButton: TabButton? {
+        guard let item = self.selectedItem else { return nil }
+
+        return self.tabButtons()
+            .findFirst({ $0.representedObject === item })
+    }
+
+    var selectedItemIndex: Int? {
+        return self.selectedButton?.tag
     }
     
     /**
@@ -461,12 +464,24 @@ public class TabsControl: NSControl, TabEditingDelegate {
      - parameter index: An integer indicating the index of the item to be selected.
      */
     public func selectItemAtIndex(index: Int) {
-        let buttons = self.tabButtons()
-        if buttons.count > index {
-            self.selectTab(buttons[index])
+        guard let button = self.tabButtons()[safe: index] else { return }
+
+        self.selectTab(button)
+    }
+
+    private func updateButtonStatesForSelection() {
+        for button in self.tabButtons() {
+            if let equatableSelectedItem = selectedItem as? String,
+                equatableButtonItem = button.representedObject as? String {
+
+                button.state = equatableButtonItem == equatableSelectedItem ? NSOnState : NSOffState
+            } else {
+                /// Instance equality can be misleading
+                button.state = button.representedObject === selectedItem ? NSOnState : NSOffState
+            }
         }
     }
-    
+
     // MARK: - Editing
 
     private func forceEndEditing() {
@@ -586,9 +601,8 @@ public class TabsControl: NSControl, TabEditingDelegate {
     }
 
     /// - returns: All `NSButton` instances inside this view's `scrollView`.
+    @available(*, deprecated=1.0, message="Is this the same as tabButtons")
     private func buttons() -> [NSButton] {
         return self.scrollView.documentView?.subviews.flatMap { $0 as? NSButton } ?? []
     }
 }
-
-
