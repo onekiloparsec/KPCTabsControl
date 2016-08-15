@@ -584,13 +584,6 @@ public class TabsControl: NSControl, TabEditingDelegate {
     
     private func tabButtons() -> [TabButton] {
         guard let tabsView = self.tabsView else { return [] }
-        
         return tabsView.subviews.flatMap { $0 as? TabButton }
-    }
-
-    /// - returns: All `NSButton` instances inside this view's `scrollView`.
-    @available(*, deprecated=1.0, message="Is this the same as tabButtons?")
-    private func buttons() -> [NSButton] {
-        return self.scrollView.documentView?.subviews.flatMap { $0 as? NSButton } ?? []
     }
 }
