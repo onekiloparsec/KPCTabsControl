@@ -44,12 +44,12 @@ public struct ChromeStyle: Style {
         let paddedHeight = PaddedHeight.fromFrame(rect)
         // Left border is angled at 45˚, so it grows proportionally wider
         let iconOffset = showingIcon ? paddedHeight.iconHeight + 4 : 0.0
-        let xOffset = paddedHeight.value / 2
+        let xOffset = paddedHeight.value / 2 + 0.5
         let yOffset = paddedHeight.topPadding - 2
 
         return rect
             .offsetBy(dx: xOffset + iconOffset, dy: yOffset)
-            .shrinkBy(dx: 2 * xOffset + iconOffset, dy: yOffset)
+            .shrinkBy(dx: 2 * xOffset + iconOffset, dy: yOffset + 2)
     }
 
     enum Defaults {
@@ -70,8 +70,8 @@ public struct ChromeStyle: Style {
         paragraphStyle.alignment = Defaults.alignment
 
         let attributes = [
-            NSFontAttributeName: NSFont.systemFontOfSize(14),
-            NSParagraphStyleAttributeName: paragraphStyle
+            NSFontAttributeName: Defaults.font,
+            NSParagraphStyleAttributeName: paragraphStyle,
         ]
 
         return NSAttributedString(string: content, attributes: attributes)
@@ -84,7 +84,7 @@ public struct ChromeStyle: Style {
 
         static func fromFrame(frame: NSRect) -> PaddedHeight {
 
-            let paddedHeight = frame.height * 0.7
+            let paddedHeight = floor(frame.height * 0.7)
 
             // Chrome tabs have lots of whitespace to the top; if that's
             // too cramped, don't try to achieve that effect.
@@ -131,7 +131,7 @@ public struct ChromeStyle: Style {
     public func drawTabButtonBezel(frame frame: NSRect, position: TabButtonPosition, isSelected: Bool) {
 
         let height: CGFloat = PaddedHeight.fromFrame(frame).value
-        let xOffset = height / 2.0
+        let xOffset = height / 2.0 + 0.5
         
         let lowerLeft  = frame.origin + Offset(y: frame.height)
         let upperLeft  = lowerLeft + Offset(x: xOffset, y: -height)
