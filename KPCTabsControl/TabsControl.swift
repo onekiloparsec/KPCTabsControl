@@ -501,17 +501,17 @@ public class TabsControl: NSControl, TabEditingDelegate {
     // MARK : - TabEditingDelegate
     
     func tabButtonDidEndEditing(tabButton: TabButton, newValue: String) {
-        
-        defer { self.reloadTabs() }
-        
+
         guard !newValue.isEmpty
             && self.delegate?.tabsControl?(self, setTitle: newValue, forItem: tabButton.representedObject!) != nil,
             let selectedButtonIndex = self.selectedButtonIndex
-            else { return }
+            else { self.reloadTabs(); return }
         
         // TODO add callback to client code to replace forwarding controlTextDidEndEditing(_:)
         
         tabButton.representedObject = self.dataSource?.tabsControl(self, itemAtIndex: selectedButtonIndex)
+        self.reloadTabs()
+        self.selectedButtonIndex = selectedButtonIndex
     }
 
     // MARK: - Drawing
