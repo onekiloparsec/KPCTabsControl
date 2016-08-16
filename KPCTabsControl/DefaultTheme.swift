@@ -13,7 +13,6 @@ import Cocoa
  */
 public struct DefaultTheme: Theme {
 
-    // TODO: Why is this necessary?
     public init() { }
     
     public let tabButtonTheme: TabButtonTheme = DefaultTabButtonTheme()

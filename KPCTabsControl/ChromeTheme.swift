@@ -9,7 +9,9 @@
 import Cocoa
 
 public struct ChromeTheme: Theme {
-    
+
+    public init() { }
+
     public let tabButtonTheme: TabButtonTheme = DefaultTabButtonTheme()
     public let highlightedTabButtonTheme: TabButtonTheme = DefaultTabButtonTheme() // Same as default 
     public let selectedTabButtonTheme: TabButtonTheme = SelectedTabButtonTheme(base: DefaultTabButtonTheme())
@@ -52,5 +54,4 @@ public struct ChromeTheme: Theme {
         var borderColor: NSColor { return base.borderColor }
         var backgroundColor: NSColor { return ChromeTheme.sharedHighlightedBackgroundColor }
     }
-
 }
