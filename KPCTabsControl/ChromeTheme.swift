@@ -27,7 +27,7 @@ public struct ChromeTheme: Theme {
         
         var backgroundColor: NSColor { return ChromeTheme.sharedBackgroundColor }
         var borderColor: NSColor { return ChromeTheme.sharedBorderColor }
-        var titleColor: NSColor { return NSColor.controlColor() }
+        var titleColor: NSColor { return NSColor.controlTextColor() }
         var titleFont: NSFont { return NSFont.systemFontOfSize(14) }
     }
     

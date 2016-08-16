@@ -53,14 +53,13 @@ public struct ChromeStyle: Style {
     }
 
     enum Defaults {
-        static let font = NSFont.systemFontOfSize(14)
         static let alignment = NSTextAlignment.Left
     }
 
     public func editorSettings() -> EditorSettings {
         return (
-            textColor: NSColor.blackColor(),
-            font: Defaults.font,
+            textColor: theme.tabButtonTheme.titleColor,
+            font: theme.tabButtonTheme.titleFont,
             alignment: Defaults.alignment
         )
     }
@@ -69,9 +68,12 @@ public struct ChromeStyle: Style {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = Defaults.alignment
 
+        let activeTheme = isSelected ? self.theme.selectedTabButtonTheme : self.theme.tabButtonTheme
+
         let attributes = [
-            NSFontAttributeName: Defaults.font,
+            NSFontAttributeName: activeTheme.titleFont,
             NSParagraphStyleAttributeName: paragraphStyle,
+            NSForegroundColorAttributeName: activeTheme.titleColor
         ]
 
         return NSAttributedString(string: content, attributes: attributes)
