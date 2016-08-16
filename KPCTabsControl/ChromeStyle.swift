@@ -212,7 +212,3 @@ public struct ChromeStyle: Style {
         }
     }
 }
-
-func +(lhs: NSPoint, rhs: Offset) -> NSPoint {
-    return NSPoint(x: lhs.x + rhs.x, y: lhs.y + rhs.y)
-}
