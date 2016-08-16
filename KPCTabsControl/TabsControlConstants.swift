@@ -20,13 +20,13 @@ public typealias Offset = NSPoint
 
 extension Offset {
     
-    init(x: CGFloat) {
+    public init(x: CGFloat) {
         
         self.x = x
         self.y = 0
     }
     
-    init(y: CGFloat) {
+    public init(y: CGFloat) {
         
         self.x = 0
         self.y = y
