@@ -24,7 +24,6 @@ public typealias IconFrames = (iconFrame: NSRect, alternativeTitleIconFrame: NSR
 public typealias EditorSettings = (textColor: NSColor, font: NSFont, alignment: NSTextAlignment)
 
 public protocol Style {
-    var theme: Theme { get }
     var tabButtonWidth: FlexibleTabWidth { get }
     
     func tabButtonOffset(position position: TabButtonPosition) -> Offset
