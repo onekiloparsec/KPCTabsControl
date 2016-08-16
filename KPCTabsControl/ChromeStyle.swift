@@ -8,7 +8,7 @@
 
 import Cocoa
 
-public struct ChromeStyle: Style {
+public struct ChromeStyle: Style, Themed {
     public let theme: Theme
     public let tabButtonWidth: FlexibleTabWidth
     public let recommendedTabsControlHeight: CGFloat = 34.0

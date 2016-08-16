@@ -11,7 +11,7 @@ import Cocoa
 /**
  *  The default TabsControl style. Used with the DefaultTheme, it provides an experience similar to Apple's Numbers.app.
  */
-public struct DefaultStyle: Style {
+public struct DefaultStyle: Style, Themed {
     public let theme: Theme
     public let tabButtonWidth: FlexibleTabWidth
     public let recommendedTabsControlHeight: CGFloat = 21.0

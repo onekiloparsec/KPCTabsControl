@@ -23,6 +23,12 @@ public typealias IconFrames = (iconFrame: NSRect, alternativeTitleIconFrame: NSR
 
 public typealias EditorSettings = (textColor: NSColor, font: NSFont, alignment: NSTextAlignment)
 
+public typealias ThemedStyle = protocol<Style, Themed>
+
+public protocol Themed {
+    var theme: Theme { get }
+}
+
 public protocol Style {
     var tabButtonWidth: FlexibleTabWidth { get }
     
