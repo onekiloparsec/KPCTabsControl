@@ -394,7 +394,7 @@ public class TabsControl: NSControl, TabEditingDelegate {
     }
     
     // MARK: - Selection
-    
+
     @objc private func selectTab(sender: AnyObject?) {
         guard let button = sender as? TabButton else {
             return
@@ -520,7 +520,7 @@ public class TabsControl: NSControl, TabEditingDelegate {
     // MARK: - Drawing
     
     override public var opaque: Bool {
-        return true
+        return false
     }
 
     override public var flipped: Bool {
