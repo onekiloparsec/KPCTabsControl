@@ -31,9 +31,6 @@ public protocol TabsControlTheme {
  */
 public protocol Theme {
     var tabButtonTheme: TabButtonTheme { get }
-    var selectedTabButtonTheme: TabButtonTheme { get }
-    var highlightedTabButtonTheme: TabButtonTheme { get }
-    
+    var selectedTabButtonTheme: TabButtonTheme { get }    
     var tabsControlTheme: TabsControlTheme { get }
-    var highlightedTabsControlTheme: TabsControlTheme { get }
 }

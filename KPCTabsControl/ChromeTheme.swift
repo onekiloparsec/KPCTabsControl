@@ -13,15 +13,11 @@ public struct ChromeTheme: Theme {
     public init() { }
 
     public let tabButtonTheme: TabButtonTheme = DefaultTabButtonTheme()
-    public let highlightedTabButtonTheme: TabButtonTheme = DefaultTabButtonTheme() // Same as default 
     public let selectedTabButtonTheme: TabButtonTheme = SelectedTabButtonTheme(base: DefaultTabButtonTheme())
-    
     public let tabsControlTheme: TabsControlTheme = DefaultTabsControlTheme()
-    public let highlightedTabsControlTheme: TabsControlTheme = HighlightedTabsControlTheme(base: DefaultTabsControlTheme())
     
     private static var sharedBorderColor: NSColor { return NSColor(calibratedWhite: 152/256.0, alpha: 1.0) }
     private static var sharedBackgroundColor: NSColor { return NSColor(calibratedWhite: 216/256.0, alpha: 1.0) }
-    private static var sharedHighlightedBackgroundColor: NSColor { return NSColor(calibratedWhite: 196/256.0, alpha: 1.0) }
 
     private struct DefaultTabButtonTheme: KPCTabsControl.TabButtonTheme {
         
@@ -45,13 +41,5 @@ public struct ChromeTheme: Theme {
         
         var borderColor: NSColor { return ChromeTheme.sharedBorderColor }
         var backgroundColor: NSColor { return ChromeTheme.sharedBackgroundColor }
-    }
-    
-    private struct HighlightedTabsControlTheme: KPCTabsControl.TabsControlTheme {
-        
-        let base: DefaultTabsControlTheme
-        
-        var borderColor: NSColor { return base.borderColor }
-        var backgroundColor: NSColor { return ChromeTheme.sharedHighlightedBackgroundColor }
     }
 }
