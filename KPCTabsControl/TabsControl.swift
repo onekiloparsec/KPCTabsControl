@@ -21,9 +21,7 @@ public class TabsControl: NSControl, TabEditingDelegate {
     private var addButton: NSButton? = nil
     private var scrollLeftButton: NSButton? = nil
     private var scrollRightButton: NSButton? = nil
-    
     private var hideScrollButtons: Bool = true
-//    private var isHighlighted: Bool = false
 
     private var tabsControlCell: TabsControlCell {
         get { return self.cell as! TabsControlCell }
@@ -169,9 +167,9 @@ public class TabsControl: NSControl, TabEditingDelegate {
                                    target: self,
                                    action: #selector(TabsControl.selectTab(_:)),
                                    style: self.style)
+            
             button.wantsLayer = true
             button.state = NSOffState
-            
             button.editable = self.delegate?.tabsControl?(self, canEditTitleOfItem: item) == true
 
             button.tabButtonCell!.buttonPosition = {
@@ -183,7 +181,6 @@ public class TabsControl: NSControl, TabEditingDelegate {
             }()
 
             button.title = dataSource.tabsControl(self, titleForItem: item)
-//            button.highlight(self.isHighlighted)
             
             if let img = dataSource.tabsControl?(self, iconForItem: item) {
                 button.icon = img
@@ -436,9 +433,7 @@ public class TabsControl: NSControl, TabEditingDelegate {
 
     private var selectedButton: TabButton? {
         guard let index = self.selectedButtonIndex else { return nil }
-
-        return self.tabButtons()
-            .findFirst({ $0.index == index })
+        return self.tabButtons().findFirst({ $0.index == index })
     }
 
     var selectedButtonIndex: Int? = nil {
@@ -459,7 +454,6 @@ public class TabsControl: NSControl, TabEditingDelegate {
      */
     public func selectItemAtIndex(index: Int) {
         guard let button = self.tabButtons()[safe: index] else { return }
-
         self.selectTab(button)
     }
 
@@ -513,7 +507,6 @@ public class TabsControl: NSControl, TabEditingDelegate {
         }
 
         self.delegate?.tabsControl?(self, setTitle: newValue, forItem: item)
-
         tabButton.representedObject = self.dataSource?.tabsControl(self, itemAtIndex: selectedButtonIndex)
     }
 
@@ -527,26 +520,11 @@ public class TabsControl: NSControl, TabEditingDelegate {
         return true
     }
     
-    /**
-     (Un)highlight the tabs control.
-     
-     - parameter flag: A boolean value indicating whether the tabs control should adopt a 'highlighted' state
-     (with slightly darker default background colors) or not.
-     */
-//    public func highlight(flag: Bool) {
-//        self.isHighlighted = flag
-//        self.tabButtonCell.highlight(flag)
-//        self.scrollLeftButton.cell?.highlight(flag)
-//        self.scrollRightButton.cell?.highlight(flag)
-//        self.tabButtons().forEach { $0.highlight(flag) }
-//    }
-    
     // MARK: - Tab Widths
     
     public func currentTabWidth() -> CGFloat {
         let tabs = self.tabButtons()
         guard let firstTab = tabs.first else { return 0.0 }
-
         return CGRectGetWidth(firstTab.frame)
     }
     
@@ -561,7 +539,6 @@ public class TabsControl: NSControl, TabEditingDelegate {
         super.encodeRestorableStateWithCoder(coder)
         
         let scrollXOffset: CGFloat = self.scrollView.contentView.bounds.origin.x ?? 0.0
-
         let selectedButtonIndex: Int = self.selectedButtonIndex ?? NSNotFound
 
         coder.encodeDouble(Double(scrollXOffset), forKey: RestorationKeys.scrollXOffset)

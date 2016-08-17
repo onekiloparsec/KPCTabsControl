@@ -111,13 +111,7 @@ public class TabButton: NSButton {
         copy.index = self.index
         return copy
     }
-    
-//    public override func highlight(flag: Bool) {
-//        if let c = self.cell as? TabButtonCell {
-//            c.highlight(flag)
-//        }
-//    }
-    
+        
     public override var menu: NSMenu? {
         get { return self.cell?.menu }
         set {

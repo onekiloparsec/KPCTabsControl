@@ -27,11 +27,6 @@ class TabsControlCell: NSCell {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-
-//    func highlight(flag: Bool) {
-//        self.highlighted = flag
-//        self.controlView?.needsDisplay = true
-//    }
     
     override func cellSizeForBounds(aRect: NSRect) -> NSSize {
         return NSMakeSize(36.0, 0.0)

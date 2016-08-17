@@ -63,11 +63,6 @@ class TabButtonCell: NSButtonCell {
         return copy
     }
     
-//    func highlight(flag: Bool) {
-//        self.highlighted = flag
-//        self.controlView?.needsDisplay = true
-//    }
-    
     // MARK: - Properties & Rects
 
     static func popupImage() -> NSImage {
