@@ -27,9 +27,6 @@ class TabButtonCell: NSButtonCell {
         didSet { self.controlView?.needsDisplay = true }
     }
 
-    @available(*, deprecated=1.0, message="replaces KPC_auxiliaryButton's borderMask setting; move this to different drawing methods")
-    var isAuxiliary = false
-
     var buttonPosition: TabButtonPosition = .middle {
         didSet { self.controlView?.needsDisplay = true }
     }
