@@ -495,7 +495,7 @@ public class TabsControl: NSControl, TabEditingDelegate {
     
     // MARK : - TabEditingDelegate
     
-    func tabButtonDidEndEditing(tabButton: TabButton, newValue: String) {
+    func tabButtonDidEndEditing(tabButton: TabButton, newTitle newValue: String) {
 
         guard let selectedButtonIndex = self.selectedButtonIndex,
             item = tabButton.representedObject
