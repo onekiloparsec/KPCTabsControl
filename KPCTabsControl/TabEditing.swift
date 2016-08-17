@@ -9,7 +9,7 @@
 import AppKit
 
 protocol TabEditingDelegate: class {
-    func tabButtonDidEndEditing(tabButton: TabButton, newValue: String)
+    func tabButtonDidEndEditing(tabButton: TabButton, newTitle: String)
 }
 
 class TabEditing: NSObject, NSTextDelegate, NSTextViewDelegate {
@@ -42,6 +42,6 @@ class TabEditing: NSObject, NSTextDelegate, NSTextViewDelegate {
 
         let newValue = editingTextField.string ?? ""
         self.tabButton.tabButtonCell?.finishEditing(newValue)
-        self.delegate?.tabButtonDidEndEditing(self.tabButton, newValue: newValue)
+        self.delegate?.tabButtonDidEndEditing(self.tabButton, newTitle: newValue)
     }
 }
