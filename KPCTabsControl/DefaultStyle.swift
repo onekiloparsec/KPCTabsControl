@@ -1,5 +1,5 @@
 //
-//  ThemedStyle.swift
+//  DefaultStyle.swift
 //  KPCTabsControl
 //
 //  Created by Christian Tietze on 10/08/16.
