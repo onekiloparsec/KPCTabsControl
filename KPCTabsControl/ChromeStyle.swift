@@ -126,7 +126,7 @@ public struct ChromeStyle: Style, Themed {
         }
 
         var iconHeight: CGFloat {
-            return originalHeight - topPadding - bottomPadding
+            return self.originalHeight - self.topPadding - self.bottomPadding
         }
     }
 
@@ -189,7 +189,7 @@ public struct ChromeStyle: Style, Themed {
         path.stroke()
 
         if !isSelected {
-            drawBottomBorder(frame: frame)
+            self.drawBottomBorder(frame: frame)
         }
     }
 

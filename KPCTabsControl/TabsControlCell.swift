@@ -40,8 +40,8 @@ class TabsControlCell: NSCell {
     override func drawWithFrame(cellFrame: NSRect, inView controlView: NSView) {
 
         // TODO can we get rid of this by setting `style` earlier?
-        guard style != nil else { return }
+        guard self.style != nil else { return }
 
-        style.drawTabControlBezel(frame: cellFrame)
+        self.style.drawTabControlBezel(frame: cellFrame)
     }
 }

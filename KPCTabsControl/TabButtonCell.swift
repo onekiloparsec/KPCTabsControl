@@ -79,7 +79,7 @@ class TabButtonCell: NSButtonCell {
     }
 
     func hasRoomToDrawFullTitle(inRect rect: NSRect) -> Bool {
-        let title = style.attributedTitle(content: self.attributedTitle.string, isSelected: self.isSelected)
+        let title = self.style.attributedTitle(content: self.attributedTitle.string, isSelected: self.isSelected)
         let requiredMinimumWidth = title.size().width + 2.0*titleMargin
 
         let titleDrawRect = self.titleRectForBounds(rect)
@@ -87,7 +87,7 @@ class TabButtonCell: NSButtonCell {
     }
 
     override func cellSizeForBounds(aRect: NSRect) -> NSSize {
-        let title = style.attributedTitle(content: self.attributedTitle.string, isSelected: self.isSelected)
+        let title = self.style.attributedTitle(content: self.attributedTitle.string, isSelected: self.isSelected)
         let titleSize = title.size()
         let popupSize = (self.menu == nil) ? NSZeroSize : TabButtonCell.popupImage().size
         let cellSize = NSMakeSize(titleSize.width + (popupSize.width * 2) + 36, max(titleSize.height, popupSize.height));
@@ -123,8 +123,8 @@ class TabButtonCell: NSButtonCell {
     }
     
     override func titleRectForBounds(theRect: NSRect) -> NSRect {
-        let title = style.attributedTitle(content: self.attributedTitle.string, isSelected: self.isSelected)
-        return style.titleRect(title: title, inBounds: theRect, showingIcon: self.showsIcon)
+        let title = self.style.attributedTitle(content: self.attributedTitle.string, isSelected: self.isSelected)
+        return self.style.titleRect(title: title, inBounds: theRect, showingIcon: self.showsIcon)
     }
 
     // MARK: - Editing

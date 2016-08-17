@@ -443,9 +443,9 @@ public class TabsControl: NSControl, TabEditingDelegate {
 
     var selectedButtonIndex: Int? = nil {
         didSet {
-            scrollToSelectedButton()
-            updateButtonStatesForSelection()
-            layoutTabButtons(nil, animated: false)
+            self.scrollToSelectedButton()
+            self.updateButtonStatesForSelection()
+            self.layoutTabButtons(nil, animated: false)
 
             NSNotificationCenter.defaultCenter().postNotificationName(TabsControlSelectionDidChangeNotification, object: self)
             self.invalidateRestorableState()
@@ -582,7 +582,7 @@ public class TabsControl: NSControl, TabEditingDelegate {
             let selectedButton = self.tabButtons().findFirst({ $0.index == selectedButtonIndex })
             else { return }
 
-        selectTab(selectedButton)
+        self.selectTab(selectedButton)
     }
     
     // MARK: - Helpers
