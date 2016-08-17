@@ -3,7 +3,7 @@
 //  KPCTabsControl
 //
 //  Created by Christian Tietze on 13/08/16.
-//  Copyright © 2016 Cédric Foellmi. All rights reserved.
+//  Licensed under the MIT License (see LICENSE file)
 //
 
 import Cocoa
