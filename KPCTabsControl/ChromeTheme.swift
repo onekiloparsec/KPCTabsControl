@@ -23,7 +23,7 @@ public struct ChromeTheme: Theme {
     private static var sharedBackgroundColor: NSColor { return NSColor(calibratedWhite: 216/256.0, alpha: 1.0) }
     private static var sharedHighlightedBackgroundColor: NSColor { return NSColor(calibratedWhite: 196/256.0, alpha: 1.0) }
 
-    struct DefaultTabButtonTheme: KPCTabsControl.TabButtonTheme {
+    private struct DefaultTabButtonTheme: KPCTabsControl.TabButtonTheme {
         
         var backgroundColor: NSColor { return ChromeTheme.sharedBackgroundColor }
         var borderColor: NSColor { return ChromeTheme.sharedBorderColor }
@@ -31,7 +31,7 @@ public struct ChromeTheme: Theme {
         var titleFont: NSFont { return NSFont.systemFontOfSize(14) }
     }
     
-    struct SelectedTabButtonTheme: KPCTabsControl.TabButtonTheme {
+    private struct SelectedTabButtonTheme: KPCTabsControl.TabButtonTheme {
         
         let base: DefaultTabButtonTheme
         
@@ -41,13 +41,13 @@ public struct ChromeTheme: Theme {
         var titleFont: NSFont { return base.titleFont }
     }
     
-    struct DefaultTabsControlTheme: KPCTabsControl.TabsControlTheme {
+    private struct DefaultTabsControlTheme: KPCTabsControl.TabsControlTheme {
         
         var borderColor: NSColor { return ChromeTheme.sharedBorderColor }
         var backgroundColor: NSColor { return ChromeTheme.sharedBackgroundColor }
     }
     
-    struct HighlightedTabsControlTheme: KPCTabsControl.TabsControlTheme {
+    private struct HighlightedTabsControlTheme: KPCTabsControl.TabsControlTheme {
         
         let base: DefaultTabsControlTheme
         

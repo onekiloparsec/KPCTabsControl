@@ -52,7 +52,8 @@ public struct ChromeStyle: Style, Themed {
             .shrinkBy(dx: 2 * xOffset + iconOffset, dy: yOffset + 2)
     }
 
-    enum Defaults {
+    // TODO: Not sure what to decide about the visibility here? Same for PaddedHeight
+    private enum Defaults {
         static let alignment = NSTextAlignment.Left
     }
 
