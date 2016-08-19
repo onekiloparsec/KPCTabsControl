@@ -11,8 +11,8 @@ import Cocoa
 /**
  *  The default TabsControl style. Used with the DefaultTheme, it provides an experience similar to Apple's Numbers.app.
  */
-public struct DefaultStyle: Style, Themed {
-    public let theme: Theme
+public struct DefaultStyle: Style {
+    public let theme: Theme?
     public let tabButtonWidth: FlexibleTabWidth
     public let recommendedTabsControlHeight: CGFloat = 21.0
 
@@ -43,8 +43,7 @@ public struct DefaultStyle: Style, Themed {
 
     public func drawTabButtonBezel(frame frame: NSRect, position: TabButtonPosition, isSelected: Bool) {
 
-        let activeTheme = isSelected ? self.theme.selectedTabButtonTheme : self.theme.tabButtonTheme
-
+        let activeTheme = isSelected ? self.theme!.selectedTabButtonTheme : self.theme!.tabButtonTheme
         activeTheme.backgroundColor.setFill()
         NSRectFill(frame)
 
@@ -89,14 +88,14 @@ public struct DefaultStyle: Style, Themed {
 
         return (
             textColor: NSColor(calibratedWhite: 1.0/6, alpha: 1.0),
-            font: self.theme.tabButtonTheme.titleFont,
+            font: self.theme!.tabButtonTheme.titleFont,
             alignment: self.alignment
         )
     }
 
     public func attributedTitle(content content: String, isSelected: Bool) -> NSAttributedString {
 
-        let activeStyle = isSelected ? self.theme.selectedTabButtonTheme : self.theme.tabButtonTheme
+        let activeStyle = isSelected ? self.theme!.selectedTabButtonTheme : self.theme!.tabButtonTheme
         let titleColor = activeStyle.titleColor
         let font = activeStyle.titleFont
 
@@ -113,11 +112,11 @@ public struct DefaultStyle: Style, Themed {
     }
 
     public func drawTabControlBezel(frame frame: NSRect) {
-        self.theme.tabsControlTheme.backgroundColor.setFill()
+        self.theme!.tabsControlTheme.backgroundColor.setFill()
         NSRectFill(frame)
 
         let borderDrawing = BorderDrawing.fromMask(frame, borderMask: .top)
-        self.drawBorder(borderDrawing, color: self.theme.tabsControlTheme.borderColor)
+        self.drawBorder(borderDrawing, color: self.theme!.tabsControlTheme.borderColor)
     }
 
     private func drawBorder(border: BorderDrawing, color: NSColor) {

@@ -8,8 +8,8 @@
 
 import Cocoa
 
-public struct ChromeStyle: Style, Themed {
-    public let theme: Theme
+public struct ChromeStyle: Style {
+    public let theme: Theme?
     public let tabButtonWidth: FlexibleTabWidth
     public let recommendedTabsControlHeight: CGFloat = 34.0
     
@@ -59,8 +59,8 @@ public struct ChromeStyle: Style, Themed {
 
     public func editorSettings() -> EditorSettings {
         return (
-            textColor: theme.tabButtonTheme.titleColor,
-            font: theme.tabButtonTheme.titleFont,
+            textColor: self.theme!.tabButtonTheme.titleColor,
+            font: self.theme!.tabButtonTheme.titleFont,
             alignment: Defaults.alignment
         )
     }
@@ -69,7 +69,7 @@ public struct ChromeStyle: Style, Themed {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = Defaults.alignment
 
-        let activeTheme = isSelected ? self.theme.selectedTabButtonTheme : self.theme.tabButtonTheme
+        let activeTheme = isSelected ? self.theme!.selectedTabButtonTheme : self.theme!.tabButtonTheme
 
         let attributes = [
             NSFontAttributeName: activeTheme.titleFont,
@@ -182,7 +182,7 @@ public struct ChromeStyle: Style, Themed {
 
         path.lineWidth = 1
 
-        let activeTheme = isSelected ? self.theme.selectedTabButtonTheme : self.theme.tabButtonTheme
+        let activeTheme = isSelected ? self.theme!.selectedTabButtonTheme : self.theme!.tabButtonTheme
         activeTheme.backgroundColor.setFill()
         path.fill()
 
@@ -195,7 +195,7 @@ public struct ChromeStyle: Style, Themed {
     }
 
     public func drawTabControlBezel(frame frame: NSRect) {
-        self.theme.tabsControlTheme.backgroundColor.setFill()
+        self.theme!.tabsControlTheme.backgroundColor.setFill()
         NSRectFill(frame)
         self.drawBottomBorder(frame: frame)
     }
@@ -204,7 +204,7 @@ public struct ChromeStyle: Style, Themed {
         let bottomBorder = NSRect(origin: frame.origin + Offset(y: frame.height - 1),
                                   size: NSSize(width: frame.width, height: 1))
         
-        self.theme.tabsControlTheme.borderColor.setFill()
+        self.theme!.tabsControlTheme.borderColor.setFill()
         NSRectFill(bottomBorder)
     }
 

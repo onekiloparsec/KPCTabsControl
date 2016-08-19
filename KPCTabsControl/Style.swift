@@ -13,7 +13,6 @@ public struct FlexibleTabWidth {
     public let max: CGFloat
 
     public init(min: CGFloat, max: CGFloat) {
-
         self.min = min
         self.max = max
     }
@@ -23,13 +22,9 @@ public typealias IconFrames = (iconFrame: NSRect, alternativeTitleIconFrame: NSR
 
 public typealias EditorSettings = (textColor: NSColor, font: NSFont, alignment: NSTextAlignment)
 
-public typealias ThemedStyle = protocol<Style, Themed>
-
-public protocol Themed {
-    var theme: Theme { get }
-}
-
 public protocol Style {
+    var theme: Theme? { get }
+    
     var tabButtonWidth: FlexibleTabWidth { get }
     
     func tabButtonOffset(position position: TabButtonPosition) -> Offset
@@ -45,3 +40,4 @@ public protocol Style {
     func drawTabButtonBezel(frame frame: NSRect, position: TabButtonPosition, isSelected: Bool)
     func drawTabControlBezel(frame frame: NSRect)
 }
+
