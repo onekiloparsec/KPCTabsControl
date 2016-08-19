@@ -41,7 +41,7 @@ class TabEditing: NSObject, NSTextDelegate, NSTextViewDelegate {
         }
 
         let newValue = editingTextField.string ?? ""
-        self.tabButton.tabButtonCell?.finishEditing(newValue)
+        self.tabButton.finishEditing(newValue)
         self.delegate?.tabButtonDidEndEditing(self.tabButton, newTitle: newValue)
     }
 }

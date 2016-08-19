@@ -10,31 +10,39 @@ import AppKit
 
 public class TabButton: NSButton {
 
-    var style: Style! {
-        didSet { tabButtonCell?.style = self.style }
+    private var iconView: NSImageView?
+    private var alternativeTitleIconView: NSImageView?
+    private var trackingArea: NSTrackingArea?
+    
+    private var tabButtonCell: TabButtonCell? {
+        get { return self.cell as? TabButtonCell }
+    }
+
+    public var style: Style! {
+        didSet { self.tabButtonCell?.style = self.style }
     }
 
     /// The button is aware of its last known index in the tab bar.
     var index: Int? = nil
 
-    var iconView: NSImageView?
-    var alternativeTitleIconView: NSImageView?
-    var trackingArea: NSTrackingArea?
-
-    var tabButtonCell: TabButtonCell? {
-        get { return self.cell as? TabButtonCell }
+    public var buttonPosition: TabButtonPosition! {
+        get { return tabButtonCell?.buttonPosition }
+        set { self.tabButtonCell?.buttonPosition = newValue }
     }
 
-    var buttonPosition: TabButtonPosition! { return tabButtonCell?.buttonPosition }
-
-    var representedObject: AnyObject? {
+    public var representedObject: AnyObject? {
         get { return self.tabButtonCell?.representedObject }
         set { self.tabButtonCell?.representedObject = newValue }
     }
 
-    var editable: Bool {
+    public var editable: Bool {
         get { return self.cell?.editable ?? false }
         set { self.cell?.editable = newValue }
+    }
+    
+    public var selectable: Bool {
+        get { return self.cell?.selectable ?? true }
+        set { self.cell?.selectable = newValue }
     }
 
     public var icon: NSImage? = nil {
@@ -82,7 +90,6 @@ public class TabButton: NSButton {
     }
     
     init(index: Int, item: AnyObject, target: AnyObject?, action:Selector, style: Style) {
-
         super.init(frame: NSZeroRect)
 
         self.index = index
@@ -193,7 +200,11 @@ public class TabButton: NSButton {
         super.drawRect(dirtyRect)
     }
 
-    func edit(fieldEditor fieldEditor: NSText, delegate: NSTextDelegate) {
+    internal func finishEditing(newValue: String) {
+        self.tabButtonCell?.finishEditing(newValue)
+    }
+
+    internal func edit(fieldEditor fieldEditor: NSText, delegate: NSTextDelegate) {
         self.tabButtonCell?.edit(fieldEditor: fieldEditor, inView: self, delegate: delegate)
     }
 }

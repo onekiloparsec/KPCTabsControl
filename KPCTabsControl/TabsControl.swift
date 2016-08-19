@@ -172,7 +172,7 @@ public class TabsControl: NSControl, TabEditingDelegate {
             button.state = NSOffState
             button.editable = self.delegate?.tabsControl?(self, canEditTitleOfItem: item) == true
 
-            button.tabButtonCell!.buttonPosition = {
+            button.buttonPosition = {
                 switch i {
                 case 0: return .first
                 case newItemsCount-1: return .last
@@ -231,9 +231,9 @@ public class TabsControl: NSControl, TabEditingDelegate {
             }
             
             if let delegateReceiver = self.delegateInterceptor.receiver as? TabsControlDelegate
-                where delegateReceiver.tabsControl?(self, canSelectItem: button.tabButtonCell!.representedObject!) != nil {
+                where delegateReceiver.tabsControl?(self, canSelectItem: button.representedObject!) != nil {
 
-                button.tabButtonCell!.selectable = delegateReceiver.tabsControl!(self, canSelectItem: button.tabButtonCell!.representedObject!)
+                button.selectable = delegateReceiver.tabsControl!(self, canSelectItem: button.representedObject!)
                 // TODO: not entirely sure this swift code does what I want... fix that.
             }
 
@@ -350,7 +350,7 @@ public class TabsControl: NSControl, TabEditingDelegate {
                     tab.hidden = false
 
                     if reordered == true {
-                        let items = orderedTabs.map({ return $0.tabButtonCell!.representedObject! })
+                        let items = orderedTabs.map({ return $0.representedObject! })
                         self.delegate?.tabsControl?(self, didReorderItems: items)
                     }
 
@@ -401,7 +401,7 @@ public class TabsControl: NSControl, TabEditingDelegate {
 
         NSApp.sendAction(self.action, to: self.target, from: self)
         NSNotificationCenter.defaultCenter().postNotificationName(TabsControlSelectionDidChangeNotification, object: self)
-        delegate?.tabsControlDidChangeSelection?(self, item: button.representedObject!)
+        self.delegate?.tabsControlDidChangeSelection?(self, item: button.representedObject!)
 
         guard let currentEvent = NSApp.currentEvent else { return }
 
