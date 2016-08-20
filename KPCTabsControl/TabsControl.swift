@@ -211,7 +211,7 @@ public class TabsControl: NSControl, NSTextDelegate {
         for (index, button) in tabButtons.enumerate() {
             var buttonWidth = (self.prefersFullWidthTabs == true) ? fullSizeWidth : min(self.maxTabWidth, fullSizeWidth)
             buttonWidth = max(buttonWidth, self.minTabWidth)
-            let offset = style.tabButtonOffset(position: button.buttonPosition)
+            let offset = self.style.tabButtonOffset(position: button.buttonPosition)
             let buttonFrame = CGRectMake(buttonX + offset.x, offset.y, buttonWidth, buttonHeight)
             buttonX += buttonWidth + offset.x
 
@@ -223,11 +223,8 @@ public class TabsControl: NSControl, NSTextDelegate {
                 button.frame = buttonFrame
             }
             
-            if let delegateReceiver = self.delegateInterceptor.receiver as? TabsControlDelegate
-                where delegateReceiver.tabsControl?(self, canSelectItem: button.representedObject!) != nil {
-
-                button.selectable = delegateReceiver.tabsControl!(self, canSelectItem: button.representedObject!)
-                // TODO: not entirely sure this swift code does what I want... fix that.
+            if let selectable = self.delegate?.tabsControl?(self, canSelectItem: button.representedObject!) {
+                button.selectable = selectable
             }
 
             tabsViewWidth += buttonWidth
