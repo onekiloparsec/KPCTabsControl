@@ -474,7 +474,6 @@ public class TabsControl: NSControl, NSTextDelegate {
     private var editingTabTitle: String?
 
     public func editTabButton(tab: TabButton) {
-
         guard let representedObject = tab.representedObject
             where self.delegate?.tabsControl?(self, canEditTitleOfItem: representedObject) == true
             else { return }
@@ -487,7 +486,7 @@ public class TabsControl: NSControl, NSTextDelegate {
         self.editingTabButton = tab
         self.editingTabTitle = tab.title
         
-        self.editingTabButton!.edit(fieldEditor: fieldEditor, delegate: self)
+        tab.edit(fieldEditor: fieldEditor, delegate: self)
     }
     
     // MARK : - NSTextDelegate
@@ -499,7 +498,7 @@ public class TabsControl: NSControl, NSTextDelegate {
         }
         
         let newValue = fieldEditor.string ?? ""
-        self.editingTabButton!.finishEditing(fieldEditor: fieldEditor, newValue: newValue)
+        self.editingTabButton?.finishEditing(fieldEditor: fieldEditor, newValue: newValue)
         self.window?.makeFirstResponder(self)
         
         defer {
@@ -507,16 +506,12 @@ public class TabsControl: NSControl, NSTextDelegate {
             self.editingTabTitle = nil            
         }
         
-        // What happens when selecting another tab while one is being edited?
-        guard let item = self.editingTabButton!.representedObject else {
-            // Really? Simply return?
-            return
-        }
-        
-        if newValue != self.editingTabTitle {
-            self.delegate?.tabsControl?(self, setTitle: newValue, forItem: item)
-            self.editingTabButton!.representedObject = self.dataSource?.tabsControl(self, itemAtIndex: self.selectedButtonIndex!)
-        }
+        guard let item = self.editingTabButton?.representedObject
+            where newValue != self.editingTabTitle
+            else { return }
+
+        self.delegate?.tabsControl?(self, setTitle: newValue, forItem: item)
+        self.editingTabButton?.representedObject = self.dataSource?.tabsControl(self, itemAtIndex: self.selectedButtonIndex!)
     }
 
     // MARK: - Drawing
