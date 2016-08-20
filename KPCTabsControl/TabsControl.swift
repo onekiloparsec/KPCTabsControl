@@ -470,10 +470,10 @@ public class TabsControl: NSControl, NSTextDelegate {
 
     // MARK: - Editing
 
-    private var editingTabButton: TabButton?
-    private var editingTabTitle: String?
+    private var editingTab: (title: String, button: TabButton)?
 
     public func editTabButton(tab: TabButton) {
+
         guard let representedObject = tab.representedObject
             where self.delegate?.tabsControl?(self, canEditTitleOfItem: representedObject) == true
             else { return }
@@ -483,9 +483,7 @@ public class TabsControl: NSControl, NSTextDelegate {
 
         self.window?.makeFirstResponder(self)
         
-        self.editingTabButton = tab
-        self.editingTabTitle = tab.title
-        
+        self.editingTab = (tab.title, tab)
         tab.edit(fieldEditor: fieldEditor, delegate: self)
     }
     
@@ -498,20 +496,19 @@ public class TabsControl: NSControl, NSTextDelegate {
         }
         
         let newValue = fieldEditor.string ?? ""
-        self.editingTabButton?.finishEditing(fieldEditor: fieldEditor, newValue: newValue)
+        self.editingTab?.button.finishEditing(fieldEditor: fieldEditor, newValue: newValue)
         self.window?.makeFirstResponder(self)
         
         defer {
-            self.editingTabButton = nil
-            self.editingTabTitle = nil            
+            self.editingTab = nil
         }
         
-        guard let item = self.editingTabButton?.representedObject
-            where newValue != self.editingTabTitle
+        guard let item = self.editingTab?.button.representedObject
+            where newValue != self.editingTab?.title
             else { return }
-
+        
         self.delegate?.tabsControl?(self, setTitle: newValue, forItem: item)
-        self.editingTabButton?.representedObject = self.dataSource?.tabsControl(self, itemAtIndex: self.selectedButtonIndex!)
+        self.editingTab?.button.representedObject = self.dataSource?.tabsControl(self, itemAtIndex: self.selectedButtonIndex!)
     }
 
     // MARK: - Drawing
