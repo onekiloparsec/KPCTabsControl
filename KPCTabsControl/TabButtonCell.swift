@@ -125,7 +125,7 @@ class TabButtonCell: NSButtonCell {
 
         self.highlighted = true
 
-        let frame = editingRectForBounds(view.bounds)
+        let frame = self.editingRectForBounds(view.bounds)
         let length = (self.stringValue as NSString).length
         self.selectWithFrame(frame,
                              inView: view,
@@ -150,7 +150,8 @@ class TabButtonCell: NSButtonCell {
         self.title = ""
     }
 
-    func finishEditing(newValue: String) {
+    func finishEditing(fieldEditor fieldEditor: NSText, newValue: String) {
+        self.endEditing(fieldEditor)
         self.title = newValue
     }
 

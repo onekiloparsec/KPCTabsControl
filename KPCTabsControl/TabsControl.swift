@@ -10,7 +10,7 @@ import AppKit
 
 /// TabsControl is the main class of the library, and is designed to suffice for implementing tabs in your app.
 /// The only necessary thing for it to work is an implementation of its `dataSource`.
-public class TabsControl: NSControl, TabEditingDelegate {
+public class TabsControl: NSControl, NSTextDelegate {
     
     private var ScrollViewObservationContext: UnsafeMutablePointer<Void> = nil // hm, wrong?
     private var delegateInterceptor = MessageInterceptor()
@@ -470,11 +470,8 @@ public class TabsControl: NSControl, TabEditingDelegate {
 
     // MARK: - Editing
 
-    private func forceEndEditing() {
-        self.window?.makeFirstResponder(self)
-    }
-
-    var tabEditing: TabEditing?
+    private var editingTabButton: TabButton?
+    private var editingTabTitle: String?
 
     public func editTabButton(tab: TabButton) {
 
@@ -482,32 +479,44 @@ public class TabsControl: NSControl, TabEditingDelegate {
             where self.delegate?.tabsControl?(self, canEditTitleOfItem: representedObject) == true
             else { return }
 
-        self.forceEndEditing()
-
-        guard let fieldEditor = self.window?.fieldEditor(true, forObject: tab) else { return }
-
-        let newEditing = TabEditing(tabButton: tab, fieldEditor: fieldEditor, delegate: self)
-        self.tabEditing = newEditing
-        newEditing.edit()
-
-        self.delegateInterceptor.middleMan = self
-    }
-    
-    // MARK : - TabEditingDelegate
-    
-    func tabButtonDidEndEditing(tabButton: TabButton, newTitle newValue: String) {
-
-        guard let selectedButtonIndex = self.selectedButtonIndex,
-            item = tabButton.representedObject
+        guard let fieldEditor = self.window?.fieldEditor(true, forObject: tab)
             else { return }
 
-        defer {
-            self.reloadTabs()
-            self.selectedButtonIndex = selectedButtonIndex
+        self.window?.makeFirstResponder(self)
+        
+        self.editingTabButton = tab
+        self.editingTabTitle = tab.title
+        
+        self.editingTabButton!.edit(fieldEditor: fieldEditor, delegate: self)
+    }
+    
+    // MARK : - NSTextDelegate
+    
+    public func textDidEndEditing(notification: NSNotification) {
+        guard let fieldEditor = notification.object as? NSText else {
+            assertionFailure("Expected field editor.")
+            return
         }
-
-        self.delegate?.tabsControl?(self, setTitle: newValue, forItem: item)
-        tabButton.representedObject = self.dataSource?.tabsControl(self, itemAtIndex: selectedButtonIndex)
+        
+        let newValue = fieldEditor.string ?? ""
+        self.editingTabButton!.finishEditing(fieldEditor: fieldEditor, newValue: newValue)
+        self.window?.makeFirstResponder(self)
+        
+        defer {
+            self.editingTabButton = nil
+            self.editingTabTitle = nil            
+        }
+        
+        // What happens when selecting another tab while one is being edited?
+        guard let item = self.editingTabButton!.representedObject else {
+            // Really? Simply return?
+            return
+        }
+        
+        if newValue != self.editingTabTitle {
+            self.delegate?.tabsControl?(self, setTitle: newValue, forItem: item)
+            self.editingTabButton!.representedObject = self.dataSource?.tabsControl(self, itemAtIndex: self.selectedButtonIndex!)
+        }
     }
 
     // MARK: - Drawing

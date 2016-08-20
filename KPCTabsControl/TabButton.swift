@@ -80,6 +80,8 @@ public class TabButton: NSButton {
         }
     }
     
+    // MARK: - Init
+
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
         self.cell = TabButtonCell(textCell: "")
@@ -127,6 +129,8 @@ public class TabButton: NSButton {
         }
     }
     
+    // MARK: - Drawing
+
     public override func updateTrackingAreas() {
         if let ta = self.trackingArea {
             self.removeTrackingArea(ta)
@@ -200,11 +204,14 @@ public class TabButton: NSButton {
         super.drawRect(dirtyRect)
     }
 
-    internal func finishEditing(newValue: String) {
-        self.tabButtonCell?.finishEditing(newValue)
-    }
-
+    
+    // MARK: - Editing
+    
     internal func edit(fieldEditor fieldEditor: NSText, delegate: NSTextDelegate) {
         self.tabButtonCell?.edit(fieldEditor: fieldEditor, inView: self, delegate: delegate)
+    }
+    
+    internal func finishEditing(fieldEditor fieldEditor: NSText, newValue: String) {
+        self.tabButtonCell?.finishEditing(fieldEditor: fieldEditor, newValue: newValue)
     }
 }
