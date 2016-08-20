@@ -171,14 +171,7 @@ public class TabsControl: NSControl, NSTextDelegate {
             button.wantsLayer = true
             button.state = NSOffState
             button.editable = self.delegate?.tabsControl?(self, canEditTitleOfItem: item) == true
-
-            button.buttonPosition = {
-                switch i {
-                case 0: return .first
-                case newItemsCount-1: return .last
-                default: return .middle
-                }
-            }()
+            button.buttonPosition = TabButtonPosition.fromIndex(i, totalCount: newItemsCount)
 
             button.title = dataSource.tabsControl(self, titleForItem: item)
             
@@ -370,22 +363,30 @@ public class TabsControl: NSControl, NSTextDelegate {
             
             let movingLeft = (nextPoint.x < prevPoint.x)
             prevPoint = nextPoint
-            let index = orderedTabs.indexOf(tab)!
+            
+            let primaryIndex = orderedTabs.indexOf(tab)!
+            var secondaryIndex : Int?
             
             if movingLeft == true && NSMidX(draggingTab.frame) < NSMinX(tab.frame) && tab !== orderedTabs.first! {
                 // shift left
-                swap(&orderedTabs[index], &orderedTabs[index-1])
-                temporarySelectedButtonIndex -= 1
-                reordered = true
+                secondaryIndex = primaryIndex-1
             }
             else if movingLeft == false && NSMidX(draggingTab.frame) > NSMaxX(tab.frame) && tab != orderedTabs.last! {
-                swap(&orderedTabs[index+1], &orderedTabs[index])
-                temporarySelectedButtonIndex += 1
-                reordered = true
+                secondaryIndex = primaryIndex+1
             }
             
-            if reordered == true {
+            if let secondIndex = secondaryIndex {
+                swap(&orderedTabs[primaryIndex], &orderedTabs[secondIndex])
+                
+                // Shouldn't indexes be swapped too????? But if we do so, it doesn't work!
+                orderedTabs[primaryIndex].buttonPosition = TabButtonPosition.fromIndex(primaryIndex, totalCount: orderedTabs.count)
+                orderedTabs[secondIndex].buttonPosition = TabButtonPosition.fromIndex(secondIndex, totalCount: orderedTabs.count)
+                
+                temporarySelectedButtonIndex += secondIndex-primaryIndex
+                let pos = orderedTabs.map { $0.buttonPosition }
+                Swift.print("-->> \(pos)")
                 self.layoutTabButtons(orderedTabs, animated: true)
+                reordered = true
             }
         }
     }

@@ -22,6 +22,14 @@ public enum TabButtonPosition {
     case first
     case middle
     case last
+    
+    static func fromIndex(idx: Int, totalCount: Int) -> TabButtonPosition {
+        switch idx {
+        case 0: return .first
+        case totalCount-1: return .last
+        default: return .middle
+        }
+    }
 }
 
 public typealias Offset = NSPoint
