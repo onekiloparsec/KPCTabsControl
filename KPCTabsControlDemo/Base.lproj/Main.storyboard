@@ -711,14 +711,14 @@
                                             <constraint firstItem="c1G-E0-GKJ" firstAttribute="top" secondItem="7wy-a7-VFr" secondAttribute="top" id="pKZ-MP-vom"/>
                                         </constraints>
                                     </customView>
-                                    <customView id="OFa-rZ-wN5">
+                                    <customView id="OFa-rZ-wN5" customClass="ColoredView" customModule="KPCTabsControlDemo" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="181" width="480" height="179"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <subviews>
                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="Opp-vc-gij" customClass="TabsControl" customModule="KPCTabsControl">
-                                                <rect key="frame" x="0.0" y="158" width="480" height="21"/>
+                                                <rect key="frame" x="0.0" y="145" width="480" height="34"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="21" id="kyU-fU-k2n"/>
+                                                    <constraint firstAttribute="height" constant="34" id="kyU-fU-k2n"/>
                                                 </constraints>
                                             </customView>
                                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Fv-dn-aE3">

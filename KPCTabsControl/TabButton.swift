@@ -10,26 +10,39 @@ import AppKit
 
 public class TabButton: NSButton {
 
-    var style: Style! {
-        didSet { tabButtonCell?.style = self.style }
-    }
-
-    var iconView: NSImageView?
-    var alternativeTitleIconView: NSImageView?
-    var trackingArea: NSTrackingArea?
-
-    var tabButtonCell: TabButtonCell? {
+    private var iconView: NSImageView?
+    private var alternativeTitleIconView: NSImageView?
+    private var trackingArea: NSTrackingArea?
+    
+    private var tabButtonCell: TabButtonCell? {
         get { return self.cell as? TabButtonCell }
     }
 
-    var representedObject: AnyObject? {
+    public var style: Style! {
+        didSet { self.tabButtonCell?.style = self.style }
+    }
+
+    /// The button is aware of its last known index in the tab bar.
+    var index: Int? = nil
+
+    public var buttonPosition: TabButtonPosition! {
+        get { return tabButtonCell?.buttonPosition }
+        set { self.tabButtonCell?.buttonPosition = newValue }
+    }
+
+    public var representedObject: AnyObject? {
         get { return self.tabButtonCell?.representedObject }
         set { self.tabButtonCell?.representedObject = newValue }
     }
 
-    var editable: Bool {
+    public var editable: Bool {
         get { return self.cell?.editable ?? false }
         set { self.cell?.editable = newValue }
+    }
+    
+    public var selectable: Bool {
+        get { return self.cell?.selectable ?? true }
+        set { self.cell?.selectable = newValue }
     }
 
     public var icon: NSImage? = nil {
@@ -67,6 +80,8 @@ public class TabButton: NSButton {
         }
     }
     
+    // MARK: - Init
+
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
         self.cell = TabButtonCell(textCell: "")
@@ -76,9 +91,10 @@ public class TabButton: NSButton {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(withItem item: AnyObject, target: AnyObject?, action:Selector, style: Style) {
+    init(index: Int, item: AnyObject, target: AnyObject?, action:Selector, style: Style) {
         super.init(frame: NSZeroRect)
 
+        self.index = index
         self.style = style
 
         let tabCell = TabButtonCell(textCell: "")
@@ -100,15 +116,11 @@ public class TabButton: NSButton {
         copy.icon = self.icon
         copy.style = self.style
         copy.alternativeTitleIcon = self.alternativeTitleIcon
+        copy.state = self.state
+        copy.index = self.index
         return copy
     }
-    
-//    public override func highlight(flag: Bool) {
-//        if let c = self.cell as? TabButtonCell {
-//            c.highlight(flag)
-//        }
-//    }
-    
+        
     public override var menu: NSMenu? {
         get { return self.cell?.menu }
         set {
@@ -117,6 +129,8 @@ public class TabButton: NSButton {
         }
     }
     
+    // MARK: - Drawing
+
     public override func updateTrackingAreas() {
         if let ta = self.trackingArea {
             self.removeTrackingArea(ta)
@@ -165,22 +179,20 @@ public class TabButton: NSButton {
         guard let tabButtonCell = self.tabButtonCell
             else { assertionFailure("TabButtonCell expected in drawRect(_:)"); return }
 
+        let iconFrames = self.style.iconFrames(tabRect: self.frame)
+        self.iconView?.frame = iconFrames.iconFrame
+        self.alternativeTitleIconView?.frame = iconFrames.alternativeTitleIconFrame
+
         let scale: CGFloat = (self.layer != nil) ? self.layer!.contentsScale : 1.0
 
-        let layouts = style.iconFrames(tabRect: self.frame)
-        self.iconView?.frame = layouts.iconFrame
-        self.alternativeTitleIconView?.frame = layouts.alternativeTitleIconFrame
-
-        let maxIconHeight = style.maxIconHeight(tabRect: self.frame, scale: scale)
-
-        if self.icon?.size.width > maxIconHeight {
-            let smallIcon = NSImage(size: layouts.iconFrame.size)
+        if self.icon?.size.width > CGRectGetHeight(iconFrames.iconFrame)*scale {
+            let smallIcon = NSImage(size: iconFrames.iconFrame.size)
             smallIcon.addRepresentation(NSBitmapImageRep(data: self.icon!.TIFFRepresentation!)!)
             self.iconView?.image = smallIcon
         }
 
-        if self.alternativeTitleIcon?.size.width > maxIconHeight {
-            let smallIcon = NSImage(size: layouts.alternativeTitleIconFrame.size)
+        if self.alternativeTitleIcon?.size.width > CGRectGetHeight(iconFrames.alternativeTitleIconFrame)*scale {
+            let smallIcon = NSImage(size: iconFrames.alternativeTitleIconFrame.size)
             smallIcon.addRepresentation(NSBitmapImageRep(data: self.alternativeTitleIcon!.TIFFRepresentation!)!)
             self.alternativeTitleIconView?.image = smallIcon
         }
@@ -192,7 +204,14 @@ public class TabButton: NSButton {
         super.drawRect(dirtyRect)
     }
 
-    func edit(fieldEditor fieldEditor: NSText, delegate: NSTextDelegate) {
+    
+    // MARK: - Editing
+    
+    internal func edit(fieldEditor fieldEditor: NSText, delegate: NSTextDelegate) {
         self.tabButtonCell?.edit(fieldEditor: fieldEditor, inView: self, delegate: delegate)
+    }
+    
+    internal func finishEditing(fieldEditor fieldEditor: NSText, newValue: String) {
+        self.tabButtonCell?.finishEditing(fieldEditor: fieldEditor, newValue: newValue)
     }
 }

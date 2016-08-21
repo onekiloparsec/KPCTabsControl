@@ -27,11 +27,6 @@ class TabsControlCell: NSCell {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-
-//    func highlight(flag: Bool) {
-//        self.highlighted = flag
-//        self.controlView?.needsDisplay = true
-//    }
     
     override func cellSizeForBounds(aRect: NSRect) -> NSSize {
         return NSMakeSize(36.0, 0.0)
@@ -40,8 +35,8 @@ class TabsControlCell: NSCell {
     override func drawWithFrame(cellFrame: NSRect, inView controlView: NSView) {
 
         // TODO can we get rid of this by setting `style` earlier?
-        guard style != nil else { return }
+        guard self.style != nil else { return }
 
-        style.drawTabControlBezel(frame: cellFrame)
+        self.style.drawTabsControlBezel(frame: cellFrame)
     }
 }

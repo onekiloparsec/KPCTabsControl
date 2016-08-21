@@ -3,7 +3,7 @@
 //  KPCTabsControl
 //
 //  Created by Cédric Foellmi on 13/08/16.
-//  Copyright © 2016 Cédric Foellmi. All rights reserved.
+//  Licensed under the MIT License (see LICENSE file)
 //
 
 import AppKit
@@ -31,9 +31,6 @@ public protocol TabsControlTheme {
  */
 public protocol Theme {
     var tabButtonTheme: TabButtonTheme { get }
-    var selectedTabButtonTheme: TabButtonTheme { get }
-    var highlightedTabButtonTheme: TabButtonTheme { get }
-    
+    var selectedTabButtonTheme: TabButtonTheme { get }    
     var tabsControlTheme: TabsControlTheme { get }
-    var highlightedTabsControlTheme: TabsControlTheme { get }
 }

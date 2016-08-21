@@ -1,5 +1,5 @@
 //
-//  ThemedStyle.swift
+//  DefaultStyle.swift
 //  KPCTabsControl
 //
 //  Created by Christian Tietze on 10/08/16.
@@ -11,13 +11,14 @@ import Cocoa
 /**
  *  The default TabsControl style. Used with the DefaultTheme, it provides an experience similar to Apple's Numbers.app.
  */
-public struct DefaultStyle: Style {
+public struct DefaultStyle: ThemedStyle {
     public let theme: Theme
-    public let tabWidth: FlexibleTabWidth
+    public let tabButtonWidth: FlexibleTabWidth
+    public let recommendedTabsControlHeight: CGFloat = 21.0
 
-    public init(theme: Theme = DefaultTheme(), tabWidth: FlexibleTabWidth = FlexibleTabWidth(min: 50, max: 150)) {
+    public init(theme: Theme = DefaultTheme(), tabButtonWidth: FlexibleTabWidth = FlexibleTabWidth(min: 50, max: 150)) {
         self.theme = theme
-        self.tabWidth = tabWidth
+        self.tabButtonWidth = tabButtonWidth
     }
 
     public func iconFrames(tabRect rect: NSRect) -> IconFrames {
@@ -40,12 +41,10 @@ public struct DefaultStyle: Style {
         return 1.2 * paddedHeight * scale
     }
 
-    public func drawTabBezel(frame frame: NSRect, position: TabButtonPosition, isSelected: Bool) {
+    public func drawTabButtonBezel(frame frame: NSRect, position: TabButtonPosition, isSelected: Bool) {
 
-        let activeStyle = isSelected ? self.theme.selectedTabButtonTheme : theme.tabButtonTheme
-
-        let color = activeStyle.backgroundColor
-        color.setFill()
+        let activeTheme = isSelected ? self.theme.selectedTabButtonTheme : self.theme.tabButtonTheme
+        activeTheme.backgroundColor.setFill()
         NSRectFill(frame)
 
         let borderMask: BorderDrawing.Mask = {
@@ -57,13 +56,17 @@ public struct DefaultStyle: Style {
         }()
         let borderDrawing = BorderDrawing.fromMask(frame, borderMask: borderMask)
 
-        self.drawBorder(borderDrawing, color: activeStyle.borderColor)
+        self.drawBorder(borderDrawing, color: activeTheme.borderColor)
     }
 
     public func titleRect(title title: NSAttributedString, inBounds rect: NSRect, showingIcon: Bool) -> NSRect {
 
         let titleSize = title.size()
-        let fullWidthRect = NSMakeRect(NSMinX(rect), NSMidY(rect) - titleSize.height/2.0, NSWidth(rect), titleSize.height)
+        let fullWidthRect = NSRect(
+            x: NSMinX(rect),
+            y: NSMidY(rect) - titleSize.height/2.0 + 0.5,
+            width: NSWidth(rect),
+            height: titleSize.height)
 
         return self.paddedRectForIcon(fullWidthRect, showingIcon: showingIcon)
     }
@@ -79,6 +82,18 @@ public struct DefaultStyle: Style {
         return rect.offsetBy(dx: horizontalOffset, dy: 0).shrinkBy(dx: horizontalOffset, dy: 0)
     }
 
+    private enum Defaults {
+        static let alignment = NSTextAlignment.Center
+    }
+
+    public func titleEditorSettings() -> TitleEditorSettings {
+        return (
+            textColor: NSColor(calibratedWhite: 1.0/6, alpha: 1.0),
+            font: self.theme.tabButtonTheme.titleFont,
+            alignment: Defaults.alignment
+        )
+    }
+
     public func attributedTitle(content content: String, isSelected: Bool) -> NSAttributedString {
 
         let activeStyle = isSelected ? self.theme.selectedTabButtonTheme : self.theme.tabButtonTheme
@@ -86,7 +101,7 @@ public struct DefaultStyle: Style {
         let font = activeStyle.titleFont
 
         let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.alignment = .Center
+        paragraphStyle.alignment = Defaults.alignment
 
         let attributes = [
             NSForegroundColorAttributeName : titleColor,
@@ -97,7 +112,7 @@ public struct DefaultStyle: Style {
         return NSAttributedString(string: content, attributes: attributes)
     }
 
-    public func drawTabControlBezel(frame frame: NSRect) {
+    public func drawTabsControlBezel(frame frame: NSRect) {
         self.theme.tabsControlTheme.backgroundColor.setFill()
         NSRectFill(frame)
 
@@ -113,6 +128,10 @@ public struct DefaultStyle: Style {
         color.setFill()
         color.setStroke()
         NSRectFillList(borderRects, borderRectCount)
+    }
+
+    public func tabButtonOffset(position position: TabButtonPosition) -> Offset {
+        return NSPoint()
     }
 }
 

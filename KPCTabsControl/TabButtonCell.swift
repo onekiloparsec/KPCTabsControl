@@ -27,9 +27,6 @@ class TabButtonCell: NSButtonCell {
         didSet { self.controlView?.needsDisplay = true }
     }
 
-    @available(*, deprecated=1.0, message="replaces KPC_auxiliaryButton's borderMask setting; move this to different drawing methods")
-    var isAuxiliary = false
-
     var buttonPosition: TabButtonPosition = .middle {
         didSet { self.controlView?.needsDisplay = true }
     }
@@ -66,11 +63,6 @@ class TabButtonCell: NSButtonCell {
         return copy
     }
     
-//    func highlight(flag: Bool) {
-//        self.highlighted = flag
-//        self.controlView?.needsDisplay = true
-//    }
-    
     // MARK: - Properties & Rects
 
     static func popupImage() -> NSImage {
@@ -79,7 +71,7 @@ class TabButtonCell: NSButtonCell {
     }
 
     func hasRoomToDrawFullTitle(inRect rect: NSRect) -> Bool {
-        let title = style.attributedTitle(content: self.attributedTitle.string, isSelected: self.isSelected)
+        let title = self.style.attributedTitle(content: self.attributedTitle.string, isSelected: self.isSelected)
         let requiredMinimumWidth = title.size().width + 2.0*titleMargin
 
         let titleDrawRect = self.titleRectForBounds(rect)
@@ -87,7 +79,7 @@ class TabButtonCell: NSButtonCell {
     }
 
     override func cellSizeForBounds(aRect: NSRect) -> NSSize {
-        let title = style.attributedTitle(content: self.attributedTitle.string, isSelected: self.isSelected)
+        let title = self.style.attributedTitle(content: self.attributedTitle.string, isSelected: self.isSelected)
         let titleSize = title.size()
         let popupSize = (self.menu == nil) ? NSZeroSize : TabButtonCell.popupImage().size
         let cellSize = NSMakeSize(titleSize.width + (popupSize.width * 2) + 36, max(titleSize.height, popupSize.height));
@@ -123,8 +115,8 @@ class TabButtonCell: NSButtonCell {
     }
     
     override func titleRectForBounds(theRect: NSRect) -> NSRect {
-        let title = style.attributedTitle(content: self.attributedTitle.string, isSelected: self.isSelected)
-        return style.titleRect(title: title, inBounds: theRect, showingIcon: self.showsIcon)
+        let title = self.style.attributedTitle(content: self.attributedTitle.string, isSelected: self.isSelected)
+        return self.style.titleRect(title: title, inBounds: theRect, showingIcon: self.showsIcon)
     }
 
     // MARK: - Editing
@@ -133,7 +125,7 @@ class TabButtonCell: NSButtonCell {
 
         self.highlighted = true
 
-        let frame = editingRectForBounds(view.bounds)
+        let frame = self.editingRectForBounds(view.bounds)
         let length = (self.stringValue as NSString).length
         self.selectWithFrame(frame,
                              inView: view,
@@ -144,9 +136,12 @@ class TabButtonCell: NSButtonCell {
 
         fieldEditor.drawsBackground = false
         fieldEditor.horizontallyResizable = true
-        fieldEditor.font = self.font
-        fieldEditor.alignment = self.alignment
-        fieldEditor.textColor = NSColor.darkGrayColor().blendedColorWithFraction(0.5, ofColor: NSColor.blackColor())
+        fieldEditor.editable = true
+
+        let editorSettings = self.style.titleEditorSettings()
+        fieldEditor.font = editorSettings.font
+        fieldEditor.alignment = editorSettings.alignment
+        fieldEditor.textColor = editorSettings.textColor
 
         // Replace content so that resizing is triggered
         fieldEditor.string = ""
@@ -155,7 +150,8 @@ class TabButtonCell: NSButtonCell {
         self.title = ""
     }
 
-    func finishEditing(newValue: String) {
+    func finishEditing(fieldEditor fieldEditor: NSText, newValue: String) {
+        self.endEditing(fieldEditor)
         self.title = newValue
     }
 
@@ -167,7 +163,7 @@ class TabButtonCell: NSButtonCell {
 
     override func drawWithFrame(frame: NSRect, inView controlView: NSView) {
 
-        self.style.drawTabBezel(frame: frame, position: self.buttonPosition, isSelected: self.isSelected)
+        self.style.drawTabButtonBezel(frame: frame, position: self.buttonPosition, isSelected: self.isSelected)
         
         if self.hasRoomToDrawFullTitle(inRect: frame)
             || self.hasTitleAlternativeIcon == false {
