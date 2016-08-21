@@ -37,6 +37,6 @@ class TabsControlCell: NSCell {
         // TODO can we get rid of this by setting `style` earlier?
         guard self.style != nil else { return }
 
-        self.style.drawTabControlBezel(frame: cellFrame)
+        self.style.drawTabsControlBezel(frame: cellFrame)
     }
 }

@@ -20,24 +20,23 @@ public struct FlexibleTabWidth {
 
 public typealias IconFrames = (iconFrame: NSRect, alternativeTitleIconFrame: NSRect)
 
-public typealias EditorSettings = (textColor: NSColor, font: NSFont, alignment: NSTextAlignment)
+public typealias TitleEditorSettings = (textColor: NSColor, font: NSFont, alignment: NSTextAlignment)
 
 public protocol Style {
-    var theme: Theme? { get }
-    
     var tabButtonWidth: FlexibleTabWidth { get }
-    
     func tabButtonOffset(position position: TabButtonPosition) -> Offset
     
     func iconFrames(tabRect rect: NSRect) -> IconFrames
     func titleRect(title title: NSAttributedString, inBounds rect: NSRect, showingIcon: Bool) -> NSRect
-
-    func editorSettings() -> EditorSettings
+    func titleEditorSettings() -> TitleEditorSettings
     func attributedTitle(content content: String, isSelected: Bool) -> NSAttributedString
 
-    var recommendedTabsControlHeight: CGFloat { get }
-
     func drawTabButtonBezel(frame frame: NSRect, position: TabButtonPosition, isSelected: Bool)
-    func drawTabControlBezel(frame frame: NSRect)
+    func drawTabsControlBezel(frame frame: NSRect)
+
+    var recommendedTabsControlHeight: CGFloat { get }
 }
 
+public protocol ThemedStyle : Style {
+    var theme: Theme { get }
+}

@@ -8,8 +8,8 @@
 
 import Cocoa
 
-public struct ChromeStyle: Style {
-    public let theme: Theme?
+public struct ChromeStyle: ThemedStyle {
+    public let theme: Theme
     public let tabButtonWidth: FlexibleTabWidth
     public let recommendedTabsControlHeight: CGFloat = 34.0
     
@@ -57,10 +57,10 @@ public struct ChromeStyle: Style {
         static let alignment = NSTextAlignment.Left
     }
 
-    public func editorSettings() -> EditorSettings {
+    public func titleEditorSettings() -> TitleEditorSettings {
         return (
-            textColor: self.theme!.tabButtonTheme.titleColor,
-            font: self.theme!.tabButtonTheme.titleFont,
+            textColor: self.theme.tabButtonTheme.titleColor,
+            font: self.theme.tabButtonTheme.titleFont,
             alignment: Defaults.alignment
         )
     }
@@ -69,7 +69,7 @@ public struct ChromeStyle: Style {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = Defaults.alignment
 
-        let activeTheme = isSelected ? self.theme!.selectedTabButtonTheme : self.theme!.tabButtonTheme
+        let activeTheme = isSelected ? self.theme.selectedTabButtonTheme : self.theme.tabButtonTheme
 
         let attributes = [
             NSFontAttributeName: activeTheme.titleFont,
@@ -80,7 +80,7 @@ public struct ChromeStyle: Style {
         return NSAttributedString(string: content, attributes: attributes)
     }
 
-    enum PaddedHeight {
+    private enum PaddedHeight {
 
         case unpadded(CGFloat, originalHeight: CGFloat)
         case padded(CGFloat, originalHeight: CGFloat)
@@ -135,18 +135,15 @@ public struct ChromeStyle: Style {
 
         let height: CGFloat = PaddedHeight.fromFrame(frame).value
         let xOffset = height / 2.0
+        let curve = CGFloat(4)
         
         let lowerLeft  = frame.origin + Offset(y: frame.height)
         let upperLeft  = lowerLeft + Offset(x: xOffset, y: -height - 0.5)
         let lowerRight = lowerLeft + Offset(x: frame.width - 1)
         let upperRight = lowerRight + Offset(x: -xOffset, y: -height - 0.5)
 
-        let curve = CGFloat(4)
-
+        // Let's build tab path
         let path = NSBezierPath()
-
-        // TODO: Remove these awful hardcoded values...
-        // Remember that Origin start in lower left corner.
         
         // Lower left point.
         path.moveToPoint(lowerLeft)
@@ -182,7 +179,7 @@ public struct ChromeStyle: Style {
 
         path.lineWidth = 1
 
-        let activeTheme = isSelected ? self.theme!.selectedTabButtonTheme : self.theme!.tabButtonTheme
+        let activeTheme = isSelected ? self.theme.selectedTabButtonTheme : self.theme.tabButtonTheme
         activeTheme.backgroundColor.setFill()
         path.fill()
 
@@ -194,8 +191,8 @@ public struct ChromeStyle: Style {
         }
     }
 
-    public func drawTabControlBezel(frame frame: NSRect) {
-        self.theme!.tabsControlTheme.backgroundColor.setFill()
+    public func drawTabsControlBezel(frame frame: NSRect) {
+        self.theme.tabsControlTheme.backgroundColor.setFill()
         NSRectFill(frame)
         self.drawBottomBorder(frame: frame)
     }
@@ -204,7 +201,7 @@ public struct ChromeStyle: Style {
         let bottomBorder = NSRect(origin: frame.origin + Offset(y: frame.height - 1),
                                   size: NSSize(width: frame.width, height: 1))
         
-        self.theme!.tabsControlTheme.borderColor.setFill()
+        self.theme.tabsControlTheme.borderColor.setFill()
         NSRectFill(bottomBorder)
     }
 

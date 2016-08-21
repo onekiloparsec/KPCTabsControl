@@ -128,19 +128,19 @@
 			children = (
 				501FD7761D5B2A0100C3B1F3 /* Style.swift */,
 				9F4946B31D5F87440061C5B7 /* Theme.swift */,
+				50BF2D6E1D5F0986006A54F5 /* Default Style */,
 				50BF2D6F1D5F0992006A54F5 /* Chrome Style */,
-				50BF2D6E1D5F0986006A54F5 /* Numbers Style */,
 			);
 			name = "Styles & Themes";
 			sourceTree = "<group>";
 		};
-		50BF2D6E1D5F0986006A54F5 /* Numbers Style */ = {
+		50BF2D6E1D5F0986006A54F5 /* Default Style */ = {
 			isa = PBXGroup;
 			children = (
 				9F4946B21D5F87440061C5B7 /* DefaultStyle.swift */,
 				501FD7781D5B2CA300C3B1F3 /* DefaultTheme.swift */,
 			);
-			name = "Numbers Style";
+			name = "Default Style";
 			sourceTree = "<group>";
 		};
 		50BF2D6F1D5F0992006A54F5 /* Chrome Style */ = {

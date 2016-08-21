@@ -11,8 +11,8 @@ import Cocoa
 /**
  *  The default TabsControl style. Used with the DefaultTheme, it provides an experience similar to Apple's Numbers.app.
  */
-public struct DefaultStyle: Style {
-    public let theme: Theme?
+public struct DefaultStyle: ThemedStyle {
+    public let theme: Theme
     public let tabButtonWidth: FlexibleTabWidth
     public let recommendedTabsControlHeight: CGFloat = 21.0
 
@@ -43,7 +43,7 @@ public struct DefaultStyle: Style {
 
     public func drawTabButtonBezel(frame frame: NSRect, position: TabButtonPosition, isSelected: Bool) {
 
-        let activeTheme = isSelected ? self.theme!.selectedTabButtonTheme : self.theme!.tabButtonTheme
+        let activeTheme = isSelected ? self.theme.selectedTabButtonTheme : self.theme.tabButtonTheme
         activeTheme.backgroundColor.setFill()
         NSRectFill(frame)
 
@@ -82,25 +82,26 @@ public struct DefaultStyle: Style {
         return rect.offsetBy(dx: horizontalOffset, dy: 0).shrinkBy(dx: horizontalOffset, dy: 0)
     }
 
-    var alignment: NSTextAlignment { return .Center }
+    private enum Defaults {
+        static let alignment = NSTextAlignment.Center
+    }
 
-    public func editorSettings() -> EditorSettings {
-
+    public func titleEditorSettings() -> TitleEditorSettings {
         return (
             textColor: NSColor(calibratedWhite: 1.0/6, alpha: 1.0),
-            font: self.theme!.tabButtonTheme.titleFont,
-            alignment: self.alignment
+            font: self.theme.tabButtonTheme.titleFont,
+            alignment: Defaults.alignment
         )
     }
 
     public func attributedTitle(content content: String, isSelected: Bool) -> NSAttributedString {
 
-        let activeStyle = isSelected ? self.theme!.selectedTabButtonTheme : self.theme!.tabButtonTheme
+        let activeStyle = isSelected ? self.theme.selectedTabButtonTheme : self.theme.tabButtonTheme
         let titleColor = activeStyle.titleColor
         let font = activeStyle.titleFont
 
         let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.alignment = self.alignment
+        paragraphStyle.alignment = Defaults.alignment
 
         let attributes = [
             NSForegroundColorAttributeName : titleColor,
@@ -111,12 +112,12 @@ public struct DefaultStyle: Style {
         return NSAttributedString(string: content, attributes: attributes)
     }
 
-    public func drawTabControlBezel(frame frame: NSRect) {
-        self.theme!.tabsControlTheme.backgroundColor.setFill()
+    public func drawTabsControlBezel(frame frame: NSRect) {
+        self.theme.tabsControlTheme.backgroundColor.setFill()
         NSRectFill(frame)
 
         let borderDrawing = BorderDrawing.fromMask(frame, borderMask: .top)
-        self.drawBorder(borderDrawing, color: self.theme!.tabsControlTheme.borderColor)
+        self.drawBorder(borderDrawing, color: self.theme.tabsControlTheme.borderColor)
     }
 
     private func drawBorder(border: BorderDrawing, color: NSColor) {
@@ -130,7 +131,6 @@ public struct DefaultStyle: Style {
     }
 
     public func tabButtonOffset(position position: TabButtonPosition) -> Offset {
-        
         return NSPoint()
     }
 }

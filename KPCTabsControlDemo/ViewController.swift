@@ -38,7 +38,8 @@ class ViewController: NSViewController {
                                   Item(title: "Tab c", icon: NSImage(named: "Spiral"), menu: nil, altIcon: nil),
                                   Item(title: "Tab d", icon: NSImage(named: "Polygon"), menu: nil, altIcon: nil)]
         
-        (self.bottomPane?.view as? ColoredView)?.backgroundColor = self.bottomPane?.tabsBar?.style.theme?.selectedTabButtonTheme.backgroundColor
+        let style = self.bottomPane?.tabsBar?.style as! ThemedStyle
+        (self.bottomPane?.view as? ColoredView)?.backgroundColor = style.theme.selectedTabButtonTheme.backgroundColor
 
         self.topPane?.tabsBar?.reloadTabs()
         self.bottomPane?.tabsBar?.reloadTabs()

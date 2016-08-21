@@ -138,7 +138,7 @@ class TabButtonCell: NSButtonCell {
         fieldEditor.horizontallyResizable = true
         fieldEditor.editable = true
 
-        let editorSettings = self.style.editorSettings()
+        let editorSettings = self.style.titleEditorSettings()
         fieldEditor.font = editorSettings.font
         fieldEditor.alignment = editorSettings.alignment
         fieldEditor.textColor = editorSettings.textColor
