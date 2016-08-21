@@ -380,8 +380,6 @@ public class TabsControl: NSControl, NSTextDelegate {
                 orderedTabs[secondIndex].buttonPosition = TabButtonPosition.fromIndex(secondIndex, totalCount: orderedTabs.count)
                 
                 temporarySelectedButtonIndex += secondIndex-primaryIndex
-                let pos = orderedTabs.map { $0.buttonPosition }
-                Swift.print("-->> \(pos)")
                 self.layoutTabButtons(orderedTabs, animated: true)
                 reordered = true
             }
