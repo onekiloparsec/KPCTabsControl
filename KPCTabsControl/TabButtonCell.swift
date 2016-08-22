@@ -126,13 +126,12 @@ class TabButtonCell: NSButtonCell {
         self.highlighted = true
 
         let frame = self.editingRectForBounds(view.bounds)
-        let length = (self.stringValue as NSString).length
         self.selectWithFrame(frame,
                              inView: view,
                              editor: fieldEditor,
                              delegate: delegate,
                              start: 0,
-                             length: length)
+                             length: 0)
 
         fieldEditor.drawsBackground = false
         fieldEditor.horizontallyResizable = true
@@ -146,6 +145,7 @@ class TabButtonCell: NSButtonCell {
         // Replace content so that resizing is triggered
         fieldEditor.string = ""
         fieldEditor.insertText(self.title)
+        fieldEditor.selectAll(self)
 
         self.title = ""
     }
