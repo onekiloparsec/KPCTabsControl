@@ -78,7 +78,7 @@ public class TabsControl: NSControl, NSTextDelegate {
         self.setup()
     }
     
-    override init(frame frameRect: NSRect) {
+    public override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
         self.setup()
     }
