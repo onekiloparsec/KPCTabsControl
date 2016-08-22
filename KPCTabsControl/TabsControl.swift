@@ -224,7 +224,7 @@ public class TabsControl: NSControl, NSTextDelegate {
             }
             
             if let selectable = self.delegate?.tabsControl?(self, canSelectItem: button.representedObject!) {
-                button.selectable = selectable
+                button.enabled = selectable
             }
 
             tabsViewWidth += buttonWidth
@@ -389,9 +389,9 @@ public class TabsControl: NSControl, NSTextDelegate {
     // MARK: - Selection
 
     @objc private func selectTab(sender: AnyObject?) {
-        guard let button = sender as? TabButton else {
-            return
-        }
+        guard let button = sender as? TabButton
+            where button.enabled
+            else { return }
 
         self.selectedButtonIndex = button.index
 

@@ -36,13 +36,8 @@ public class TabButton: NSButton {
     }
 
     public var editable: Bool {
-        get { return self.cell?.editable ?? false }
-        set { self.cell?.editable = newValue }
-    }
-    
-    public var selectable: Bool {
-        get { return self.cell?.selectable ?? true }
-        set { self.cell?.selectable = newValue }
+        get { return self.tabButtonCell?.editable ?? false }
+        set { self.tabButtonCell?.editable = newValue }
     }
 
     public var icon: NSImage? = nil {

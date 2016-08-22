@@ -14,7 +14,7 @@ let titleMargin: CGFloat = 5.0
 class TabButtonCell: NSButtonCell {
     
     var hasTitleAlternativeIcon: Bool = false
-    
+
     var isSelected: Bool {
         get { return self.state == NSOnState }
     }

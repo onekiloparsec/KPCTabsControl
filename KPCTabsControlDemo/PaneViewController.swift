@@ -27,6 +27,12 @@ class Item {
     }
 }
 
+extension Item: Equatable { }
+
+func ==(lhs: Item, rhs: Item) -> Bool {
+    return lhs.title == rhs.title
+}
+
 class PaneViewController: NSViewController, TabsControlDataSource, TabsControlDelegate {
 
     @IBOutlet weak var tabsBar: TabsControl?
@@ -128,6 +134,11 @@ class PaneViewController: NSViewController, TabsControlDataSource, TabsControlDe
         let newItem = Item(title: newTitle, icon: typedItem.icon, menu: typedItem.menu, altIcon: typedItem.altIcon)
         let range = index..<index+1
         self.items.replaceRange(range, with: [newItem])
+    }
+
+    func tabsControl(control: TabsControl, canSelectItem item: AnyObject) -> Bool {
+
+        return (item as! Item) != self.items.first
     }
 }
 
