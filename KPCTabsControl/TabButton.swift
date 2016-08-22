@@ -40,9 +40,6 @@ public class TabButton: NSButton {
         set { self.tabButtonCell?.editable = newValue }
     }
 
-    /// Whether the tab can be selected by the user.
-    public var selectable: Bool = false
-
     public var icon: NSImage? = nil {
         didSet {
             if self.icon != nil && self.iconView == nil {
