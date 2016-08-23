@@ -247,8 +247,8 @@ public class TabsControl: NSControl, NSTextDelegate {
         self.scrollLeftButton?.hidden = !showScrollButtons
         self.scrollRightButton?.hidden = !showScrollButtons
         if showScrollButtons == true {
-            self.scrollLeftButton?.enabled = self.visibilityCondition(self.scrollLeftButton!, forLeft: true)
-            self.scrollRightButton?.enabled = self.visibilityCondition(self.scrollRightButton!, forLeft: false)
+            self.scrollLeftButton?.enabled = self.visibilityCondition(forButton: self.scrollLeftButton!, forLeftHandSide: true)
+            self.scrollRightButton?.enabled = self.visibilityCondition(forButton: self.scrollRightButton!, forLeftHandSide: false)
         }
     }
 
@@ -294,7 +294,7 @@ public class TabsControl: NSControl, NSTextDelegate {
     @objc private func scrollTabView(sender: AnyObject?) {
         let forLeft = (sender as? NSButton == self.scrollLeftButton)
             
-        guard let tab = self.tabButtons().findFirst({ self.visibilityCondition($0, forLeft: forLeft) })
+        guard let tab = self.tabButtons().findFirst({ self.visibilityCondition(forButton: $0, forLeftHandSide: forLeft) })
             else { return }
 
         NSAnimationContext.runAnimationGroup({ (context) in
@@ -305,9 +305,9 @@ public class TabsControl: NSControl, NSTextDelegate {
         })
     }
     
-    private func visibilityCondition(button: NSButton, forLeft: Bool) -> Bool {
+    private func visibilityCondition(forButton button: NSButton, forLeftHandSide: Bool) -> Bool {
         let visibleRect = self.tabsView.visibleRect
-        if forLeft == true {
+        if forLeftHandSide == true {
             return NSMinX(button.frame) < NSMinX(visibleRect)
         }
         else {
