@@ -10,10 +10,10 @@ import Cocoa
 
 public struct ChromeStyle: ThemedStyle {
     public let theme: Theme
-    public let tabButtonWidth: FlexibleTabWidth
+    public let tabButtonWidth: TabButtonWidth
     public let recommendedTabsControlHeight: CGFloat = 34.0
     
-    public init(theme: Theme = ChromeTheme(), tabButtonWidth: FlexibleTabWidth = FlexibleTabWidth(min: 80, max: 180)) {
+    public init(theme: Theme = ChromeTheme(), tabButtonWidth: TabButtonWidth = .Flexible(min: 80, max: 180)) {
         self.theme = theme
         self.tabButtonWidth = tabButtonWidth
     }

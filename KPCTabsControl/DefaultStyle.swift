@@ -13,10 +13,10 @@ import Cocoa
  */
 public struct DefaultStyle: ThemedStyle {
     public let theme: Theme
-    public let tabButtonWidth: FlexibleTabWidth
+    public let tabButtonWidth: TabButtonWidth
     public let recommendedTabsControlHeight: CGFloat = 21.0
 
-    public init(theme: Theme = DefaultTheme(), tabButtonWidth: FlexibleTabWidth = FlexibleTabWidth(min: 50, max: 150)) {
+    public init(theme: Theme = DefaultTheme(), tabButtonWidth: TabButtonWidth = .Flexible(min: 50, max: 150)) {
         self.theme = theme
         self.tabButtonWidth = tabButtonWidth
     }

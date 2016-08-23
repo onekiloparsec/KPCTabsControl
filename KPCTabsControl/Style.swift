@@ -8,14 +8,13 @@
 
 import Cocoa
 
-public struct FlexibleTabWidth {
-    public let min: CGFloat
-    public let max: CGFloat
+public enum TabButtonWidth {
+    case Full
+    case Flexible(min: CGFloat, max: CGFloat)
+}
 
-    public init(min: CGFloat, max: CGFloat) {
-        self.min = min
-        self.max = max
-    }
+func ==(t1: TabButtonWidth, t2: TabButtonWidth) -> Bool {
+    return String(t1) == String(t2)
 }
 
 public typealias IconFrames = (iconFrame: NSRect, alternativeTitleIconFrame: NSRect)
@@ -23,7 +22,7 @@ public typealias IconFrames = (iconFrame: NSRect, alternativeTitleIconFrame: NSR
 public typealias TitleEditorSettings = (textColor: NSColor, font: NSFont, alignment: NSTextAlignment)
 
 public protocol Style {
-    var tabButtonWidth: FlexibleTabWidth { get }
+    var tabButtonWidth: TabButtonWidth { get }
     func tabButtonOffset(position position: TabButtonPosition) -> Offset
     
     func iconFrames(tabRect rect: NSRect) -> IconFrames
