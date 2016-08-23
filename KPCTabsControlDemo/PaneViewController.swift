@@ -47,41 +47,16 @@ class PaneViewController: NSViewController, TabsControlDataSource, TabsControlDe
         self.tabsBar?.dataSource = self
         self.tabsBar?.delegate = self
         
-        let labelString = NSString(format:"min %.0f < %.0f < %.0f max", self.tabsBar!.minTabWidth, self.tabsBar!.currentTabWidth(), self.tabsBar!.maxTabWidth)
-
-        self.tabWidthsLabel?.stringValue = labelString as String
+//        let labelString = NSString(format:"min %.0f < %.0f < %.0f max", self.tabsBar!.minTabWidth, self.tabsBar!.currentTabWidth(), self.tabsBar!.maxTabWidth)
+//        self.tabWidthsLabel?.stringValue = labelString as String
         
-        self.tabsBar!.preferFullWidthTabs(self.useFullWidthTabsCheckButton!.state == NSOnState)
+//        self.tabsBar!.preferFullWidthTabs(self.useFullWidthTabsCheckButton!.state == NSOnState)
         self.tabsBar!.reloadTabs()
     }
-
-    @IBAction func toggleFullWidthTabs(sender: AnyObject) {
-        self.tabsBar!.preferFullWidthTabs(self.useFullWidthTabsCheckButton!.state == NSOnState, animated: true)
-    }
-    
-    override func mouseDown(theEvent: NSEvent) {
-    
-        super.mouseDown(theEvent)
-    
-        let sendNotification = (self.tabsBar?.highlighted == false)
-//        self.tabsBar?.highlight(true)
         
-        if (sendNotification) {
-            NSNotificationCenter.defaultCenter().postNotificationName("PaneSelectionDidChangeNotification", object: self)
-        }
-    }
-    
-    func updateUponPaneSelectionDidChange(notif: NSNotification) {
-//        if notif.object != self {
-//            self.tabsBar?.highlight(false)
-//        }
-    }
-    
     func updateLabelsUponReframe(notif: NSNotification) {
-    
-        let labelString = NSString(format:"min %.0f < %.0f < %.0f max", self.tabsBar!.minTabWidth, self.tabsBar!.currentTabWidth(), self.tabsBar!.maxTabWidth)
-    
-        self.tabWidthsLabel?.stringValue = labelString as String
+//        let labelString = NSString(format:"min %.0f < %.0f < %.0f max", self.tabsBar!.minTabWidth, self.tabsBar!.currentTabWidth(), self.tabsBar!.maxTabWidth)
+//        self.tabWidthsLabel?.stringValue = labelString as String
     }
 
     // MARK: TabsControlDataSource

@@ -688,13 +688,10 @@
                                             </customView>
                                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5EP-oc-dzE">
                                                 <rect key="frame" x="171" y="76" width="138" height="18"/>
-                                                <buttonCell key="cell" type="check" title="Use full-width tabs" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="846-HE-TJu">
+                                                <buttonCell key="cell" type="check" title="Use full-width tabs" bezelStyle="regularSquare" imagePosition="left" enabled="NO" state="on" inset="2" id="846-HE-TJu">
                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
-                                                <connections>
-                                                    <action selector="toggleFullWidthTabs:" target="3kW-kt-052" id="Ef7-7P-di2"/>
-                                                </connections>
                                             </button>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ag9-Gu-Del">
                                                 <rect key="frame" x="18" y="53" width="444" height="17"/>
@@ -723,13 +720,10 @@
                                             </customView>
                                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Fv-dn-aE3">
                                                 <rect key="frame" x="171" y="80" width="138" height="18"/>
-                                                <buttonCell key="cell" type="check" title="Use full-width tabs" bezelStyle="regularSquare" imagePosition="left" inset="2" id="dgJ-eu-Gd7">
+                                                <buttonCell key="cell" type="check" title="Use full-width tabs" bezelStyle="regularSquare" imagePosition="left" enabled="NO" inset="2" id="dgJ-eu-Gd7">
                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
-                                                <connections>
-                                                    <action selector="toggleFullWidthTabs:" target="75v-vX-VJy" id="8BA-NJ-Y7V"/>
-                                                </connections>
                                             </button>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mwu-MR-ItH">
                                                 <rect key="frame" x="18" y="57" width="444" height="17"/>
@@ -783,7 +777,7 @@
                     </connections>
                 </customObject>
             </objects>
-            <point key="canvasLocation" x="75" y="759"/>
+            <point key="canvasLocation" x="21" y="749"/>
         </scene>
     </scenes>
 </document>

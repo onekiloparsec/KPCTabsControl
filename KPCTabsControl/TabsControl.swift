@@ -40,17 +40,6 @@ public class TabsControl: NSControl, NSTextDelegate {
     
     // MARK: - Styling
 
-    /**
-     *  Indicates whether the tabs control should span the whole available width or not. Default is `false`. If set to `true`,
-     *  the tabs may occur to have a width smaller than `minTabWidth` or larger than `maxTabWidth`.
-     */
-    private(set) var prefersFullWidthTabs: Bool = false
-    
-    public func preferFullWidthTabs(state: Bool, animated: Bool = false) {
-        self.prefersFullWidthTabs = state
-        self.updateTabs(animated: animated)
-    }
-
     public var style: Style = DefaultStyle() {
         didSet {
             self.tabsControlCell.style = self.style
@@ -59,18 +48,6 @@ public class TabsControl: NSControl, NSTextDelegate {
         }
     }
 
-    /**
-     *  When `preferFullWidthTabs` is NO, the minimum width of tabs. Given the total width of the tabs control, it will
-     *  adjust the tab width between the specified minimum and maximum values. All tabs have the same width, always.
-     */
-    public var minTabWidth: CGFloat { return self.style.tabButtonWidth.min }
-
-    /**
-     *  When `preferFullWidthTabs` is `NO`, the maximum width of tabs. Given the total width of the tabs control, it will
-     *  adjust the tab width between the specified minimum and maximum values. All tabs have the same width, always.
-     */
-    public var maxTabWidth: CGFloat { return self.style.tabButtonWidth.max }
-    
     // MARK: - Initializers & Setup
     
     public required init?(coder: NSCoder) {
@@ -204,13 +181,20 @@ public class TabsControl: NSControl, NSTextDelegate {
         let tabButtons = buttons ?? self.tabButtons()
         var tabsViewWidth = CGFloat(0.0)
         
-        let fullSizeWidth = CGRectGetWidth(self.scrollView.frame) / CGFloat(tabButtons.count)
+        let fullWidth = CGRectGetWidth(self.scrollView.frame) / CGFloat(tabButtons.count)
         let buttonHeight = self.tabsView.frame.height
+
+        var buttonWidth = CGFloat(0)
+        switch self.style.tabButtonWidth {
+        case .Full:
+            buttonWidth = fullWidth
+        case .Flexible(let minWidth, let maxWidth):
+            buttonWidth = max(minWidth, min(maxWidth, fullWidth))
+        }
 
         var buttonX = CGFloat(0)
         for (index, button) in tabButtons.enumerate() {
-            var buttonWidth = (self.prefersFullWidthTabs == true) ? fullSizeWidth : min(self.maxTabWidth, fullSizeWidth)
-            buttonWidth = max(buttonWidth, self.minTabWidth)
+            
             let offset = self.style.tabButtonOffset(position: button.buttonPosition)
             let buttonFrame = CGRectMake(buttonX + offset.x, offset.y, buttonWidth, buttonHeight)
             buttonX += buttonWidth + offset.x
@@ -241,8 +225,7 @@ public class TabsControl: NSControl, NSTextDelegate {
     
     private func updateAuxiliaryButtons() {
         let contentView = self.scrollView.contentView
-        var showScrollButtons = (contentView.subviews.count > 0) && (NSMaxX(contentView.subviews[0].frame) > NSWidth(contentView.bounds))
-        showScrollButtons = showScrollButtons || (self.prefersFullWidthTabs == true && self.currentTabWidth() == self.minTabWidth)
+        let showScrollButtons = (contentView.subviews.count > 0) && (NSMaxX(contentView.subviews[0].frame) > NSWidth(contentView.bounds))
         
         self.scrollLeftButton?.hidden = !showScrollButtons
         self.scrollRightButton?.hidden = !showScrollButtons
