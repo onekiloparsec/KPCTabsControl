@@ -34,15 +34,15 @@ public struct DefaultTheme: Theme {
 
         let base: DefaultTabButtonTheme
 
-        var borderColor: NSColor { return NSColor(calibratedRed: 185.0/255.0, green: 202.0/255.0, blue: 224.0/255.0, alpha: 1.0) }
         var backgroundColor: NSColor { return NSColor(calibratedRed: 205.0/255.0, green: 222.0/255.0, blue: 244.0/255.0, alpha: 1.0) }
+        var borderColor: NSColor { return NSColor(calibratedRed: 185.0/255.0, green: 202.0/255.0, blue: 224.0/255.0, alpha: 1.0) }
         var titleColor: NSColor { return NSColor(calibratedRed: 85.0/255.0, green: 102.0/255.0, blue: 124.0/255.0, alpha: 1.0) }
         var titleFont: NSFont { return NSFont.boldSystemFontOfSize(13) }
     }
 
     private struct DefaultTabsControlTheme: KPCTabsControl.TabsControlTheme {
 
-        var borderColor: NSColor { return DefaultTheme.sharedBorderColor }
         var backgroundColor: NSColor { return DefaultTheme.sharedBackgroundColor }
+        var borderColor: NSColor { return DefaultTheme.sharedBorderColor }
     }
 }
