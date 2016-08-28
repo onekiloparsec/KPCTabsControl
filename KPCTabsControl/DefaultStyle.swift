@@ -94,6 +94,7 @@ public extension ThemedStyle {
         
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = TitleDefaults.alignment
+        paragraphStyle.lineBreakMode = .ByTruncatingMiddle
         
         let attributes = [
             NSForegroundColorAttributeName : titleColor,
