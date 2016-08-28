@@ -60,7 +60,7 @@ public extension ThemedStyle {
         let titleSize = title.size()
         let fullWidthRect = NSRect(
             x: NSMinX(rect),
-            y: NSMidY(rect) - titleSize.height/2.0 + 0.5,
+            y: NSMidY(rect) - titleSize.height/2.0 - 0.5,
             width: NSWidth(rect),
             height: titleSize.height)
         
