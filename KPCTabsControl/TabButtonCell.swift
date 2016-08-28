@@ -73,7 +73,6 @@ class TabButtonCell: NSButtonCell {
     func hasRoomToDrawFullTitle(inRect rect: NSRect) -> Bool {
         let title = self.style.attributedTitle(content: self.attributedTitle.string, isSelected: self.isSelected)
         let requiredMinimumWidth = title.size().width + 2.0*titleMargin
-
         let titleDrawRect = self.titleRectForBounds(rect)
         return requiredMinimumWidth <= NSWidth(titleDrawRect)
     }
@@ -82,21 +81,27 @@ class TabButtonCell: NSButtonCell {
         let title = self.style.attributedTitle(content: self.attributedTitle.string, isSelected: self.isSelected)
         let titleSize = title.size()
         let popupSize = (self.menu == nil) ? NSZeroSize : TabButtonCell.popupImage().size
-        let cellSize = NSMakeSize(titleSize.width + (popupSize.width * 2) + 36, max(titleSize.height, popupSize.height));
+        let cellSize = NSMakeSize(titleSize.width + (popupSize.width * 2) + 36, max(titleSize.height, popupSize.height))
         self.controlView?.invalidateIntrinsicContentSize()
-        return cellSize;
+        return cellSize
     }
     
-    func popupRectWithFrame(cellFrame: NSRect) -> NSRect {
+    private func popupRectWithFrame(cellFrame: NSRect) -> NSRect {
         var popupRect = NSZeroRect
         popupRect.size = TabButtonCell.popupImage().size
-        popupRect.origin = NSMakePoint(NSMaxX(cellFrame) - NSWidth(popupRect) - 8, NSMidY(cellFrame) - NSHeight(popupRect) / 2);
-        return popupRect;
+        popupRect.origin = NSMakePoint(NSMaxX(cellFrame) - NSWidth(popupRect) - 8, NSMidY(cellFrame) - NSHeight(popupRect) / 2)
+        return popupRect
     }
     
-    override func trackMouse(theEvent: NSEvent, inRect cellFrame: NSRect, ofView controlView: NSView, untilMouseUp flag: Bool) -> Bool {
-        
-        if self.hitTestForEvent(theEvent, inRect: controlView.superview!.frame, ofView: controlView.superview!) != NSCellHitResult.None {
+    override func trackMouse(theEvent: NSEvent,
+                             inRect cellFrame: NSRect,
+                                    ofView controlView: NSView,
+                                           untilMouseUp flag: Bool) -> Bool
+    {
+        if self.hitTestForEvent(theEvent,
+                                inRect: controlView.superview!.frame,
+                                ofView: controlView.superview!) != NSCellHitResult.None
+        {
         
             let popupRect = self.popupRectWithFrame(cellFrame)
             let location = controlView.convertPoint(theEvent.locationInWindow, fromView: nil)
@@ -116,7 +121,12 @@ class TabButtonCell: NSButtonCell {
     
     override func titleRectForBounds(theRect: NSRect) -> NSRect {
         let title = self.style.attributedTitle(content: self.attributedTitle.string, isSelected: self.isSelected)
-        return self.style.titleRect(title: title, inBounds: theRect, showingIcon: self.showsIcon)
+        var rect = self.style.titleRect(title: title, inBounds: theRect, showingIcon: self.showsIcon)
+        if self.showsMenu {
+            let popupRect = self.popupRectWithFrame(theRect)
+            rect.size.width -= popupRect.width + 2*titleMargin
+        }
+        return rect
     }
 
     // MARK: - Editing
@@ -165,10 +175,8 @@ class TabButtonCell: NSButtonCell {
 
         self.style.drawTabButtonBezel(frame: frame, position: self.buttonPosition, isSelected: self.isSelected)
         
-        if self.hasRoomToDrawFullTitle(inRect: frame)
-            || self.hasTitleAlternativeIcon == false {
-
-            let title = style.attributedTitle(content: self.attributedTitle.string, isSelected: self.isSelected)
+        if self.hasRoomToDrawFullTitle(inRect: frame) || self.hasTitleAlternativeIcon == false {
+            let title = self.style.attributedTitle(content: self.attributedTitle.string, isSelected: self.isSelected)
             self.drawTitle(title, withFrame: frame, inView: controlView)
         }
 

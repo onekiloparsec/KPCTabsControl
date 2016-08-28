@@ -52,7 +52,7 @@ public class TabButton: NSButton {
                 self.iconView = nil
             }
             self.iconView?.image = self.icon
-            tabButtonCell?.showsIcon = (self.icon != nil)
+            self.tabButtonCell?.showsIcon = (self.icon != nil)
             self.needsDisplay = true
         }
     }
