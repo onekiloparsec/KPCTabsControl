@@ -653,9 +653,9 @@
                 <windowController id="B8D-0N-5wS" sceneMemberID="viewController">
                     <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
-                        <rect key="contentRect" x="502" y="299" width="480" height="800"/>
+                        <rect key="contentRect" x="502" y="299" width="480" height="600"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
-                        <value key="minSize" type="size" width="300" height="600"/>
+                        <value key="minSize" type="size" width="300" height="400"/>
                     </window>
                     <connections>
                         <segue destination="XfG-lQ-9wD" kind="relationship" relationship="window.shadowedContentViewController" id="cq2-FE-JQM"/>
@@ -663,38 +663,38 @@
                 </windowController>
                 <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="250"/>
+            <point key="canvasLocation" x="70" y="405"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="hIz-AP-VOD">
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="KPCTabsControlDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="mtO-jd-dzn">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="800"/>
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="600"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <splitView dividerStyle="paneSplitter" translatesAutoresizingMaskIntoConstraints="NO" id="WFz-Ln-tcg">
-                                <rect key="frame" x="0.0" y="0.0" width="480" height="800"/>
+                                <rect key="frame" x="0.0" y="0.0" width="480" height="600"/>
                                 <subviews>
                                     <customView id="7wy-a7-VFr">
-                                        <rect key="frame" x="0.0" y="0.0" width="480" height="160.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="480" height="162"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <subviews>
                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="c1G-E0-GKJ" customClass="TabsControl" customModule="KPCTabsControl">
-                                                <rect key="frame" x="0.0" y="139.5" width="480" height="21"/>
+                                                <rect key="frame" x="0.0" y="141" width="480" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="21" id="5gB-1a-Xtv"/>
                                                 </constraints>
                                             </customView>
                                             <button translatesAutoresizingMaskIntoConstraints="NO" id="5EP-oc-dzE">
-                                                <rect key="frame" x="171" y="65.5" width="138" height="18"/>
+                                                <rect key="frame" x="171" y="67" width="138" height="18"/>
                                                 <buttonCell key="cell" type="check" title="Use full-width tabs" bezelStyle="regularSquare" imagePosition="left" enabled="NO" state="on" inset="2" id="846-HE-TJu">
                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
                                             </button>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ag9-Gu-Del">
-                                                <rect key="frame" x="18" y="42.5" width="444" height="17"/>
+                                                <rect key="frame" x="18" y="44" width="444" height="17"/>
                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Label" id="liy-ye-MXn">
                                                     <font key="font" metaFont="system"/>
                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -714,24 +714,24 @@
                                         </constraints>
                                     </customView>
                                     <customView id="OFa-rZ-wN5" customClass="ColoredView" customModule="KPCTabsControlDemo" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="170.5" width="480" height="207"/>
+                                        <rect key="frame" x="0.0" y="172" width="480" height="208"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <subviews>
                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="Opp-vc-gij" customClass="TabsControl" customModule="KPCTabsControl">
-                                                <rect key="frame" x="0.0" y="173" width="480" height="34"/>
+                                                <rect key="frame" x="0.0" y="174.5" width="480" height="34"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="34" id="kyU-fU-k2n"/>
                                                 </constraints>
                                             </customView>
                                             <button translatesAutoresizingMaskIntoConstraints="NO" id="9Fv-dn-aE3">
-                                                <rect key="frame" x="171" y="108" width="138" height="18"/>
+                                                <rect key="frame" x="171" y="110.5" width="138" height="18"/>
                                                 <buttonCell key="cell" type="check" title="Use full-width tabs" bezelStyle="regularSquare" imagePosition="left" enabled="NO" inset="2" id="dgJ-eu-Gd7">
                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
                                             </button>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Mwu-MR-ItH">
-                                                <rect key="frame" x="220" y="85" width="41" height="17"/>
+                                                <rect key="frame" x="220" y="87.5" width="41" height="17"/>
                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Label" id="rkg-ME-LA7">
                                                     <font key="font" metaFont="system"/>
                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -740,34 +740,34 @@
                                             </textField>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstItem="9Fv-dn-aE3" firstAttribute="centerY" secondItem="OFa-rZ-wN5" secondAttribute="centerY" constant="-13.5" id="IV6-7G-aPL"/>
+                                            <constraint firstItem="9Fv-dn-aE3" firstAttribute="centerY" secondItem="OFa-rZ-wN5" secondAttribute="centerY" constant="-14.5" id="IV6-7G-aPL"/>
                                             <constraint firstAttribute="trailing" secondItem="Opp-vc-gij" secondAttribute="trailing" id="RlY-Sy-uFp"/>
                                             <constraint firstItem="Opp-vc-gij" firstAttribute="top" secondItem="OFa-rZ-wN5" secondAttribute="top" id="TUm-O7-eFb"/>
                                             <constraint firstItem="Mwu-MR-ItH" firstAttribute="centerX" secondItem="OFa-rZ-wN5" secondAttribute="centerX" id="ayA-cN-der"/>
                                             <constraint firstItem="Opp-vc-gij" firstAttribute="leading" secondItem="OFa-rZ-wN5" secondAttribute="leading" id="cfs-r4-Wif"/>
                                             <constraint firstItem="9Fv-dn-aE3" firstAttribute="centerX" secondItem="OFa-rZ-wN5" secondAttribute="centerX" id="tAO-o5-cG1"/>
-                                            <constraint firstItem="Mwu-MR-ItH" firstAttribute="centerY" secondItem="OFa-rZ-wN5" secondAttribute="centerY" constant="10" id="uKf-Q2-od8"/>
+                                            <constraint firstItem="Mwu-MR-ItH" firstAttribute="centerY" secondItem="OFa-rZ-wN5" secondAttribute="centerY" constant="9" id="uKf-Q2-od8"/>
                                         </constraints>
                                     </customView>
                                     <customView id="vd3-gI-rm5">
-                                        <rect key="frame" x="0.0" y="387.5" width="480" height="208.5"/>
+                                        <rect key="frame" x="0.0" y="390" width="480" height="210"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <subviews>
                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="BGo-z1-7UX" customClass="TabsControl" customModule="KPCTabsControl">
-                                                <rect key="frame" x="0.0" y="174.5" width="480" height="34"/>
+                                                <rect key="frame" x="0.0" y="176" width="480" height="34"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="34" id="kKs-HS-9ZI"/>
                                                 </constraints>
                                             </customView>
                                             <button translatesAutoresizingMaskIntoConstraints="NO" id="lWN-Qp-vJY">
-                                                <rect key="frame" x="171" y="110.5" width="138" height="18"/>
+                                                <rect key="frame" x="171" y="112" width="138" height="18"/>
                                                 <buttonCell key="cell" type="check" title="Use full-width tabs" bezelStyle="regularSquare" imagePosition="left" enabled="NO" inset="2" id="dUZ-C0-kpr">
                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
                                             </button>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4zx-3z-7KU">
-                                                <rect key="frame" x="18" y="87.5" width="444" height="17"/>
+                                                <rect key="frame" x="18" y="89" width="444" height="17"/>
                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Label" id="WBd-GQ-s8h">
                                                     <font key="font" metaFont="system"/>
                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -778,53 +778,16 @@
                                         <constraints>
                                             <constraint firstItem="4zx-3z-7KU" firstAttribute="leading" secondItem="vd3-gI-rm5" secondAttribute="leading" constant="20" symbolic="YES" id="DQU-g0-I14"/>
                                             <constraint firstItem="BGo-z1-7UX" firstAttribute="leading" secondItem="vd3-gI-rm5" secondAttribute="leading" id="E6R-pt-A9l"/>
-                                            <constraint firstItem="4zx-3z-7KU" firstAttribute="centerY" secondItem="vd3-gI-rm5" secondAttribute="centerY" constant="9" id="FDC-GN-WQR"/>
+                                            <constraint firstItem="4zx-3z-7KU" firstAttribute="centerY" secondItem="vd3-gI-rm5" secondAttribute="centerY" constant="7.5" id="FDC-GN-WQR"/>
                                             <constraint firstAttribute="trailing" secondItem="BGo-z1-7UX" secondAttribute="trailing" id="IxK-yi-M4G"/>
                                             <constraint firstItem="BGo-z1-7UX" firstAttribute="top" secondItem="vd3-gI-rm5" secondAttribute="top" id="TbH-bX-OMt"/>
                                             <constraint firstItem="lWN-Qp-vJY" firstAttribute="centerX" secondItem="vd3-gI-rm5" secondAttribute="centerX" id="aOl-ec-3bA"/>
                                             <constraint firstItem="4zx-3z-7KU" firstAttribute="centerX" secondItem="vd3-gI-rm5" secondAttribute="centerX" id="czG-K3-y66"/>
-                                            <constraint firstItem="lWN-Qp-vJY" firstAttribute="centerY" secondItem="vd3-gI-rm5" secondAttribute="centerY" constant="-14.5" id="nVX-K3-TUX"/>
-                                        </constraints>
-                                    </customView>
-                                    <customView id="JNg-YA-Qcn">
-                                        <rect key="frame" x="0.0" y="606" width="480" height="194"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <subviews>
-                                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="8TO-JZ-HDz" customClass="TabsControl" customModule="KPCTabsControl">
-                                                <rect key="frame" x="0.0" y="160" width="480" height="34"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="34" id="ZYT-SU-POc"/>
-                                                </constraints>
-                                            </customView>
-                                            <button translatesAutoresizingMaskIntoConstraints="NO" id="RkN-Dk-uQO">
-                                                <rect key="frame" x="171" y="95" width="138" height="18"/>
-                                                <buttonCell key="cell" type="check" title="Use full-width tabs" bezelStyle="regularSquare" imagePosition="left" enabled="NO" inset="2" id="z0k-Iy-D07">
-                                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                    <font key="font" metaFont="system"/>
-                                                </buttonCell>
-                                            </button>
-                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="axD-0f-ng2">
-                                                <rect key="frame" x="220" y="72" width="41" height="17"/>
-                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Label" id="2e1-Un-qZL">
-                                                    <font key="font" metaFont="system"/>
-                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                </textFieldCell>
-                                            </textField>
-                                        </subviews>
-                                        <constraints>
-                                            <constraint firstItem="axD-0f-ng2" firstAttribute="centerX" secondItem="JNg-YA-Qcn" secondAttribute="centerX" id="5Ce-CI-ukh"/>
-                                            <constraint firstItem="8TO-JZ-HDz" firstAttribute="top" secondItem="JNg-YA-Qcn" secondAttribute="top" id="JPT-w7-6HH"/>
-                                            <constraint firstItem="axD-0f-ng2" firstAttribute="centerY" secondItem="JNg-YA-Qcn" secondAttribute="centerY" constant="16.5" id="Wyc-lU-SPe"/>
-                                            <constraint firstItem="RkN-Dk-uQO" firstAttribute="centerY" secondItem="JNg-YA-Qcn" secondAttribute="centerY" constant="-7" id="XKU-QF-yhE"/>
-                                            <constraint firstItem="RkN-Dk-uQO" firstAttribute="centerX" secondItem="JNg-YA-Qcn" secondAttribute="centerX" id="ba9-Bw-gu5"/>
-                                            <constraint firstItem="8TO-JZ-HDz" firstAttribute="leading" secondItem="JNg-YA-Qcn" secondAttribute="leading" id="v97-3F-rgv"/>
-                                            <constraint firstAttribute="trailing" secondItem="8TO-JZ-HDz" secondAttribute="trailing" id="vBd-Xn-BR2"/>
+                                            <constraint firstItem="lWN-Qp-vJY" firstAttribute="centerY" secondItem="vd3-gI-rm5" secondAttribute="centerY" constant="-16" id="nVX-K3-TUX"/>
                                         </constraints>
                                     </customView>
                                 </subviews>
                                 <holdingPriorities>
-                                    <real value="250"/>
                                     <real value="250"/>
                                     <real value="250"/>
                                     <real value="250"/>
@@ -842,7 +805,6 @@
                         <outlet property="paneChrome" destination="75v-vX-VJy" id="X5i-RS-QBi"/>
                         <outlet property="paneDefault" destination="3kW-kt-052" id="WMz-yw-Evy"/>
                         <outlet property="paneSafari" destination="OEp-9e-sce" id="iaM-za-YyO"/>
-                        <outlet property="paneXcode" destination="Et7-Or-ojC" id="VOf-Wl-zev"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -870,16 +832,8 @@
                         <outlet property="view" destination="vd3-gI-rm5" id="eUN-4h-nrj"/>
                     </connections>
                 </customObject>
-                <customObject id="Et7-Or-ojC" userLabel="Xcode Pane View Controller" customClass="PaneViewController" customModule="KPCTabsControlDemo" customModuleProvider="target">
-                    <connections>
-                        <outlet property="tabWidthsLabel" destination="axD-0f-ng2" id="0tI-cv-0EM"/>
-                        <outlet property="tabsBar" destination="8TO-JZ-HDz" id="6L8-9Q-ayk"/>
-                        <outlet property="useFullWidthTabsCheckButton" destination="RkN-Dk-uQO" id="RLU-sC-WFO"/>
-                        <outlet property="view" destination="JNg-YA-Qcn" id="4oN-iQ-JMx"/>
-                    </connections>
-                </customObject>
             </objects>
-            <point key="canvasLocation" x="75" y="1192"/>
+            <point key="canvasLocation" x="732" y="405"/>
         </scene>
     </scenes>
 </document>

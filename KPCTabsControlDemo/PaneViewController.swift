@@ -9,7 +9,7 @@
 import Cocoa
 import KPCTabsControl
 
-// We need a class (rather than a struct or a tuple, which would be nice, because TabsControlDelegate has
+// We need a class (rather than a struct or a tuple – which would be nice) because TabsControlDelegate has
 // @optional methods. To have such optionaling, we need to mark the protocol as @objc. With such marking,
 // we can't have pure-Swift 'Any' return object or argument. Buh...
 
@@ -40,25 +40,18 @@ class PaneViewController: NSViewController, TabsControlDataSource, TabsControlDe
     @IBOutlet weak var tabWidthsLabel: NSTextField?
 
     var items: Array<Item> = []
+    override var title: String? {
+        didSet { self.tabWidthsLabel?.stringValue = self.title! }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.tabsBar?.dataSource = self
         self.tabsBar?.delegate = self
-        
-//        let labelString = NSString(format:"min %.0f < %.0f < %.0f max", self.tabsBar!.minTabWidth, self.tabsBar!.currentTabWidth(), self.tabsBar!.maxTabWidth)
-//        self.tabWidthsLabel?.stringValue = labelString as String
-        
-//        self.tabsBar!.preferFullWidthTabs(self.useFullWidthTabsCheckButton!.state == NSOnState)
         self.tabsBar!.reloadTabs()
     }
         
-    func updateLabelsUponReframe(notif: NSNotification) {
-//        let labelString = NSString(format:"min %.0f < %.0f < %.0f max", self.tabsBar!.minTabWidth, self.tabsBar!.currentTabWidth(), self.tabsBar!.maxTabWidth)
-//        self.tabWidthsLabel?.stringValue = labelString as String
-    }
-
     // MARK: TabsControlDataSource
     
     func tabsControlNumberOfTabs(control: TabsControl) -> Int {
