@@ -43,7 +43,7 @@ public class TabsControl: NSControl, NSTextDelegate {
     public var style: Style = DefaultStyle() {
         didSet {
             self.tabsControlCell.style = self.style
-            self.tabButtons().forEach { $0.style = self.style }
+            self.tabButtons.forEach { $0.style = self.style }
             self.updateTabs()
         }
     }
@@ -134,7 +134,7 @@ public class TabsControl: NSControl, NSTextDelegate {
     public func reloadTabs() {
         guard let dataSource = self.dataSource else { return }
         
-        self.tabButtons().forEach { $0.removeFromSuperview() }
+        self.tabButtons.forEach { $0.removeFromSuperview() }
         
         let newItemsCount = dataSource.tabsControlNumberOfTabs(self)
         for i in 0..<newItemsCount {
@@ -178,7 +178,7 @@ public class TabsControl: NSControl, NSTextDelegate {
     }
 
     private func layoutTabButtons(buttons: [TabButton]?, animated: Bool) {
-        let tabButtons = buttons ?? self.tabButtons()
+        let tabButtons = buttons ?? self.tabButtons
         var tabsViewWidth = CGFloat(0.0)
         
         let fullWidth = CGRectGetWidth(self.scrollView.frame) / CGFloat(tabButtons.count)
@@ -277,7 +277,7 @@ public class TabsControl: NSControl, NSTextDelegate {
     @objc private func scrollTabView(sender: AnyObject?) {
         let forLeft = (sender as? NSButton == self.scrollLeftButton)
             
-        guard let tab = self.tabButtons().findFirst({ self.visibilityCondition(forButton: $0, forLeftHandSide: forLeft) })
+        guard let tab = self.tabButtons.findFirst({ self.visibilityCondition(forButton: $0, forLeftHandSide: forLeft) })
             else { return }
 
         NSAnimationContext.runAnimationGroup({ (context) in
@@ -301,7 +301,7 @@ public class TabsControl: NSControl, NSTextDelegate {
     // MARK: - Reordering
     
     private func reorderTab(tab: TabButton, withEvent event: NSEvent) {
-        var orderedTabs = self.tabButtons()
+        var orderedTabs = self.tabButtons
         let tabX = NSMinX(tab.frame)
         let dragPoint = self.tabsView.convertPoint(event.locationInWindow, fromView: nil)
 
@@ -412,7 +412,7 @@ public class TabsControl: NSControl, NSTextDelegate {
 
     private var selectedButton: TabButton? {
         guard let index = self.selectedButtonIndex else { return nil }
-        return self.tabButtons().findFirst({ $0.index == index })
+        return self.tabButtons.findFirst({ $0.index == index })
     }
 
     var selectedButtonIndex: Int? = nil {
@@ -432,12 +432,12 @@ public class TabsControl: NSControl, NSTextDelegate {
      - parameter index: An integer indicating the index of the item to be selected.
      */
     public func selectItemAtIndex(index: Int) {
-        guard let button = self.tabButtons()[safe: index] else { return }
+        guard let button = self.tabButtons[safe: index] else { return }
         self.selectTab(button)
     }
 
     private func updateButtonStatesForSelection() {
-        for button in self.tabButtons() {
+        for button in self.tabButtons {
             guard let selectedIndex = self.selectedButtonIndex else {
                 button.state = NSOffState
                 continue
@@ -455,7 +455,7 @@ public class TabsControl: NSControl, NSTextDelegate {
     /// If `index` is out of bounds, it does nothing.
     public func editTabAtIndex(index: Int) {
 
-        guard let tabButton = self.tabButtons()[safe: index] else { return }
+        guard let tabButton = self.tabButtons[safe: index] else { return }
 
         editTabButton(tabButton)
     }
@@ -512,7 +512,7 @@ public class TabsControl: NSControl, NSTextDelegate {
     // MARK: - Tab Widths
     
     public func currentTabWidth() -> CGFloat {
-        let tabs = self.tabButtons()
+        let tabs = self.tabButtons
         guard let firstTab = tabs.first else { return 0.0 }
         return CGRectGetWidth(firstTab.frame)
     }
@@ -545,7 +545,7 @@ public class TabsControl: NSControl, NSTextDelegate {
         self.scrollView.contentView.bounds = bounds
 
         guard selectedButtonIndex != NSNotFound,
-            let selectedButton = self.tabButtons().findFirst({ $0.index == selectedButtonIndex })
+            let selectedButton = self.tabButtons.findFirst({ $0.index == selectedButtonIndex })
             else { return }
 
         self.selectTab(selectedButton)
@@ -553,7 +553,7 @@ public class TabsControl: NSControl, NSTextDelegate {
     
     // MARK: - Helpers
     
-    private func tabButtons() -> [TabButton] {
+    var tabButtons: [TabButton] {
         guard let tabsView = self.tabsView else { return [] }
         return tabsView.subviews.flatMap { $0 as? TabButton }
     }
