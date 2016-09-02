@@ -451,7 +451,16 @@ public class TabsControl: NSControl, NSTextDelegate {
 
     private var editingTab: (title: String, button: TabButton)?
 
-    public func editTabButton(tab: TabButton) {
+    /// Starts editing the tab as if the user double-clicked on it. 
+    /// If `index` is out of bounds, it does nothing.
+    public func editTabAtIndex(index: Int) {
+
+        guard let tabButton = self.tabButtons()[safe: index] else { return }
+
+        editTabButton(tabButton)
+    }
+
+    func editTabButton(tab: TabButton) {
 
         guard let representedObject = tab.representedObject
             where self.delegate?.tabsControl?(self, canEditTitleOfItem: representedObject) == true
