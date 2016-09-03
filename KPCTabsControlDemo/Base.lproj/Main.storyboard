@@ -686,15 +686,8 @@
                                                     <constraint firstAttribute="height" constant="21" id="5gB-1a-Xtv"/>
                                                 </constraints>
                                             </customView>
-                                            <button translatesAutoresizingMaskIntoConstraints="NO" id="5EP-oc-dzE">
-                                                <rect key="frame" x="171" y="67" width="138" height="18"/>
-                                                <buttonCell key="cell" type="check" title="Use full-width tabs" bezelStyle="regularSquare" imagePosition="left" enabled="NO" state="on" inset="2" id="846-HE-TJu">
-                                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                    <font key="font" metaFont="system"/>
-                                                </buttonCell>
-                                            </button>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ag9-Gu-Del">
-                                                <rect key="frame" x="18" y="44" width="444" height="17"/>
+                                                <rect key="frame" x="18" y="73" width="444" height="17"/>
                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Label" id="liy-ye-MXn">
                                                     <font key="font" metaFont="system"/>
                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -704,12 +697,10 @@
                                         </subviews>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="c1G-E0-GKJ" secondAttribute="trailing" id="2t9-sV-fgC"/>
-                                            <constraint firstItem="5EP-oc-dzE" firstAttribute="centerY" secondItem="7wy-a7-VFr" secondAttribute="centerY" constant="5.5" id="5mn-5F-ZDY"/>
                                             <constraint firstItem="ag9-Gu-Del" firstAttribute="leading" secondItem="7wy-a7-VFr" secondAttribute="leading" constant="20" symbolic="YES" id="Ch3-ai-D4E"/>
                                             <constraint firstItem="ag9-Gu-Del" firstAttribute="centerX" secondItem="7wy-a7-VFr" secondAttribute="centerX" id="Efy-dG-rXe"/>
                                             <constraint firstItem="c1G-E0-GKJ" firstAttribute="leading" secondItem="7wy-a7-VFr" secondAttribute="leading" id="GjQ-4y-ZLz"/>
-                                            <constraint firstItem="5EP-oc-dzE" firstAttribute="centerX" secondItem="7wy-a7-VFr" secondAttribute="centerX" id="OuR-Rz-kJ4"/>
-                                            <constraint firstItem="ag9-Gu-Del" firstAttribute="centerY" secondItem="7wy-a7-VFr" secondAttribute="centerY" constant="29" id="osS-W5-PAY"/>
+                                            <constraint firstItem="ag9-Gu-Del" firstAttribute="centerY" secondItem="7wy-a7-VFr" secondAttribute="centerY" constant="-0.5" id="osS-W5-PAY"/>
                                             <constraint firstItem="c1G-E0-GKJ" firstAttribute="top" secondItem="7wy-a7-VFr" secondAttribute="top" id="pKZ-MP-vom"/>
                                         </constraints>
                                     </customView>
@@ -723,15 +714,8 @@
                                                     <constraint firstAttribute="height" constant="34" id="kyU-fU-k2n"/>
                                                 </constraints>
                                             </customView>
-                                            <button translatesAutoresizingMaskIntoConstraints="NO" id="9Fv-dn-aE3">
-                                                <rect key="frame" x="171" y="108" width="138" height="18"/>
-                                                <buttonCell key="cell" type="check" title="Use full-width tabs" bezelStyle="regularSquare" imagePosition="left" enabled="NO" inset="2" id="dgJ-eu-Gd7">
-                                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                    <font key="font" metaFont="system"/>
-                                                </buttonCell>
-                                            </button>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Mwu-MR-ItH">
-                                                <rect key="frame" x="220" y="85" width="41" height="17"/>
+                                                <rect key="frame" x="220" y="88" width="41" height="17"/>
                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Label" id="rkg-ME-LA7">
                                                     <font key="font" metaFont="system"/>
                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -740,13 +724,11 @@
                                             </textField>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstItem="9Fv-dn-aE3" firstAttribute="centerY" secondItem="OFa-rZ-wN5" secondAttribute="centerY" constant="-13" id="IV6-7G-aPL"/>
                                             <constraint firstAttribute="trailing" secondItem="Opp-vc-gij" secondAttribute="trailing" id="RlY-Sy-uFp"/>
                                             <constraint firstItem="Opp-vc-gij" firstAttribute="top" secondItem="OFa-rZ-wN5" secondAttribute="top" constant="1.5" id="TUm-O7-eFb"/>
                                             <constraint firstItem="Mwu-MR-ItH" firstAttribute="centerX" secondItem="OFa-rZ-wN5" secondAttribute="centerX" id="ayA-cN-der"/>
                                             <constraint firstItem="Opp-vc-gij" firstAttribute="leading" secondItem="OFa-rZ-wN5" secondAttribute="leading" id="cfs-r4-Wif"/>
-                                            <constraint firstItem="9Fv-dn-aE3" firstAttribute="centerX" secondItem="OFa-rZ-wN5" secondAttribute="centerX" id="tAO-o5-cG1"/>
-                                            <constraint firstItem="Mwu-MR-ItH" firstAttribute="centerY" secondItem="OFa-rZ-wN5" secondAttribute="centerY" constant="10.5" id="uKf-Q2-od8"/>
+                                            <constraint firstItem="Mwu-MR-ItH" firstAttribute="centerY" secondItem="OFa-rZ-wN5" secondAttribute="centerY" constant="7.5" id="uKf-Q2-od8"/>
                                         </constraints>
                                     </customView>
                                     <customView id="vd3-gI-rm5">
@@ -759,15 +741,8 @@
                                                     <constraint firstAttribute="height" constant="24" id="kKs-HS-9ZI"/>
                                                 </constraints>
                                             </customView>
-                                            <button translatesAutoresizingMaskIntoConstraints="NO" id="lWN-Qp-vJY">
-                                                <rect key="frame" x="171" y="112" width="138" height="18"/>
-                                                <buttonCell key="cell" type="check" title="Use full-width tabs" bezelStyle="regularSquare" imagePosition="left" enabled="NO" inset="2" id="dUZ-C0-kpr">
-                                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                    <font key="font" metaFont="system"/>
-                                                </buttonCell>
-                                            </button>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4zx-3z-7KU">
-                                                <rect key="frame" x="18" y="89" width="444" height="17"/>
+                                                <rect key="frame" x="18" y="97" width="444" height="17"/>
                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Label" id="WBd-GQ-s8h">
                                                     <font key="font" metaFont="system"/>
                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -778,12 +753,10 @@
                                         <constraints>
                                             <constraint firstItem="4zx-3z-7KU" firstAttribute="leading" secondItem="vd3-gI-rm5" secondAttribute="leading" constant="20" symbolic="YES" id="DQU-g0-I14"/>
                                             <constraint firstItem="BGo-z1-7UX" firstAttribute="leading" secondItem="vd3-gI-rm5" secondAttribute="leading" id="E6R-pt-A9l"/>
-                                            <constraint firstItem="4zx-3z-7KU" firstAttribute="centerY" secondItem="vd3-gI-rm5" secondAttribute="centerY" constant="7.5" id="FDC-GN-WQR"/>
+                                            <constraint firstItem="4zx-3z-7KU" firstAttribute="centerY" secondItem="vd3-gI-rm5" secondAttribute="centerY" constant="-0.5" id="FDC-GN-WQR"/>
                                             <constraint firstAttribute="trailing" secondItem="BGo-z1-7UX" secondAttribute="trailing" id="IxK-yi-M4G"/>
                                             <constraint firstItem="BGo-z1-7UX" firstAttribute="top" secondItem="vd3-gI-rm5" secondAttribute="top" id="TbH-bX-OMt"/>
-                                            <constraint firstItem="lWN-Qp-vJY" firstAttribute="centerX" secondItem="vd3-gI-rm5" secondAttribute="centerX" id="aOl-ec-3bA"/>
                                             <constraint firstItem="4zx-3z-7KU" firstAttribute="centerX" secondItem="vd3-gI-rm5" secondAttribute="centerX" id="czG-K3-y66"/>
-                                            <constraint firstItem="lWN-Qp-vJY" firstAttribute="centerY" secondItem="vd3-gI-rm5" secondAttribute="centerY" constant="-16" id="nVX-K3-TUX"/>
                                         </constraints>
                                     </customView>
                                 </subviews>
@@ -812,7 +785,6 @@
                     <connections>
                         <outlet property="tabWidthsLabel" destination="ag9-Gu-Del" id="i2C-eM-qPP"/>
                         <outlet property="tabsBar" destination="c1G-E0-GKJ" id="7hD-9N-hsM"/>
-                        <outlet property="useFullWidthTabsCheckButton" destination="5EP-oc-dzE" id="Cdc-3N-Vey"/>
                         <outlet property="view" destination="7wy-a7-VFr" id="0hm-ls-CcK"/>
                     </connections>
                 </customObject>
@@ -820,7 +792,6 @@
                     <connections>
                         <outlet property="tabWidthsLabel" destination="Mwu-MR-ItH" id="MiE-3t-bPW"/>
                         <outlet property="tabsBar" destination="Opp-vc-gij" id="zON-Zf-mSx"/>
-                        <outlet property="useFullWidthTabsCheckButton" destination="9Fv-dn-aE3" id="Jdd-TA-f7F"/>
                         <outlet property="view" destination="OFa-rZ-wN5" id="WSC-Y7-YLL"/>
                     </connections>
                 </customObject>
@@ -828,7 +799,6 @@
                     <connections>
                         <outlet property="tabWidthsLabel" destination="4zx-3z-7KU" id="9FK-tB-1Jz"/>
                         <outlet property="tabsBar" destination="BGo-z1-7UX" id="w73-Vq-Xq9"/>
-                        <outlet property="useFullWidthTabsCheckButton" destination="lWN-Qp-vJY" id="LkA-1q-ugL"/>
                         <outlet property="view" destination="vd3-gI-rm5" id="eUN-4h-nrj"/>
                     </connections>
                 </customObject>
