@@ -18,12 +18,12 @@ public let TabsControlSelectionDidChangeNotification = "TabsControlSelectionDidC
  - middle: Any middle tab button between first and last.
  - last:   The most right-hand tab button
  */
-public enum TabButtonPosition {
+public enum TabPosition {
     case first
     case middle
     case last
     
-    static func fromIndex(idx: Int, totalCount: Int) -> TabButtonPosition {
+    static func fromIndex(idx: Int, totalCount: Int) -> TabPosition {
         switch idx {
         case 0: return .first
         case totalCount-1: return .last
@@ -32,33 +32,25 @@ public enum TabButtonPosition {
     }
 }
 
-public typealias Offset = NSPoint
-
-public extension Offset {
-    
-    public init(x: CGFloat) {
-        self.x = x
-        self.y = 0
-    }
-    
-    public init(y: CGFloat) {
-        self.x = 0
-        self.y = y
-    }
+public enum TabWidth {
+    case Full
+    case Flexible(min: CGFloat, max: CGFloat)
 }
+
+func ==(t1: TabWidth, t2: TabWidth) -> Bool {
+    return String(t1) == String(t2)
+}
+
+public enum TabSelectionState {
+    case Normal
+    case Selected
+    case Unselectable
+}
+
 
 /**
- Addition operator to NSPoints and Offsets.
- 
- - parameter lhs: lef-hand side point
- - parameter rhs: right-hand side offset to be added to the point.
- 
- - returns: A new and offset NSPoint. 
+ *  Border mask option set, used in tab buttons and the tabs control itself.
  */
-public func +(lhs: NSPoint, rhs: Offset) -> NSPoint {
-    return NSPoint(x: lhs.x + rhs.x, y: lhs.y + rhs.y)
-}
-
 public struct BorderMask: OptionSetType {
     public let rawValue: Int
     
