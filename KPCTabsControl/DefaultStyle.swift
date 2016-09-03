@@ -63,7 +63,8 @@ public extension ThemedStyle {
         }
         
         let iconRect = self.iconFrames(tabRect: rect).iconFrame
-        return rect.offsetBy(dx: NSWidth(iconRect), dy: 0.0)
+        let pad = NSMaxX(iconRect)+titleMargin
+        return rect.offsetBy(dx: pad, dy: 0.0).shrinkBy(dx: pad, dy: 0.0)
     }
     
     public func titleEditorSettings() -> TitleEditorSettings {

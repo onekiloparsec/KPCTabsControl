@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		5004722A1D5350120095FCCB /* SequenceType+TabsControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500472291D5350120095FCCB /* SequenceType+TabsControl.swift */; };
-		501FD7741D5B188F00C3B1F3 /* NSRect+TabsControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501FD7731D5B188F00C3B1F3 /* NSRect+TabsControl.swift */; };
 		501FD7771D5B2A0100C3B1F3 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501FD7761D5B2A0100C3B1F3 /* Style.swift */; };
 		501FD7791D5B2CA300C3B1F3 /* DefaultTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501FD7781D5B2CA300C3B1F3 /* DefaultTheme.swift */; };
 		508829A51D61A1FA00678DF3 /* CollectionType+TabsControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508829A41D61A1FA00678DF3 /* CollectionType+TabsControl.swift */; };
@@ -69,7 +68,6 @@
 
 /* Begin PBXFileReference section */
 		500472291D5350120095FCCB /* SequenceType+TabsControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "SequenceType+TabsControl.swift"; path = "KPCTabsControl/SequenceType+TabsControl.swift"; sourceTree = "<group>"; };
-		501FD7731D5B188F00C3B1F3 /* NSRect+TabsControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSRect+TabsControl.swift"; path = "KPCTabsControl/NSRect+TabsControl.swift"; sourceTree = "<group>"; };
 		501FD7761D5B2A0100C3B1F3 /* Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Style.swift; path = KPCTabsControl/Style.swift; sourceTree = "<group>"; };
 		501FD7781D5B2CA300C3B1F3 /* DefaultTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DefaultTheme.swift; path = KPCTabsControl/DefaultTheme.swift; sourceTree = "<group>"; };
 		508829A41D61A1FA00678DF3 /* CollectionType+TabsControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CollectionType+TabsControl.swift"; path = "KPCTabsControl/CollectionType+TabsControl.swift"; sourceTree = "<group>"; };
@@ -171,7 +169,6 @@
 			children = (
 				9FF789491D10464000F66AF2 /* NSButton+TabsControl.swift */,
 				9FF7894B1D10470A00F66AF2 /* NSImage+TabsControl.swift */,
-				501FD7731D5B188F00C3B1F3 /* NSRect+TabsControl.swift */,
 				500472291D5350120095FCCB /* SequenceType+TabsControl.swift */,
 				508829A41D61A1FA00678DF3 /* CollectionType+TabsControl.swift */,
 				9FF789441D0FDA9700F66AF2 /* MessageInterceptor.swift */,
@@ -388,7 +385,6 @@
 				50BF2D711D5F09A8006A54F5 /* ChromeStyle.swift in Sources */,
 				9F76CEE51D560DB500D817F7 /* Error.swift in Sources */,
 				9F23FF321D10A99D00326F3B /* TabButtonCell.swift in Sources */,
-				501FD7741D5B188F00C3B1F3 /* NSRect+TabsControl.swift in Sources */,
 				9F0505551D717D05003D542B /* SafariStyle.swift in Sources */,
 				9F23FF371D10A9D800326F3B /* NSButton+TabsControl.swift in Sources */,
 				9FF7894C1D10470A00F66AF2 /* NSImage+TabsControl.swift in Sources */,

@@ -34,3 +34,14 @@ public extension Offset {
 public func +(lhs: NSPoint, rhs: Offset) -> NSPoint {
     return NSPoint(x: lhs.x + rhs.x, y: lhs.y + rhs.y)
 }
+
+public extension NSRect {
+    
+    /// Change width and height by `-dx` and `-dy`.
+    @warn_unused_result
+    func shrinkBy(dx dx: CGFloat, dy: CGFloat) -> NSRect {
+        var result = self
+        result.size = CGSize(width: result.size.width - dx, height: result.size.height - dy)
+        return result
+    }
+}
