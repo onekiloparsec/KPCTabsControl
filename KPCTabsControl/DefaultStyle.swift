@@ -70,7 +70,7 @@ public extension ThemedStyle {
         }
         
         let iconRect = self.iconFrames(tabRect: rect).iconFrame
-        return rect.offsetBy(dx: NSMaxX(iconRect), dy: 0.0)        
+        return rect.offsetBy(dx: NSWidth(iconRect), dy: 0.0)
     }
     
     public func titleEditorSettings() -> TitleEditorSettings {
