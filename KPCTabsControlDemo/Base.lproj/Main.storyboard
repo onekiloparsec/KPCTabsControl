@@ -718,20 +718,20 @@
                                         <autoresizingMask key="autoresizingMask"/>
                                         <subviews>
                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="Opp-vc-gij" customClass="TabsControl" customModule="KPCTabsControl">
-                                                <rect key="frame" x="0.0" y="174.5" width="480" height="34"/>
+                                                <rect key="frame" x="0.0" y="173" width="480" height="34"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="34" id="kyU-fU-k2n"/>
                                                 </constraints>
                                             </customView>
                                             <button translatesAutoresizingMaskIntoConstraints="NO" id="9Fv-dn-aE3">
-                                                <rect key="frame" x="171" y="110.5" width="138" height="18"/>
+                                                <rect key="frame" x="171" y="108" width="138" height="18"/>
                                                 <buttonCell key="cell" type="check" title="Use full-width tabs" bezelStyle="regularSquare" imagePosition="left" enabled="NO" inset="2" id="dgJ-eu-Gd7">
                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
                                             </button>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Mwu-MR-ItH">
-                                                <rect key="frame" x="220" y="87.5" width="41" height="17"/>
+                                                <rect key="frame" x="220" y="85" width="41" height="17"/>
                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Label" id="rkg-ME-LA7">
                                                     <font key="font" metaFont="system"/>
                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -740,13 +740,13 @@
                                             </textField>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstItem="9Fv-dn-aE3" firstAttribute="centerY" secondItem="OFa-rZ-wN5" secondAttribute="centerY" constant="-14.5" id="IV6-7G-aPL"/>
+                                            <constraint firstItem="9Fv-dn-aE3" firstAttribute="centerY" secondItem="OFa-rZ-wN5" secondAttribute="centerY" constant="-13" id="IV6-7G-aPL"/>
                                             <constraint firstAttribute="trailing" secondItem="Opp-vc-gij" secondAttribute="trailing" id="RlY-Sy-uFp"/>
-                                            <constraint firstItem="Opp-vc-gij" firstAttribute="top" secondItem="OFa-rZ-wN5" secondAttribute="top" id="TUm-O7-eFb"/>
+                                            <constraint firstItem="Opp-vc-gij" firstAttribute="top" secondItem="OFa-rZ-wN5" secondAttribute="top" constant="1.5" id="TUm-O7-eFb"/>
                                             <constraint firstItem="Mwu-MR-ItH" firstAttribute="centerX" secondItem="OFa-rZ-wN5" secondAttribute="centerX" id="ayA-cN-der"/>
                                             <constraint firstItem="Opp-vc-gij" firstAttribute="leading" secondItem="OFa-rZ-wN5" secondAttribute="leading" id="cfs-r4-Wif"/>
                                             <constraint firstItem="9Fv-dn-aE3" firstAttribute="centerX" secondItem="OFa-rZ-wN5" secondAttribute="centerX" id="tAO-o5-cG1"/>
-                                            <constraint firstItem="Mwu-MR-ItH" firstAttribute="centerY" secondItem="OFa-rZ-wN5" secondAttribute="centerY" constant="9" id="uKf-Q2-od8"/>
+                                            <constraint firstItem="Mwu-MR-ItH" firstAttribute="centerY" secondItem="OFa-rZ-wN5" secondAttribute="centerY" constant="10.5" id="uKf-Q2-od8"/>
                                         </constraints>
                                     </customView>
                                     <customView id="vd3-gI-rm5">
@@ -754,9 +754,9 @@
                                         <autoresizingMask key="autoresizingMask"/>
                                         <subviews>
                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="BGo-z1-7UX" customClass="TabsControl" customModule="KPCTabsControl">
-                                                <rect key="frame" x="0.0" y="176" width="480" height="34"/>
+                                                <rect key="frame" x="0.0" y="186" width="480" height="24"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="34" id="kKs-HS-9ZI"/>
+                                                    <constraint firstAttribute="height" constant="24" id="kKs-HS-9ZI"/>
                                                 </constraints>
                                             </customView>
                                             <button translatesAutoresizingMaskIntoConstraints="NO" id="lWN-Qp-vJY">
