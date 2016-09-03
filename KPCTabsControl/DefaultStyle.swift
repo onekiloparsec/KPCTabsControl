@@ -79,16 +79,12 @@ public extension ThemedStyle {
     
     private func paddedRectForIcon(rect: NSRect, showingIcon: Bool) -> NSRect {
         
-        guard showingIcon else { return rect }
+        guard showingIcon else {
+            return rect
+        }
         
-        // TODO replace assumption about icon size with different mechanism
-        // (like handing down the `icon` to this cell, using `image` and code
-        // from commit `2f56dbdbfed4d15fa063b03301ed49d5e00cad6e`)
-        let width = CGFloat(19)
-        let padding = CGFloat(8)
-        let horizontalOffset = width + padding
-        
-        return rect.offsetBy(dx: horizontalOffset, dy: 0).shrinkBy(dx: horizontalOffset, dy: 0)
+        let iconRect = self.iconFrames(tabRect: rect).iconFrame
+        return rect.offsetBy(dx: NSMaxX(iconRect), dy: 0.0)        
     }
     
     public func titleEditorSettings() -> TitleEditorSettings {
