@@ -10,10 +10,10 @@ import Cocoa
 
 public struct ChromeStyle: ThemedStyle {
     public let theme: Theme
-    public let tabButtonWidth: TabButtonWidth
+    public let tabButtonWidth: TabWidth
     public let recommendedTabsControlHeight: CGFloat = 34.0
     
-    public init(theme: Theme = ChromeTheme(), tabButtonWidth: TabButtonWidth = .Flexible(min: 80, max: 180)) {
+    public init(theme: Theme = ChromeTheme(), tabButtonWidth: TabWidth = .Flexible(min: 80, max: 180)) {
         self.theme = theme
         self.tabButtonWidth = tabButtonWidth
     }
@@ -58,24 +58,20 @@ public struct ChromeStyle: ThemedStyle {
     }
 
     public func titleEditorSettings() -> TitleEditorSettings {
-        return (
-            textColor: self.theme.tabButtonTheme.titleColor,
-            font: self.theme.tabButtonTheme.titleFont,
-            alignment: Defaults.alignment
-        )
+        return (textColor: self.theme.tabButtonTheme.titleColor,
+                font: self.theme.tabButtonTheme.titleFont,
+                alignment: Defaults.alignment)
     }
 
-    public func attributedTitle(content content: String, isSelected: Bool) -> NSAttributedString {
+    public func attributedTitle(content content: String, selectionState: TabSelectionState) -> NSAttributedString {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = Defaults.alignment
 
-        let activeTheme = isSelected ? self.theme.selectedTabButtonTheme : self.theme.tabButtonTheme
+        let activeTheme = self.theme.tabButtonThemeFromSelectionState(selectionState)
 
-        let attributes = [
-            NSFontAttributeName: activeTheme.titleFont,
-            NSParagraphStyleAttributeName: paragraphStyle,
-            NSForegroundColorAttributeName: activeTheme.titleColor
-        ]
+        let attributes = [NSParagraphStyleAttributeName: paragraphStyle,
+                          NSFontAttributeName: activeTheme.titleFont,
+                          NSForegroundColorAttributeName: activeTheme.titleColor]
 
         return NSAttributedString(string: content, attributes: attributes)
     }
@@ -131,7 +127,7 @@ public struct ChromeStyle: ThemedStyle {
         }
     }
 
-    public func drawTabButtonBezel(frame frame: NSRect, position: TabButtonPosition, isSelected: Bool) {
+    public func drawTabButtonBezel(frame frame: NSRect, position: TabPosition, isSelected: Bool) {
 
         let height: CGFloat = PaddedHeight.fromFrame(frame).value
         let xOffset = height / 2.0
@@ -205,7 +201,7 @@ public struct ChromeStyle: ThemedStyle {
         NSRectFill(bottomBorder)
     }
 
-    public func tabButtonOffset(position position: TabButtonPosition) -> Offset {
+    public func tabButtonOffset(position position: TabPosition) -> Offset {
         switch position {
         case .first: return NSPoint()
         case .middle, .last: return NSPoint(x: -10, y: 0)

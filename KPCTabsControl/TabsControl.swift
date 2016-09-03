@@ -148,7 +148,7 @@ public class TabsControl: NSControl, NSTextDelegate {
             button.wantsLayer = true
             button.state = NSOffState
             button.editable = self.delegate?.tabsControl?(self, canEditTitleOfItem: item) == true
-            button.buttonPosition = TabButtonPosition.fromIndex(i, totalCount: newItemsCount)
+            button.buttonPosition = TabPosition.fromIndex(i, totalCount: newItemsCount)
 
             button.title = dataSource.tabsControl(self, titleForItem: item)
             
@@ -359,8 +359,8 @@ public class TabsControl: NSControl, NSTextDelegate {
                 swap(&orderedTabs[primaryIndex], &orderedTabs[secondIndex])
                 
                 // Shouldn't indexes be swapped too????? But if we do so, it doesn't work!
-                orderedTabs[primaryIndex].buttonPosition = TabButtonPosition.fromIndex(primaryIndex, totalCount: orderedTabs.count)
-                orderedTabs[secondIndex].buttonPosition = TabButtonPosition.fromIndex(secondIndex, totalCount: orderedTabs.count)
+                orderedTabs[primaryIndex].buttonPosition = TabPosition.fromIndex(primaryIndex, totalCount: orderedTabs.count)
+                orderedTabs[secondIndex].buttonPosition = TabPosition.fromIndex(secondIndex, totalCount: orderedTabs.count)
                 
                 temporarySelectedButtonIndex += secondIndex-primaryIndex
                 self.layoutTabButtons(orderedTabs, animated: true)

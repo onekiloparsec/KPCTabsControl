@@ -25,7 +25,7 @@ public class TabButton: NSButton {
     /// The button is aware of its last known index in the tab bar.
     var index: Int? = nil
 
-    public var buttonPosition: TabButtonPosition! {
+    public var buttonPosition: TabPosition! {
         get { return tabButtonCell?.buttonPosition }
         set { self.tabButtonCell?.buttonPosition = newValue }
     }
@@ -163,7 +163,14 @@ public class TabButton: NSButton {
         super.mouseExited(theEvent)
         self.needsDisplay = true
     }
-    
+
+    public override func mouseDown(theEvent: NSEvent) {
+        super.mouseDown(theEvent)
+        if self.enabled == false {
+            NSBeep()
+        }
+    }
+
     public override func resetCursorRects() {
         self.addCursorRect(self.bounds, cursor: NSCursor.arrowCursor())
     }

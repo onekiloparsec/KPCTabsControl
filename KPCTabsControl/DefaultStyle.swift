@@ -19,11 +19,11 @@ public extension ThemedStyle {
     
     // MARK: - Tab Buttons
     
-    public func tabButtonOffset(position position: TabButtonPosition) -> Offset {
+    public func tabButtonOffset(position position: TabPosition) -> Offset {
         return NSPoint()
     }
 
-    public func tabButtonBorderMask(position: TabButtonPosition) -> BorderMask? {
+    public func tabButtonBorderMask(position: TabPosition) -> BorderMask? {
         return BorderMask.all()
     }
     
@@ -72,18 +72,16 @@ public extension ThemedStyle {
                 alignment: TitleDefaults.alignment)
     }
     
-    public func attributedTitle(content content: String, isSelected: Bool) -> NSAttributedString {
+    public func attributedTitle(content content: String, selectionState: TabSelectionState) -> NSAttributedString {
         
-        let activeStyle = isSelected ? self.theme.selectedTabButtonTheme : self.theme.tabButtonTheme
-        let titleColor = activeStyle.titleColor
-        let font = activeStyle.titleFont
+        let activeTheme = self.theme.tabButtonThemeFromSelectionState(selectionState)
         
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = TitleDefaults.alignment
         paragraphStyle.lineBreakMode = TitleDefaults.lineBreakMode
         
-        let attributes = [NSForegroundColorAttributeName : titleColor,
-                          NSFontAttributeName : font,
+        let attributes = [NSForegroundColorAttributeName : activeTheme.titleColor,
+                          NSFontAttributeName : activeTheme.titleFont,
                           NSParagraphStyleAttributeName : paragraphStyle]
         
         return NSAttributedString(string: content, attributes: attributes)
@@ -109,7 +107,7 @@ public extension ThemedStyle {
         self.drawBorder(borderDrawing, color: self.theme.tabsControlTheme.borderColor)
     }
     
-    public func drawTabButtonBezel(frame frame: NSRect, position: TabButtonPosition, isSelected: Bool) {
+    public func drawTabButtonBezel(frame frame: NSRect, position: TabPosition, isSelected: Bool) {
         
         let activeTheme = isSelected ? self.theme.selectedTabButtonTheme : self.theme.tabButtonTheme
         activeTheme.backgroundColor.setFill()
@@ -174,9 +172,9 @@ private enum BorderDrawing {
  */
 public struct DefaultStyle: ThemedStyle {
     public let theme: Theme
-    public let tabButtonWidth: TabButtonWidth
+    public let tabButtonWidth: TabWidth
 
-    public init(theme: Theme = DefaultTheme(), tabButtonWidth: TabButtonWidth = .Flexible(min: 50, max: 150)) {
+    public init(theme: Theme = DefaultTheme(), tabButtonWidth: TabWidth = .Flexible(min: 50, max: 150)) {
         self.theme = theme
         self.tabButtonWidth = tabButtonWidth
     }

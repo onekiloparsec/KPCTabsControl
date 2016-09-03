@@ -10,10 +10,10 @@ import AppKit
 
 public struct SafariStyle: ThemedStyle {
     public let theme: Theme
-    public let tabButtonWidth: TabButtonWidth
+    public let tabButtonWidth: TabWidth
     public let recommendedTabsControlHeight: CGFloat = 24.0
     
-    public init(theme: Theme = SafariTheme(), tabButtonWidth: TabButtonWidth = .Full) {
+    public init(theme: Theme = SafariTheme(), tabButtonWidth: TabWidth = .Full) {
         self.theme = theme
         self.tabButtonWidth = tabButtonWidth
     }
@@ -23,7 +23,7 @@ public struct SafariStyle: ThemedStyle {
         return (NSZeroRect, NSZeroRect)
     }
     
-    public func tabButtonBorderMask(position: TabButtonPosition) -> BorderMask? {
+    public func tabButtonBorderMask(position: TabPosition) -> BorderMask? {
         return [.bottom, .top, .right]
     }
 
