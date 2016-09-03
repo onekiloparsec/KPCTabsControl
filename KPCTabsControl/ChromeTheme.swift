@@ -14,6 +14,7 @@ public struct ChromeTheme: Theme {
 
     public let tabButtonTheme: TabButtonTheme = DefaultTabButtonTheme()
     public let selectedTabButtonTheme: TabButtonTheme = SelectedTabButtonTheme(base: DefaultTabButtonTheme())
+    public let unselectableTabButtonTheme: TabButtonTheme = UnselectableTabButtonTheme(base: DefaultTabButtonTheme())
     public let tabsControlTheme: TabsControlTheme = DefaultTabsControlTheme()
     
     private static var sharedBorderColor: NSColor { return NSColor(calibratedWhite: 152/256.0, alpha: 1.0) }
@@ -37,6 +38,15 @@ public struct ChromeTheme: Theme {
         var titleFont: NSFont { return base.titleFont }
     }
     
+    private struct UnselectableTabButtonTheme: KPCTabsControl.TabButtonTheme {
+        let base: DefaultTabButtonTheme
+        
+        var backgroundColor: NSColor { return base.backgroundColor }
+        var borderColor: NSColor { return base.borderColor }
+        var titleColor: NSColor { return NSColor.lightGrayColor() }
+        var titleFont: NSFont { return base.titleFont }
+    }
+
     private struct DefaultTabsControlTheme: KPCTabsControl.TabsControlTheme {
         
         var borderColor: NSColor { return ChromeTheme.sharedBorderColor }

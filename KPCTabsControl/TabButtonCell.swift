@@ -18,6 +18,10 @@ class TabButtonCell: NSButtonCell {
     var isSelected: Bool {
         get { return self.state == NSOnState }
     }
+    
+    var selectionState: TabSelectionState {
+        return self.enabled == false ? TabSelectionState.Unselectable : (self.isSelected ? TabSelectionState.Selected : TabSelectionState.Normal)
+    }
 
     var showsIcon: Bool {
         get { return (self.controlView as! TabButton).icon != nil }

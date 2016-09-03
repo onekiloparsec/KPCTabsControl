@@ -17,13 +17,13 @@ public struct DefaultTheme: Theme {
     
     public let tabButtonTheme: TabButtonTheme = DefaultTabButtonTheme()
     public let selectedTabButtonTheme: TabButtonTheme = SelectedTabButtonTheme(base: DefaultTabButtonTheme())
+    public let unselectableTabButtonTheme: TabButtonTheme = UnselectableTabButtonTheme(base: DefaultTabButtonTheme())
     public let tabsControlTheme: TabsControlTheme = DefaultTabsControlTheme()
 
     private static var sharedBorderColor: NSColor { return NSColor.lightGrayColor() }
     private static var sharedBackgroundColor: NSColor { return NSColor(calibratedWhite: 0.95, alpha: 1.0) }
 
     private struct DefaultTabButtonTheme: KPCTabsControl.TabButtonTheme {
-        
         var backgroundColor: NSColor { return DefaultTheme.sharedBackgroundColor }
         var borderColor: NSColor { return DefaultTheme.sharedBorderColor }
         var titleColor: NSColor { return NSColor.darkGrayColor() }
@@ -31,7 +31,6 @@ public struct DefaultTheme: Theme {
     }
 
     private struct SelectedTabButtonTheme: KPCTabsControl.TabButtonTheme {
-
         let base: DefaultTabButtonTheme
         let blueColor = NSColor(calibratedRed: 205.0/255.0, green: 222.0/255.0, blue: 244.0/255.0, alpha: 1.0)
 
@@ -41,8 +40,16 @@ public struct DefaultTheme: Theme {
         var titleFont: NSFont { return NSFont.boldSystemFontOfSize(13) }
     }
 
+    private struct UnselectableTabButtonTheme: KPCTabsControl.TabButtonTheme {
+        let base: DefaultTabButtonTheme
+        
+        var backgroundColor: NSColor { return base.backgroundColor }
+        var borderColor: NSColor { return base.borderColor }
+        var titleColor: NSColor { return NSColor.lightGrayColor() }
+        var titleFont: NSFont { return base.titleFont }
+    }
+    
     private struct DefaultTabsControlTheme: KPCTabsControl.TabsControlTheme {
-
         var backgroundColor: NSColor { return DefaultTheme.sharedBackgroundColor }
         var borderColor: NSColor { return DefaultTheme.sharedBorderColor }
     }
