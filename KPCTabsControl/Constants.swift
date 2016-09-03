@@ -58,3 +58,16 @@ public extension Offset {
 public func +(lhs: NSPoint, rhs: Offset) -> NSPoint {
     return NSPoint(x: lhs.x + rhs.x, y: lhs.y + rhs.y)
 }
+
+public struct BorderMask: OptionSetType {
+    public let rawValue: Int
+    
+    public init(rawValue: Int) {
+        self.rawValue = rawValue
+    }
+    
+    public static let top = BorderMask(rawValue: 1 << 0)
+    public static let left = BorderMask(rawValue: 1 << 1)
+    public static let right = BorderMask(rawValue: 1 << 2)
+    public static let bottom = BorderMask(rawValue: 1 << 3)
+}

@@ -13,6 +13,27 @@ public enum TitleDefaults {
 }
 
 public extension ThemedStyle {
+    
+    /// Additional useful methods
+    
+    public func tabButtonBorderMask(position: TabButtonPosition) -> BorderMask {
+        let borderMask: BorderMask = {
+            switch position {
+            case .first: return [.left, .bottom]
+            case .middle: return .bottom
+            case .last: return [.right, .bottom]
+            }
+        }()
+        return borderMask
+    }
+
+    public func tabsControlBorderMask() -> BorderMask {
+        return .top
+    }
+
+    /// Default implementation of Themed Style
+    // MARK: - Tab Buttons
+    
     public var recommendedTabsControlHeight: CGFloat {
         return 21.0
     }
@@ -23,17 +44,13 @@ public extension ThemedStyle {
         let paddedHeight = CGRectGetHeight(rect) - 2*verticalPadding
         let x = CGRectGetWidth(rect) / 2.0 - paddedHeight / 2.0
         
-        return (
-            NSMakeRect(10.0, verticalPadding, paddedHeight, paddedHeight),
-            NSMakeRect(x, verticalPadding, paddedHeight, paddedHeight)
-        )
+        return (NSMakeRect(10.0, verticalPadding, paddedHeight, paddedHeight),
+                NSMakeRect(x, verticalPadding, paddedHeight, paddedHeight))
     }
     
     public func maxIconHeight(tabRect rect: NSRect, scale: CGFloat = 1.0) -> CGFloat {
-        
         let verticalPadding: CGFloat = 2.0
         let paddedHeight = CGRectGetHeight(rect) - 2 * verticalPadding
-        
         return 1.2 * paddedHeight * scale
     }
     
@@ -43,15 +60,7 @@ public extension ThemedStyle {
         activeTheme.backgroundColor.setFill()
         NSRectFill(frame)
         
-        let borderMask: BorderDrawing.Mask = {
-            switch position {
-            case .first: return [.left, .bottom]
-            case .middle: return .bottom
-            case .last: return [.right, .bottom]
-            }
-        }()
-        let borderDrawing = BorderDrawing.fromMask(frame, borderMask: borderMask)
-        
+        let borderDrawing = BorderDrawing.fromMask(frame, borderMask: self.tabButtonBorderMask(position))
         self.drawBorder(borderDrawing, color: activeTheme.borderColor)
     }
     
@@ -71,7 +80,10 @@ public extension ThemedStyle {
         
         guard showingIcon else { return rect }
         
-        let width = CGFloat(19) // TODO replace assumption about icon size with different mechanism (like handing down the `icon` to this cell, using `image` and code from commit `2f56dbdbfed4d15fa063b03301ed49d5e00cad6e`)
+        // TODO replace assumption about icon size with different mechanism
+        // (like handing down the `icon` to this cell, using `image` and code
+        // from commit `2f56dbdbfed4d15fa063b03301ed49d5e00cad6e`)
+        let width = CGFloat(19)
         let padding = CGFloat(8)
         let horizontalOffset = width + padding
         
@@ -79,11 +91,9 @@ public extension ThemedStyle {
     }
     
     public func titleEditorSettings() -> TitleEditorSettings {
-        return (
-            textColor: NSColor(calibratedWhite: 1.0/6, alpha: 1.0),
-            font: self.theme.tabButtonTheme.titleFont,
-            alignment: TitleDefaults.alignment
-        )
+        return (textColor: NSColor(calibratedWhite: 1.0/6, alpha: 1.0),
+                font: self.theme.tabButtonTheme.titleFont,
+                alignment: TitleDefaults.alignment)
     }
     
     public func attributedTitle(content content: String, isSelected: Bool) -> NSAttributedString {
@@ -96,20 +106,20 @@ public extension ThemedStyle {
         paragraphStyle.alignment = TitleDefaults.alignment
         paragraphStyle.lineBreakMode = .ByTruncatingMiddle
         
-        let attributes = [
-            NSForegroundColorAttributeName : titleColor,
-            NSFontAttributeName : font,
-            NSParagraphStyleAttributeName : paragraphStyle
-        ]
+        let attributes = [NSForegroundColorAttributeName : titleColor,
+                          NSFontAttributeName : font,
+                          NSParagraphStyleAttributeName : paragraphStyle]
         
         return NSAttributedString(string: content, attributes: attributes)
     }
     
+    // MARK: - Tabs Control
+
     public func drawTabsControlBezel(frame frame: NSRect) {
         self.theme.tabsControlTheme.backgroundColor.setFill()
         NSRectFill(frame)
         
-        let borderDrawing = BorderDrawing.fromMask(frame, borderMask: .top)
+        let borderDrawing = BorderDrawing.fromMask(frame, borderMask: self.tabsControlBorderMask())
         self.drawBorder(borderDrawing, color: self.theme.tabsControlTheme.borderColor)
     }
     
@@ -128,11 +138,13 @@ public extension ThemedStyle {
     }
 }
 
+// MARK: -
+
 private enum BorderDrawing {
     case empty
     case draw(borderRects: [NSRect], rectCount: Int)
     
-    static func fromMask(sourceRect: NSRect, borderMask: Mask) -> BorderDrawing {
+    private static func fromMask(sourceRect: NSRect, borderMask: BorderMask) -> BorderDrawing {
         
         var outputCount: NSInteger = 0
         var remainderRect = NSZeroRect
@@ -159,20 +171,9 @@ private enum BorderDrawing {
         
         return .draw(borderRects: borderRects, rectCount: outputCount)
     }
-    
-    struct Mask: OptionSetType {
-        let rawValue: Int
-        
-        init(rawValue: Int) {
-            self.rawValue = rawValue
-        }
-        
-        static let top = Mask(rawValue: 1 << 0)
-        static let left = Mask(rawValue: 1 << 1)
-        static let right = Mask(rawValue: 1 << 2)
-        static let bottom = Mask(rawValue: 1 << 3)
-    }
 }
+
+// MARK: -
 
 /**
  *  The default TabsControl style. Used with the DefaultTheme, it provides an experience similar to Apple's Numbers.app.
