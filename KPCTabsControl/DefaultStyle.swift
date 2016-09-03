@@ -24,14 +24,7 @@ public extension ThemedStyle {
     }
 
     public func tabButtonBorderMask(position: TabButtonPosition) -> BorderMask? {
-        let borderMask: BorderMask = {
-            switch position {
-            case .first: return [.left, .bottom]
-            case .middle: return .bottom
-            case .last: return [.right, .bottom]
-            }
-        }()
-        return borderMask
+        return BorderMask.all()
     }
     
     // MARK: - Tab Button Titles

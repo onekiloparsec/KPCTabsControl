@@ -33,9 +33,10 @@ public struct DefaultTheme: Theme {
     private struct SelectedTabButtonTheme: KPCTabsControl.TabButtonTheme {
 
         let base: DefaultTabButtonTheme
+        let blueColor = NSColor(calibratedRed: 205.0/255.0, green: 222.0/255.0, blue: 244.0/255.0, alpha: 1.0)
 
-        var backgroundColor: NSColor { return NSColor(calibratedRed: 205.0/255.0, green: 222.0/255.0, blue: 244.0/255.0, alpha: 1.0) }
-        var borderColor: NSColor { return NSColor(calibratedRed: 185.0/255.0, green: 202.0/255.0, blue: 224.0/255.0, alpha: 1.0) }
+        var backgroundColor: NSColor { return blueColor }
+        var borderColor: NSColor { return blueColor.darkerColor() }
         var titleColor: NSColor { return NSColor(calibratedRed: 85.0/255.0, green: 102.0/255.0, blue: 124.0/255.0, alpha: 1.0) }
         var titleFont: NSFont { return NSFont.boldSystemFontOfSize(13) }
     }
@@ -44,5 +45,13 @@ public struct DefaultTheme: Theme {
 
         var backgroundColor: NSColor { return DefaultTheme.sharedBackgroundColor }
         var borderColor: NSColor { return DefaultTheme.sharedBorderColor }
+    }
+}
+
+extension NSColor {
+    func darkerColor() -> NSColor {
+        var h: CGFloat = 0, s: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
+        self.getHue(&h, saturation: &s, brightness: &b, alpha: &a)
+        return NSColor(calibratedHue: h, saturation: s, brightness: max(b - 0.2, 0.0), alpha: a)
     }
 }
