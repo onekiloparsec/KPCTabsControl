@@ -18,12 +18,14 @@ class Item {
     var icon: NSImage?
     var menu: NSMenu?
     var altIcon: NSImage?
+    var selectable: Bool
     
-    init(title: String, icon: NSImage?, menu: NSMenu?, altIcon: NSImage?) {
+    init(title: String, icon: NSImage?, menu: NSMenu?, altIcon: NSImage?, selectable: Bool = true) {
         self.title = title
         self.icon = icon
         self.menu = menu
         self.altIcon = altIcon
+        self.selectable = selectable
     }
 }
 
@@ -105,8 +107,7 @@ class PaneViewController: NSViewController, TabsControlDataSource, TabsControlDe
     }
 
     func tabsControl(control: TabsControl, canSelectItem item: AnyObject) -> Bool {
-
-        return (item as! Item) != self.items.first
+        return (item as! Item).selectable
     }
 }
 

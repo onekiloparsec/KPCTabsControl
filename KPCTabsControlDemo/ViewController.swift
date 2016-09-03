@@ -13,7 +13,6 @@ class ViewController: NSViewController {
     @IBOutlet var paneDefault: PaneViewController?
     @IBOutlet var paneChrome: PaneViewController?
     @IBOutlet var paneSafari: PaneViewController?
-    @IBOutlet var paneXcode: PaneViewController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,17 +24,17 @@ class ViewController: NSViewController {
         tab2Menu.addItemWithTitle("Action 1", action: nil, keyEquivalent: "")
         tab2Menu.addItemWithTitle("Action 2", action: nil, keyEquivalent: "")
 
-        self.paneDefault?.items = [Item(title: "Default 1", icon: NSImage(named: "Star"), menu: nil, altIcon: nil),
-                               Item(title: "Default 2", icon: NSImage(named: "Oval"), menu: tab2Menu, altIcon: nil),
-                               Item(title: "Default 3 Long Title", icon: nil, menu: nil, altIcon: NSImage(named: "Polygon")),
-                               Item(title: "Default 4", icon: nil, menu: nil, altIcon: nil),
-                               Item(title: "Default 5", icon: nil, menu: nil, altIcon: nil)]
+        self.paneDefault?.items = [Item(title: "Default 1", icon: NSImage(named: "Star"), menu: nil, altIcon: nil, selectable: false),
+                                   Item(title: "Default 2", icon: NSImage(named: "Oval"), menu: tab2Menu, altIcon: nil),
+                                   Item(title: "Default 3 Long Title", icon: nil, menu: nil, altIcon: NSImage(named: "Polygon")),
+                                   Item(title: "Default 4", icon: nil, menu: nil, altIcon: nil),
+                                   Item(title: "Default 5", icon: nil, menu: nil, altIcon: nil)]
                                     
         
         self.paneChrome?.title = "Chrome"
         self.paneChrome?.tabsBar?.style = ChromeStyle()
 
-        self.paneChrome?.items = [Item(title: "Chrome 1", icon: NSImage(named: "Star"), menu: nil, altIcon: nil),
+        self.paneChrome?.items = [Item(title: "Chrome 1", icon: NSImage(named: "Star"), menu: nil, altIcon: nil, selectable: false),
                                   Item(title: "Chrome 2", icon: NSImage(named: "Triangle"), menu: nil, altIcon: nil),
                                   Item(title: "Chrome 3", icon: NSImage(named: "Spiral"), menu: nil, altIcon: nil),
                                   Item(title: "Chrome 4", icon: NSImage(named: "Polygon"), menu: nil, altIcon: nil)]
@@ -53,9 +52,9 @@ class ViewController: NSViewController {
         self.paneDefault?.tabsBar?.reloadTabs()
         self.paneChrome?.tabsBar?.reloadTabs()
         self.paneSafari?.tabsBar?.reloadTabs()
-        self.paneXcode?.tabsBar?.reloadTabs()
         
         self.paneChrome?.tabsBar?.selectItemAtIndex(3)
+        self.paneSafari?.tabsBar?.selectItemAtIndex(1)
     }
 }
 
