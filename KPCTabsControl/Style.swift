@@ -22,18 +22,24 @@ public typealias IconFrames = (iconFrame: NSRect, alternativeTitleIconFrame: NSR
 public typealias TitleEditorSettings = (textColor: NSColor, font: NSFont, alignment: NSTextAlignment)
 
 public protocol Style {
+    // Tab Buttons
     var tabButtonWidth: TabButtonWidth { get }
     func tabButtonOffset(position position: TabButtonPosition) -> Offset
+    func tabButtonBorderMask(position: TabButtonPosition) -> BorderMask?
     
+    // Tab Button Titles
     func iconFrames(tabRect rect: NSRect) -> IconFrames
     func titleRect(title title: NSAttributedString, inBounds rect: NSRect, showingIcon: Bool) -> NSRect
     func titleEditorSettings() -> TitleEditorSettings
     func attributedTitle(content content: String, isSelected: Bool) -> NSAttributedString
 
+    // Tabs Control
+    var recommendedTabsControlHeight: CGFloat { get }
+    func tabsControlBorderMask() -> BorderMask?
+    
+    // Drawing
     func drawTabButtonBezel(frame frame: NSRect, position: TabButtonPosition, isSelected: Bool)
     func drawTabsControlBezel(frame frame: NSRect)
-
-    var recommendedTabsControlHeight: CGFloat { get }
 }
 
 public protocol ThemedStyle : Style {

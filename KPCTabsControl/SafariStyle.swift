@@ -18,8 +18,17 @@ public struct SafariStyle: ThemedStyle {
         self.tabButtonWidth = tabButtonWidth
     }
     
+    // There is no icons in Safari tabs. Here we force the absence of icon, even if some are provided.
     public func iconFrames(tabRect rect: NSRect) -> IconFrames {
         return (NSZeroRect, NSZeroRect)
+    }
+    
+    public func tabsControlBorderMask() -> BorderMask? {
+        return nil
+    }
+    
+    public func tabButtonBorderMask(position: TabButtonPosition) -> BorderMask? {
+        return nil
     }
 }
 
