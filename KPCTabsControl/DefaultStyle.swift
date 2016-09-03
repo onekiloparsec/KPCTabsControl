@@ -141,25 +141,27 @@ private enum BorderDrawing {
     case empty
     case draw(borderRects: [NSRect], rectCount: Int)
     
-    private static func fromMask(sourceRect: NSRect, borderMask: BorderMask) -> BorderDrawing {
+    private static func fromMask(sourceRect: NSRect, borderMask: BorderMask?) -> BorderDrawing {
         
-        var outputCount: NSInteger = 0
+        guard let mask = borderMask else { return .empty }
+
+        var outputCount: Int = 0
         var remainderRect = NSZeroRect
         var borderRects: [NSRect] = [NSZeroRect, NSZeroRect, NSZeroRect, NSZeroRect]
         
-        if borderMask.contains(.top) {
+        if mask.contains(.top) {
             NSDivideRect(sourceRect, &borderRects[outputCount], &remainderRect, 1, .MinY)
             outputCount += 1
         }
-        if borderMask.contains(.left) {
+        if mask.contains(.left) {
             NSDivideRect(sourceRect, &borderRects[outputCount], &remainderRect, 1, .MinX)
             outputCount += 1
         }
-        if borderMask.contains(.right) {
+        if mask.contains(.right) {
             NSDivideRect(sourceRect, &borderRects[outputCount], &remainderRect, 1, .MaxX)
             outputCount += 1
         }
-        if borderMask.contains(.bottom) {
+        if mask.contains(.bottom) {
             NSDivideRect(sourceRect, &borderRects[outputCount], &remainderRect, 1, .MaxY)
             outputCount += 1
         }
