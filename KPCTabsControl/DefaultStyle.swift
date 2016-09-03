@@ -13,11 +13,17 @@ public enum TitleDefaults {
     static let lineBreakMode = NSLineBreakMode.ByTruncatingMiddle
 }
 
+/// Default implementation of Themed Style
+
 public extension ThemedStyle {
     
-    /// Additional useful methods
+    // MARK: - Tab Buttons
     
-    public func tabButtonBorderMask(position: TabButtonPosition) -> BorderMask {
+    public func tabButtonOffset(position position: TabButtonPosition) -> Offset {
+        return NSPoint()
+    }
+
+    public func tabButtonBorderMask(position: TabButtonPosition) -> BorderMask? {
         let borderMask: BorderMask = {
             switch position {
             case .first: return [.left, .bottom]
@@ -27,18 +33,9 @@ public extension ThemedStyle {
         }()
         return borderMask
     }
-
-    public func tabsControlBorderMask() -> BorderMask {
-        return .top
-    }
-
-    /// Default implementation of Themed Style
-    // MARK: - Tab Buttons
     
-    public var recommendedTabsControlHeight: CGFloat {
-        return 21.0
-    }
-    
+    // MARK: - Tab Button Titles
+
     public func iconFrames(tabRect rect: NSRect) -> IconFrames {
         
         let verticalPadding: CGFloat = 2.0
@@ -55,24 +52,13 @@ public extension ThemedStyle {
         return 1.2 * paddedHeight * scale
     }
     
-    public func drawTabButtonBezel(frame frame: NSRect, position: TabButtonPosition, isSelected: Bool) {
-        
-        let activeTheme = isSelected ? self.theme.selectedTabButtonTheme : self.theme.tabButtonTheme
-        activeTheme.backgroundColor.setFill()
-        NSRectFill(frame)
-        
-        let borderDrawing = BorderDrawing.fromMask(frame, borderMask: self.tabButtonBorderMask(position))
-        self.drawBorder(borderDrawing, color: activeTheme.borderColor)
-    }
-    
     public func titleRect(title title: NSAttributedString, inBounds rect: NSRect, showingIcon: Bool) -> NSRect {
         
         let titleSize = title.size()
-        let fullWidthRect = NSRect(
-            x: NSMinX(rect),
-            y: NSMidY(rect) - titleSize.height/2.0 - 0.5,
-            width: NSWidth(rect),
-            height: titleSize.height)
+        let fullWidthRect = NSRect(x: NSMinX(rect),
+                                   y: NSMidY(rect) - titleSize.height/2.0 - 0.5,
+                                   width: NSWidth(rect),
+                                   height: titleSize.height)
         
         return self.paddedRectForIcon(fullWidthRect, showingIcon: showingIcon)
     }
@@ -109,8 +95,18 @@ public extension ThemedStyle {
         
         return NSAttributedString(string: content, attributes: attributes)
     }
-    
+
     // MARK: - Tabs Control
+    
+    public var recommendedTabsControlHeight: CGFloat {
+        return 21.0
+    }
+
+    public func tabsControlBorderMask() -> BorderMask? {
+        return BorderMask.top.union(BorderMask.bottom)
+    }
+
+    // MARK: - Drawing
 
     public func drawTabsControlBezel(frame frame: NSRect) {
         self.theme.tabsControlTheme.backgroundColor.setFill()
@@ -120,6 +116,16 @@ public extension ThemedStyle {
         self.drawBorder(borderDrawing, color: self.theme.tabsControlTheme.borderColor)
     }
     
+    public func drawTabButtonBezel(frame frame: NSRect, position: TabButtonPosition, isSelected: Bool) {
+        
+        let activeTheme = isSelected ? self.theme.selectedTabButtonTheme : self.theme.tabButtonTheme
+        activeTheme.backgroundColor.setFill()
+        NSRectFill(frame)
+        
+        let borderDrawing = BorderDrawing.fromMask(frame, borderMask: self.tabButtonBorderMask(position))
+        self.drawBorder(borderDrawing, color: activeTheme.borderColor)
+    }
+
     private func drawBorder(border: BorderDrawing, color: NSColor) {
         
         guard case let .draw(borderRects: borderRects, rectCount: borderRectCount) = border
@@ -128,10 +134,6 @@ public extension ThemedStyle {
         color.setFill()
         color.setStroke()
         NSRectFillList(borderRects, borderRectCount)
-    }
-    
-    public func tabButtonOffset(position position: TabButtonPosition) -> Offset {
-        return NSPoint()
     }
 }
 
