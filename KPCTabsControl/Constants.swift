@@ -66,6 +66,10 @@ public struct BorderMask: OptionSetType {
         self.rawValue = rawValue
     }
     
+    public static func all() -> BorderMask {
+        return BorderMask.top.union(BorderMask.left).union(BorderMask.right).union(BorderMask.bottom)
+    }
+    
     public static let top = BorderMask(rawValue: 1 << 0)
     public static let left = BorderMask(rawValue: 1 << 1)
     public static let right = BorderMask(rawValue: 1 << 2)
