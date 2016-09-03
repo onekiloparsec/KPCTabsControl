@@ -73,14 +73,14 @@ class TabButtonCell: NSButtonCell {
     }
 
     func hasRoomToDrawFullTitle(inRect rect: NSRect) -> Bool {
-        let title = self.style.attributedTitle(content: self.attributedTitle.string, selectionState: self.selectionState)
+        let title = self.style.attributedTitle(content: self.title, selectionState: self.selectionState)
         let requiredMinimumWidth = title.size().width + 2.0*titleMargin
         let titleDrawRect = self.titleRectForBounds(rect)
         return requiredMinimumWidth <= NSWidth(titleDrawRect)
     }
 
     override func cellSizeForBounds(aRect: NSRect) -> NSSize {
-        let title = self.style.attributedTitle(content: self.attributedTitle.string, selectionState: self.selectionState)
+        let title = self.style.attributedTitle(content: self.title, selectionState: self.selectionState)
         let titleSize = title.size()
         let popupSize = (self.menu == nil) ? NSZeroSize : TabButtonCell.popupImage().size
         let cellSize = NSMakeSize(titleSize.width + (popupSize.width * 2) + 36, max(titleSize.height, popupSize.height))
@@ -121,7 +121,7 @@ class TabButtonCell: NSButtonCell {
     }
     
     override func titleRectForBounds(theRect: NSRect) -> NSRect {
-        let title = self.style.attributedTitle(content: self.attributedTitle.string, selectionState: self.selectionState)
+        let title = self.style.attributedTitle(content: self.title, selectionState: self.selectionState)
         var rect = self.style.titleRect(title: title, inBounds: theRect, showingIcon: self.showsIcon)
         if self.showsMenu {
             let popupRect = self.popupRectWithFrame(theRect)
@@ -177,7 +177,7 @@ class TabButtonCell: NSButtonCell {
         self.style.drawTabButtonBezel(frame: frame, position: self.buttonPosition, isSelected: self.isSelected)
         
         if self.hasRoomToDrawFullTitle(inRect: frame) || self.hasTitleAlternativeIcon == false {
-            let title = self.style.attributedTitle(content: self.attributedTitle.string, selectionState: self.selectionState)
+            let title = self.style.attributedTitle(content: self.title, selectionState: self.selectionState)
             self.drawTitle(title, withFrame: frame, inView: controlView)
         }
 
