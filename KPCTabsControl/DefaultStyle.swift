@@ -10,6 +10,7 @@ import Cocoa
 
 public enum TitleDefaults {
     static let alignment = NSTextAlignment.Center
+    static let lineBreakMode = NSLineBreakMode.ByTruncatingMiddle
 }
 
 public extension ThemedStyle {
@@ -104,7 +105,7 @@ public extension ThemedStyle {
         
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = TitleDefaults.alignment
-        paragraphStyle.lineBreakMode = .ByTruncatingMiddle
+        paragraphStyle.lineBreakMode = TitleDefaults.lineBreakMode
         
         let attributes = [NSForegroundColorAttributeName : titleColor,
                           NSFontAttributeName : font,
