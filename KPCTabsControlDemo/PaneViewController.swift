@@ -49,7 +49,7 @@ class PaneViewController: NSViewController, TabsControlDataSource, TabsControlDe
         
         self.tabsBar?.dataSource = self
         self.tabsBar?.delegate = self
-        self.tabsBar!.reloadTabs()
+        self.tabsBar?.reloadTabs()
     }
         
     // MARK: TabsControlDataSource
