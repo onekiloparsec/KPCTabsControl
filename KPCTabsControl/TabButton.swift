@@ -52,7 +52,6 @@ public class TabButton: NSButton {
                 self.iconView = nil
             }
             self.iconView?.image = self.icon
-            self.tabButtonCell?.showsIcon = (self.icon != nil)
             self.needsDisplay = true
         }
     }
@@ -157,12 +156,12 @@ public class TabButton: NSButton {
     
     public override func mouseEntered(theEvent: NSEvent) {
         super.mouseEntered(theEvent)
-        self.tabButtonCell?.showsMenu = self.cell?.menu?.itemArray.count > 0
+        self.needsDisplay = true
     }
     
     public override func mouseExited(theEvent: NSEvent) {
         super.mouseExited(theEvent)
-        self.tabButtonCell?.showsMenu = false
+        self.needsDisplay = true
     }
     
     public override func resetCursorRects() {

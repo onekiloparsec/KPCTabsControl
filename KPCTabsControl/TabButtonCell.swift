@@ -19,12 +19,12 @@ class TabButtonCell: NSButtonCell {
         get { return self.state == NSOnState }
     }
 
-    var showsIcon: Bool = false {
-        didSet { self.controlView?.needsDisplay = true }
+    var showsIcon: Bool {
+        get { return (self.controlView as! TabButton).icon != nil }
     }
 
-    var showsMenu: Bool = false {
-        didSet { self.controlView?.needsDisplay = true }
+    var showsMenu: Bool {
+        get { return self.menu?.itemArray.count > 0 }
     }
 
     var buttonPosition: TabButtonPosition = .middle {
@@ -53,8 +53,6 @@ class TabButtonCell: NSButtonCell {
         let copy = TabButtonCell(textCell:self.title)
 
         copy.hasTitleAlternativeIcon = self.hasTitleAlternativeIcon
-        copy.showsIcon = self.showsIcon
-        copy.showsMenu = self.showsMenu
         copy.buttonPosition = self.buttonPosition
 
         copy.state = self.state
@@ -111,7 +109,6 @@ class TabButtonCell: NSButtonCell {
                                                     atLocation: NSMakePoint(NSMidX(popupRect), NSMaxY(popupRect)),
                                                     inView: controlView)
                 
-                self.showsMenu = true
                 return true
             }
         }
