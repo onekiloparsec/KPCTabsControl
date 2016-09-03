@@ -64,10 +64,11 @@ Highlighting
 The tabs control support the possibility to be highlighted. This is useful when you have multiple subviews, for instance using <a href="https://github.com/onekiloparsec/KPCSplitPanes">KPCSplitPanes</a>, each with tab controls, and you need to indicate to the user which subview is actually 'active'. (In the screenshot above, the upper tabs have a darker background than the lower ones).
 
 
-Author
+Authors
 ------
 
-[Cédric Foellmi](https://github.com/onekiloparsec) ([@onekiloparsec](https://twitter.com/onekiloparsec))
+[Cédric Foellmi](https://github.com/onekiloparsec) ([@onekiloparsec](https://twitter.com/onekiloparsec)) <br/>
+[Christian Tietze](https://github.com/DivineDominion) ([@ctietze](https://twitter.com/ctietze))
 
 
 LICENSE & NOTES
