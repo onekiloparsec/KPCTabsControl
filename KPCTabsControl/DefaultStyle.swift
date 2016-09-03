@@ -152,19 +152,19 @@ private enum BorderDrawing {
         var borderRects: [NSRect] = [NSZeroRect, NSZeroRect, NSZeroRect, NSZeroRect]
         
         if mask.contains(.top) {
-            NSDivideRect(sourceRect, &borderRects[outputCount], &remainderRect, 1, .MinY)
+            NSDivideRect(sourceRect, &borderRects[outputCount], &remainderRect, 0.5, .MinY)
             outputCount += 1
         }
         if mask.contains(.left) {
-            NSDivideRect(sourceRect, &borderRects[outputCount], &remainderRect, 1, .MinX)
+            NSDivideRect(sourceRect, &borderRects[outputCount], &remainderRect, 0.5, .MinX)
             outputCount += 1
         }
         if mask.contains(.right) {
-            NSDivideRect(sourceRect, &borderRects[outputCount], &remainderRect, 1, .MaxX)
+            NSDivideRect(sourceRect, &borderRects[outputCount], &remainderRect, 0.5, .MaxX)
             outputCount += 1
         }
         if mask.contains(.bottom) {
-            NSDivideRect(sourceRect, &borderRects[outputCount], &remainderRect, 1, .MaxY)
+            NSDivideRect(sourceRect, &borderRects[outputCount], &remainderRect, 0.5, .MaxY)
             outputCount += 1
         }
         
@@ -174,7 +174,7 @@ private enum BorderDrawing {
     }
 }
 
-// MARK: -
+// MARK: - 
 
 /**
  *  The default TabsControl style. Used with the DefaultTheme, it provides an experience similar to Apple's Numbers.app.
