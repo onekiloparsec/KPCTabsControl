@@ -23,12 +23,12 @@ public struct SafariStyle: ThemedStyle {
         return (NSZeroRect, NSZeroRect)
     }
     
-    public func tabsControlBorderMask() -> BorderMask? {
-        return nil
-    }
-    
     public func tabButtonBorderMask(position: TabButtonPosition) -> BorderMask? {
-        return nil
+        return [.bottom, .top, .right]
+    }
+
+    public func tabsControlBorderMask() -> BorderMask? {
+        return BorderMask.all()
     }
 }
 
