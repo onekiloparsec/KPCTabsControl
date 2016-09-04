@@ -26,8 +26,8 @@ class ViewController: NSViewController {
 
         self.paneDefault?.items = [Item(title: "Default 1", icon: NSImage(named: "Star"), menu: nil, altIcon: nil, selectable: false),
                                    Item(title: "Default 2", icon: NSImage(named: "Oval"), menu: tab2Menu, altIcon: nil),
-                                   Item(title: "Default 3 Long Title", icon: nil, menu: nil, altIcon: NSImage(named: "Polygon")),
-                                   Item(title: "Default 4 Longish Title", icon: nil, menu: nil, altIcon: NSImage(named: "Spiral")),
+                                   Item(title: "Default 3 Long Title", icon: nil, menu: nil, altIcon: NSImage(named: "ArrowTemplate")),
+                                   Item(title: "Default 4 Longish Title", icon: nil, menu: nil, altIcon: nil),
                                    Item(title: "Default 5", icon: nil, menu: nil, altIcon: nil)]
                                     
         

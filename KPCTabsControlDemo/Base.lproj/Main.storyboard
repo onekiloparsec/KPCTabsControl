@@ -681,9 +681,9 @@
                                         <autoresizingMask key="autoresizingMask"/>
                                         <subviews>
                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="c1G-E0-GKJ" customClass="TabsControl" customModule="KPCTabsControl">
-                                                <rect key="frame" x="0.0" y="141" width="480" height="21"/>
+                                                <rect key="frame" x="0.0" y="138" width="480" height="24"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="21" id="5gB-1a-Xtv"/>
+                                                    <constraint firstAttribute="height" constant="24" id="5gB-1a-Xtv"/>
                                                 </constraints>
                                             </customView>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ag9-Gu-Del">
