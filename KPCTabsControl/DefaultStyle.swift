@@ -84,10 +84,6 @@ public extension ThemedStyle {
 
     // MARK: - Tabs Control
     
-    public var recommendedTabsControlHeight: CGFloat {
-        return 21.0
-    }
-
     public func tabsControlBorderMask() -> BorderMask? {
         return BorderMask.top.union(BorderMask.bottom)
     }
@@ -168,6 +164,7 @@ private enum BorderDrawing {
 public struct DefaultStyle: ThemedStyle {
     public let theme: Theme
     public let tabButtonWidth: TabWidth
+    public let tabsControlRecommendedHeight: CGFloat = 24.0
 
     public init(theme: Theme = DefaultTheme(), tabButtonWidth: TabWidth = .Flexible(min: 50, max: 150)) {
         self.theme = theme

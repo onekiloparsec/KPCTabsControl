@@ -25,7 +25,7 @@ public protocol Style {
     func attributedTitle(content content: String, selectionState: TabSelectionState) -> NSAttributedString
 
     // Tabs Control
-    var recommendedTabsControlHeight: CGFloat { get }
+    var tabsControlRecommendedHeight: CGFloat { get }
     func tabsControlBorderMask() -> BorderMask?
     
     // Drawing

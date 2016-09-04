@@ -11,7 +11,7 @@ import AppKit
 public struct SafariStyle: ThemedStyle {
     public let theme: Theme
     public let tabButtonWidth: TabWidth
-    public let recommendedTabsControlHeight: CGFloat = 24.0
+    public let tabsControlRecommendedHeight: CGFloat = 24.0
     
     public init(theme: Theme = SafariTheme(), tabButtonWidth: TabWidth = .Full) {
         self.theme = theme
