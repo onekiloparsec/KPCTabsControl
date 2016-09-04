@@ -31,7 +31,7 @@ public extension ThemedStyle {
 
     public func iconFrames(tabRect rect: NSRect) -> IconFrames {
         
-        let verticalPadding: CGFloat = 2.0
+        let verticalPadding: CGFloat = 4.0
         let paddedHeight = CGRectGetHeight(rect) - 2*verticalPadding
         let x = CGRectGetWidth(rect) / 2.0 - paddedHeight / 2.0
         
