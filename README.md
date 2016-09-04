@@ -22,16 +22,21 @@ KPCTabsControl
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Codewake](https://www.codewake.com/badges/ask_question.svg)](https://www.codewake.com/p/kpctabscontrol)
  
-A multi-tabs control first designed to look and behave like the tab control in Apple's Numbers spreadsheet, with enhanced capabilities, and soon, new tab styles, such as Chrome, Safari or Xcode as well as custom ones. 
-
-The complete rewrite in Swift is ongoing, and will labelled 2.0 and on. You can participate [here](https://github.com/onekiloparsec/KPCTabsControl/issues/9). The last stable (and Pod) version (written in Obj-C) is 1.6.3 and is well suited for production, even in a Swift app. 
+A multi-tabs control first designed to look and behave like the tab control in Apple's Numbers spreadsheet, with enhanced capabilities, but now with new tab styles, such as Chrome & Safari, as well as custom ones.  
  
-Below a screenshot of the 1.6.3 demo app with two series of tabs (showing the highlight effect). 
-![Demo Tabs Screenshot](http://www.onekilopars.ec/s/KPCTabsControlScreenshot1.png)
+![Demo Tabs Screenshot](http://www.onekilopars.ec/s/KPCTabsControl2Screenshot.png)
 
-KPCTabsControl also has the possibility to provide alternative icons for titles too large to be drawn without linebreak. When the icons are visible, the tabs titles are moved to the tooltips of the buttons.
+KPCTabsControl provides the following features:
 
- ![Demo Auxiliary Icons](http://www.onekilopars.ec/s/KPCTabsControlAuxiliaryIconMovie.gif) 
+* Custom styles and themes! Default (Numbers.app-like), Chrome and Safari are provided. But you can easily write your own!
+* Styles & themes comprise title styles, title editor style, (un)selected/unselectable backgrounds, borders, colors, fonts etc.
+* Common dataSource/delegate Cocoa APIs
+* Tabs can span the whole view width, or be flexible inside min&max.
+* Tabs can be reordered, and renamed in place.
+* When provided, the title can be replaced by an alternative icon when the width is too narrow for the title to be drawn.
+
+
+ ![Demo Auxiliary Icons](http://www.onekilopars.ec/s/KPCTabsControl2Demo.gif) 
 
 
 Installation
@@ -48,20 +53,6 @@ Usage
 KPCTabsControl is designed for you to use only the `KPCTabsControl` class, and its associated data source methods. Simply place a `NSView` in a xib, where you need tabs, change its class to `KPCTabsControl` and assign its dataSource property. Then implement the data source methods in your controller.
 
 You can also assign a delegate if you want to play with the editing and the reordering of the tab titles.
-
-
-Customization
--------------
-
-Tabs can be customized: max width, min width, full-size width, colors, hightlighted colors, borders, selection colors, color titles etc. Each tab can have an icon and/or a menu (whose arrow appears only when mouse is over).
-
-Tabs titles can be edited in place, and tabs can be reordred by simple drag & drop (with small animations).
-
-
-Highlighting
-------------
-
-The tabs control support the possibility to be highlighted. This is useful when you have multiple subviews, for instance using <a href="https://github.com/onekiloparsec/KPCSplitPanes">KPCSplitPanes</a>, each with tab controls, and you need to indicate to the user which subview is actually 'active'. (In the screenshot above, the upper tabs have a darker background than the lower ones).
 
 
 Authors
