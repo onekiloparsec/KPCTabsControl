@@ -18,12 +18,6 @@ public struct ChromeStyle: ThemedStyle {
         self.tabButtonWidth = tabButtonWidth
     }
 
-    public func maxIconHeight(tabRect rect: NSRect, scale: CGFloat) -> CGFloat {
-        let verticalPadding: CGFloat = 4.0
-        let paddedHeight = rect.height - 2 * verticalPadding
-        return 1.2 * paddedHeight * scale
-    }
-
     public func iconFrames(tabRect rect: NSRect) -> IconFrames {
         
         let paddedHeight = PaddedHeight.fromFrame(rect)

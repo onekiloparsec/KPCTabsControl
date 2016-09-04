@@ -38,13 +38,7 @@ public extension ThemedStyle {
         return (NSMakeRect(10.0, verticalPadding, paddedHeight, paddedHeight),
                 NSMakeRect(x, verticalPadding, paddedHeight, paddedHeight))
     }
-    
-    public func maxIconHeight(tabRect rect: NSRect, scale: CGFloat = 1.0) -> CGFloat {
-        let verticalPadding: CGFloat = 2.0
-        let paddedHeight = CGRectGetHeight(rect) - 2 * verticalPadding
-        return 1.2 * paddedHeight * scale
-    }
-    
+        
     public func titleRect(title title: NSAttributedString, inBounds rect: NSRect, showingIcon: Bool) -> NSRect {
         
         let titleSize = title.size()
