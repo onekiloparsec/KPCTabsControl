@@ -37,7 +37,14 @@ public protocol Theme {
 }
 
 public extension Theme {
-    public func tabButtonThemeFromSelectionState(selectionState : TabSelectionState) -> TabButtonTheme {
+    /**
+     Convenience function that select the theme corresponding to the right selection state.
+     
+     - parameter selectionState: The tab selection state
+     
+     - returns: The theme crresponding to the selection state.
+     */
+    public func tabButtonTheme(fromSelectionState selectionState : TabSelectionState) -> TabButtonTheme {
         switch selectionState {
         case .Normal: return self.tabButtonTheme
         case .Selected: return self.selectedTabButtonTheme

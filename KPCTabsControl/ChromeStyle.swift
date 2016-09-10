@@ -61,7 +61,7 @@ public struct ChromeStyle: ThemedStyle {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = Defaults.alignment
 
-        let activeTheme = self.theme.tabButtonThemeFromSelectionState(selectionState)
+        let activeTheme = self.theme.tabButtonTheme(fromSelectionState: selectionState)
 
         let attributes = [NSParagraphStyleAttributeName: paragraphStyle,
                           NSFontAttributeName: activeTheme.titleFont,

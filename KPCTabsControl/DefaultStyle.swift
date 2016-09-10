@@ -69,7 +69,7 @@ public extension ThemedStyle {
     
     public func attributedTitle(content content: String, selectionState: TabSelectionState) -> NSAttributedString {
         
-        let activeTheme = self.theme.tabButtonThemeFromSelectionState(selectionState)
+        let activeTheme = self.theme.tabButtonTheme(fromSelectionState: selectionState)
         
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = TitleDefaults.alignment
