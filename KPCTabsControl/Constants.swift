@@ -23,6 +23,14 @@ public enum TabPosition {
     case middle
     case last
     
+    /**
+     Convenience function to get TabPosition from a given index compared to a given total count.
+     
+     - parameter idx:        The index for which one wants the position
+     - parameter totalCount: The total count of tabs
+     
+     - returns: The tab position
+     */
     static func fromIndex(idx: Int, totalCount: Int) -> TabPosition {
         switch idx {
         case 0: return .first
@@ -32,15 +40,24 @@ public enum TabPosition {
     }
 }
 
+/**
+ The tab width modes.
+ 
+ - Full:     The tab widths will be equally distributed accross the tabs control width.
+ - Flexible: The tab widths will be adjusted between min and max, depending on the tabs control width.
+ */
 public enum TabWidth {
     case Full
     case Flexible(min: CGFloat, max: CGFloat)
 }
 
-func ==(t1: TabWidth, t2: TabWidth) -> Bool {
-    return String(t1) == String(t2)
-}
-
+/**
+ The tab selection state.
+ 
+ - Normal:       The tab is not selected.
+ - Selected:     The tab is selected.
+ - Unselectable: The tab is not selectable.
+ */
 public enum TabSelectionState {
     case Normal
     case Selected

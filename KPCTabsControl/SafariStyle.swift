@@ -8,6 +8,9 @@
 
 import AppKit
 
+/**
+ *  The Safari style. Use mostly the default implementation of Style.
+ */
 public struct SafariStyle: ThemedStyle {
     public let theme: Theme
     public let tabButtonWidth: TabWidth

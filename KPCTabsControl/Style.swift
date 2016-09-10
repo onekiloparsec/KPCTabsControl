@@ -12,6 +12,9 @@ public typealias IconFrames = (iconFrame: NSRect, alternativeTitleIconFrame: NSR
 
 public typealias TitleEditorSettings = (textColor: NSColor, font: NSFont, alignment: NSTextAlignment)
 
+/**
+ *  The Style protocol defines all the necessary things to let KPCTabsControl draw itself with tabs.
+ */
 public protocol Style {
     // Tab Buttons
     var tabButtonWidth: TabWidth { get }
@@ -33,6 +36,10 @@ public protocol Style {
     func drawTabsControlBezel(frame frame: NSRect)
 }
 
+/**
+ *  The default Style protocol doesn't necessary have a theme associated with it, for custom styles.
+ *  However, provided styles (Numbers.app-like, Safari and Chrome) have an associated theme.
+ */
 public protocol ThemedStyle : Style {
     var theme: Theme { get }
 }

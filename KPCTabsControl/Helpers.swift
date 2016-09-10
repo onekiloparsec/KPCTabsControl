@@ -8,8 +8,8 @@
 
 import Foundation
 
+/// Offset is a simple NSPoint typealias to increase readability.
 public typealias Offset = NSPoint
-
 public extension Offset {
     
     public init(x: CGFloat) {
@@ -24,7 +24,7 @@ public extension Offset {
 }
 
 /**
- Addition operator to NSPoints and Offsets.
+ Addition operator for NSPoints and Offsets.
  
  - parameter lhs: lef-hand side point
  - parameter rhs: right-hand side offset to be added to the point.
@@ -35,6 +35,9 @@ public func +(lhs: NSPoint, rhs: Offset) -> NSPoint {
     return NSPoint(x: lhs.x + rhs.x, y: lhs.y + rhs.y)
 }
 
+/**
+ A convenience extension to easily shrink a NSRect
+ */
 public extension NSRect {
     
     /// Change width and height by `-dx` and `-dy`.
@@ -44,4 +47,16 @@ public extension NSRect {
         result.size = CGSize(width: result.size.width - dx, height: result.size.height - dy)
         return result
     }
+}
+
+/**
+ Convenience function to easily compare tab widths.
+ 
+ - parameter t1: The first tab width
+ - parameter t2: The second tab width
+ 
+ - returns: A boolean to indicate whether the tab widths are identical or not.
+ */
+func ==(t1: TabWidth, t2: TabWidth) -> Bool {
+    return String(t1) == String(t2)
 }
