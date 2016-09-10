@@ -8,9 +8,9 @@
 
 import Foundation
 
-extension SequenceType {
-
-    func findFirst(predicate: (Self.Generator.Element) -> Bool) -> Self.Generator.Element? {
+internal extension SequenceType {
+    
+    internal func findFirst(predicate: (Self.Generator.Element) -> Bool) -> Self.Generator.Element? {
 
         for element in self {
             if predicate(element) {

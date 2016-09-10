@@ -8,8 +8,8 @@
 
 import AppKit
 
-extension NSImage {
-    func KPC_imageWithTint(tint: NSColor) -> NSImage {
+internal extension NSImage {
+    internal func imageWithTint(tint: NSColor) -> NSImage {
         var imageRect = NSZeroRect;
         imageRect.size = self.size;
         

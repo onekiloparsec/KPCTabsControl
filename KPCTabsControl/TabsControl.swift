@@ -553,7 +553,7 @@ public class TabsControl: NSControl, NSTextDelegate {
     
     // MARK: - Helpers
     
-    var tabButtons: [TabButton] {
+    private var tabButtons: [TabButton] {
         guard let tabsView = self.tabsView else { return [] }
         return tabsView.subviews.flatMap { $0 as? TabButton }
     }

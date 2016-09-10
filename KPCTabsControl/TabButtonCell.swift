@@ -69,7 +69,7 @@ class TabButtonCell: NSButtonCell {
 
     static func popupImage() -> NSImage {
         let path = NSBundle(forClass: self).pathForImageResource("KPCPullDownTemplate")!
-        return NSImage(contentsOfFile: path)!.KPC_imageWithTint(NSColor.darkGrayColor())
+        return NSImage(contentsOfFile: path)!.imageWithTint(NSColor.darkGrayColor())
     }
 
     func hasRoomToDrawFullTitle(inRect rect: NSRect) -> Bool {

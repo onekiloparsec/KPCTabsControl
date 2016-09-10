@@ -8,7 +8,7 @@
 
 import Foundation
 
-class MessageInterceptor : NSObject {
+internal class MessageInterceptor : NSObject {
     var receiver: NSObject?;
     var middleMan: NSObject?;
     
