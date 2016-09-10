@@ -23,6 +23,8 @@ public class TabsControl: NSControl, NSTextDelegate {
     private var scrollRightButton: NSButton? = nil
     private var hideScrollButtons: Bool = true
 
+    private var editingTab: (title: String, button: TabButton)?
+
     private var tabsControlCell: TabsControlCell {
         get { return self.cell as! TabsControlCell }
     }
@@ -84,13 +86,13 @@ public class TabsControl: NSControl, NSTextDelegate {
         self.addSubview(self.scrollView)
         
         if self.hideScrollButtons == false {
-            self.scrollLeftButton = NSButton.KPC_auxiliaryButton(withImageNamed: "KPCTabLeftTemplate",
-                                                                 target: self,
-                                                                 action: #selector(TabsControl.scrollTabView(_:)))
+            self.scrollLeftButton = NSButton.auxiliaryButton(withImageNamed: "KPCTabLeftTemplate",
+                                                             target: self,
+                                                             action: #selector(TabsControl.scrollTabView(_:)))
             
-            self.scrollRightButton = NSButton.KPC_auxiliaryButton(withImageNamed: "KPCTabRightTemplate",
-                                                                  target: self,
-                                                                  action: #selector(TabsControl.scrollTabView(_:)))
+            self.scrollRightButton = NSButton.auxiliaryButton(withImageNamed: "KPCTabRightTemplate",
+                                                              target: self,
+                                                              action: #selector(TabsControl.scrollTabView(_:)))
             
             self.scrollLeftButton?.autoresizingMask = .ViewMinXMargin
             self.scrollLeftButton?.autoresizingMask = .ViewMinXMargin
@@ -129,7 +131,7 @@ public class TabsControl: NSControl, NSTextDelegate {
     // MARK: - Data Source
     
     /**
-     Reloads all tabs of the tabs control. Useful when the `dataSource` has changed.
+     Reloads all tabs of the tabs control. Used when the `dataSource` has changed for instance.
      */
     public func reloadTabs() {
         guard let dataSource = self.dataSource else { return }
@@ -175,6 +177,7 @@ public class TabsControl: NSControl, NSTextDelegate {
     private func updateTabs(animated animated: Bool = false) {
         self.layoutTabButtons(nil, animated: animated)
         self.updateAuxiliaryButtons()
+        self.invalidateRestorableState()
     }
 
     private func layoutTabButtons(buttons: [TabButton]?, animated: Bool) {
@@ -229,6 +232,7 @@ public class TabsControl: NSControl, NSTextDelegate {
         
         self.scrollLeftButton?.hidden = !showScrollButtons
         self.scrollRightButton?.hidden = !showScrollButtons
+        
         if showScrollButtons == true {
             self.scrollLeftButton?.enabled = self.visibilityCondition(forButton: self.scrollLeftButton!, forLeftHandSide: true)
             self.scrollRightButton?.enabled = self.visibilityCondition(forButton: self.scrollRightButton!, forLeftHandSide: false)
@@ -364,6 +368,7 @@ public class TabsControl: NSControl, NSTextDelegate {
                 
                 temporarySelectedButtonIndex += secondIndex-primaryIndex
                 self.layoutTabButtons(orderedTabs, animated: true)
+                self.invalidateRestorableState()
                 reordered = true
             }
         }
@@ -377,6 +382,7 @@ public class TabsControl: NSControl, NSTextDelegate {
             else { return }
 
         self.selectedButtonIndex = button.index
+        self.invalidateRestorableState()
 
         NSApp.sendAction(self.action, to: self.target, from: self)
         NSNotificationCenter.defaultCenter().postNotificationName(TabsControlSelectionDidChangeNotification, object: self)
@@ -418,11 +424,12 @@ public class TabsControl: NSControl, NSTextDelegate {
     var selectedButtonIndex: Int? = nil {
         didSet {
             self.scrollToSelectedButton()
+            
             self.updateButtonStatesForSelection()
             self.layoutTabButtons(nil, animated: false)
+            self.invalidateRestorableState()
 
             NSNotificationCenter.defaultCenter().postNotificationName(TabsControlSelectionDidChangeNotification, object: self)
-            self.invalidateRestorableState()
         }
     }
     
@@ -449,15 +456,12 @@ public class TabsControl: NSControl, NSTextDelegate {
 
     // MARK: - Editing
 
-    private var editingTab: (title: String, button: TabButton)?
-
-    /// Starts editing the tab as if the user double-clicked on it. 
-    /// If `index` is out of bounds, it does nothing.
+    /// Starts editing the tab as if the user double-clicked on it. If `index` is out of bounds, it does nothing.
     public func editTabAtIndex(index: Int) {
-
+        
         guard let tabButton = self.tabButtons[safe: index] else { return }
 
-        editTabButton(tabButton)
+        self.editTabButton(tabButton)
     }
 
     func editTabButton(tab: TabButton) {
