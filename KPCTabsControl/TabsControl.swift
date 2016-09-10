@@ -135,22 +135,40 @@ public class TabsControl: NSControl, NSTextDelegate {
      */
     public func reloadTabs() {
         guard let dataSource = self.dataSource else { return }
-        
-        self.tabButtons.forEach { $0.removeFromSuperview() }
-        
+                
+        let oldItemsCount = self.tabButtons.count
         let newItemsCount = dataSource.tabsControlNumberOfTabs(self)
+        
+        if newItemsCount < oldItemsCount {
+            self.tabButtons.filter({ $0.index >= self.tabButtons.count }).forEach({ $0.removeFromSuperview() })
+        }
+        
+        var tabButtons = self.tabButtons
         for i in 0..<newItemsCount {
             let item = dataSource.tabsControl(self, itemAtIndex: i)
-            let button = TabButton(index: i,
+            
+            var button : TabButton
+            if i >= oldItemsCount {
+                button = TabButton(index: i,
                                    item: item,
                                    target: self,
                                    action: #selector(TabsControl.selectTab(_:)),
                                    style: self.style)
+                
+                button.wantsLayer = true
+                button.state = NSOffState
+                self.tabsView.addSubview(button)
+            }
+            else {
+                button = tabButtons[i]
+            }
             
-            button.wantsLayer = true
-            button.state = NSOffState
+            button.index = i
+            button.item = item
+            
             button.editable = self.delegate?.tabsControl?(self, canEditTitleOfItem: item) == true
             button.buttonPosition = TabPosition.fromIndex(i, totalCount: newItemsCount)
+            button.style = self.style
 
             button.title = dataSource.tabsControl(self, titleForItem: item)
             
@@ -162,9 +180,7 @@ public class TabsControl: NSControl, NSTextDelegate {
             }
             if let altIcon = dataSource.tabsControl?(self, titleAlternativeIconForItem: item) {
                 button.alternativeTitleIcon = altIcon
-            }
-            
-            self.tabsView.addSubview(button)
+            }            
         }
         
         self.layoutTabButtons(nil, animated: false)
@@ -332,6 +348,7 @@ public class TabsControl: NSControl, NSTextDelegate {
                     }
 
                     self.reloadTabs()
+                    self.invalidateRestorableState()
                     self.selectedButtonIndex = temporarySelectedButtonIndex
                 }
                 draggingTab.animator().frame = tab.frame
@@ -559,6 +576,6 @@ public class TabsControl: NSControl, NSTextDelegate {
     
     private var tabButtons: [TabButton] {
         guard let tabsView = self.tabsView else { return [] }
-        return tabsView.subviews.flatMap { $0 as? TabButton }
+        return tabsView.subviews.flatMap({ $0 as? TabButton }).sort({ CGRectGetMinX($0.frame) < CGRectGetMinX($1.frame)})
     }
 }

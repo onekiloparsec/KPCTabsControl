@@ -18,6 +18,11 @@ public class TabButton: NSButton {
         get { return self.cell as? TabButtonCell }
     }
 
+    public var item: AnyObject? {
+        get { return self.cell?.representedObject }
+        set { self.cell?.representedObject = newValue }
+    }
+
     public var style: Style! {
         didSet { self.tabButtonCell?.style = self.style }
     }
