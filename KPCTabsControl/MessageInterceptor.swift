@@ -12,15 +12,15 @@ internal class MessageInterceptor : NSObject {
     var receiver: NSObject?;
     var middleMan: NSObject?;
     
-    override func forwardingTargetForSelector(aSelector: Selector) -> AnyObject? {
-        if self.middleMan?.respondsToSelector(aSelector) == true { return self.middleMan }
-        if self.receiver?.respondsToSelector(aSelector) == true { return self.receiver }
-        return super.forwardingTargetForSelector(aSelector)
+    override func forwardingTarget(for aSelector: Selector) -> Any? {
+        if self.middleMan?.responds(to: aSelector) == true { return self.middleMan }
+        if self.receiver?.responds(to: aSelector) == true { return self.receiver }
+        return super.forwardingTarget(for: aSelector)
     }
     
-    override func respondsToSelector(aSelector: Selector) -> Bool {
-        if self.middleMan?.respondsToSelector(aSelector) == true { return true }
-        if self.receiver?.respondsToSelector(aSelector) == true { return true }
-        return super.respondsToSelector(aSelector)
+    override func responds(to aSelector: Selector) -> Bool {
+        if self.middleMan?.responds(to: aSelector) == true { return true }
+        if self.receiver?.responds(to: aSelector) == true { return true }
+        return super.responds(to: aSelector)
     }    
 }

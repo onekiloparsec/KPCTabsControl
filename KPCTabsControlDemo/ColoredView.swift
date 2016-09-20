@@ -8,20 +8,20 @@
 
 import Cocoa
 
-@IBDesignable public class ColoredView: NSView {
+@IBDesignable open class ColoredView: NSView {
 
-    @IBInspectable public var borderColor: NSColor?
-    @IBInspectable public var backgroundColor: NSColor? = NSColor.blueColor()
+    @IBInspectable open var borderColor: NSColor?
+    @IBInspectable open var backgroundColor: NSColor? = NSColor.blue
 
-    override public func drawRect(dirtyRect: NSRect) {
+    override open func draw(_ dirtyRect: NSRect) {
 
-        super.drawRect(dirtyRect)
+        super.draw(dirtyRect)
 
         fillBackground(dirtyRect)
         drawTopLine(dirtyRect)
     }
 
-    private func fillBackground(dirtyRect: NSRect) {
+    fileprivate func fillBackground(_ dirtyRect: NSRect) {
 
         guard let backgroundColor = self.backgroundColor else { return }
 
@@ -29,13 +29,13 @@ import Cocoa
         NSRectFill(dirtyRect)
     }
 
-    private func drawTopLine(dirtyRect: NSRect) {
+    fileprivate func drawTopLine(_ dirtyRect: NSRect) {
 
         guard let borderColor = self.borderColor else { return }
 
         let line = NSBezierPath()
-        line.moveToPoint(NSMakePoint(0, dirtyRect.height))
-        line.lineToPoint(NSMakePoint(dirtyRect.width, dirtyRect.height))
+        line.move(to: NSMakePoint(0, dirtyRect.height))
+        line.line(to: NSMakePoint(dirtyRect.width, dirtyRect.height))
         line.lineWidth = 1
         borderColor.setStroke()
         line.stroke()

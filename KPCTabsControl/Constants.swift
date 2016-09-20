@@ -31,7 +31,7 @@ public enum TabPosition {
      
      - returns: The tab position
      */
-    static func fromIndex(idx: Int, totalCount: Int) -> TabPosition {
+    static func fromIndex(_ idx: Int, totalCount: Int) -> TabPosition {
         switch idx {
         case 0: return .first
         case totalCount-1: return .last
@@ -47,8 +47,8 @@ public enum TabPosition {
  - Flexible: The tab widths will be adjusted between min and max, depending on the tabs control width.
  */
 public enum TabWidth {
-    case Full
-    case Flexible(min: CGFloat, max: CGFloat)
+    case full
+    case flexible(min: CGFloat, max: CGFloat)
 }
 
 /**
@@ -59,16 +59,16 @@ public enum TabWidth {
  - Unselectable: The tab is not selectable.
  */
 public enum TabSelectionState {
-    case Normal
-    case Selected
-    case Unselectable
+    case normal
+    case selected
+    case unselectable
 }
 
 
 /**
  *  Border mask option set, used in tab buttons and the tabs control itself.
  */
-public struct BorderMask: OptionSetType {
+public struct BorderMask: OptionSet {
     public let rawValue: Int
     
     public init(rawValue: Int) {

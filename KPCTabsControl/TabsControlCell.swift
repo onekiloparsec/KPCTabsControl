@@ -17,22 +17,22 @@ class TabsControlCell: NSCell {
     override init(textCell aString: String) {
         super.init(textCell: aString)
         
-        self.bordered = true
-        self.backgroundStyle = .Light
-        self.focusRingType = .None
-        self.enabled = false
-        self.font = NSFont.systemFontOfSize(13)        
+        self.isBordered = true
+        self.backgroundStyle = .light
+        self.focusRingType = .none
+        self.isEnabled = false
+        self.font = NSFont.systemFont(ofSize: 13)        
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    override func cellSizeForBounds(aRect: NSRect) -> NSSize {
+    override func cellSize(forBounds aRect: NSRect) -> NSSize {
         return NSMakeSize(36.0, 0.0)
     }
     
-    override func drawWithFrame(cellFrame: NSRect, inView controlView: NSView) {
+    override func draw(withFrame cellFrame: NSRect, in controlView: NSView) {
 
         // TODO can we get rid of this by setting `style` earlier?
         guard self.style != nil else { return }
