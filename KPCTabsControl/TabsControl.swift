@@ -421,7 +421,11 @@ open class TabsControl: NSControl, NSTextDelegate {
         self.selectedButtonIndex = button.index
         self.invalidateRestorableState()
 
-        NSApp.sendAction(self.action!, to: self.target, from: self)
+        if let action = self.action,
+            let target = self.target {
+            NSApp.sendAction(action, to: target, from: self)
+        }
+        
         NotificationCenter.default.post(name: Notification.Name(rawValue: TabsControlSelectionDidChangeNotification), object: self)
         self.delegate?.tabsControlDidChangeSelection?(self, item: button.representedObject!)
 
