@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0720"
+   LastUpgradeVersion = "0800"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9F2155D11A002F0200819BDF"
+               BlueprintIdentifier = "9F45CD8F1D396D4200149654"
                BuildableName = "KPCTabsControlDemo.app"
                BlueprintName = "KPCTabsControlDemo"
                ReferencedContainer = "container:KPCTabsControl.xcodeproj">
@@ -56,7 +56,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9F2155D11A002F0200819BDF"
+            BlueprintIdentifier = "9F45CD8F1D396D4200149654"
             BuildableName = "KPCTabsControlDemo.app"
             BlueprintName = "KPCTabsControlDemo"
             ReferencedContainer = "container:KPCTabsControl.xcodeproj">
@@ -79,7 +79,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9F2155D11A002F0200819BDF"
+            BlueprintIdentifier = "9F45CD8F1D396D4200149654"
             BuildableName = "KPCTabsControlDemo.app"
             BlueprintName = "KPCTabsControlDemo"
             ReferencedContainer = "container:KPCTabsControl.xcodeproj">
@@ -98,7 +98,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9F2155D11A002F0200819BDF"
+            BlueprintIdentifier = "9F45CD8F1D396D4200149654"
             BuildableName = "KPCTabsControlDemo.app"
             BlueprintName = "KPCTabsControlDemo"
             ReferencedContainer = "container:KPCTabsControl.xcodeproj">
