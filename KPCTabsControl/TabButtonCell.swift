@@ -198,7 +198,7 @@ class TabButtonCell: NSButtonCell {
         
         if self.hasRoomToDrawFullTitle(inRect: frame) || self.hasTitleAlternativeIcon == false {
             let title = self.style.attributedTitle(content: self.title, selectionState: self.selectionState)
-            self.drawTitle(title, withFrame: frame, in: controlView)
+            _ = self.drawTitle(title, withFrame: frame, in: controlView)
         }
 
         if self.showsMenu {
