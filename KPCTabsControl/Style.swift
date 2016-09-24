@@ -18,22 +18,22 @@ public typealias TitleEditorSettings = (textColor: NSColor, font: NSFont, alignm
 public protocol Style {
     // Tab Buttons
     var tabButtonWidth: TabWidth { get }
-    func tabButtonOffset(position position: TabPosition) -> Offset
-    func tabButtonBorderMask(position: TabPosition) -> BorderMask?
+    func tabButtonOffset(position: TabPosition) -> Offset
+    func tabButtonBorderMask(_ position: TabPosition) -> BorderMask?
     
     // Tab Button Titles
     func iconFrames(tabRect rect: NSRect) -> IconFrames
-    func titleRect(title title: NSAttributedString, inBounds rect: NSRect, showingIcon: Bool) -> NSRect
+    func titleRect(title: NSAttributedString, inBounds rect: NSRect, showingIcon: Bool) -> NSRect
     func titleEditorSettings() -> TitleEditorSettings
-    func attributedTitle(content content: String, selectionState: TabSelectionState) -> NSAttributedString
+    func attributedTitle(content: String, selectionState: TabSelectionState) -> NSAttributedString
 
     // Tabs Control
     var tabsControlRecommendedHeight: CGFloat { get }
     func tabsControlBorderMask() -> BorderMask?
     
     // Drawing
-    func drawTabButtonBezel(frame frame: NSRect, position: TabPosition, isSelected: Bool)
-    func drawTabsControlBezel(frame frame: NSRect)
+    func drawTabButtonBezel(frame: NSRect, position: TabPosition, isSelected: Bool)
+    func drawTabsControlBezel(frame: NSRect)
 }
 
 /**

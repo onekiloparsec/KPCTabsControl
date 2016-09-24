@@ -41,8 +41,8 @@ public func +(lhs: NSPoint, rhs: Offset) -> NSPoint {
 public extension NSRect {
     
     /// Change width and height by `-dx` and `-dy`.
-    @warn_unused_result
-    func shrinkBy(dx dx: CGFloat, dy: CGFloat) -> NSRect {
+    
+    func shrinkBy(dx: CGFloat, dy: CGFloat) -> NSRect {
         var result = self
         result.size = CGSize(width: result.size.width - dx, height: result.size.height - dy)
         return result
@@ -58,5 +58,37 @@ public extension NSRect {
  - returns: A boolean to indicate whether the tab widths are identical or not.
  */
 func ==(t1: TabWidth, t2: TabWidth) -> Bool {
-    return String(t1) == String(t2)
+    return String(describing: t1) == String(describing: t2)
+}
+
+
+/// Helper functions to let compare optionals
+
+func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+    switch (lhs, rhs) {
+    case let (l?, r?):
+        return l < r
+    case (nil, _?):
+        return true
+    default:
+        return false
+    }
+}
+
+func >= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+    switch (lhs, rhs) {
+    case let (l?, r?):
+        return l >= r
+    default:
+        return !(lhs < rhs)
+    }
+}
+
+func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
 }

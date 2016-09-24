@@ -13,7 +13,7 @@ public struct ChromeStyle: ThemedStyle {
     public let tabButtonWidth: TabWidth
     public let tabsControlRecommendedHeight: CGFloat = 34.0
     
-    public init(theme: Theme = ChromeTheme(), tabButtonWidth: TabWidth = .Flexible(min: 80, max: 180)) {
+    public init(theme: Theme = ChromeTheme(), tabButtonWidth: TabWidth = .flexible(min: 80, max: 180)) {
         self.theme = theme
         self.tabButtonWidth = tabButtonWidth
     }
@@ -34,7 +34,7 @@ public struct ChromeStyle: ThemedStyle {
         )
     }
 
-    public func titleRect(title title: NSAttributedString, inBounds rect: NSRect, showingIcon: Bool) -> NSRect {
+    public func titleRect(title: NSAttributedString, inBounds rect: NSRect, showingIcon: Bool) -> NSRect {
         let paddedHeight = PaddedHeight.fromFrame(rect)
         // Left border is angled at 45˚, so it grows proportionally wider
         let iconOffset = showingIcon ? paddedHeight.iconHeight + 4 : 0.0
@@ -47,8 +47,8 @@ public struct ChromeStyle: ThemedStyle {
     }
 
     // TODO: Not sure what to decide about the visibility here? Same for PaddedHeight
-    private enum Defaults {
-        static let alignment = NSTextAlignment.Left
+    fileprivate enum Defaults {
+        static let alignment = NSTextAlignment.left
     }
 
     public func titleEditorSettings() -> TitleEditorSettings {
@@ -57,7 +57,7 @@ public struct ChromeStyle: ThemedStyle {
                 alignment: Defaults.alignment)
     }
 
-    public func attributedTitle(content content: String, selectionState: TabSelectionState) -> NSAttributedString {
+    public func attributedTitle(content: String, selectionState: TabSelectionState) -> NSAttributedString {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = Defaults.alignment
 
@@ -70,12 +70,12 @@ public struct ChromeStyle: ThemedStyle {
         return NSAttributedString(string: content, attributes: attributes)
     }
 
-    private enum PaddedHeight {
+    fileprivate enum PaddedHeight {
 
         case unpadded(CGFloat, originalHeight: CGFloat)
         case padded(CGFloat, originalHeight: CGFloat)
 
-        static func fromFrame(frame: NSRect) -> PaddedHeight {
+        static func fromFrame(_ frame: NSRect) -> PaddedHeight {
 
             let paddedHeight = floor(frame.height * 0.7)
 
@@ -121,7 +121,7 @@ public struct ChromeStyle: ThemedStyle {
         }
     }
 
-    public func drawTabButtonBezel(frame frame: NSRect, position: TabPosition, isSelected: Bool) {
+    public func drawTabButtonBezel(frame: NSRect, position: TabPosition, isSelected: Bool) {
 
         let height: CGFloat = PaddedHeight.fromFrame(frame).value
         let xOffset = height / 2.0
@@ -136,36 +136,36 @@ public struct ChromeStyle: ThemedStyle {
         let path = NSBezierPath()
         
         // Lower left point.
-        path.moveToPoint(lowerLeft)
+        path.move(to: lowerLeft)
         
         // Before aligning to the top, make a slight curve.
         let leftRisingFromPoint = lowerLeft + Offset(x: curve)
         let leftRisingToPoint = lowerLeft + Offset(x: curve, y: -curve)
-        path.appendBezierPathWithArcFromPoint(leftRisingFromPoint, toPoint: leftRisingToPoint, radius: curve)
+        path.appendArc(from: leftRisingFromPoint, to: leftRisingToPoint, radius: curve)
 
         // Before reaching the top, stop at the point of the coming curve
         let leftToppingPoint = upperLeft + Offset(x: -curve, y: curve)
-        path.lineToPoint(leftToppingPoint)
+        path.line(to: leftToppingPoint)
         
         // Curve to the top!
         let leftToppingFromPoint = upperLeft + Offset(x: -curve)
-        path.appendBezierPathWithArcFromPoint(leftToppingFromPoint, toPoint: upperLeft, radius: curve)
+        path.appendArc(from: leftToppingFromPoint, to: upperLeft, radius: curve)
 
         // Line to the upper right
-        path.lineToPoint(upperRight)
+        path.line(to: upperRight)
         
         // Before aligning to fall down, make a slight curve
         let rightFallingFromPoint = upperRight + Offset(x: curve)
         let rightFallingToPoint = upperRight + Offset(x: curve, y: curve)
-        path.appendBezierPathWithArcFromPoint(rightFallingFromPoint, toPoint: rightFallingToPoint, radius: curve)
+        path.appendArc(from: rightFallingFromPoint, to: rightFallingToPoint, radius: curve)
 
         // Before reaching the bottom right, stop at the point of the coming curve
         let rightBottomingPoint = lowerRight + Offset(x: -curve, y: -curve)
-        path.lineToPoint(rightBottomingPoint)
+        path.line(to: rightBottomingPoint)
         
         // Curve to the bottom
         let rightBottomingFromPoint = lowerRight + Offset(x: -curve)
-        path.appendBezierPathWithArcFromPoint(rightBottomingFromPoint, toPoint: lowerRight, radius: curve)
+        path.appendArc(from: rightBottomingFromPoint, to: lowerRight, radius: curve)
 
         path.lineWidth = 1
 
@@ -181,13 +181,13 @@ public struct ChromeStyle: ThemedStyle {
         }
     }
 
-    public func drawTabsControlBezel(frame frame: NSRect) {
+    public func drawTabsControlBezel(frame: NSRect) {
         self.theme.tabsControlTheme.backgroundColor.setFill()
         NSRectFill(frame)
         self.drawBottomBorder(frame: frame)
     }
 
-    private func drawBottomBorder(frame frame: NSRect) {
+    fileprivate func drawBottomBorder(frame: NSRect) {
         let bottomBorder = NSRect(origin: frame.origin + Offset(y: frame.height - 1),
                                   size: NSSize(width: frame.width, height: 1))
         
@@ -195,7 +195,7 @@ public struct ChromeStyle: ThemedStyle {
         NSRectFill(bottomBorder)
     }
 
-    public func tabButtonOffset(position position: TabPosition) -> Offset {
+    public func tabButtonOffset(position: TabPosition) -> Offset {
         switch position {
         case .first: return NSPoint()
         case .middle, .last: return NSPoint(x: -10, y: 0)

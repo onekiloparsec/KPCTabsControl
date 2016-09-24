@@ -17,18 +17,18 @@ public struct ChromeTheme: Theme {
     public let unselectableTabButtonTheme: TabButtonTheme = UnselectableTabButtonTheme(base: DefaultTabButtonTheme())
     public let tabsControlTheme: TabsControlTheme = DefaultTabsControlTheme()
     
-    private static var sharedBorderColor: NSColor { return NSColor(calibratedWhite: 152/256.0, alpha: 1.0) }
-    private static var sharedBackgroundColor: NSColor { return NSColor(calibratedWhite: 216/256.0, alpha: 1.0) }
+    fileprivate static var sharedBorderColor: NSColor { return NSColor(calibratedWhite: 152/256.0, alpha: 1.0) }
+    fileprivate static var sharedBackgroundColor: NSColor { return NSColor(calibratedWhite: 216/256.0, alpha: 1.0) }
 
-    private struct DefaultTabButtonTheme: KPCTabsControl.TabButtonTheme {
+    fileprivate struct DefaultTabButtonTheme: KPCTabsControl.TabButtonTheme {
         
         var backgroundColor: NSColor { return ChromeTheme.sharedBackgroundColor }
         var borderColor: NSColor { return ChromeTheme.sharedBorderColor }
-        var titleColor: NSColor { return NSColor.controlTextColor() }
-        var titleFont: NSFont { return NSFont.systemFontOfSize(14) }
+        var titleColor: NSColor { return NSColor.controlTextColor }
+        var titleFont: NSFont { return NSFont.systemFont(ofSize: 14) }
     }
     
-    private struct SelectedTabButtonTheme: KPCTabsControl.TabButtonTheme {
+    fileprivate struct SelectedTabButtonTheme: KPCTabsControl.TabButtonTheme {
         
         let base: DefaultTabButtonTheme
         
@@ -38,16 +38,16 @@ public struct ChromeTheme: Theme {
         var titleFont: NSFont { return base.titleFont }
     }
     
-    private struct UnselectableTabButtonTheme: KPCTabsControl.TabButtonTheme {
+    fileprivate struct UnselectableTabButtonTheme: KPCTabsControl.TabButtonTheme {
         let base: DefaultTabButtonTheme
         
         var backgroundColor: NSColor { return base.backgroundColor }
         var borderColor: NSColor { return base.borderColor }
-        var titleColor: NSColor { return NSColor.lightGrayColor() }
+        var titleColor: NSColor { return NSColor.lightGray }
         var titleFont: NSFont { return base.titleFont }
     }
 
-    private struct DefaultTabsControlTheme: KPCTabsControl.TabsControlTheme {
+    fileprivate struct DefaultTabsControlTheme: KPCTabsControl.TabsControlTheme {
         
         var borderColor: NSColor { return ChromeTheme.sharedBorderColor }
         var backgroundColor: NSColor { return ChromeTheme.sharedBackgroundColor }

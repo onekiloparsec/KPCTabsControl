@@ -9,24 +9,24 @@
 import AppKit
 
 internal extension NSButton {
-    static internal func auxiliaryButton(withImageNamed imageName: String, target: AnyObject?, action: Selector) -> NSButton {
+    static internal func auxiliaryButton(withImageNamed imageName: String, target: AnyObject?, action: Selector?) -> NSButton {
         
         let cell = TabButtonCell(textCell: "")
-        let mask = NSEventMask.LeftMouseDownMask.union(NSEventMask.PeriodicMask)
-        cell.sendActionOn(Int(mask.rawValue))
+        let mask = NSEventMask.leftMouseDown.union(NSEventMask.periodic)
+        cell.sendAction(on: NSEventMask(rawValue: UInt64(Int(mask.rawValue))))
         
         let button = NSButton()
         button.cell = cell
 
         button.target = target
         button.action = action
-        button.enabled = (target != nil && action != nil)
-        button.continuous = true
-        button.imagePosition = .ImageOnly
+        button.isEnabled = (target != nil && action != nil)
+        button.isContinuous = true
+        button.imagePosition = .imageOnly
         button.image = NSImage(named: imageName)
 
         if let img = button.image {
-            var r: CGRect = CGRectZero
+            var r: CGRect = CGRect.zero
             r.size = img.size
             r.size.width += 4.0
             button.frame = r

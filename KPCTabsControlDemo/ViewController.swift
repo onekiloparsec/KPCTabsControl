@@ -21,8 +21,8 @@ class ViewController: NSViewController {
         self.paneDefault?.tabsBar?.style = DefaultStyle()
         
         let tab2Menu = NSMenu()
-        tab2Menu.addItemWithTitle("Action 1", action: nil, keyEquivalent: "")
-        tab2Menu.addItemWithTitle("Action 2", action: nil, keyEquivalent: "")
+        tab2Menu.addItem(withTitle: "Action 1", action: nil, keyEquivalent: "")
+        tab2Menu.addItem(withTitle: "Action 2", action: nil, keyEquivalent: "")
 
         self.paneDefault?.items = [Item(title: "Default 1", icon: NSImage(named: "Star"), menu: nil, altIcon: nil, selectable: false),
                                    Item(title: "Default 2", icon: NSImage(named: "Oval"), menu: tab2Menu, altIcon: nil),

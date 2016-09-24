@@ -56,57 +56,57 @@ class PaneViewController: NSViewController, TabsControlDataSource, TabsControlDe
         
     // MARK: TabsControlDataSource
     
-    func tabsControlNumberOfTabs(control: TabsControl) -> Int {
+    func tabsControlNumberOfTabs(_ control: TabsControl) -> Int {
         return self.items.count
     }
     
-    func tabsControl(control: TabsControl, itemAtIndex index: Int) -> AnyObject {
+    func tabsControl(_ control: TabsControl, itemAtIndex index: Int) -> AnyObject {
         return self.items[index]
     }
     
-    func tabsControl(control: TabsControl, titleForItem item: AnyObject) -> String {
+    func tabsControl(_ control: TabsControl, titleForItem item: AnyObject) -> String {
         return (item as! Item).title
     }
     
     // MARK: TabsControlDataSource : Optionals
     
-    func tabsControl(control: TabsControl, menuForItem item: AnyObject) -> NSMenu? {
+    func tabsControl(_ control: TabsControl, menuForItem item: AnyObject) -> NSMenu? {
         return (item as! Item).menu
     }
     
-    func tabsControl(control: TabsControl, iconForItem item: AnyObject) -> NSImage? {
+    func tabsControl(_ control: TabsControl, iconForItem item: AnyObject) -> NSImage? {
         return (item as! Item).icon
     }
     
-    func tabsControl(control: TabsControl, titleAlternativeIconForItem item: AnyObject) -> NSImage? {
+    func tabsControl(_ control: TabsControl, titleAlternativeIconForItem item: AnyObject) -> NSImage? {
         return (item as! Item).altIcon
     }
 
     // MARK: TabsControlDelegate
     
-    func tabsControl(control: TabsControl, canReorderItem item: AnyObject) -> Bool {
+    func tabsControl(_ control: TabsControl, canReorderItem item: AnyObject) -> Bool {
         return true
     }
     
-    func tabsControl(control: TabsControl, didReorderItems items: [AnyObject]) {
+    func tabsControl(_ control: TabsControl, didReorderItems items: [AnyObject]) {
         self.items = items.map { $0 as! Item }
     }
     
-    func tabsControl(control: TabsControl, canEditTitleOfItem: AnyObject) -> Bool {
+    func tabsControl(_ control: TabsControl, canEditTitleOfItem: AnyObject) -> Bool {
         return true
     }
     
-    func tabsControl(control: TabsControl, setTitle newTitle: String, forItem item: AnyObject) {
+    func tabsControl(_ control: TabsControl, setTitle newTitle: String, forItem item: AnyObject) {
         let typedItem = item as! Item
         let titles = self.items.map { $0.title }
-        let index = titles.indexOf(typedItem.title)!
+        let index = titles.index(of: typedItem.title)!
 
         let newItem = Item(title: newTitle, icon: typedItem.icon, menu: typedItem.menu, altIcon: typedItem.altIcon)
         let range = index..<index+1
-        self.items.replaceRange(range, with: [newItem])
+        self.items.replaceSubrange(range, with: [newItem])
     }
 
-    func tabsControl(control: TabsControl, canSelectItem item: AnyObject) -> Bool {
+    func tabsControl(_ control: TabsControl, canSelectItem item: AnyObject) -> Bool {
         return (item as! Item).selectable
     }
 }

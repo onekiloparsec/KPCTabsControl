@@ -9,7 +9,7 @@
 import AppKit
 
 internal extension NSImage {
-    internal func imageWithTint(tint: NSColor) -> NSImage {
+    internal func imageWithTint(_ tint: NSColor) -> NSImage {
         var imageRect = NSZeroRect;
         imageRect.size = self.size;
         
@@ -17,10 +17,10 @@ internal extension NSImage {
         
         highlightImage.lockFocus()
         
-        self.drawInRect(imageRect, fromRect: NSZeroRect, operation: .CompositeSourceOver, fraction: 1.0)
+        self.draw(in: imageRect, from: NSZeroRect, operation: .sourceOver, fraction: 1.0)
         
         tint.set()
-        NSRectFillUsingOperation(imageRect, .CompositeSourceAtop);
+        NSRectFillUsingOperation(imageRect, .sourceAtop);
         
         highlightImage.unlockFocus()
         
