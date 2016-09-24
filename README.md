@@ -15,6 +15,7 @@
 KPCTabsControl
 ==============
 
+![](https://img.shields.io/badge/Swift-3.0-blue.svg?style=flat)
 [![Build Status](http://img.shields.io/travis/onekiloparsec/KPCTabsControl.svg?style=flat)](https://travis-ci.org/onekiloparsec/KPCTabsControl)
 ![Version](https://img.shields.io/cocoapods/v/KPCTabsControl.svg?style=flat)
 ![License](https://img.shields.io/cocoapods/l/KPCTabsControl.svg?style=flat)
@@ -23,6 +24,8 @@ KPCTabsControl
 [![Codewake](https://www.codewake.com/badges/ask_question.svg)](https://www.codewake.com/p/kpctabscontrol)
  
 A multi-tabs control first designed to look and behave like the tab control in Apple's Numbers spreadsheet, with enhanced capabilities, but now with new tab styles, such as Chrome & Safari, as well as custom ones.  
+
+On master, you'll find the latest Swift3 releases. If you need to stay with Swift2.2, switch to the swift-2.2 branch.
  
 ![Demo Tabs Screenshot](http://www.onekilopars.ec/s/KPCTabsControl2Screenshot.png)
 
