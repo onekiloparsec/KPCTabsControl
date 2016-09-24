@@ -11,7 +11,7 @@ import AppKit
 /**
  *  The theme of a single Tab button
  */
-public protocol TabButtonTheme {
+@objc public protocol TabButtonTheme {
     var backgroundColor: NSColor { get }
     var borderColor: NSColor { get }
     var titleColor: NSColor { get }
@@ -21,7 +21,7 @@ public protocol TabButtonTheme {
 /**
  *  The theme of the whole TabsControl bar
  */
-public protocol TabsControlTheme {
+@objc public protocol TabsControlTheme {
     var backgroundColor: NSColor { get }
     var borderColor: NSColor { get }
 }
@@ -29,7 +29,7 @@ public protocol TabsControlTheme {
 /**
  *  The theme of a complete TabsControl
  */
-public protocol Theme {
+@objc public protocol Theme {
     var tabButtonTheme: TabButtonTheme { get }
     var selectedTabButtonTheme: TabButtonTheme { get }    
     var unselectableTabButtonTheme: TabButtonTheme { get }

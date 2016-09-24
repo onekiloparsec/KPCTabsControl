@@ -6,7 +6,7 @@ Pod::Spec.new do |s|
   s.license      = { :type => 'MIT', :file => 'LICENSE' }
   s.author       = { "Cédric Foellmi" => "cedric@onekilopars.ec" }
   s.source       = { :git => "https://github.com/onekiloparsec/KPCTabsControl.git", :tag => "#{s.version}" }
-  s.source_files = 'KPCTabsControl/*.{swift}'
+  s.source_files = 'KPCTabsControl/*.{swift,h}'
   s.platform     = :osx, '10.10'
   s.framework    = 'QuartzCore', 'AppKit'
   s.resources    = 'Resources/*.pdf'

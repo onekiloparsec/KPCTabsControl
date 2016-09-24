@@ -18,7 +18,7 @@ public let TabsControlSelectionDidChangeNotification = "TabsControlSelectionDidC
  - middle: Any middle tab button between first and last.
  - last:   The most right-hand tab button
  */
-public enum TabPosition {
+@objc public enum TabPosition: Int {
     case first
     case middle
     case last
@@ -46,9 +46,9 @@ public enum TabPosition {
  - Full:     The tab widths will be equally distributed accross the tabs control width.
  - Flexible: The tab widths will be adjusted between min and max, depending on the tabs control width.
  */
-public enum TabWidth {
+@objc public enum TabWidth: Int {
     case full
-    case flexible(min: CGFloat, max: CGFloat)
+    case flexible
 }
 
 /**
@@ -58,29 +58,8 @@ public enum TabWidth {
  - Selected:     The tab is selected.
  - Unselectable: The tab is not selectable.
  */
-public enum TabSelectionState {
+@objc public enum TabSelectionState: Int {
     case normal
     case selected
     case unselectable
-}
-
-
-/**
- *  Border mask option set, used in tab buttons and the tabs control itself.
- */
-public struct BorderMask: OptionSet {
-    public let rawValue: Int
-    
-    public init(rawValue: Int) {
-        self.rawValue = rawValue
-    }
-    
-    public static func all() -> BorderMask {
-        return BorderMask.top.union(BorderMask.left).union(BorderMask.right).union(BorderMask.bottom)
-    }
-    
-    public static let top = BorderMask(rawValue: 1 << 0)
-    public static let left = BorderMask(rawValue: 1 << 1)
-    public static let right = BorderMask(rawValue: 1 << 2)
-    public static let bottom = BorderMask(rawValue: 1 << 3)
 }

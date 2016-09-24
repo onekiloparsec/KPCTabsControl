@@ -11,26 +11,32 @@ import Cocoa
 /**
  *  The default TabsControl theme. Used with the DefaultStyle, it provides an experience similar to Apple's Numbers.app.
  */
-public struct DefaultTheme: Theme {
+public class DefaultTheme: Theme {
 
     public init() { }
     
     public let tabButtonTheme: TabButtonTheme = DefaultTabButtonTheme()
-    public let selectedTabButtonTheme: TabButtonTheme = SelectedTabButtonTheme(base: DefaultTabButtonTheme())
-    public let unselectableTabButtonTheme: TabButtonTheme = UnselectableTabButtonTheme(base: DefaultTabButtonTheme())
+    public let selectedTabButtonTheme: TabButtonTheme = SelectedTabButtonTheme()
+    public let unselectableTabButtonTheme: TabButtonTheme = UnselectableTabButtonTheme()
     public let tabsControlTheme: TabsControlTheme = DefaultTabsControlTheme()
 
     fileprivate static var sharedBorderColor: NSColor { return NSColor.lightGray }
     fileprivate static var sharedBackgroundColor: NSColor { return NSColor(calibratedWhite: 0.95, alpha: 1.0) }
 
-    fileprivate struct DefaultTabButtonTheme: KPCTabsControl.TabButtonTheme {
+    fileprivate class DefaultTabButtonTheme: KPCTabsControl.TabButtonTheme {
+        public init() { }
+        
         var backgroundColor: NSColor { return DefaultTheme.sharedBackgroundColor }
         var borderColor: NSColor { return DefaultTheme.sharedBorderColor }
         var titleColor: NSColor { return NSColor.darkGray }
         var titleFont: NSFont { return NSFont.systemFont(ofSize: 13) }
     }
 
-    fileprivate struct SelectedTabButtonTheme: KPCTabsControl.TabButtonTheme {
+    fileprivate class SelectedTabButtonTheme: KPCTabsControl.TabButtonTheme {
+        public init() {
+            self.base = DefaultTabButtonTheme()
+        }
+        
         let base: DefaultTabButtonTheme
         let blueColor = NSColor(calibratedRed: 205.0/255.0, green: 222.0/255.0, blue: 244.0/255.0, alpha: 1.0)
 
@@ -40,7 +46,11 @@ public struct DefaultTheme: Theme {
         var titleFont: NSFont { return NSFont.boldSystemFont(ofSize: 13) }
     }
 
-    fileprivate struct UnselectableTabButtonTheme: KPCTabsControl.TabButtonTheme {
+    fileprivate class UnselectableTabButtonTheme: KPCTabsControl.TabButtonTheme {
+        public init() {
+            self.base = DefaultTabButtonTheme()
+        }
+
         let base: DefaultTabButtonTheme
         
         var backgroundColor: NSColor { return base.backgroundColor }
@@ -49,7 +59,9 @@ public struct DefaultTheme: Theme {
         var titleFont: NSFont { return base.titleFont }
     }
     
-    fileprivate struct DefaultTabsControlTheme: KPCTabsControl.TabsControlTheme {
+    fileprivate class DefaultTabsControlTheme: KPCTabsControl.TabsControlTheme {
+        public init() { }
+        
         var backgroundColor: NSColor { return DefaultTheme.sharedBackgroundColor }
         var borderColor: NSColor { return DefaultTheme.sharedBorderColor }
     }

@@ -8,33 +8,41 @@
 
 import AppKit
 
-public struct SafariTheme: Theme {
+public class SafariTheme: Theme {
     
     public init() { }
     
     public let tabButtonTheme: TabButtonTheme = DefaultTabButtonTheme()
     public let selectedTabButtonTheme: TabButtonTheme = SelectedTabButtonTheme()
-    public let unselectableTabButtonTheme: TabButtonTheme = UnselectableTabButtonTheme(base: DefaultTabButtonTheme())
+    public let unselectableTabButtonTheme: TabButtonTheme = UnselectableTabButtonTheme()
     public let tabsControlTheme: TabsControlTheme = DefaultTabsControlTheme()
     
     fileprivate static var sharedBackgroundColor: NSColor { return NSColor(white: 0.72, alpha: 1.0) }
     fileprivate static var sharedBorderColor: NSColor { return NSColor(white: 0.61, alpha: 1.0) }
     
-    fileprivate struct DefaultTabButtonTheme: KPCTabsControl.TabButtonTheme {
+    fileprivate class DefaultTabButtonTheme: KPCTabsControl.TabButtonTheme {
+        public init() { }
+        
         var backgroundColor: NSColor { return SafariTheme.sharedBackgroundColor }
         var borderColor: NSColor { return SafariTheme.sharedBorderColor }
         var titleColor: NSColor { return NSColor(white: 0.38, alpha: 1.0) }
         var titleFont: NSFont { return NSFont.systemFont(ofSize: NSFont.systemFontSize()) }
     }
     
-    fileprivate struct SelectedTabButtonTheme: KPCTabsControl.TabButtonTheme {
+    fileprivate class SelectedTabButtonTheme: KPCTabsControl.TabButtonTheme {
+        public init() { }
+        
         var backgroundColor: NSColor { return NSColor(white: 0.79, alpha: 1.0) }
         var borderColor: NSColor { return NSColor(white: 0.64, alpha: 1.0) }
         var titleColor: NSColor { return NSColor(white: 0.08, alpha: 1.0) }
         var titleFont: NSFont { return NSFont.systemFont(ofSize: NSFont.systemFontSize()) }
     }
 
-    fileprivate struct UnselectableTabButtonTheme: KPCTabsControl.TabButtonTheme {
+    fileprivate class UnselectableTabButtonTheme: KPCTabsControl.TabButtonTheme {
+        public init() {
+            self.base = DefaultTabButtonTheme()
+        }
+        
         let base: DefaultTabButtonTheme
         
         var backgroundColor: NSColor { return base.backgroundColor }
@@ -43,7 +51,9 @@ public struct SafariTheme: Theme {
         var titleFont: NSFont { return base.titleFont }
     }
 
-    fileprivate struct DefaultTabsControlTheme: KPCTabsControl.TabsControlTheme {
+    fileprivate class DefaultTabsControlTheme: KPCTabsControl.TabsControlTheme {
+        public init() { }
+        
         var backgroundColor: NSColor { return SafariTheme.sharedBackgroundColor }
         var borderColor: NSColor { return SafariTheme.sharedBorderColor }
     }

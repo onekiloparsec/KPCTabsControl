@@ -57,6 +57,6 @@ public extension NSRect {
  
  - returns: A boolean to indicate whether the tab widths are identical or not.
  */
-func ==(t1: TabWidth, t2: TabWidth) -> Bool {
+public func ==(t1: TabWidth, t2: TabWidth) -> Bool {
     return String(describing: t1) == String(describing: t2)
 }

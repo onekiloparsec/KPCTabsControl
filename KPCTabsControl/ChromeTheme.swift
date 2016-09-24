@@ -8,19 +8,20 @@
 
 import Cocoa
 
-public struct ChromeTheme: Theme {
+public class ChromeTheme: Theme {
 
     public init() { }
 
     public let tabButtonTheme: TabButtonTheme = DefaultTabButtonTheme()
-    public let selectedTabButtonTheme: TabButtonTheme = SelectedTabButtonTheme(base: DefaultTabButtonTheme())
-    public let unselectableTabButtonTheme: TabButtonTheme = UnselectableTabButtonTheme(base: DefaultTabButtonTheme())
+    public let selectedTabButtonTheme: TabButtonTheme = SelectedTabButtonTheme()
+    public let unselectableTabButtonTheme: TabButtonTheme = UnselectableTabButtonTheme()
     public let tabsControlTheme: TabsControlTheme = DefaultTabsControlTheme()
     
     fileprivate static var sharedBorderColor: NSColor { return NSColor(calibratedWhite: 152/256.0, alpha: 1.0) }
     fileprivate static var sharedBackgroundColor: NSColor { return NSColor(calibratedWhite: 216/256.0, alpha: 1.0) }
 
-    fileprivate struct DefaultTabButtonTheme: KPCTabsControl.TabButtonTheme {
+    fileprivate class DefaultTabButtonTheme: KPCTabsControl.TabButtonTheme {
+        public init() { }
         
         var backgroundColor: NSColor { return ChromeTheme.sharedBackgroundColor }
         var borderColor: NSColor { return ChromeTheme.sharedBorderColor }
@@ -28,7 +29,10 @@ public struct ChromeTheme: Theme {
         var titleFont: NSFont { return NSFont.systemFont(ofSize: 14) }
     }
     
-    fileprivate struct SelectedTabButtonTheme: KPCTabsControl.TabButtonTheme {
+    fileprivate class SelectedTabButtonTheme: KPCTabsControl.TabButtonTheme {
+        public init() {
+            self.base = DefaultTabButtonTheme()
+        }
         
         let base: DefaultTabButtonTheme
         
@@ -38,7 +42,11 @@ public struct ChromeTheme: Theme {
         var titleFont: NSFont { return base.titleFont }
     }
     
-    fileprivate struct UnselectableTabButtonTheme: KPCTabsControl.TabButtonTheme {
+    fileprivate class UnselectableTabButtonTheme: KPCTabsControl.TabButtonTheme {
+        public init() {
+            self.base = DefaultTabButtonTheme()
+        }
+        
         let base: DefaultTabButtonTheme
         
         var backgroundColor: NSColor { return base.backgroundColor }
@@ -47,7 +55,8 @@ public struct ChromeTheme: Theme {
         var titleFont: NSFont { return base.titleFont }
     }
 
-    fileprivate struct DefaultTabsControlTheme: KPCTabsControl.TabsControlTheme {
+    fileprivate class DefaultTabsControlTheme: KPCTabsControl.TabsControlTheme {
+        public init() { }
         
         var borderColor: NSColor { return ChromeTheme.sharedBorderColor }
         var backgroundColor: NSColor { return ChromeTheme.sharedBackgroundColor }

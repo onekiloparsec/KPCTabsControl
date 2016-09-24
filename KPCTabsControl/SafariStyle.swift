@@ -11,19 +11,19 @@ import AppKit
 /**
  *  The Safari style. Use mostly the default implementation of Style.
  */
-public struct SafariStyle: ThemedStyle {
-    public let theme: Theme
-    public let tabButtonWidth: TabWidth
-    public let tabsControlRecommendedHeight: CGFloat = 24.0
+@objc public class SafariStyle: ThemedStyle {
     
-    public init(theme: Theme = SafariTheme(), tabButtonWidth: TabWidth = .full) {
-        self.theme = theme
-        self.tabButtonWidth = tabButtonWidth
+    public init() {
+        super.init(SafariTheme())
+        self.tabButtonWidth = .full
+        self.tabButtonFlexibleMinWidth = 0
+        self.tabButtonFlexibleMaxWidth = 0
+        self.tabsControlRecommendedHeight = 24.0
     }
     
     // There is no icons in Safari tabs. Here we force the absence of icon, even if some are provided.
-    public func iconFrames(tabRect rect: NSRect) -> IconFrames {
-        return (NSZeroRect, NSZeroRect)
+    public override func iconFrames(tabRect rect: NSRect) -> IconFrames {
+        return IconFrames(NSZeroRect, alternativeTitleIconFrame: NSZeroRect)
     }
     
     public func tabButtonBorderMask(_ position: TabPosition) -> BorderMask? {
@@ -31,7 +31,7 @@ public struct SafariStyle: ThemedStyle {
     }
 
     public func tabsControlBorderMask() -> BorderMask? {
-        return BorderMask.all()
+        return BorderMask.bottom.union(BorderMask.top).union(BorderMask.left).union(BorderMask.right)
     }
 }
 

@@ -8,17 +8,17 @@
 
 import Cocoa
 
-public struct ChromeStyle: ThemedStyle {
-    public let theme: Theme
-    public let tabButtonWidth: TabWidth
-    public let tabsControlRecommendedHeight: CGFloat = 34.0
+@objc public class ChromeStyle: ThemedStyle {
     
-    public init(theme: Theme = ChromeTheme(), tabButtonWidth: TabWidth = .flexible(min: 80, max: 180)) {
-        self.theme = theme
-        self.tabButtonWidth = tabButtonWidth
+    public init() {
+        super.init(ChromeTheme())
+        self.tabButtonWidth = .flexible
+        self.tabButtonFlexibleMinWidth = 80
+        self.tabButtonFlexibleMaxWidth = 180
+        self.tabsControlRecommendedHeight = 34.0
     }
 
-    public func iconFrames(tabRect rect: NSRect) -> IconFrames {
+    public override func iconFrames(tabRect rect: NSRect) -> IconFrames {
         
         let paddedHeight = PaddedHeight.fromFrame(rect)
         let topPadding = paddedHeight.topPadding
@@ -28,13 +28,13 @@ public struct ChromeStyle: ThemedStyle {
         // Left border is angled at 45˚, so it grows proportionally wider
         let iconXOffset = paddedHeight.value / 2
         
-        return (
+        return IconFrames(
             NSMakeRect(iconXOffset, topPadding, iconHeight, iconHeight),
-            NSMakeRect(x, topPadding, iconHeight, iconHeight)
+            alternativeTitleIconFrame: NSMakeRect(x, topPadding, iconHeight, iconHeight)
         )
     }
 
-    public func titleRect(title: NSAttributedString, inBounds rect: NSRect, showingIcon: Bool) -> NSRect {
+    public override func titleRect(title: NSAttributedString, inBounds rect: NSRect, showingIcon: Bool) -> NSRect {
         let paddedHeight = PaddedHeight.fromFrame(rect)
         // Left border is angled at 45˚, so it grows proportionally wider
         let iconOffset = showingIcon ? paddedHeight.iconHeight + 4 : 0.0
@@ -51,13 +51,13 @@ public struct ChromeStyle: ThemedStyle {
         static let alignment = NSTextAlignment.left
     }
 
-    public func titleEditorSettings() -> TitleEditorSettings {
-        return (textColor: self.theme.tabButtonTheme.titleColor,
+    public override func titleEditorSettings() -> TitleEditorSettings {
+        return TitleEditorSettings(self.theme.tabButtonTheme.titleColor,
                 font: self.theme.tabButtonTheme.titleFont,
                 alignment: Defaults.alignment)
     }
 
-    public func attributedTitle(content: String, selectionState: TabSelectionState) -> NSAttributedString {
+    public override func attributedTitle(content: String, selectionState: TabSelectionState) -> NSAttributedString {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = Defaults.alignment
 
@@ -121,7 +121,7 @@ public struct ChromeStyle: ThemedStyle {
         }
     }
 
-    public func drawTabButtonBezel(frame: NSRect, position: TabPosition, isSelected: Bool) {
+    public override func drawTabButtonBezel(frame: NSRect, position: TabPosition, isSelected: Bool) {
 
         let height: CGFloat = PaddedHeight.fromFrame(frame).value
         let xOffset = height / 2.0
@@ -181,7 +181,7 @@ public struct ChromeStyle: ThemedStyle {
         }
     }
 
-    public func drawTabsControlBezel(frame: NSRect) {
+    public override func drawTabsControlBezel(frame: NSRect) {
         self.theme.tabsControlTheme.backgroundColor.setFill()
         NSRectFill(frame)
         self.drawBottomBorder(frame: frame)
@@ -195,7 +195,7 @@ public struct ChromeStyle: ThemedStyle {
         NSRectFill(bottomBorder)
     }
 
-    public func tabButtonOffset(position: TabPosition) -> Offset {
+    public override func tabButtonOffset(position: TabPosition) -> Offset {
         switch position {
         case .first: return NSPoint()
         case .middle, .last: return NSPoint(x: -10, y: 0)
