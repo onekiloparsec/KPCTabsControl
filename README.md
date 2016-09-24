@@ -47,7 +47,7 @@ Installation
 
 Using [Carthage](https://github.com/Carthage/Carthage): add `github "onekiloparsec/KPCTabsControl"` to your `Cartfile` and then run `carthage update`.
 
-Using [CocoaPods](http://cocoapods.org/): `pod 'KPCTabsControl'`
+Using [CocoaPods](http://cocoapods.org/): `pod 'KPCTabsControl'`. 
 
 
 Usage
