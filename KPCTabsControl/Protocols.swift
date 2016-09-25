@@ -72,7 +72,7 @@ import AppKit
     @objc optional func tabsControl(_ control: TabsControl, titleAlternativeIconForItem item:AnyObject) -> NSImage?
 }
 
-@objc public protocol TabsControlDelegate: NSObjectProtocol, NSControlTextEditingDelegate {
+@objc public protocol TabsControlDelegate: NSControlTextEditingDelegate {
     /**
      *  Determine if the tab can be selected.
      *
