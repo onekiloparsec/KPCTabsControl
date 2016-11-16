@@ -140,7 +140,7 @@ open class TabsControl: NSControl, NSTextDelegate {
         let newItemsCount = dataSource.tabsControlNumberOfTabs(self)
         
         if newItemsCount < oldItemsCount {
-            self.tabButtons.filter({ $0.index >= self.tabButtons.count }).forEach({ $0.removeFromSuperview() })
+            self.tabButtons.filter({ $0.index >= newItemsCount }).forEach({ $0.removeFromSuperview() })
         }
         
         var tabButtons = self.tabButtons
