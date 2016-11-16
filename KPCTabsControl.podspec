@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "KPCTabsControl"
-  s.version      = "3.0.1"
+  s.version      = "3.0.2"
   s.summary      = "A multi-tabs control with enhanced capabilities, and custom styles."
   s.homepage     = "https://github.com/onekiloparsec/KPCTabsControl.git"
   s.license      = { :type => 'MIT', :file => 'LICENSE' }
