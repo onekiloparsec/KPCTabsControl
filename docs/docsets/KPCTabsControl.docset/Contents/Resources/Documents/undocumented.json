@@ -1,0 +1,824 @@
+{
+  "warnings": [
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/ChromeStyle.swift",
+      "line": 11,
+      "symbol": "ChromeStyle",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/ChromeStyle.swift",
+      "line": 12,
+      "symbol": "ChromeStyle.theme",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/ChromeStyle.swift",
+      "line": 13,
+      "symbol": "ChromeStyle.tabButtonWidth",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/ChromeStyle.swift",
+      "line": 14,
+      "symbol": "ChromeStyle.tabsControlRecommendedHeight",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/ChromeStyle.swift",
+      "line": 16,
+      "symbol": "ChromeStyle.init(theme:tabButtonWidth:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/ChromeStyle.swift",
+      "line": 21,
+      "symbol": "ChromeStyle.iconFrames(tabRect:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/ChromeStyle.swift",
+      "line": 37,
+      "symbol": "ChromeStyle.titleRect(title:inBounds:showingIcon:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/ChromeStyle.swift",
+      "line": 54,
+      "symbol": "ChromeStyle.titleEditorSettings()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/ChromeStyle.swift",
+      "line": 60,
+      "symbol": "ChromeStyle.attributedTitle(content:selectionState:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/ChromeStyle.swift",
+      "line": 124,
+      "symbol": "ChromeStyle.drawTabButtonBezel(frame:position:isSelected:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/ChromeStyle.swift",
+      "line": 184,
+      "symbol": "ChromeStyle.drawTabsControlBezel(frame:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/ChromeStyle.swift",
+      "line": 198,
+      "symbol": "ChromeStyle.tabButtonOffset(position:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/ChromeTheme.swift",
+      "line": 11,
+      "symbol": "ChromeTheme",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/ChromeTheme.swift",
+      "line": 13,
+      "symbol": "ChromeTheme.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/ChromeTheme.swift",
+      "line": 15,
+      "symbol": "ChromeTheme.tabButtonTheme",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/ChromeTheme.swift",
+      "line": 16,
+      "symbol": "ChromeTheme.selectedTabButtonTheme",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/ChromeTheme.swift",
+      "line": 17,
+      "symbol": "ChromeTheme.unselectableTabButtonTheme",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/ChromeTheme.swift",
+      "line": 18,
+      "symbol": "ChromeTheme.tabsControlTheme",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/Constants.swift",
+      "line": 22,
+      "symbol": "TabPosition.first",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/Constants.swift",
+      "line": 23,
+      "symbol": "TabPosition.middle",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/Constants.swift",
+      "line": 24,
+      "symbol": "TabPosition.last",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/Constants.swift",
+      "line": 50,
+      "symbol": "TabWidth.full",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/Constants.swift",
+      "line": 51,
+      "symbol": "TabWidth.flexible",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/Constants.swift",
+      "line": 62,
+      "symbol": "TabSelectionState.normal",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/Constants.swift",
+      "line": 63,
+      "symbol": "TabSelectionState.selected",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/Constants.swift",
+      "line": 64,
+      "symbol": "TabSelectionState.unselectable",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/Constants.swift",
+      "line": 78,
+      "symbol": "BorderMask.all()",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/Constants.swift",
+      "line": 82,
+      "symbol": "BorderMask.top",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/Constants.swift",
+      "line": 83,
+      "symbol": "BorderMask.left",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/Constants.swift",
+      "line": 84,
+      "symbol": "BorderMask.right",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/Constants.swift",
+      "line": 85,
+      "symbol": "BorderMask.bottom",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/DefaultStyle.swift",
+      "line": 11,
+      "symbol": "TitleDefaults",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/DefaultStyle.swift",
+      "line": 22,
+      "symbol": "ThemedStyle.tabButtonOffset(position:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/DefaultStyle.swift",
+      "line": 26,
+      "symbol": "ThemedStyle.tabButtonBorderMask(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/DefaultStyle.swift",
+      "line": 32,
+      "symbol": "ThemedStyle.iconFrames(tabRect:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/DefaultStyle.swift",
+      "line": 42,
+      "symbol": "ThemedStyle.titleRect(title:inBounds:showingIcon:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/DefaultStyle.swift",
+      "line": 64,
+      "symbol": "ThemedStyle.titleEditorSettings()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/DefaultStyle.swift",
+      "line": 70,
+      "symbol": "ThemedStyle.attributedTitle(content:selectionState:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/DefaultStyle.swift",
+      "line": 87,
+      "symbol": "ThemedStyle.tabsControlBorderMask()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/DefaultStyle.swift",
+      "line": 93,
+      "symbol": "ThemedStyle.drawTabsControlBezel(frame:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/DefaultStyle.swift",
+      "line": 101,
+      "symbol": "ThemedStyle.drawTabButtonBezel(frame:position:isSelected:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/DefaultStyle.swift",
+      "line": 165,
+      "symbol": "DefaultStyle.theme",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/DefaultStyle.swift",
+      "line": 166,
+      "symbol": "DefaultStyle.tabButtonWidth",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/DefaultStyle.swift",
+      "line": 167,
+      "symbol": "DefaultStyle.tabsControlRecommendedHeight",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/DefaultStyle.swift",
+      "line": 169,
+      "symbol": "DefaultStyle.init(theme:tabButtonWidth:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/DefaultTheme.swift",
+      "line": 16,
+      "symbol": "DefaultTheme.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/DefaultTheme.swift",
+      "line": 18,
+      "symbol": "DefaultTheme.tabButtonTheme",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/DefaultTheme.swift",
+      "line": 19,
+      "symbol": "DefaultTheme.selectedTabButtonTheme",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/DefaultTheme.swift",
+      "line": 20,
+      "symbol": "DefaultTheme.unselectableTabButtonTheme",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/DefaultTheme.swift",
+      "line": 21,
+      "symbol": "DefaultTheme.tabsControlTheme",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/Helpers.swift",
+      "line": 15,
+      "symbol": "Offset.init(x:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/Helpers.swift",
+      "line": 20,
+      "symbol": "Offset.init(y:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/Protocols.swift",
+      "line": 11,
+      "symbol": "TabsControlDataSource",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/Protocols.swift",
+      "line": 75,
+      "symbol": "TabsControlDelegate",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/SafariStyle.swift",
+      "line": 15,
+      "symbol": "SafariStyle.theme",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/SafariStyle.swift",
+      "line": 16,
+      "symbol": "SafariStyle.tabButtonWidth",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/SafariStyle.swift",
+      "line": 17,
+      "symbol": "SafariStyle.tabsControlRecommendedHeight",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/SafariStyle.swift",
+      "line": 19,
+      "symbol": "SafariStyle.init(theme:tabButtonWidth:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/SafariStyle.swift",
+      "line": 25,
+      "symbol": "SafariStyle.iconFrames(tabRect:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/SafariStyle.swift",
+      "line": 29,
+      "symbol": "SafariStyle.tabButtonBorderMask(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/SafariStyle.swift",
+      "line": 33,
+      "symbol": "SafariStyle.tabsControlBorderMask()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/SafariTheme.swift",
+      "line": 11,
+      "symbol": "SafariTheme",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/SafariTheme.swift",
+      "line": 13,
+      "symbol": "SafariTheme.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/SafariTheme.swift",
+      "line": 15,
+      "symbol": "SafariTheme.tabButtonTheme",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/SafariTheme.swift",
+      "line": 16,
+      "symbol": "SafariTheme.selectedTabButtonTheme",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/SafariTheme.swift",
+      "line": 17,
+      "symbol": "SafariTheme.unselectableTabButtonTheme",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/SafariTheme.swift",
+      "line": 18,
+      "symbol": "SafariTheme.tabsControlTheme",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/Style.swift",
+      "line": 20,
+      "symbol": "Style.tabButtonWidth",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/Style.swift",
+      "line": 21,
+      "symbol": "Style.tabButtonOffset(position:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/Style.swift",
+      "line": 22,
+      "symbol": "Style.tabButtonBorderMask(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/Style.swift",
+      "line": 25,
+      "symbol": "Style.iconFrames(tabRect:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/Style.swift",
+      "line": 26,
+      "symbol": "Style.titleRect(title:inBounds:showingIcon:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/Style.swift",
+      "line": 27,
+      "symbol": "Style.titleEditorSettings()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/Style.swift",
+      "line": 28,
+      "symbol": "Style.attributedTitle(content:selectionState:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/Style.swift",
+      "line": 31,
+      "symbol": "Style.tabsControlRecommendedHeight",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/Style.swift",
+      "line": 32,
+      "symbol": "Style.tabsControlBorderMask()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/Style.swift",
+      "line": 35,
+      "symbol": "Style.drawTabButtonBezel(frame:position:isSelected:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/Style.swift",
+      "line": 36,
+      "symbol": "Style.drawTabsControlBezel(frame:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/Style.swift",
+      "line": 44,
+      "symbol": "ThemedStyle.theme",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/TabButton.swift",
+      "line": 11,
+      "symbol": "TabButton",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/TabButton.swift",
+      "line": 21,
+      "symbol": "TabButton.item",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/TabButton.swift",
+      "line": 26,
+      "symbol": "TabButton.style",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/TabButton.swift",
+      "line": 33,
+      "symbol": "TabButton.buttonPosition",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/TabButton.swift",
+      "line": 38,
+      "symbol": "TabButton.representedObject",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/TabButton.swift",
+      "line": 43,
+      "symbol": "TabButton.editable",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/TabButton.swift",
+      "line": 48,
+      "symbol": "TabButton.icon",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/TabButton.swift",
+      "line": 64,
+      "symbol": "TabButton.alternativeTitleIcon",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/TabButton.swift",
+      "line": 89,
+      "symbol": "TabButton.init(coder:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/TabButton.swift",
+      "line": 112,
+      "symbol": "TabButton.copy()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/TabButton.swift",
+      "line": 123,
+      "symbol": "TabButton.menu",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/TabButton.swift",
+      "line": 133,
+      "symbol": "TabButton.updateTrackingAreas()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/TabButton.swift",
+      "line": 162,
+      "symbol": "TabButton.mouseEntered(with:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/TabButton.swift",
+      "line": 167,
+      "symbol": "TabButton.mouseExited(with:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/TabButton.swift",
+      "line": 172,
+      "symbol": "TabButton.mouseDown(with:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/TabButton.swift",
+      "line": 179,
+      "symbol": "TabButton.resetCursorRects()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/TabButton.swift",
+      "line": 183,
+      "symbol": "TabButton.draw(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/TabsControl.swift",
+      "line": 45,
+      "symbol": "TabsControl.style",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/TabsControl.swift",
+      "line": 55,
+      "symbol": "TabsControl.init(coder:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/TabsControl.swift",
+      "line": 60,
+      "symbol": "TabsControl.init(frame:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/TabsControl.swift",
+      "line": 127,
+      "symbol": "TabsControl.menu(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/TabsControl.swift",
+      "line": 280,
+      "symbol": "TabsControl.observeValue(forKeyPath:of:change:context:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/TabsControl.swift",
+      "line": 505,
+      "symbol": "TabsControl.textDidEndEditing(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/TabsControl.swift",
+      "line": 529,
+      "symbol": "TabsControl.isOpaque",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/TabsControl.swift",
+      "line": 533,
+      "symbol": "TabsControl.isFlipped",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/TabsControl.swift",
+      "line": 539,
+      "symbol": "TabsControl.currentTabWidth()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/TabsControl.swift",
+      "line": 552,
+      "symbol": "TabsControl.encodeRestorableState(with:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/TabsControl.swift",
+      "line": 562,
+      "symbol": "TabsControl.restoreState(with:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/Theme.swift",
+      "line": 15,
+      "symbol": "TabButtonTheme.backgroundColor",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/Theme.swift",
+      "line": 16,
+      "symbol": "TabButtonTheme.borderColor",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/Theme.swift",
+      "line": 17,
+      "symbol": "TabButtonTheme.titleColor",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/Theme.swift",
+      "line": 18,
+      "symbol": "TabButtonTheme.titleFont",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/Theme.swift",
+      "line": 25,
+      "symbol": "TabsControlTheme.backgroundColor",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/Theme.swift",
+      "line": 26,
+      "symbol": "TabsControlTheme.borderColor",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/Theme.swift",
+      "line": 33,
+      "symbol": "Theme.tabButtonTheme",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/Theme.swift",
+      "line": 34,
+      "symbol": "Theme.selectedTabButtonTheme",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/Theme.swift",
+      "line": 35,
+      "symbol": "Theme.unselectableTabButtonTheme",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/onekiloparsec/apps/KPCTabsControl/KPCTabsControl/Theme.swift",
+      "line": 36,
+      "symbol": "Theme.tabsControlTheme",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    }
+  ],
+  "source_directory": "/Users/onekiloparsec/apps/KPCTabsControl"
+}

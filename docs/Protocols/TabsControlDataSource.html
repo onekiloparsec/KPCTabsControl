@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>TabsControlDataSource Protocol Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Protocol/TabsControlDataSource" class="dashAnchor"></a>
+    <a title="TabsControlDataSource Protocol Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">KPCTabsControl Docs</a> (25% documented)</p>
+        <p class="header-right"><a href="https://github.com/onekiloparsec/KPCTabsControl"><img src="../img/gh.png"/>View on GitHub</a></p>
+        <p class="header-right"><a href="dash-feed://http%3A%2F%2Fonekiloparsec%2Egithub%2Eio%2FKPCTabsControl%2Fdocsets%2FKPCTabsControl%2Exml"><img src="../img/dash.png"/>Install in Dash</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">KPCTabsControl Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        TabsControlDataSource Protocol Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/TabButton.html">TabButton</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/TabsControl.html">TabsControl</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Global Variables.html">Global Variables</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:v14KPCTabsControl41TabsControlSelectionDidChangeNotificationSS">TabsControlSelectionDidChangeNotification</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enums</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/TabPosition.html">TabPosition</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/TabSelectionState.html">TabSelectionState</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/TabWidth.html">TabWidth</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums.html#/s:O14KPCTabsControl13TitleDefaults">TitleDefaults</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/NSRect.html">NSRect</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Offset.html">Offset</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Functions.html">Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F14KPCTabsControloi1pFTVSC7CGPointS0__S0_">+(_:_:)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/Style.html">Style</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/TabButtonTheme.html">TabButtonTheme</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/TabsControlDataSource.html">TabsControlDataSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/TabsControlDelegate.html">TabsControlDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/TabsControlTheme.html">TabsControlTheme</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/Theme.html">Theme</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ThemedStyle.html">ThemedStyle</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structs</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/BorderMask.html">BorderMask</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ChromeStyle.html">ChromeStyle</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ChromeTheme.html">ChromeTheme</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/DefaultStyle.html">DefaultStyle</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/DefaultTheme.html">DefaultTheme</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SafariStyle.html">SafariStyle</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SafariTheme.html">SafariTheme</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Typealiases.html">Typealiases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:14KPCTabsControl6Offset">Offset</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>TabsControlDataSource</h1>
+            <p>Undocumented</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FP14KPCTabsControl21TabsControlDataSource23tabsControlNumberOfTabsFCS_11TabsControlSi"></a>
+                    <a name="//apple_ref/swift/Method/tabsControlNumberOfTabs(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FP14KPCTabsControl21TabsControlDataSource23tabsControlNumberOfTabsFCS_11TabsControlSi">tabsControlNumberOfTabs(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the number of tabs</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">tabsControlNumberOfTabs</span><span class="p">(</span><span class="n">_</span> <span class="nv">control</span><span class="p">:</span> <span class="kt"><a href="../Classes/TabsControl.html">TabsControl</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>control</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The instance of the tabs control.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A unsigned integer indicating the number of tabs to display.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/onekiloparsec/KPCTabsControl/tree/3.0.2/KPCTabsControl/Protocols.swift#L19">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FP14KPCTabsControl21TabsControlDataSource11tabsControlFTCS_11TabsControl11itemAtIndexSi_Ps9AnyObject_"></a>
+                    <a name="//apple_ref/swift/Method/tabsControl(_:itemAtIndex:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FP14KPCTabsControl21TabsControlDataSource11tabsControlFTCS_11TabsControl11itemAtIndexSi_Ps9AnyObject_">tabsControl(_:itemAtIndex:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Return the item for the tab at the given index, similarly to a <q>representedObject</q> in a cell view.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">tabsControl</span><span class="p">(</span><span class="n">_</span> <span class="nv">control</span><span class="p">:</span> <span class="kt"><a href="../Classes/TabsControl.html">TabsControl</a></span><span class="p">,</span> <span class="n">itemAtIndex</span> <span class="nv">index</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyObject</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>control</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The instance of the tabs control.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>index</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The index of the given item.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An instance of an object representing the tab.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/onekiloparsec/KPCTabsControl/tree/3.0.2/KPCTabsControl/Protocols.swift#L29">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FP14KPCTabsControl21TabsControlDataSource11tabsControlFTCS_11TabsControl12titleForItemPs9AnyObject__SS"></a>
+                    <a name="//apple_ref/swift/Method/tabsControl(_:titleForItem:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FP14KPCTabsControl21TabsControlDataSource11tabsControlFTCS_11TabsControl12titleForItemPs9AnyObject__SS">tabsControl(_:titleForItem:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Return the title for the tab of the given item</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">tabsControl</span><span class="p">(</span><span class="n">_</span> <span class="nv">control</span><span class="p">:</span> <span class="kt"><a href="../Classes/TabsControl.html">TabsControl</a></span><span class="p">,</span> <span class="n">titleForItem</span> <span class="nv">item</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>control</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The instance of the tabs control.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>item</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The item representing the given tab.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A string to be used as title of the tab.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/onekiloparsec/KPCTabsControl/tree/3.0.2/KPCTabsControl/Protocols.swift#L39">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FP14KPCTabsControl21TabsControlDataSource11tabsControlFTCS_11TabsControl11menuForItemPs9AnyObject__GSqCSo6NSMenu_"></a>
+                    <a name="//apple_ref/swift/Method/tabsControl(_:menuForItem:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FP14KPCTabsControl21TabsControlDataSource11tabsControlFTCS_11TabsControl11menuForItemPs9AnyObject__GSqCSo6NSMenu_">tabsControl(_:menuForItem:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>If any, returns a menu for the tab, to be place to the right side of it. It is your responsability to fully
+configure its targets and actions before returning it to the tabs control.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">@objc</span> <span class="kd">optional</span> <span class="kd">func</span> <span class="nf">tabsControl</span><span class="p">(</span><span class="n">_</span> <span class="nv">control</span><span class="p">:</span> <span class="kt"><a href="../Classes/TabsControl.html">TabsControl</a></span><span class="p">,</span> <span class="n">menuForItem</span> <span class="nv">item</span><span class="p">:</span><span class="kt">AnyObject</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">NSMenu</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>control</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The instance of the tabs control.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>item</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The item representing the given tab.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A menu instance.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/onekiloparsec/KPCTabsControl/tree/3.0.2/KPCTabsControl/Protocols.swift#L50">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FP14KPCTabsControl21TabsControlDataSource11tabsControlFTCS_11TabsControl11iconForItemPs9AnyObject__GSqCSo7NSImage_"></a>
+                    <a name="//apple_ref/swift/Method/tabsControl(_:iconForItem:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FP14KPCTabsControl21TabsControlDataSource11tabsControlFTCS_11TabsControl11iconForItemPs9AnyObject__GSqCSo7NSImage_">tabsControl(_:iconForItem:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>If any, returns an icon for the tab, to be placed to the left side of it.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">@objc</span> <span class="kd">optional</span> <span class="kd">func</span> <span class="nf">tabsControl</span><span class="p">(</span><span class="n">_</span> <span class="nv">control</span><span class="p">:</span> <span class="kt"><a href="../Classes/TabsControl.html">TabsControl</a></span><span class="p">,</span> <span class="n">iconForItem</span> <span class="nv">item</span><span class="p">:</span><span class="kt">AnyObject</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">NSImage</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>control</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The instance of the tabs control.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>item</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The item representing the given tab.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An image instance for the icon.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/onekiloparsec/KPCTabsControl/tree/3.0.2/KPCTabsControl/Protocols.swift#L60">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FP14KPCTabsControl21TabsControlDataSource11tabsControlFTCS_11TabsControl27titleAlternativeIconForItemPs9AnyObject__GSqCSo7NSImage_"></a>
+                    <a name="//apple_ref/swift/Method/tabsControl(_:titleAlternativeIconForItem:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FP14KPCTabsControl21TabsControlDataSource11tabsControlFTCS_11TabsControl27titleAlternativeIconForItemPs9AnyObject__GSqCSo7NSImage_">tabsControl(_:titleAlternativeIconForItem:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>If the width of the tab is not large enough to draw the title, it is possible to provide here an alternate
+icon to replace it. The threshold at which one switch between the title and the icon is computed individually
+for each title.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">@objc</span> <span class="kd">optional</span> <span class="kd">func</span> <span class="nf">tabsControl</span><span class="p">(</span><span class="n">_</span> <span class="nv">control</span><span class="p">:</span> <span class="kt"><a href="../Classes/TabsControl.html">TabsControl</a></span><span class="p">,</span> <span class="n">titleAlternativeIconForItem</span> <span class="nv">item</span><span class="p">:</span><span class="kt">AnyObject</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">NSImage</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>control</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The instance of the tabs control.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>item</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The item representing the given tab.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An image instance for the alternate icon.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/onekiloparsec/KPCTabsControl/tree/3.0.2/KPCTabsControl/Protocols.swift#L72">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2017 <a class="link" href="https://onekilopars.ec" target="_blank" rel="external">onekiloparsec</a>. All rights reserved. (Last updated: 2017-03-03)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.4</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

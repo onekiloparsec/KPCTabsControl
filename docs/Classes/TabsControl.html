@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>TabsControl Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/TabsControl" class="dashAnchor"></a>
+    <a title="TabsControl Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">KPCTabsControl Docs</a> (25% documented)</p>
+        <p class="header-right"><a href="https://github.com/onekiloparsec/KPCTabsControl"><img src="../img/gh.png"/>View on GitHub</a></p>
+        <p class="header-right"><a href="dash-feed://http%3A%2F%2Fonekiloparsec%2Egithub%2Eio%2FKPCTabsControl%2Fdocsets%2FKPCTabsControl%2Exml"><img src="../img/dash.png"/>Install in Dash</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">KPCTabsControl Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        TabsControl Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/TabButton.html">TabButton</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/TabsControl.html">TabsControl</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Global Variables.html">Global Variables</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:v14KPCTabsControl41TabsControlSelectionDidChangeNotificationSS">TabsControlSelectionDidChangeNotification</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enums</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/TabPosition.html">TabPosition</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/TabSelectionState.html">TabSelectionState</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/TabWidth.html">TabWidth</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums.html#/s:O14KPCTabsControl13TitleDefaults">TitleDefaults</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/NSRect.html">NSRect</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Offset.html">Offset</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Functions.html">Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F14KPCTabsControloi1pFTVSC7CGPointS0__S0_">+(_:_:)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/Style.html">Style</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/TabButtonTheme.html">TabButtonTheme</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/TabsControlDataSource.html">TabsControlDataSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/TabsControlDelegate.html">TabsControlDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/TabsControlTheme.html">TabsControlTheme</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/Theme.html">Theme</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ThemedStyle.html">ThemedStyle</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structs</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/BorderMask.html">BorderMask</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ChromeStyle.html">ChromeStyle</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ChromeTheme.html">ChromeTheme</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/DefaultStyle.html">DefaultStyle</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/DefaultTheme.html">DefaultTheme</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SafariStyle.html">SafariStyle</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SafariTheme.html">SafariTheme</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Typealiases.html">Typealiases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:14KPCTabsControl6Offset">Offset</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>TabsControl</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight"><code><span class="n">open</span> <span class="kd">class</span> <span class="kt">TabsControl</span><span class="p">:</span> <span class="kt">NSControl</span><span class="p">,</span> <span class="kt">NSTextDelegate</span></code></pre>
+
+                </div>
+              </div>
+            <p>TabsControl is the main class of the library, and is designed to suffice for implementing tabs in your app.
+The only necessary thing for it to work is an implementation of its <code>dataSource</code>.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Data%20Source%20&amp;%20Delegate"></a>
+                <a name="//apple_ref/swift/Section/Data Source &amp; Delegate" class="dashAnchor"></a>
+                <a href="#/Data%20Source%20&amp;%20Delegate">
+                  <h3 class="section-name">Data Source &amp; Delegate</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC14KPCTabsControl11TabsControl10dataSourceXwGSqPS_21TabsControlDataSource__"></a>
+                    <a name="//apple_ref/swift/Property/dataSource" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC14KPCTabsControl11TabsControl10dataSourceXwGSqPS_21TabsControlDataSource__">dataSource</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The dataSource of the tabs control, providing all the necessary information for the class to build the tabs.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">@IBOutlet</span> <span class="n">open</span> <span class="k">weak</span> <span class="k">var</span> <span class="nv">dataSource</span><span class="p">:</span> <span class="kt"><a href="../Protocols/TabsControlDataSource.html">TabsControlDataSource</a></span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/onekiloparsec/KPCTabsControl/tree/3.0.2/KPCTabsControl/TabsControl.swift#L35">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC14KPCTabsControl11TabsControl8delegateXwGSqPS_19TabsControlDelegate__"></a>
+                    <a name="//apple_ref/swift/Property/delegate" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC14KPCTabsControl11TabsControl8delegateXwGSqPS_19TabsControlDelegate__">delegate</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The delegate of the tabs control, providing additional possibilities for customization and precise behavior.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">@IBOutlet</span> <span class="n">open</span> <span class="k">weak</span> <span class="k">var</span> <span class="nv">delegate</span><span class="p">:</span> <span class="kt"><a href="../Protocols/TabsControlDelegate.html">TabsControlDelegate</a></span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/onekiloparsec/KPCTabsControl/tree/3.0.2/KPCTabsControl/TabsControl.swift#L38-L41">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Styling"></a>
+                <a name="//apple_ref/swift/Section/Styling" class="dashAnchor"></a>
+                <a href="#/Styling">
+                  <h3 class="section-name">Styling</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC14KPCTabsControl11TabsControl5stylePS_5Style_"></a>
+                    <a name="//apple_ref/swift/Property/style" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC14KPCTabsControl11TabsControl5stylePS_5Style_">style</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">class</span> <span class="kt">TabsControl</span><span class="p">:</span> <span class="kt">NSControl</span><span class="p">,</span> <span class="kt">NSTextDelegate</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/onekiloparsec/KPCTabsControl/tree/3.0.2/KPCTabsControl/TabsControl.swift#L45-L51">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Initializers%20&amp;%20Setup"></a>
+                <a name="//apple_ref/swift/Section/Initializers &amp; Setup" class="dashAnchor"></a>
+                <a href="#/Initializers%20&amp;%20Setup">
+                  <h3 class="section-name">Initializers &amp; Setup</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC14KPCTabsControl11TabsControlcFT5coderCSo7NSCoder_GSqS0__"></a>
+                    <a name="//apple_ref/swift/Method/init(coder:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC14KPCTabsControl11TabsControlcFT5coderCSo7NSCoder_GSqS0__">init(coder:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">class</span> <span class="kt">TabsControl</span><span class="p">:</span> <span class="kt">NSControl</span><span class="p">,</span> <span class="kt">NSTextDelegate</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/onekiloparsec/KPCTabsControl/tree/3.0.2/KPCTabsControl/TabsControl.swift#L55-L58">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC14KPCTabsControl11TabsControlcFT5frameVSC6CGRect_S0_"></a>
+                    <a name="//apple_ref/swift/Method/init(frame:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC14KPCTabsControl11TabsControlcFT5frameVSC6CGRect_S0_">init(frame:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">class</span> <span class="kt">TabsControl</span><span class="p">:</span> <span class="kt">NSControl</span><span class="p">,</span> <span class="kt">NSTextDelegate</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/onekiloparsec/KPCTabsControl/tree/3.0.2/KPCTabsControl/TabsControl.swift#L60-L63">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Public%20Overrides"></a>
+                <a name="//apple_ref/swift/Section/Public Overrides" class="dashAnchor"></a>
+                <a href="#/Public%20Overrides">
+                  <h3 class="section-name">Public Overrides</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC14KPCTabsControl11TabsControl4menuFT3forCSo7NSEvent_GSqCSo6NSMenu_"></a>
+                    <a name="//apple_ref/swift/Method/menu(for:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC14KPCTabsControl11TabsControl4menuFT3forCSo7NSEvent_GSqCSo6NSMenu_">menu(for:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">class</span> <span class="kt">TabsControl</span><span class="p">:</span> <span class="kt">NSControl</span><span class="p">,</span> <span class="kt">NSTextDelegate</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/onekiloparsec/KPCTabsControl/tree/3.0.2/KPCTabsControl/TabsControl.swift#L127-L129">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Data%20Source"></a>
+                <a name="//apple_ref/swift/Section/Data Source" class="dashAnchor"></a>
+                <a href="#/Data%20Source">
+                  <h3 class="section-name">Data Source</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC14KPCTabsControl11TabsControl10reloadTabsFT_T_"></a>
+                    <a name="//apple_ref/swift/Method/reloadTabs()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC14KPCTabsControl11TabsControl10reloadTabsFT_T_">reloadTabs()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Reloads all tabs of the tabs control. Used when the <code><a href="../Classes/TabsControl.html#/s:vC14KPCTabsControl11TabsControl10dataSourceXwGSqPS_21TabsControlDataSource__">dataSource</a></code> has changed for instance.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">func</span> <span class="nf">reloadTabs</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/onekiloparsec/KPCTabsControl/tree/3.0.2/KPCTabsControl/TabsControl.swift#L136-L189">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/ScrollView%20Observation"></a>
+                <a name="//apple_ref/swift/Section/ScrollView Observation" class="dashAnchor"></a>
+                <a href="#/ScrollView%20Observation">
+                  <h3 class="section-name">ScrollView Observation</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC14KPCTabsControl11TabsControl12observeValueFT10forKeyPathGSqSS_2ofGSqP__6changeGSqGVs10DictionaryVSC19NSKeyValueChangeKeyP___7contextGSqSv__T_"></a>
+                    <a name="//apple_ref/swift/Method/observeValue(forKeyPath:of:change:context:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC14KPCTabsControl11TabsControl12observeValueFT10forKeyPathGSqSS_2ofGSqP__6changeGSqGVs10DictionaryVSC19NSKeyValueChangeKeyP___7contextGSqSv__T_">observeValue(forKeyPath:of:change:context:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">class</span> <span class="kt">TabsControl</span><span class="p">:</span> <span class="kt">NSControl</span><span class="p">,</span> <span class="kt">NSTextDelegate</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/onekiloparsec/KPCTabsControl/tree/3.0.2/KPCTabsControl/TabsControl.swift#L280-L287">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Selection"></a>
+                <a name="//apple_ref/swift/Section/Selection" class="dashAnchor"></a>
+                <a href="#/Selection">
+                  <h3 class="section-name">Selection</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC14KPCTabsControl11TabsControl17selectItemAtIndexFSiT_"></a>
+                    <a name="//apple_ref/swift/Method/selectItemAtIndex(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC14KPCTabsControl11TabsControl17selectItemAtIndexFSiT_">selectItemAtIndex(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Select an item at a given index. Selecting an invalid index will unselected all tabs.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">func</span> <span class="nf">selectItemAtIndex</span><span class="p">(</span><span class="n">_</span> <span class="nv">index</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>index</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An integer indicating the index of the item to be selected.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/onekiloparsec/KPCTabsControl/tree/3.0.2/KPCTabsControl/TabsControl.swift#L462-L465">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Editing"></a>
+                <a name="//apple_ref/swift/Section/Editing" class="dashAnchor"></a>
+                <a href="#/Editing">
+                  <h3 class="section-name">Editing</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC14KPCTabsControl11TabsControl14editTabAtIndexFSiT_"></a>
+                    <a name="//apple_ref/swift/Method/editTabAtIndex(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC14KPCTabsControl11TabsControl14editTabAtIndexFSiT_">editTabAtIndex(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Starts editing the tab as if the user double-clicked on it. If <code>index</code> is out of bounds, it does nothing.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">func</span> <span class="nf">editTabAtIndex</span><span class="p">(</span><span class="n">_</span> <span class="nv">index</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/onekiloparsec/KPCTabsControl/tree/3.0.2/KPCTabsControl/TabsControl.swift#L481-L486">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC14KPCTabsControl11TabsControl17textDidEndEditingFV10Foundation12NotificationT_"></a>
+                    <a name="//apple_ref/swift/Method/textDidEndEditing(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC14KPCTabsControl11TabsControl17textDidEndEditingFV10Foundation12NotificationT_">textDidEndEditing(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">class</span> <span class="kt">TabsControl</span><span class="p">:</span> <span class="kt">NSControl</span><span class="p">,</span> <span class="kt">NSTextDelegate</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/onekiloparsec/KPCTabsControl/tree/3.0.2/KPCTabsControl/TabsControl.swift#L505-L525">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Drawing"></a>
+                <a name="//apple_ref/swift/Section/Drawing" class="dashAnchor"></a>
+                <a href="#/Drawing">
+                  <h3 class="section-name">Drawing</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC14KPCTabsControl11TabsControl8isOpaqueSb"></a>
+                    <a name="//apple_ref/swift/Property/isOpaque" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC14KPCTabsControl11TabsControl8isOpaqueSb">isOpaque</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">class</span> <span class="kt">TabsControl</span><span class="p">:</span> <span class="kt">NSControl</span><span class="p">,</span> <span class="kt">NSTextDelegate</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/onekiloparsec/KPCTabsControl/tree/3.0.2/KPCTabsControl/TabsControl.swift#L529-L531">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC14KPCTabsControl11TabsControl9isFlippedSb"></a>
+                    <a name="//apple_ref/swift/Property/isFlipped" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC14KPCTabsControl11TabsControl9isFlippedSb">isFlipped</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">class</span> <span class="kt">TabsControl</span><span class="p">:</span> <span class="kt">NSControl</span><span class="p">,</span> <span class="kt">NSTextDelegate</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/onekiloparsec/KPCTabsControl/tree/3.0.2/KPCTabsControl/TabsControl.swift#L533-L535">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Tab%20Widths"></a>
+                <a name="//apple_ref/swift/Section/Tab Widths" class="dashAnchor"></a>
+                <a href="#/Tab%20Widths">
+                  <h3 class="section-name">Tab Widths</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC14KPCTabsControl11TabsControl15currentTabWidthFT_V12CoreGraphics7CGFloat"></a>
+                    <a name="//apple_ref/swift/Method/currentTabWidth()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC14KPCTabsControl11TabsControl15currentTabWidthFT_V12CoreGraphics7CGFloat">currentTabWidth()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">class</span> <span class="kt">TabsControl</span><span class="p">:</span> <span class="kt">NSControl</span><span class="p">,</span> <span class="kt">NSTextDelegate</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/onekiloparsec/KPCTabsControl/tree/3.0.2/KPCTabsControl/TabsControl.swift#L539-L543">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/State%20Restoration"></a>
+                <a name="//apple_ref/swift/Section/State Restoration" class="dashAnchor"></a>
+                <a href="#/State%20Restoration">
+                  <h3 class="section-name">State Restoration</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC14KPCTabsControl11TabsControl21encodeRestorableStateFT4withCSo7NSCoder_T_"></a>
+                    <a name="//apple_ref/swift/Method/encodeRestorableState(with:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC14KPCTabsControl11TabsControl21encodeRestorableStateFT4withCSo7NSCoder_T_">encodeRestorableState(with:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">class</span> <span class="kt">TabsControl</span><span class="p">:</span> <span class="kt">NSControl</span><span class="p">,</span> <span class="kt">NSTextDelegate</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/onekiloparsec/KPCTabsControl/tree/3.0.2/KPCTabsControl/TabsControl.swift#L552-L560">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC14KPCTabsControl11TabsControl12restoreStateFT4withCSo7NSCoder_T_"></a>
+                    <a name="//apple_ref/swift/Method/restoreState(with:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC14KPCTabsControl11TabsControl12restoreStateFT4withCSo7NSCoder_T_">restoreState(with:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">class</span> <span class="kt">TabsControl</span><span class="p">:</span> <span class="kt">NSControl</span><span class="p">,</span> <span class="kt">NSTextDelegate</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/onekiloparsec/KPCTabsControl/tree/3.0.2/KPCTabsControl/TabsControl.swift#L562-L577">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2017 <a class="link" href="https://onekilopars.ec" target="_blank" rel="external">onekiloparsec</a>. All rights reserved. (Last updated: 2017-03-03)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.4</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>
