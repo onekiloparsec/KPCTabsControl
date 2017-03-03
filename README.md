@@ -42,6 +42,12 @@ KPCTabsControl provides the following features:
  ![Demo Auxiliary Icons](http://www.onekilopars.ec/s/KPCTabsControl2Demo.gif) 
 
 
+Documentation
+=======
+
+The documentation generated from the code itself is available at [http://onekiloparsec.github.io/KPCTabsControl](http://onekiloparsec.github.io/KPCTabsControl).
+
+
 Installation
 ------------
 
