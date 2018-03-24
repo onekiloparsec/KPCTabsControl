@@ -20,20 +20,6 @@
                ReferencedContainer = "container:KPCTabsControl.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9F5B36F71A193A9D00EC36DD"
-               BuildableName = "KPCTabsControlDemoTests.xctest"
-               BlueprintName = "KPCTabsControlDemoTests"
-               ReferencedContainer = "container:KPCTabsControl.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -43,16 +29,6 @@
       language = ""
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9F5B36F71A193A9D00EC36DD"
-               BuildableName = "KPCTabsControlDemoTests.xctest"
-               BlueprintName = "KPCTabsControlDemoTests"
-               ReferencedContainer = "container:KPCTabsControl.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
