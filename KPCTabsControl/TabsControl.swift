@@ -580,6 +580,6 @@ open class TabsControl: NSControl, NSTextDelegate {
     
     fileprivate var tabButtons: [TabButton] {
         guard let tabsView = self.tabsView else { return [] }
-        return tabsView.subviews.flatMap({ $0 as? TabButton }).sorted(by: { $0.frame.minX < $1.frame.minX})
+        return tabsView.subviews.flatMap({ $0 as? TabButton }).sorted(by: { $0.index < $1.index })
     }
 }
