@@ -656,9 +656,8 @@
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <rect key="contentRect" x="502" y="299" width="480" height="600"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
-                        <value key="minSize" type="size" width="300" height="400"/>
+                        <value key="minSize" type="size" width="480" height="600"/>
                         <connections>
-                            <binding destination="B8D-0N-5wS" name="representedFilename" keyPath="self.window" id="HvG-gO-txb"/>
                             <outlet property="delegate" destination="B8D-0N-5wS" id="4jX-LV-SRe"/>
                         </connections>
                     </window>
@@ -676,7 +675,7 @@
                 <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="KPCTabsControlDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="mtO-jd-dzn">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="600"/>
-                        <autoresizingMask key="autoresizingMask"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <splitView dividerStyle="paneSplitter" translatesAutoresizingMaskIntoConstraints="NO" id="WFz-Ln-tcg">
                                 <rect key="frame" x="0.0" y="0.0" width="480" height="600"/>
@@ -808,7 +807,7 @@
                     </connections>
                 </customObject>
             </objects>
-            <point key="canvasLocation" x="732" y="405"/>
+            <point key="canvasLocation" x="711" y="431"/>
         </scene>
     </scenes>
 </document>
