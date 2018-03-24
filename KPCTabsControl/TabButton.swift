@@ -105,7 +105,7 @@ open class TabButton: NSButton {
         tabCell.action = action
         tabCell.style = style
         
-        tabCell.sendAction(on: NSEventMask(rawValue: UInt64(Int(NSEventMask.leftMouseDown.rawValue))))
+        tabCell.sendAction(on: NSEvent.EventTypeMask(rawValue: UInt64(Int(NSEvent.EventTypeMask.leftMouseDown.rawValue))))
         self.cell = tabCell
     }
     
@@ -139,7 +139,7 @@ open class TabButton: NSButton {
         
         let userInfo: [String: AnyObject]? = (item != nil) ? ["item": item!] : nil
         self.trackingArea = NSTrackingArea(rect: self.bounds,
-                                           options: [.mouseEnteredAndExited, .activeInActiveApp, .inVisibleRect],
+                                           options: [NSTrackingArea.Options.mouseEnteredAndExited, NSTrackingArea.Options.activeInActiveApp, NSTrackingArea.Options.inVisibleRect],
                                            owner: self, userInfo: userInfo)
         
         self.addTrackingArea(self.trackingArea!)
@@ -172,12 +172,12 @@ open class TabButton: NSButton {
     open override func mouseDown(with theEvent: NSEvent) {
         super.mouseDown(with: theEvent)
         if self.isEnabled == false {
-            NSBeep()
+            NSSound.beep()
         }
     }
 
     open override func resetCursorRects() {
-        self.addCursorRect(self.bounds, cursor: NSCursor.arrow())
+        self.addCursorRect(self.bounds, cursor: NSCursor.arrow)
     }
     
     open override func draw(_ dirtyRect: NSRect) {

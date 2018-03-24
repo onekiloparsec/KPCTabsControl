@@ -20,7 +20,7 @@ internal extension NSImage {
         self.draw(in: imageRect, from: NSZeroRect, operation: .sourceOver, fraction: 1.0)
         
         tint.set()
-        NSRectFillUsingOperation(imageRect, .sourceAtop);
+        imageRect.fill(using: .sourceAtop);
         
         highlightImage.unlockFocus()
         

@@ -24,14 +24,14 @@ public struct SafariTheme: Theme {
         var backgroundColor: NSColor { return SafariTheme.sharedBackgroundColor }
         var borderColor: NSColor { return SafariTheme.sharedBorderColor }
         var titleColor: NSColor { return NSColor(white: 0.38, alpha: 1.0) }
-        var titleFont: NSFont { return NSFont.systemFont(ofSize: NSFont.systemFontSize()) }
+        var titleFont: NSFont { return NSFont.systemFont(ofSize: NSFont.systemFontSize) }
     }
     
     fileprivate struct SelectedTabButtonTheme: KPCTabsControl.TabButtonTheme {
         var backgroundColor: NSColor { return NSColor(white: 0.79, alpha: 1.0) }
         var borderColor: NSColor { return NSColor(white: 0.64, alpha: 1.0) }
         var titleColor: NSColor { return NSColor(white: 0.08, alpha: 1.0) }
-        var titleFont: NSFont { return NSFont.systemFont(ofSize: NSFont.systemFontSize()) }
+        var titleFont: NSFont { return NSFont.systemFont(ofSize: NSFont.systemFontSize) }
     }
 
     fileprivate struct UnselectableTabButtonTheme: KPCTabsControl.TabButtonTheme {

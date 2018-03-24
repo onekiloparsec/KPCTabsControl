@@ -12,8 +12,8 @@ internal extension NSButton {
     static internal func auxiliaryButton(withImageNamed imageName: String, target: AnyObject?, action: Selector?) -> NSButton {
         
         let cell = TabButtonCell(textCell: "")
-        let mask = NSEventMask.leftMouseDown.union(NSEventMask.periodic)
-        cell.sendAction(on: NSEventMask(rawValue: UInt64(Int(mask.rawValue))))
+        let mask = NSEvent.EventTypeMask.leftMouseDown.union(NSEvent.EventTypeMask.periodic)
+        cell.sendAction(on: NSEvent.EventTypeMask(rawValue: UInt64(Int(mask.rawValue))))
         
         let button = NSButton()
         button.cell = cell
@@ -23,7 +23,7 @@ internal extension NSButton {
         button.isEnabled = (target != nil && action != nil)
         button.isContinuous = true
         button.imagePosition = .imageOnly
-        button.image = NSImage(named: imageName)
+        button.image = NSImage(named: NSImage.Name(rawValue: imageName))
 
         if let img = button.image {
             var r: CGRect = CGRect.zero

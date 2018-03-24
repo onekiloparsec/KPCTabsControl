@@ -77,7 +77,7 @@ open class TabsControl: NSControl, NSTextDelegate {
         self.scrollView.usesPredominantAxisScrolling = true
         self.scrollView.horizontalScrollElasticity = .allowed
         self.scrollView.verticalScrollElasticity = .none
-        self.scrollView.autoresizingMask = [.viewWidthSizable, .viewHeightSizable]
+        self.scrollView.autoresizingMask = [NSView.AutoresizingMask.width, NSView.AutoresizingMask.height]
         self.scrollView.translatesAutoresizingMaskIntoConstraints = true
         
         self.tabsView = NSView(frame: self.scrollView.bounds)
@@ -94,8 +94,8 @@ open class TabsControl: NSControl, NSTextDelegate {
                                                               target: self,
                                                               action: #selector(TabsControl.scrollTabView(_:)))
             
-            self.scrollLeftButton?.autoresizingMask = .viewMinXMargin
-            self.scrollLeftButton?.autoresizingMask = .viewMinXMargin
+            self.scrollLeftButton?.autoresizingMask = NSView.AutoresizingMask.minXMargin
+            self.scrollLeftButton?.autoresizingMask = NSView.AutoresizingMask.minXMargin
             
             let leftCell = self.scrollLeftButton!.cell as! TabButtonCell
             leftCell.buttonPosition = .first
@@ -156,7 +156,7 @@ open class TabsControl: NSControl, NSTextDelegate {
                                    style: self.style)
                 
                 button.wantsLayer = true
-                button.state = NSOffState
+                button.state = NSControl.StateValue.off
                 self.tabsView.addSubview(button)
             }
             else {
@@ -218,7 +218,7 @@ open class TabsControl: NSControl, NSTextDelegate {
             let buttonFrame = CGRect(x: buttonX + offset.x, y: offset.y, width: buttonWidth, height: buttonHeight)
             buttonX += buttonWidth + offset.x
 
-            button.layer?.zPosition = button.state == NSOnState ? CGFloat(FLT_MAX) : CGFloat(index)
+            button.layer?.zPosition = button.state == NSControl.StateValue.on ? CGFloat(Float.greatestFiniteMagnitude) : CGFloat(index)
 
             if animated && !button.isHidden {
                 button.animator().frame = buttonFrame
@@ -264,7 +264,7 @@ open class TabsControl: NSControl, NSTextDelegate {
         
         NotificationCenter.default.addObserver(self,
                                                          selector: #selector(TabsControl.scrollViewDidScroll(_:)),
-                                                         name: NSNotification.Name.NSViewFrameDidChange,
+                                                         name: NSView.frameDidChangeNotification,
                                                          object: self.scrollView)
     }
     
@@ -273,7 +273,7 @@ open class TabsControl: NSControl, NSTextDelegate {
         self.scrollView.removeObserver(self, forKeyPath: "documentView.frame", context: &ScrollViewObservationContext)
         
         NotificationCenter.default.removeObserver(self,
-                                                            name: NSNotification.Name.NSViewFrameDidChange,
+                                                            name: NSView.frameDidChangeNotification,
                                                             object: self.scrollView)
     }
     
@@ -334,11 +334,11 @@ open class TabsControl: NSControl, NSTextDelegate {
 
         var temporarySelectedButtonIndex = self.selectedButtonIndex!
         while(true) {
-            let mask: Int = Int(NSEventMask.leftMouseUp.union(.leftMouseDragged).rawValue)
-            let event: NSEvent! = self.window?.nextEvent(matching: NSEventMask(rawValue: UInt64(mask)))
+            let mask: Int = Int(NSEvent.EventTypeMask.leftMouseUp.union(NSEvent.EventTypeMask.leftMouseDragged).rawValue)
+            let event: NSEvent! = self.window?.nextEvent(matching: NSEvent.EventTypeMask(rawValue: UInt64(mask)))
             
-            if event.type == NSEventType.leftMouseUp {
-                NSAnimationContext.current().completionHandler = {
+            if event.type == NSEvent.EventType.leftMouseUp {
+                NSAnimationContext.current.completionHandler = {
                     draggingTab.removeFromSuperview()
                     tab.isHidden = false
 
@@ -377,7 +377,7 @@ open class TabsControl: NSControl, NSTextDelegate {
             }
             
             if let secondIndex = secondaryIndex {
-                swap(&orderedTabs[primaryIndex], &orderedTabs[secondIndex])
+                orderedTabs.swapAt(primaryIndex, secondIndex)
                 
                 // Shouldn't indexes be swapped too????? But if we do so, it doesn't work!
                 orderedTabs[primaryIndex].buttonPosition = TabPosition.fromIndex(primaryIndex, totalCount: orderedTabs.count)
@@ -417,10 +417,10 @@ open class TabsControl: NSControl, NSTextDelegate {
         else if let item = button.representedObject
             , self.delegate?.tabsControl?(self, canReorderItem: item) == true {
 
-            let mask: NSEventMask = NSEventMask.leftMouseUp.union(.leftMouseDragged)
+            let mask: NSEvent.EventTypeMask = NSEvent.EventTypeMask.leftMouseUp.union(NSEvent.EventTypeMask.leftMouseDragged)
 
-            guard let event = self.window?.nextEvent(matching: NSEventMask(rawValue: UInt64(Int(mask.rawValue))), until: Date.distantFuture, inMode: RunLoopMode.eventTrackingRunLoopMode, dequeue: false)
-                , event.type == NSEventType.leftMouseDragged
+            guard let event = self.window?.nextEvent(matching: NSEvent.EventTypeMask(rawValue: UInt64(Int(mask.rawValue))), until: Date.distantFuture, inMode: RunLoopMode.eventTrackingRunLoopMode, dequeue: false)
+                , event.type == NSEvent.EventType.leftMouseDragged
                 else { return }
 
             self.reorderTab(button, withEvent: currentEvent)
@@ -467,11 +467,11 @@ open class TabsControl: NSControl, NSTextDelegate {
     fileprivate func updateButtonStatesForSelection() {
         for button in self.tabButtons {
             guard let selectedIndex = self.selectedButtonIndex else {
-                button.state = NSOffState
+                button.state = NSControl.StateValue.off
                 continue
             }
 
-            button.state = button.index == selectedIndex ? NSOnState : NSOffState
+            button.state = button.index == selectedIndex ? NSControl.StateValue.on : NSControl.StateValue.off
         }
     }
 
@@ -508,7 +508,7 @@ open class TabsControl: NSControl, NSTextDelegate {
             return
         }
         
-        let newValue = fieldEditor.string ?? ""
+        let newValue = fieldEditor.string 
         self.editingTab?.button.finishEditing(fieldEditor: fieldEditor, newValue: newValue)
         self.window?.makeFirstResponder(self)
         

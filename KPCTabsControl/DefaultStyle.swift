@@ -10,7 +10,7 @@ import Cocoa
 
 public enum TitleDefaults {
     static let alignment = NSTextAlignment.center
-    static let lineBreakMode = NSLineBreakMode.byTruncatingMiddle
+    static let lineBreakMode = NSParagraphStyle.LineBreakMode.byTruncatingMiddle
 }
 
 /// Default implementation of Themed Style
@@ -75,9 +75,9 @@ public extension ThemedStyle {
         paragraphStyle.alignment = TitleDefaults.alignment
         paragraphStyle.lineBreakMode = TitleDefaults.lineBreakMode
         
-        let attributes = [NSForegroundColorAttributeName : activeTheme.titleColor,
-                          NSFontAttributeName : activeTheme.titleFont,
-                          NSParagraphStyleAttributeName : paragraphStyle]
+        let attributes = [NSAttributedStringKey.foregroundColor : activeTheme.titleColor,
+                          NSAttributedStringKey.font : activeTheme.titleFont,
+                          NSAttributedStringKey.paragraphStyle : paragraphStyle]
         
         return NSAttributedString(string: content, attributes: attributes)
     }
@@ -92,7 +92,7 @@ public extension ThemedStyle {
 
     public func drawTabsControlBezel(frame: NSRect) {
         self.theme.tabsControlTheme.backgroundColor.setFill()
-        NSRectFill(frame)
+        frame.fill()
         
         let borderDrawing = BorderDrawing.fromMask(frame, borderMask: self.tabsControlBorderMask())
         self.drawBorder(borderDrawing, color: self.theme.tabsControlTheme.borderColor)
@@ -102,7 +102,7 @@ public extension ThemedStyle {
         
         let activeTheme = isSelected ? self.theme.selectedTabButtonTheme : self.theme.tabButtonTheme
         activeTheme.backgroundColor.setFill()
-        NSRectFill(frame)
+        frame.fill()
         
         let borderDrawing = BorderDrawing.fromMask(frame, borderMask: self.tabButtonBorderMask(position))
         self.drawBorder(borderDrawing, color: activeTheme.borderColor)
@@ -110,12 +110,12 @@ public extension ThemedStyle {
 
     fileprivate func drawBorder(_ border: BorderDrawing, color: NSColor) {
         
-        guard case let .draw(borderRects: borderRects, rectCount: borderRectCount) = border
+        guard case let .draw(borderRects: borderRects, rectCount: _) = border
             else { return }
         
         color.setFill()
         color.setStroke()
-        NSRectFillList(borderRects, borderRectCount)
+        borderRects.fill()
     }
 }
 

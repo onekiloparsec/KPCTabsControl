@@ -8,7 +8,7 @@
 
 import Foundation
 
-internal extension Collection where Self.Index : Comparable {
+internal extension Collection {
 
     subscript (safe index: Self.Index) -> Self.Iterator.Element? {
         return index < endIndex ? self[index] : nil

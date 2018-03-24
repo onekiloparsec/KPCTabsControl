@@ -9,10 +9,13 @@
 import Cocoa
 import KPCTabsControl
 
+// Bug from Apple ?
+// https://stackoverflow.com/questions/47051682/unknown-window-class-null-in-interface-builder-file-creating-generic-window-i
+class WorkedAroundWindow: NSWindow {}
+
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     
-    @IBOutlet weak var window: NSWindow?
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
     }

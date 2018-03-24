@@ -17,7 +17,7 @@ class TabButtonCell: NSButtonCell {
     var hasTitleAlternativeIcon: Bool = false
 
     var isSelected: Bool {
-        get { return self.state == NSOnState }
+        get { return self.state == NSControl.StateValue.on }
     }
     
     var selectionState: TabSelectionState {
@@ -45,7 +45,7 @@ class TabButtonCell: NSButtonCell {
 
         self.isBordered = true
         self.backgroundStyle = .light
-        self.highlightsBy = .changeBackgroundCellMask
+        self.highlightsBy = NSCell.StyleMask.changeBackgroundCellMask
         self.lineBreakMode = .byTruncatingTail
         self.focusRingType = .none
     }
@@ -69,7 +69,7 @@ class TabButtonCell: NSButtonCell {
     // MARK: - Properties & Rects
 
     static func popupImage() -> NSImage {
-        let path = Bundle(for: self).pathForImageResource("KPCPullDownTemplate")!
+        let path = Bundle(for: self).pathForImageResource(NSImage.Name(rawValue: "KPCPullDownTemplate"))!
         return NSImage(contentsOfFile: path)!.imageWithTint(NSColor.darkGray)
     }
 
@@ -103,7 +103,7 @@ class TabButtonCell: NSButtonCell {
     {
         if self.hitTest(for: theEvent,
                                 in: controlView.superview!.frame,
-                                of: controlView.superview!) != NSCellHitResult()
+                                of: controlView.superview!) != NSCell.HitResult()
         {
         
             let popupRect = self.popupRectWithFrame(cellFrame)

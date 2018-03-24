@@ -26,7 +26,7 @@ import Cocoa
         guard let backgroundColor = self.backgroundColor else { return }
 
         backgroundColor.setFill()
-        NSRectFill(dirtyRect)
+        dirtyRect.fill()
     }
 
     fileprivate func drawTopLine(_ dirtyRect: NSRect) {

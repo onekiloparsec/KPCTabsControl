@@ -63,9 +63,9 @@ public struct ChromeStyle: ThemedStyle {
 
         let activeTheme = self.theme.tabButtonTheme(fromSelectionState: selectionState)
 
-        let attributes = [NSParagraphStyleAttributeName: paragraphStyle,
-                          NSFontAttributeName: activeTheme.titleFont,
-                          NSForegroundColorAttributeName: activeTheme.titleColor]
+        let attributes = [NSAttributedStringKey.paragraphStyle: paragraphStyle,
+                          NSAttributedStringKey.font: activeTheme.titleFont,
+                          NSAttributedStringKey.foregroundColor: activeTheme.titleColor]
 
         return NSAttributedString(string: content, attributes: attributes)
     }
@@ -183,7 +183,7 @@ public struct ChromeStyle: ThemedStyle {
 
     public func drawTabsControlBezel(frame: NSRect) {
         self.theme.tabsControlTheme.backgroundColor.setFill()
-        NSRectFill(frame)
+        frame.fill()
         self.drawBottomBorder(frame: frame)
     }
 
@@ -192,7 +192,7 @@ public struct ChromeStyle: ThemedStyle {
                                   size: NSSize(width: frame.width, height: 1))
         
         self.theme.tabsControlTheme.borderColor.setFill()
-        NSRectFill(bottomBorder)
+        bottomBorder.fill()
     }
 
     public func tabButtonOffset(position: TabPosition) -> Offset {
