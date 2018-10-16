@@ -23,7 +23,7 @@ internal extension NSButton {
         button.isEnabled = (target != nil && action != nil)
         button.isContinuous = true
         button.imagePosition = .imageOnly
-        button.image = NSImage(named: NSImage.Name(rawValue: imageName))
+        button.image = NSImage(named: imageName)
 
         if let img = button.image {
             var r: CGRect = CGRect.zero

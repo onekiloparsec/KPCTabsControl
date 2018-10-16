@@ -63,9 +63,9 @@ public struct ChromeStyle: ThemedStyle {
 
         let activeTheme = self.theme.tabButtonTheme(fromSelectionState: selectionState)
 
-        let attributes = [NSAttributedStringKey.paragraphStyle: paragraphStyle,
-                          NSAttributedStringKey.font: activeTheme.titleFont,
-                          NSAttributedStringKey.foregroundColor: activeTheme.titleColor]
+        let attributes = [NSAttributedString.Key.paragraphStyle: paragraphStyle,
+                          NSAttributedString.Key.font: activeTheme.titleFont,
+                          NSAttributedString.Key.foregroundColor: activeTheme.titleColor]
 
         return NSAttributedString(string: content, attributes: attributes)
     }
