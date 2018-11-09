@@ -27,7 +27,7 @@ A multi-tabs control first designed to look and behave like the tab control in A
 
 On master, you'll find the latest Swift4 releases. If you need to stay with Swift2, switch to the swift-2.2 branch. If you need to stay with Swift3, switch to the swift-3.1 branch.
  
-![Demo Tabs Screenshot](http://www.onekilopars.ec/s/KPCTabsControl2Screenshot.png)
+![Demo Tabs Screenshot](http://onekilopars.ec/wp-content/uploads/2018/11/KPCTabsControl2Screenshot.png)
 
 KPCTabsControl provides the following features:
 
