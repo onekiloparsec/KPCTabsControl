@@ -39,7 +39,7 @@ KPCTabsControl provides the following features:
 * When provided, the title can be replaced by an alternative icon when the width is too narrow for the title to be drawn.
 
 
- ![Demo Auxiliary Icons](http://www.onekilopars.ec/s/KPCTabsControl2Demo.gif) 
+ ![Demo Auxiliary Icons](http://onekilopars.ec/wp-content/uploads/2018/11/KPCTabsControl2Demo.gif) 
 
 
 Documentation
