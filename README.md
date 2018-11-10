@@ -15,7 +15,7 @@
 KPCTabsControl
 ==============
 
-![](https://img.shields.io/badge/Swift-4.0-blue.svg?style=flat)
+![](https://img.shields.io/badge/Swift-4.2-blue.svg?style=flat)
 [![Build Status](http://img.shields.io/travis/onekiloparsec/KPCTabsControl.svg?style=flat)](https://travis-ci.org/onekiloparsec/KPCTabsControl)
 ![Version](https://img.shields.io/cocoapods/v/KPCTabsControl.svg?style=flat)
 ![License](https://img.shields.io/cocoapods/l/KPCTabsControl.svg?style=flat)
