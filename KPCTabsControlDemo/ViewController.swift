@@ -24,9 +24,9 @@ class ViewController: NSViewController {
         tab2Menu.addItem(withTitle: "Action 1: AddTabItem", action: #selector(ViewController.addTabItem), keyEquivalent: "")
         tab2Menu.addItem(withTitle: "Action 2: nil", action: nil, keyEquivalent: "")
 
-        self.paneDefault?.items = [Item(title: "Default 1", icon: NSImage(named: NSImage.Name(rawValue: "Star")), menu: nil, altIcon: nil, selectable: false),
-                                   Item(title: "Default 2", icon: NSImage(named: NSImage.Name(rawValue: "Oval")), menu: tab2Menu, altIcon: nil),
-                                   Item(title: "Default 3 Long Title", icon: nil, menu: nil, altIcon: NSImage(named: NSImage.Name(rawValue: "ArrowTemplate"))),
+        self.paneDefault?.items = [Item(title: "Default 1", icon: NSImage(named: NSImage.Name("Star")), menu: nil, altIcon: nil, selectable: false),
+                                   Item(title: "Default 2", icon: NSImage(named: NSImage.Name("Oval")), menu: tab2Menu, altIcon: nil),
+                                   Item(title: "Default 3 Long Title", icon: nil, menu: nil, altIcon: NSImage(named: NSImage.Name("ArrowTemplate"))),
                                    Item(title: "Default 4 Longish Title", icon: nil, menu: nil, altIcon: nil),
                                    Item(title: "Default 5", icon: nil, menu: nil, altIcon: nil)]
 
@@ -35,10 +35,10 @@ class ViewController: NSViewController {
         self.paneChrome?.title = "Chrome"
         self.paneChrome?.tabsBar?.style = ChromeStyle()
 
-        self.paneChrome?.items = [Item(title: "Chrome 1", icon: NSImage(named: NSImage.Name(rawValue: "Star")), menu: nil, altIcon: nil, selectable: false),
-                                  Item(title: "Chrome 2", icon: NSImage(named: NSImage.Name(rawValue: "Triangle")), menu: nil, altIcon: nil),
-                                  Item(title: "Chrome 3", icon: NSImage(named: NSImage.Name(rawValue: "Spiral")), menu: nil, altIcon: nil),
-                                  Item(title: "Chrome 4", icon: NSImage(named: NSImage.Name(rawValue: "Polygon")), menu: nil, altIcon: nil)]
+        self.paneChrome?.items = [Item(title: "Chrome 1", icon: NSImage(named: NSImage.Name("Star")), menu: nil, altIcon: nil, selectable: false),
+                                  Item(title: "Chrome 2", icon: NSImage(named: NSImage.Name("Triangle")), menu: nil, altIcon: nil),
+                                  Item(title: "Chrome 3", icon: NSImage(named: NSImage.Name("Spiral")), menu: nil, altIcon: nil),
+                                  Item(title: "Chrome 4", icon: NSImage(named: NSImage.Name("Polygon")), menu: nil, altIcon: nil)]
 
         let style = self.paneChrome?.tabsBar?.style as! ThemedStyle
         (self.paneChrome?.view as? ColoredView)?.backgroundColor = style.theme.selectedTabButtonTheme.backgroundColor
@@ -49,9 +49,9 @@ class ViewController: NSViewController {
         self.paneSafari?.title = "Safari"
         self.paneSafari?.tabsBar?.style = SafariStyle()
 
-        self.paneSafari?.items = [Item(title: "Safari 1", icon: NSImage(named: NSImage.Name(rawValue: "Star")), menu: nil, altIcon: nil),
-                                  Item(title: "Safari 2", icon: NSImage(named: NSImage.Name(rawValue: "Triangle")), menu: nil, altIcon: nil),
-                                  Item(title: "Safari 3", icon: NSImage(named: NSImage.Name(rawValue: "Spiral")), menu: nil, altIcon: nil)]
+        self.paneSafari?.items = [Item(title: "Safari 1", icon: NSImage(named: NSImage.Name("Star")), menu: nil, altIcon: nil),
+                                  Item(title: "Safari 2", icon: NSImage(named: NSImage.Name("Triangle")), menu: nil, altIcon: nil),
+                                  Item(title: "Safari 3", icon: NSImage(named: NSImage.Name("Spiral")), menu: nil, altIcon: nil)]
 
         self.paneSafari?.tabsBar?.reloadTabs()
         self.paneSafari?.tabsBar?.selectItemAtIndex(1)
