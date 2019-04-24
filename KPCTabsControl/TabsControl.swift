@@ -358,7 +358,7 @@ open class TabsControl: NSControl, NSTextDelegate {
             let movingLeft = (nextPoint.x < prevPoint.x)
             prevPoint = nextPoint
             
-            let primaryIndex = orderedTabs.index(of: tab)!
+            let primaryIndex = orderedTabs.firstIndex(of: tab)!
             var secondaryIndex : Int?
             
             if movingLeft == true && NSMidX(draggingTab.frame) < NSMinX(tab.frame) && tab !== orderedTabs.first! {
