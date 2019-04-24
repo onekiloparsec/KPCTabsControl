@@ -36,7 +36,7 @@ public protocol Theme {
     var tabsControlTheme: TabsControlTheme { get }
 }
 
-public extension Theme {
+extension Theme {
     /**
      Convenience function that select the theme corresponding to the right selection state.
      
