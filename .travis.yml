@@ -1,4 +1,4 @@
 language: swift
 xcode_project: KPCTabsControl.xcodeproj
 xcode_scheme: KPCTabsControl
-osx_image: xcode10.1
+osx_image: xcode10.2
