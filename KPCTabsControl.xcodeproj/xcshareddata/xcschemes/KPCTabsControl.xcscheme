@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1000"
+   LastUpgradeVersion = "1020"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -28,7 +28,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9FA7EDAE1AD668BC0060FF79"
+               BlueprintIdentifier = "9FC4B5572195ACE7000F2119"
                BuildableName = "KPCTabsControlTests.xctest"
                BlueprintName = "KPCTabsControlTests"
                ReferencedContainer = "container:KPCTabsControl.xcodeproj">
@@ -46,7 +46,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9FA7EDAE1AD668BC0060FF79"
+               BlueprintIdentifier = "9FC4B5572195ACE7000F2119"
                BuildableName = "KPCTabsControlTests.xctest"
                BlueprintName = "KPCTabsControlTests"
                ReferencedContainer = "container:KPCTabsControl.xcodeproj">
