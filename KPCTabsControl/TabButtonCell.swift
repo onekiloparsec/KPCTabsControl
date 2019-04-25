@@ -156,7 +156,7 @@ class TabButtonCell: NSButtonCell {
 
         // Replace content so that resizing is triggered
         fieldEditor.string = ""
-        fieldEditor.insertText(self.title)
+        fieldEditor.insertText(self.title ?? "")
         fieldEditor.selectAll(self)
 
         self.title = ""
