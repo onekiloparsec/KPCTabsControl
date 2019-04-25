@@ -8,7 +8,7 @@
 
 import AppKit
 
-internal extension NSButton {
+extension NSButton {
     static internal func auxiliaryButton(withImageNamed imageName: String, target: AnyObject?, action: Selector?) -> NSButton {
         
         let cell = TabButtonCell(textCell: "")

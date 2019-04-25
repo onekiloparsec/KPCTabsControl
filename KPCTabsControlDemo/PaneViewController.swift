@@ -99,7 +99,7 @@ class PaneViewController: NSViewController, TabsControlDataSource, TabsControlDe
     func tabsControl(_ control: TabsControl, setTitle newTitle: String, forItem item: AnyObject) {
         let typedItem = item as! Item
         let titles = self.items.map { $0.title }
-        let index = titles.index(of: typedItem.title)!
+        let index = titles.firstIndex(of: typedItem.title)!
 
         let newItem = Item(title: newTitle, icon: typedItem.icon, menu: typedItem.menu, altIcon: typedItem.altIcon)
         let range = index..<index+1

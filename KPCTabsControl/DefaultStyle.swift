@@ -15,7 +15,7 @@ public enum TitleDefaults {
 
 /// Default implementation of Themed Style
 
-public extension ThemedStyle {
+extension ThemedStyle {
     
     // MARK: - Tab Buttons
     
