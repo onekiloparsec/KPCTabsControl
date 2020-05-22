@@ -105,6 +105,7 @@
 		9F4946B21D5F87440061C5B7 /* DefaultStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DefaultStyle.swift; path = KPCTabsControl/DefaultStyle.swift; sourceTree = "<group>"; };
 		9F4946B31D5F87440061C5B7 /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Theme.swift; path = KPCTabsControl/Theme.swift; sourceTree = "<group>"; };
 		9F4946B61D6058440061C5B7 /* ChromeTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChromeTheme.swift; path = KPCTabsControl/ChromeTheme.swift; sourceTree = "<group>"; };
+		9F494B18247837DB006EFC40 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = SOURCE_ROOT; };
 		9F53676D1D38F4A6001C5D54 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = KPCTabsControl/Constants.swift; sourceTree = "<group>"; };
 		9F6E61DC1D4F6E9B004167F1 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		9F76CEE31D560DB500D817F7 /* Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Error.swift; path = KPCTabsControl/Error.swift; sourceTree = "<group>"; };
@@ -247,6 +248,7 @@
 			children = (
 				9F6E61DC1D4F6E9B004167F1 /* README.md */,
 				9F1F12961D7C5D8A006FD828 /* KPCTabsControl.podspec */,
+				9F494B18247837DB006EFC40 /* Package.swift */,
 				9FA7EDA81AD668BC0060FF79 /* Info.plist */,
 				9F09E9FD1C95668400EA970C /* LICENSE */,
 			);
@@ -652,6 +654,7 @@
 				INFOPLIST_FILE = KPCTabsControl/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MARKETING_VERSION = 4.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.onekiloparsec.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -676,6 +679,7 @@
 				INFOPLIST_FILE = KPCTabsControl/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MARKETING_VERSION = 4.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.onekiloparsec.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
