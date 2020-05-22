@@ -69,7 +69,7 @@ class TabButtonCell: NSButtonCell {
     // MARK: - Properties & Rects
 
     static func popupImage() -> NSImage {
-        let path = Bundle(for: self).pathForImageResource("KPCPullDownTemplate")!
+        let path = Bundle(for: self).pathForImageResource(NSImage.Name("KPCPullDownTemplate"))!
         return NSImage(contentsOfFile: path)!.imageWithTint(NSColor.darkGray)
     }
 

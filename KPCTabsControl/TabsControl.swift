@@ -412,7 +412,7 @@ open class TabsControl: NSControl, NSTextDelegate {
 
             let mask: NSEvent.EventTypeMask = NSEvent.EventTypeMask.leftMouseUp.union(NSEvent.EventTypeMask.leftMouseDragged)
 
-            guard let event = self.window?.nextEvent(matching: NSEvent.EventTypeMask(rawValue: UInt64(Int(mask.rawValue))), until: Date.distantFuture, inMode: RunLoop.Mode.eventTracking, dequeue: false)
+            guard let event = self.window?.nextEvent(matching: NSEvent.EventTypeMask(rawValue: UInt64(Int(mask.rawValue))), until: Date.distantFuture, inMode: .eventTracking, dequeue: false)
                 , event.type == NSEvent.EventType.leftMouseDragged
                 else { return }
 
