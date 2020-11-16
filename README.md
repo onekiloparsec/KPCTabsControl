@@ -1,5 +1,5 @@
 <h3 align="center">
-    <img src="http://onekilopars.ec/wp-content/uploads/2018/07/1kpcProComponents.001.png" width="100%" />
+    <img src="./assets/1kpcProComponents.png?raw=true" width="100%" />
 </h3>
 <p align="center">
   <b>KPCTabsControl</b> &bull;
@@ -32,7 +32,7 @@ On master, you'll find the latest Swift&nbsp;5 releases.
 - If you need to stay with Swift&nbsp;2, switch to the `swift-2.2` branch. 
 
  
-![Demo Tabs Screenshot](http://onekilopars.ec/wp-content/uploads/2018/11/KPCTabsControl2Screenshot.png)
+![Demo Tabs Screenshot](./assets/KPCTabsControl2Screenshot.png?raw=true)
 
 KPCTabsControl provides the following features:
 
@@ -44,7 +44,7 @@ KPCTabsControl provides the following features:
 * When provided, the title can be replaced by an alternative icon when the width is too narrow for the title to be drawn.
 
 
- ![Demo Auxiliary Icons](http://onekilopars.ec/wp-content/uploads/2018/11/KPCTabsControl2Demo.gif) 
+![Demo Auxiliary Icons](./assets/KPCTabsControl2Demo.gif?raw=true) 
 
 
 Documentation
