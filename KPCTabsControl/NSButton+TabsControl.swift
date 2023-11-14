@@ -23,8 +23,15 @@ extension NSButton {
         button.isEnabled = (target != nil && action != nil)
         button.isContinuous = true
         button.imagePosition = .imageOnly
+        #if SwiftPackage
+        button.image = NSImage(
+            contentsOfFile: Bundle.module.path(
+                forResource: imageName, ofType: "pdf", inDirectory: "Resources"
+            )!
+        )
+        #else
         button.image = NSImage(named: NSImage.Name(imageName))
-
+        #endif
         if let img = button.image {
             var r: CGRect = CGRect.zero
             r.size = img.size
