@@ -17,7 +17,7 @@ import AppKit
      - returns: A unsigned integer indicating the number of tabs to display.
      */
     func tabsControlNumberOfTabs(_ control: TabsControl) -> Int
-    
+
     /**
      Return the item for the tab at the given index, similarly to a "representedObject" in a cell view.
      
@@ -27,7 +27,7 @@ import AppKit
      - returns: An instance of an object representing the tab.
      */
     func tabsControl(_ control: TabsControl, itemAtIndex index: Int) -> AnyObject
-    
+
     /**
      Return the title for the tab of the given item
      
@@ -37,7 +37,7 @@ import AppKit
      - returns: A string to be used as title of the tab.
      */
     func tabsControl(_ control: TabsControl, titleForItem item: AnyObject) -> String
-    
+
     /**
      If any, returns a menu for the tab, to be place to the right side of it. It is your responsability to fully
      configure its targets and actions before returning it to the tabs control.
@@ -47,8 +47,8 @@ import AppKit
      
      - returns: A menu instance.
      */
-    @objc optional func tabsControl(_ control: TabsControl, menuForItem item:AnyObject) -> NSMenu?
-    
+    @objc optional func tabsControl(_ control: TabsControl, menuForItem item: AnyObject) -> NSMenu?
+
     /**
      If any, returns an icon for the tab, to be placed to the left side of it.
      
@@ -57,7 +57,7 @@ import AppKit
      
      - returns: An image instance for the icon.
      */
-    @objc optional func tabsControl(_ control: TabsControl, iconForItem item:AnyObject) -> NSImage?
+    @objc optional func tabsControl(_ control: TabsControl, iconForItem item: AnyObject) -> NSImage?
 
     /**
      If the width of the tab is not large enough to draw the title, it is possible to provide here an alternate
@@ -69,7 +69,7 @@ import AppKit
      
      - returns:  An image instance for the alternate icon.
      */
-    @objc optional func tabsControl(_ control: TabsControl, titleAlternativeIconForItem item:AnyObject) -> NSImage?
+    @objc optional func tabsControl(_ control: TabsControl, titleAlternativeIconForItem item: AnyObject) -> NSImage?
 }
 
 @objc public protocol TabsControlDelegate: NSControlTextEditingDelegate {

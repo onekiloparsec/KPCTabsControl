@@ -8,6 +8,6 @@
 
 import Foundation
 
-func fatalMethodNotImplemented(_ function: String = #function) -> Never  {
+func fatalMethodNotImplemented(_ function: String = #function) -> Never {
     fatalError("Method \(function) not implemented")
 }

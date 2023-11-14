@@ -19,7 +19,7 @@ class Item {
     var menu: NSMenu?
     var altIcon: NSImage?
     var selectable: Bool
-    
+
     init(title: String, icon: NSImage?, menu: NSMenu?, altIcon: NSImage?, selectable: Bool = true) {
         self.title = title
         self.icon = icon
@@ -41,61 +41,61 @@ class PaneViewController: NSViewController, TabsControlDataSource, TabsControlDe
     @IBOutlet weak var useFullWidthTabsCheckButton: NSButton?
     @IBOutlet weak var tabWidthsLabel: NSTextField?
 
-    var items: Array<Item> = []
+    var items: [Item] = []
     override var title: String? {
         didSet { self.tabWidthsLabel?.stringValue = self.title! }
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         self.tabsBar?.dataSource = self
         self.tabsBar?.delegate = self
         self.tabsBar?.reloadTabs()
     }
-        
+
     // MARK: TabsControlDataSource
-    
+
     func tabsControlNumberOfTabs(_ control: TabsControl) -> Int {
         return self.items.count
     }
-    
+
     func tabsControl(_ control: TabsControl, itemAtIndex index: Int) -> AnyObject {
         return self.items[index]
     }
-    
+
     func tabsControl(_ control: TabsControl, titleForItem item: AnyObject) -> String {
         return (item as! Item).title
     }
-    
+
     // MARK: TabsControlDataSource : Optionals
-    
+
     func tabsControl(_ control: TabsControl, menuForItem item: AnyObject) -> NSMenu? {
         return (item as! Item).menu
     }
-    
+
     func tabsControl(_ control: TabsControl, iconForItem item: AnyObject) -> NSImage? {
         return (item as! Item).icon
     }
-    
+
     func tabsControl(_ control: TabsControl, titleAlternativeIconForItem item: AnyObject) -> NSImage? {
         return (item as! Item).altIcon
     }
 
     // MARK: TabsControlDelegate
-    
+
     func tabsControl(_ control: TabsControl, canReorderItem item: AnyObject) -> Bool {
         return true
     }
-    
+
     func tabsControl(_ control: TabsControl, didReorderItems items: [AnyObject]) {
         self.items = items.map { $0 as! Item }
     }
-    
+
     func tabsControl(_ control: TabsControl, canEditTitleOfItem: AnyObject) -> Bool {
         return true
     }
-    
+
     func tabsControl(_ control: TabsControl, setTitle newTitle: String, forItem item: AnyObject) {
         let typedItem = item as! Item
         let titles = self.items.map { $0.title }
@@ -110,4 +110,3 @@ class PaneViewController: NSViewController, TabsControlDataSource, TabsControlDe
         return (item as! Item).selectable
     }
 }
-

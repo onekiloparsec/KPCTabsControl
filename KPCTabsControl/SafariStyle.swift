@@ -15,17 +15,17 @@ public struct SafariStyle: ThemedStyle {
     public let theme: Theme
     public let tabButtonWidth: TabWidth
     public let tabsControlRecommendedHeight: CGFloat = 24.0
-    
+
     public init(theme: Theme = SafariTheme(), tabButtonWidth: TabWidth = .full) {
         self.theme = theme
         self.tabButtonWidth = tabButtonWidth
     }
-    
+
     // There is no icons in Safari tabs. Here we force the absence of icon, even if some are provided.
     public func iconFrames(tabRect rect: NSRect) -> IconFrames {
-        return (NSZeroRect, NSZeroRect)
+        return (NSRect.zero, NSRect.zero)
     }
-    
+
     public func tabButtonBorderMask(_ position: TabPosition) -> BorderMask? {
         return [.bottom, .top, .right]
     }
@@ -34,4 +34,3 @@ public struct SafariStyle: ThemedStyle {
         return BorderMask.all()
     }
 }
-

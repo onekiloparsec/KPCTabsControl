@@ -12,14 +12,14 @@ public struct ChromeStyle: ThemedStyle {
     public let theme: Theme
     public let tabButtonWidth: TabWidth
     public let tabsControlRecommendedHeight: CGFloat = 34.0
-    
+
     public init(theme: Theme = ChromeTheme(), tabButtonWidth: TabWidth = .flexible(min: 80, max: 180)) {
         self.theme = theme
         self.tabButtonWidth = tabButtonWidth
     }
 
     public func iconFrames(tabRect rect: NSRect) -> IconFrames {
-        
+
         let paddedHeight = PaddedHeight.fromFrame(rect)
         let topPadding = paddedHeight.topPadding
         let iconHeight = paddedHeight.iconHeight
@@ -27,10 +27,10 @@ public struct ChromeStyle: ThemedStyle {
 
         // Left border is angled at 45˚, so it grows proportionally wider
         let iconXOffset = paddedHeight.value / 2
-        
+
         return (
-            NSMakeRect(iconXOffset, topPadding, iconHeight, iconHeight),
-            NSMakeRect(x, topPadding, iconHeight, iconHeight)
+            NSRect(x: iconXOffset, y: topPadding, width: iconHeight, height: iconHeight),
+            NSRect(x: x, y: topPadding, width: iconHeight, height: iconHeight)
         )
     }
 
@@ -126,7 +126,7 @@ public struct ChromeStyle: ThemedStyle {
         let height: CGFloat = PaddedHeight.fromFrame(frame).value
         let xOffset = height / 2.0
         let curve = CGFloat(4)
-        
+
         let lowerLeft  = frame.origin + Offset(y: frame.height)
         let upperLeft  = lowerLeft + Offset(x: xOffset, y: -height - 0.5)
         let lowerRight = lowerLeft + Offset(x: frame.width - 1)
@@ -134,10 +134,10 @@ public struct ChromeStyle: ThemedStyle {
 
         // Let's build tab path
         let path = NSBezierPath()
-        
+
         // Lower left point.
         path.move(to: lowerLeft)
-        
+
         // Before aligning to the top, make a slight curve.
         let leftRisingFromPoint = lowerLeft + Offset(x: curve)
         let leftRisingToPoint = lowerLeft + Offset(x: curve, y: -curve)
@@ -146,14 +146,14 @@ public struct ChromeStyle: ThemedStyle {
         // Before reaching the top, stop at the point of the coming curve
         let leftToppingPoint = upperLeft + Offset(x: -curve, y: curve)
         path.line(to: leftToppingPoint)
-        
+
         // Curve to the top!
         let leftToppingFromPoint = upperLeft + Offset(x: -curve)
         path.appendArc(from: leftToppingFromPoint, to: upperLeft, radius: curve)
 
         // Line to the upper right
         path.line(to: upperRight)
-        
+
         // Before aligning to fall down, make a slight curve
         let rightFallingFromPoint = upperRight + Offset(x: curve)
         let rightFallingToPoint = upperRight + Offset(x: curve, y: curve)
@@ -162,7 +162,7 @@ public struct ChromeStyle: ThemedStyle {
         // Before reaching the bottom right, stop at the point of the coming curve
         let rightBottomingPoint = lowerRight + Offset(x: -curve, y: -curve)
         path.line(to: rightBottomingPoint)
-        
+
         // Curve to the bottom
         let rightBottomingFromPoint = lowerRight + Offset(x: -curve)
         path.appendArc(from: rightBottomingFromPoint, to: lowerRight, radius: curve)
@@ -190,7 +190,7 @@ public struct ChromeStyle: ThemedStyle {
     fileprivate func drawBottomBorder(frame: NSRect) {
         let bottomBorder = NSRect(origin: frame.origin + Offset(y: frame.height - 1),
                                   size: NSSize(width: frame.width, height: 1))
-        
+
         self.theme.tabsControlTheme.borderColor.setFill()
         bottomBorder.fill()
     }

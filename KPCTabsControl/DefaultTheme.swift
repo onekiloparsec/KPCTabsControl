@@ -14,7 +14,7 @@ import Cocoa
 public struct DefaultTheme: Theme {
 
     public init() { }
-    
+
     public let tabButtonTheme: TabButtonTheme = DefaultTabButtonTheme()
     public let selectedTabButtonTheme: TabButtonTheme = SelectedTabButtonTheme(base: DefaultTabButtonTheme())
     public let unselectableTabButtonTheme: TabButtonTheme = UnselectableTabButtonTheme(base: DefaultTabButtonTheme())
@@ -42,13 +42,13 @@ public struct DefaultTheme: Theme {
 
     fileprivate struct UnselectableTabButtonTheme: KPCTabsControl.TabButtonTheme {
         let base: DefaultTabButtonTheme
-        
+
         var backgroundColor: NSColor { return base.backgroundColor }
         var borderColor: NSColor { return base.borderColor }
         var titleColor: NSColor { return NSColor.lightGray }
         var titleFont: NSFont { return base.titleFont }
     }
-    
+
     fileprivate struct DefaultTabsControlTheme: KPCTabsControl.TabsControlTheme {
         var backgroundColor: NSColor { return DefaultTheme.sharedBackgroundColor }
         var borderColor: NSColor { return DefaultTheme.sharedBorderColor }

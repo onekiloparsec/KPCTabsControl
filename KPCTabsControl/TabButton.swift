@@ -13,7 +13,7 @@ open class TabButton: NSButton {
     fileprivate var iconView: NSImageView?
     fileprivate var alternativeTitleIconView: NSImageView?
     fileprivate var trackingArea: NSTrackingArea?
-    
+
     fileprivate var tabButtonCell: TabButtonCell? {
         get { return self.cell as? TabButtonCell }
     }
@@ -28,7 +28,7 @@ open class TabButton: NSButton {
     }
 
     /// The button is aware of its last known index in the tab bar.
-    var index: Int? = nil
+    var index: Int?
 
     open var buttonPosition: TabPosition! {
         get { return tabButtonCell?.buttonPosition }
@@ -45,14 +45,13 @@ open class TabButton: NSButton {
         set { self.tabButtonCell?.isEditable = newValue }
     }
 
-    open var icon: NSImage? = nil {
+    open var icon: NSImage? {
         didSet {
             if self.icon != nil && self.iconView == nil {
-                self.iconView = NSImageView(frame: NSZeroRect)
+                self.iconView = NSImageView(frame: NSRect.zero)
                 self.iconView?.imageFrameStyle = .none
                 self.addSubview(self.iconView!)
-            }
-            else if (self.icon == nil && self.iconView != nil) {
+            } else if self.icon == nil && self.iconView != nil {
                 self.iconView?.removeFromSuperview()
                 self.iconView = nil
             }
@@ -60,17 +59,16 @@ open class TabButton: NSButton {
             self.needsDisplay = true
         }
     }
-    
-    open var alternativeTitleIcon: NSImage? = nil {
+
+    open var alternativeTitleIcon: NSImage? {
         didSet {
             self.tabButtonCell?.hasTitleAlternativeIcon = (self.alternativeTitleIcon != nil)
-            
+
             if self.alternativeTitleIcon != nil && self.alternativeTitleIconView == nil {
-                self.alternativeTitleIconView = NSImageView(frame: NSZeroRect)
+                self.alternativeTitleIconView = NSImageView(frame: NSRect.zero)
                 self.alternativeTitleIconView?.imageFrameStyle = .none
                 self.addSubview(self.alternativeTitleIconView!)
-            }
-            else if self.alternativeTitleIcon == nil && self.alternativeTitleIconView != nil {
+            } else if self.alternativeTitleIcon == nil && self.alternativeTitleIconView != nil {
                 self.alternativeTitleIconView?.removeFromSuperview()
                 self.alternativeTitleIconView = nil
             }
@@ -78,37 +76,37 @@ open class TabButton: NSButton {
             self.needsDisplay = true
         }
     }
-    
+
     // MARK: - Init
 
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
         self.cell = TabButtonCell(textCell: "")
     }
-    
+
     required public init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    init(index: Int, item: AnyObject, target: AnyObject?, action:Selector, style: Style) {
-        super.init(frame: NSZeroRect)
+
+    init(index: Int, item: AnyObject, target: AnyObject?, action: Selector, style: Style) {
+        super.init(frame: NSRect.zero)
 
         self.index = index
         self.style = style
 
         let tabCell = TabButtonCell(textCell: "")
-        
+
         tabCell.representedObject = item
         tabCell.imagePosition = .noImage
-        
+
         tabCell.target = target
         tabCell.action = action
         tabCell.style = style
-        
+
         tabCell.sendAction(on: NSEvent.EventTypeMask(rawValue: UInt64(Int(NSEvent.EventTypeMask.leftMouseDown.rawValue))))
         self.cell = tabCell
     }
-    
+
     override open func copy() -> Any {
         let copy = TabButton(frame: self.frame)
         copy.cell = self.cell?.copy() as? NSCell
@@ -119,7 +117,7 @@ open class TabButton: NSButton {
         copy.index = self.index
         return copy
     }
-        
+
     open override var menu: NSMenu? {
         get { return self.cell?.menu }
         set {
@@ -127,43 +125,42 @@ open class TabButton: NSButton {
             self.updateTrackingAreas()
         }
     }
-    
+
     // MARK: - Drawing
 
     open override func updateTrackingAreas() {
         if let ta = self.trackingArea {
             self.removeTrackingArea(ta)
         }
-        
+
         let item: AnyObject? = self.cell?.representedObject as AnyObject?
-        
+
         let userInfo: [String: AnyObject]? = (item != nil) ? ["item": item!] : nil
         self.trackingArea = NSTrackingArea(rect: self.bounds,
                                            options: [NSTrackingArea.Options.mouseEnteredAndExited, NSTrackingArea.Options.activeInActiveApp, NSTrackingArea.Options.inVisibleRect],
                                            owner: self, userInfo: userInfo)
-        
+
         self.addTrackingArea(self.trackingArea!)
-        
+
         if let w = self.window, let e = NSApp.currentEvent {
             let mouseLocation = w.mouseLocationOutsideOfEventStream
             let convertedMouseLocation = self.convert(mouseLocation, from: nil)
-        
-            if NSPointInRect(convertedMouseLocation, self.bounds) {
+
+            if self.bounds.contains(convertedMouseLocation) {
                 self.mouseEntered(with: e)
-            }
-            else {
+            } else {
                 self.mouseExited(with: e)
             }
         }
-        
+
         super.updateTrackingAreas()
     }
-    
+
     open override func mouseEntered(with theEvent: NSEvent) {
         super.mouseEntered(with: theEvent)
         self.needsDisplay = true
     }
-    
+
     open override func mouseExited(with theEvent: NSEvent) {
         super.mouseExited(with: theEvent)
         self.needsDisplay = true
@@ -179,7 +176,7 @@ open class TabButton: NSButton {
     open override func resetCursorRects() {
         self.addCursorRect(self.bounds, cursor: NSCursor.arrow)
     }
-    
+
     open override func draw(_ dirtyRect: NSRect) {
 
         guard let tabButtonCell = self.tabButtonCell
@@ -210,13 +207,12 @@ open class TabButton: NSButton {
         super.draw(dirtyRect)
     }
 
-    
     // MARK: - Editing
-    
+
     internal func edit(fieldEditor: NSText, delegate: NSTextDelegate) {
         self.tabButtonCell?.edit(fieldEditor: fieldEditor, inView: self, delegate: delegate)
     }
-    
+
     internal func finishEditing(fieldEditor: NSText, newValue: String) {
         self.tabButtonCell?.finishEditing(fieldEditor: fieldEditor, newValue: newValue)
     }

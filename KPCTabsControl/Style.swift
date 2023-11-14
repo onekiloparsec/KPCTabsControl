@@ -20,7 +20,7 @@ public protocol Style {
     var tabButtonWidth: TabWidth { get }
     func tabButtonOffset(position: TabPosition) -> Offset
     func tabButtonBorderMask(_ position: TabPosition) -> BorderMask?
-    
+
     // Tab Button Titles
     func iconFrames(tabRect rect: NSRect) -> IconFrames
     func titleRect(title: NSAttributedString, inBounds rect: NSRect, showingIcon: Bool) -> NSRect
@@ -30,7 +30,7 @@ public protocol Style {
     // Tabs Control
     var tabsControlRecommendedHeight: CGFloat { get }
     func tabsControlBorderMask() -> BorderMask?
-    
+
     // Drawing
     func drawTabButtonBezel(frame: NSRect, position: TabPosition, isSelected: Bool)
     func drawTabsControlBezel(frame: NSRect)
@@ -40,6 +40,6 @@ public protocol Style {
  *  The default Style protocol doesn't necessary have a theme associated with it, for custom styles.
  *  However, provided styles (Numbers.app-like, Safari and Chrome) have an associated theme.
  */
-public protocol ThemedStyle : Style {
+public protocol ThemedStyle: Style {
     var theme: Theme { get }
 }
