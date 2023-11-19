@@ -22,7 +22,7 @@ public enum TabPosition {
     case first
     case middle
     case last
-    
+
     /**
      Convenience function to get TabPosition from a given index compared to a given total count.
      
@@ -64,21 +64,20 @@ public enum TabSelectionState {
     case unselectable
 }
 
-
 /**
  *  Border mask option set, used in tab buttons and the tabs control itself.
  */
 public struct BorderMask: OptionSet {
     public let rawValue: Int
-    
+
     public init(rawValue: Int) {
         self.rawValue = rawValue
     }
-    
+
     public static func all() -> BorderMask {
         return BorderMask.top.union(BorderMask.left).union(BorderMask.right).union(BorderMask.bottom)
     }
-    
+
     public static let top = BorderMask(rawValue: 1 << 0)
     public static let left = BorderMask(rawValue: 1 << 1)
     public static let right = BorderMask(rawValue: 1 << 2)

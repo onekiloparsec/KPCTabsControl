@@ -10,11 +10,11 @@ import AppKit
 
 extension NSButton {
     static internal func auxiliaryButton(withImageNamed imageName: String, target: AnyObject?, action: Selector?) -> NSButton {
-        
+
         let cell = TabButtonCell(textCell: "")
         let mask = NSEvent.EventTypeMask.leftMouseDown.union(NSEvent.EventTypeMask.periodic)
         cell.sendAction(on: NSEvent.EventTypeMask(rawValue: UInt64(Int(mask.rawValue))))
-        
+
         let button = NSButton()
         button.cell = cell
 
@@ -38,7 +38,7 @@ extension NSButton {
             r.size.width += 4.0
             button.frame = r
         }
-        
+
         return button
-    }    
+    }
 }

@@ -13,13 +13,13 @@ class ViewController: NSViewController {
     @IBOutlet var paneDefault: PaneViewController?
     @IBOutlet var paneChrome: PaneViewController?
     @IBOutlet var paneSafari: PaneViewController?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         self.paneDefault?.title = "Default (~Numbers.app)"
         self.paneDefault?.tabsBar?.style = DefaultStyle()
-        
+
         let tab2Menu = NSMenu()
         tab2Menu.addItem(withTitle: "Action 1: AddTabItem", action: #selector(ViewController.addTabItem), keyEquivalent: "")
         tab2Menu.addItem(withTitle: "Action 2: nil", action: nil, keyEquivalent: "")
@@ -42,7 +42,7 @@ class ViewController: NSViewController {
 
         let style = self.paneChrome?.tabsBar?.style as! ThemedStyle
         (self.paneChrome?.view as? ColoredView)?.backgroundColor = style.theme.selectedTabButtonTheme.backgroundColor
-        
+
         self.paneChrome?.tabsBar?.reloadTabs()
         self.paneChrome?.tabsBar?.selectItemAtIndex(3)
 
@@ -56,7 +56,7 @@ class ViewController: NSViewController {
         self.paneSafari?.tabsBar?.reloadTabs()
         self.paneSafari?.tabsBar?.selectItemAtIndex(1)
     }
-    
+
     @objc func addTabItem() {
         let title = "New Tab #\(paneDefault!.items.count + 1)"
         print("add tab item \(title)...")
@@ -64,4 +64,3 @@ class ViewController: NSViewController {
         paneDefault?.tabsBar?.reloadTabs()
     }
 }
-

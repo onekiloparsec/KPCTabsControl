@@ -34,8 +34,8 @@ import Cocoa
         guard let borderColor = self.borderColor else { return }
 
         let line = NSBezierPath()
-        line.move(to: NSMakePoint(0, dirtyRect.height))
-        line.line(to: NSMakePoint(dirtyRect.width, dirtyRect.height))
+        line.move(to: NSPoint(x: 0, y: dirtyRect.height))
+        line.line(to: NSPoint(x: dirtyRect.width, y: dirtyRect.height))
         line.lineWidth = 1
         borderColor.setStroke()
         line.stroke()

@@ -31,7 +31,7 @@ public protocol TabsControlTheme {
  */
 public protocol Theme {
     var tabButtonTheme: TabButtonTheme { get }
-    var selectedTabButtonTheme: TabButtonTheme { get }    
+    var selectedTabButtonTheme: TabButtonTheme { get }
     var unselectableTabButtonTheme: TabButtonTheme { get }
     var tabsControlTheme: TabsControlTheme { get }
 }
@@ -44,7 +44,7 @@ extension Theme {
      
      - returns: The theme crresponding to the selection state.
      */
-    public func tabButtonTheme(fromSelectionState selectionState : TabSelectionState) -> TabButtonTheme {
+    public func tabButtonTheme(fromSelectionState selectionState: TabSelectionState) -> TabButtonTheme {
         switch selectionState {
         case .normal: return self.tabButtonTheme
         case .selected: return self.selectedTabButtonTheme
