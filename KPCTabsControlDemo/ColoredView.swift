@@ -17,25 +17,25 @@ import Cocoa
 
         super.draw(dirtyRect)
 
-        fillBackground(dirtyRect)
-        drawTopLine(dirtyRect)
+        fillBackground()
+        drawTopLine()
     }
 
-    fileprivate func fillBackground(_ dirtyRect: NSRect) {
+    fileprivate func fillBackground() {
 
         guard let backgroundColor = self.backgroundColor else { return }
 
         backgroundColor.setFill()
-        dirtyRect.fill()
+        bounds.fill()
     }
 
-    fileprivate func drawTopLine(_ dirtyRect: NSRect) {
+    fileprivate func drawTopLine() {
 
         guard let borderColor = self.borderColor else { return }
 
         let line = NSBezierPath()
-        line.move(to: NSPoint(x: 0, y: dirtyRect.height))
-        line.line(to: NSPoint(x: dirtyRect.width, y: dirtyRect.height))
+        line.move(to: NSPoint(x: 0, y: bounds.height))
+        line.line(to: NSPoint(x: bounds.width, y: bounds.height))
         line.lineWidth = 1
         borderColor.setStroke()
         line.stroke()
